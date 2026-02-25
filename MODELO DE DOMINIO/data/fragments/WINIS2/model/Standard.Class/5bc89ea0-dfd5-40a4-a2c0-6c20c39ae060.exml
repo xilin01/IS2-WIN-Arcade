@@ -154,9 +154,6 @@
         <REFOBJ>
           <ID name="" mc="Standard.AssociationEnd" uid="bb17c3b5-6cb1-40fe-92a2-6b16fdfbd9b1"/>
         </REFOBJ>
-        <REFOBJ>
-          <ID name="" mc="Standard.AssociationEnd" uid="cbe89b82-3c25-487c-91c5-305924f77d8a"/>
-        </REFOBJ>
       </COMP>
     </DEPENDENCIES>
   </OBJECT>
