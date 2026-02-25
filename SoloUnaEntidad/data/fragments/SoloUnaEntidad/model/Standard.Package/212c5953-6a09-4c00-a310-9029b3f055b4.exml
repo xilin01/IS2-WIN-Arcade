@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="negocio" version="4">
+  <OBJECT>
+    <ID name="negocio" mc="Standard.Package" uid="212c5953-6a09-4c00-a310-9029b3f055b4"/>
+    <PID name="solounaentidad" mc="Standard.Package" uid="7a9212a5-612b-4bb8-932b-22985c81cb5c"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[negocio]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="SACliente" mc="Standard.Interface" uid="adece493-ec9f-4c1f-9e56-03888713105a"/>
+        <COMPID name="SAClienteImp" mc="Standard.Class" uid="3e41cb74-2903-4975-b822-3a84bb853f25"/>
+        <COMPID name="tCliente" mc="Standard.Class" uid="6412596d-6469-4893-83ec-0812aedc297c"/>
+      </COMP>
+      <LINK relation="Extension">
+        <ID name="JavaPackage" mc="Infrastructure.Stereotype" uid="08f25095-b740-45f7-bda4-ef41dca05a3d"/>
+        <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
+      </LINK>
+      <COMP relation="Tag">
+        <OBJECT>
+          <ID name="" mc="Infrastructure.TaggedValue" uid="1131678f-68fd-4974-a392-22ec4debd652"/>
+          <ATTRIBUTES>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Definition">
+              <REFOBJ>
+                <ID name="JavaImport" mc="Infrastructure.TagType" uid="33023f70-cf77-4435-8631-1a1ad30ed425"/>
+              </REFOBJ>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

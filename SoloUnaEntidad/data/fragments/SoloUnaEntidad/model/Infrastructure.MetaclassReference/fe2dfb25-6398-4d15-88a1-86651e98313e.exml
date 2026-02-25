@@ -1,0 +1,85 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="" version="4">
+  <OBJECT>
+    <ID name="" mc="Infrastructure.MetaclassReference" uid="fe2dfb25-6398-4d15-88a1-86651e98313e"/>
+    <PID name="JavaExtensions" mc="Infrastructure.Profile" uid="5a5281e9-5d99-4d28-af88-6af2e4e0c064"/>
+    <ATTRIBUTES>
+      <ATT name="ReferencedClassName"><![CDATA[Standard.EnumerationLiteral]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="DefinedNoteType">
+        <OBJECT>
+          <ID name="JavaAnnotation" mc="Infrastructure.NoteType" uid="c7367cda-0f40-4da9-bbb9-fcb2bc2b95de"/>
+          <ATTRIBUTES>
+            <ATT name="IsHidden">false</ATT>
+            <ATT name="LabelKey"><![CDATA[JavaAnnotation]]></ATT>
+            <ATT name="MimeType"></ATT>
+            <ATT name="Name"><![CDATA[JavaAnnotation]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES></DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="JavaCode" mc="Infrastructure.NoteType" uid="342fc767-6337-45b0-a218-7c228bb0f222"/>
+          <ATTRIBUTES>
+            <ATT name="IsHidden">false</ATT>
+            <ATT name="LabelKey"><![CDATA[JavaCode]]></ATT>
+            <ATT name="MimeType"></ATT>
+            <ATT name="Name"><![CDATA[JavaCode]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES></DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="Javadoc" mc="Infrastructure.NoteType" uid="a5c83f1f-e590-45b0-b02f-475d989cb95a"/>
+          <ATTRIBUTES>
+            <ATT name="IsHidden">false</ATT>
+            <ATT name="LabelKey"><![CDATA[Javadoc]]></ATT>
+            <ATT name="MimeType"></ATT>
+            <ATT name="Name"><![CDATA[Javadoc]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES></DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="JavaComment" mc="Infrastructure.NoteType" uid="172e7d4f-de26-474d-8513-63984a6fba1f"/>
+          <ATTRIBUTES>
+            <ATT name="IsHidden">false</ATT>
+            <ATT name="LabelKey"><![CDATA[JavaComment]]></ATT>
+            <ATT name="MimeType"></ATT>
+            <ATT name="Name"><![CDATA[JavaComment]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES></DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="JavaInitValueComment" mc="Infrastructure.NoteType" uid="369b2fc6-99c7-45cd-8f96-1538b64dbcde"/>
+          <ATTRIBUTES>
+            <ATT name="IsHidden">false</ATT>
+            <ATT name="LabelKey"><![CDATA[JavaInitValueComment]]></ATT>
+            <ATT name="MimeType"></ATT>
+            <ATT name="Name"><![CDATA[JavaInitValueComment]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES></DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+      <COMP relation="DefinedTagType">
+        <OBJECT>
+          <ID name="JavaArguments" mc="Infrastructure.TagType" uid="613ce3d1-db61-4de1-848b-1db4f93be007"/>
+          <ATTRIBUTES>
+            <ATT name="ParamNumber"><![CDATA[*]]></ATT>
+            <ATT name="IsQualified">false</ATT>
+            <ATT name="BelongToPrototype">false</ATT>
+            <ATT name="IsHidden">false</ATT>
+            <ATT name="LabelKey"><![CDATA[JavaArguments]]></ATT>
+            <ATT name="Name"><![CDATA[JavaArguments]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES></DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

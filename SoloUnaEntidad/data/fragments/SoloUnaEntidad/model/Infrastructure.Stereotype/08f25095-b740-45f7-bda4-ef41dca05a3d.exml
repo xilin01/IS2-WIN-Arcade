@@ -1,0 +1,86 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="JavaPackage" version="4">
+  <OBJECT>
+    <ID name="JavaPackage" mc="Infrastructure.Stereotype" uid="08f25095-b740-45f7-bda4-ef41dca05a3d"/>
+    <PID name="JavaExtensions" mc="Infrastructure.Profile" uid="5a5281e9-5d99-4d28-af88-6af2e4e0c064"/>
+    <ATTRIBUTES>
+      <ATT name="Image"><![CDATA[C:\Users\Diego\.modelio\5.4\opensource-cache\conf\org.eclipse.osgi\308\data\modules_cache\JavaDesigner_5.4.00\0\JavaDesigner\res\bmp\package.png]]></ATT>
+      <ATT name="Icon"><![CDATA[C:\Users\Diego\.modelio\5.4\opensource-cache\conf\org.eclipse.osgi\308\data\modules_cache\JavaDesigner_5.4.00\0\JavaDesigner\res\bmp\package.png]]></ATT>
+      <ATT name="IsHidden">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="LabelKey"><![CDATA[JavaPackage]]></ATT>
+      <ATT name="BaseClassName"><![CDATA[Standard.Package]]></ATT>
+      <ATT name="Name"><![CDATA[JavaPackage]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="DefinedTagType">
+        <OBJECT>
+          <ID name="JavaName" mc="Infrastructure.TagType" uid="58dc39a8-5d92-4413-9d95-d33c1d062c3a"/>
+          <ATTRIBUTES>
+            <ATT name="ParamNumber"><![CDATA[1]]></ATT>
+            <ATT name="IsQualified">false</ATT>
+            <ATT name="BelongToPrototype">false</ATT>
+            <ATT name="IsHidden">false</ATT>
+            <ATT name="LabelKey"><![CDATA[JavaName]]></ATT>
+            <ATT name="Name"><![CDATA[JavaName]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES></DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="JavaExtern" mc="Infrastructure.TagType" uid="775e90de-cd79-4a36-a2fc-b9da51a21c58"/>
+          <ATTRIBUTES>
+            <ATT name="ParamNumber"><![CDATA[0]]></ATT>
+            <ATT name="IsQualified">false</ATT>
+            <ATT name="BelongToPrototype">false</ATT>
+            <ATT name="IsHidden">false</ATT>
+            <ATT name="LabelKey"><![CDATA[JavaExtern]]></ATT>
+            <ATT name="Name"><![CDATA[JavaExtern]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES></DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="JavaImport" mc="Infrastructure.TagType" uid="33023f70-cf77-4435-8631-1a1ad30ed425"/>
+          <ATTRIBUTES>
+            <ATT name="ParamNumber"><![CDATA[*]]></ATT>
+            <ATT name="IsQualified">false</ATT>
+            <ATT name="BelongToPrototype">false</ATT>
+            <ATT name="IsHidden">false</ATT>
+            <ATT name="LabelKey"><![CDATA[JavaImport]]></ATT>
+            <ATT name="Name"><![CDATA[JavaImport]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES></DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="JavaNoPackage" mc="Infrastructure.TagType" uid="0821ef42-632a-45d5-86bd-4f3bb025983f"/>
+          <ATTRIBUTES>
+            <ATT name="ParamNumber"><![CDATA[0]]></ATT>
+            <ATT name="IsQualified">false</ATT>
+            <ATT name="BelongToPrototype">false</ATT>
+            <ATT name="IsHidden">false</ATT>
+            <ATT name="LabelKey"><![CDATA[JavaNoPackage]]></ATT>
+            <ATT name="Name"><![CDATA[JavaNoPackage]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES></DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+      <COMP relation="DefinedNoteType">
+        <OBJECT>
+          <ID name="JavaAnnotation" mc="Infrastructure.NoteType" uid="d58fd800-a401-41a2-946d-1d79bacc86ed"/>
+          <ATTRIBUTES>
+            <ATT name="IsHidden">false</ATT>
+            <ATT name="LabelKey"><![CDATA[JavaAnnotation]]></ATT>
+            <ATT name="MimeType"></ATT>
+            <ATT name="Name"><![CDATA[JavaAnnotation]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES></DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

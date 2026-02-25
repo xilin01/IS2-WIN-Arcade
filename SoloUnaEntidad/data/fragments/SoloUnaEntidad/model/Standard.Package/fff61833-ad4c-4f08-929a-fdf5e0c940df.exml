@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="integracion" version="4">
+  <OBJECT>
+    <ID name="integracion" mc="Standard.Package" uid="fff61833-ad4c-4f08-929a-fdf5e0c940df"/>
+    <PID name="solounaentidad" mc="Standard.Package" uid="7a9212a5-612b-4bb8-932b-22985c81cb5c"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[integracion]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="DAOCliente" mc="Standard.Interface" uid="5a46a1fb-6472-4cac-8fc4-f920325561e2"/>
+        <COMPID name="DAOClienteImp" mc="Standard.Class" uid="916a8918-6c10-4150-8235-52c01b81dbe7"/>
+      </COMP>
+      <LINK relation="Extension">
+        <ID name="JavaPackage" mc="Infrastructure.Stereotype" uid="08f25095-b740-45f7-bda4-ef41dca05a3d"/>
+        <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
+      </LINK>
+      <COMP relation="Tag">
+        <OBJECT>
+          <ID name="" mc="Infrastructure.TaggedValue" uid="1e0d0149-46a1-4ec1-ae5d-eabc6a7e279d"/>
+          <ATTRIBUTES>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Definition">
+              <REFOBJ>
+                <ID name="JavaImport" mc="Infrastructure.TagType" uid="33023f70-cf77-4435-8631-1a1ad30ed425"/>
+              </REFOBJ>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>
