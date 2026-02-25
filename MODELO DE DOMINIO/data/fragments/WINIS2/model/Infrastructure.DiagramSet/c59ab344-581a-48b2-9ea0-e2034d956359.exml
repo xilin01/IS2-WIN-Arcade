@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="WINIS2" version="4">
+  <OBJECT>
+    <ID name="WINIS2" mc="Infrastructure.DiagramSet" uid="c59ab344-581a-48b2-9ea0-e2034d956359"/>
+    <PID name="WINIS2" mc="Standard.Project" uid="8c5a7300-8c37-4cd7-a47a-c45e5b8ef459"/>
+    <ATTRIBUTES>
+      <ATT name="Name"><![CDATA[WINIS2]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES></DEPENDENCIES>
+  </OBJECT>
+</EXT>
