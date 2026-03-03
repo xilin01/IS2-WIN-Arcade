@@ -5,23 +5,19 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 @objid ("6412596d-6469-4893-83ec-0812aedc297c")
 public class tCliente {
     @objid ("c287c1b8-180d-44b3-a866-6f6f52624372")
-    public int id;
+    private int id;
 
     @objid ("875bd37e-a168-4a27-b799-60641af9d538")
-    public String dni;
+    private String dni;
 
     @objid ("a669f9bd-cd6d-4a2a-9563-a8dcabdec084")
-    public String nombre;
+    private String nombre;
 
     @objid ("6ad33593-503a-4808-84ed-0268c18795fe")
-    public boolean activo;
+    private boolean activo;
 
     @objid ("f892fd71-665f-4d31-9c25-cabf1bac8380")
     public tCliente(final int id, final String dni, final String nombre, final boolean activo) {
-    	this.id = id;
-    	this.dni = dni;
-    	this.nombre = nombre;
-    	this.activo = activo;
     }
 
     @objid ("a3d871a2-741b-4e4b-9650-fdfb570ee58e")

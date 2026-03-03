@@ -12,7 +12,7 @@ public class VistaAltaCliente {
     private String nombre;
 
     @objid ("6017229f-b19b-41dd-bda3-81879ceb8b84")
-    public tCliente cliente;
+    private tCliente cliente;
 
     @objid ("91a5c399-b421-4e2e-a148-a658a7e3da51")
     public void vistaAltaCliente() {
