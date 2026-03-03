@@ -65,7 +65,7 @@
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="númeroDeJuegos" mc="Standard.Attribute" uid="91326ea3-fc13-4bca-9d49-a06bc979f7a6"/>
+          <ID name="listaJuegos" mc="Standard.Attribute" uid="fb15718f-c7eb-4ce0-b082-a1df8f5f0f71"/>
           <ATTRIBUTES>
             <ATT name="TypeConstraint"></ATT>
             <ATT name="Value"></ATT>
@@ -79,12 +79,12 @@
             <ATT name="Visibility">Public</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[númeroDeJuegos]]></ATT>
+            <ATT name="Name"><![CDATA[listaJuegos]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
             <LINK relation="Type">
-              <FOREIGNID name="integer" mc="Standard.DataType" uid="00000004-0000-0009-0000-000000000000"/>
+              <ID name="Juego" mc="Standard.Class" uid="f8044d92-fe32-412d-8079-174b8bd8f270"/>
             </LINK>
           </DEPENDENCIES>
         </OBJECT>
