@@ -197,45 +197,6 @@
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="deleteCliente" mc="Standard.Operation" uid="dfad43e3-0bd0-46b5-aa5a-ef58bd6336aa"/>
-          <ATTRIBUTES>
-            <ATT name="Concurrency">false</ATT>
-            <ATT name="Final">false</ATT>
-            <ATT name="Passing">MethodOut</ATT>
-            <ATT name="Visibility">Public</ATT>
-            <ATT name="IsClass">false</ATT>
-            <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[deleteCliente]]></ATT>
-            <ATT name="status">1970354901745664</ATT>
-          </ATTRIBUTES>
-          <DEPENDENCIES>
-            <COMP relation="IO">
-              <OBJECT>
-                <ID name="dni" mc="Standard.Parameter" uid="58290949-be9f-4963-943d-1cca0cde33ec"/>
-                <ATTRIBUTES>
-                  <ATT name="ParameterPassing">In</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
-                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
-                  <ATT name="TypeConstraint"></ATT>
-                  <ATT name="DefaultValue"></ATT>
-                  <ATT name="IsOrdered">false</ATT>
-                  <ATT name="IsUnique">false</ATT>
-                  <ATT name="IsException">false</ATT>
-                  <ATT name="IsStream">false</ATT>
-                  <ATT name="Effect">ReadEffect</ATT>
-                  <ATT name="Name"><![CDATA[dni]]></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Type">
-                    <FOREIGNID name="string" mc="Standard.DataType" uid="00000004-0000-000d-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-            </COMP>
-          </DEPENDENCIES>
-        </OBJECT>
-        <OBJECT>
           <ID name="deleteCliente" mc="Standard.Operation" uid="c6c8747e-8b83-4d56-98bc-16c48b6f140f"/>
           <ATTRIBUTES>
             <ATT name="Concurrency">false</ATT>
@@ -307,18 +268,6 @@
       <COMP relation="Realized">
         <OBJECT>
           <ID name="InterfaceRealization" mc="Standard.InterfaceRealization" uid="41a82748-0a9f-40e5-9a60-b3e096301f80"/>
-          <ATTRIBUTES>
-            <ATT name="Name"><![CDATA[InterfaceRealization]]></ATT>
-            <ATT name="status">1970354901745664</ATT>
-          </ATTRIBUTES>
-          <DEPENDENCIES>
-            <LINK relation="Implemented">
-              <ID name="DAOCliente" mc="Standard.Interface" uid="5a46a1fb-6472-4cac-8fc4-f920325561e2"/>
-            </LINK>
-          </DEPENDENCIES>
-        </OBJECT>
-        <OBJECT>
-          <ID name="InterfaceRealization" mc="Standard.InterfaceRealization" uid="ff6168af-6650-480a-9e0d-eec4257e077d"/>
           <ATTRIBUTES>
             <ATT name="Name"><![CDATA[InterfaceRealization]]></ATT>
             <ATT name="status">1970354901745664</ATT>

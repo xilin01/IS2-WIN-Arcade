@@ -255,11 +255,6 @@
                 </DEPENDENCIES>
               </OBJECT>
             </COMP>
-            <LINK relation="Redefines">
-              <REFOBJ>
-                <ID name="deleteCliente" mc="Standard.Operation" uid="dfad43e3-0bd0-46b5-aa5a-ef58bd6336aa"/>
-              </REFOBJ>
-            </LINK>
           </DEPENDENCIES>
         </OBJECT>
       </COMP>

@@ -33,7 +33,7 @@
       </COMP>
       <COMP relation="OwnedEnd">
         <OBJECT>
-          <ID name="" mc="Standard.AssociationEnd" uid="bbb38086-cbc6-4677-ac74-5b8d386c9692"/>
+          <ID name="controlador" mc="Standard.AssociationEnd" uid="bbb38086-cbc6-4677-ac74-5b8d386c9692"/>
           <ATTRIBUTES>
             <ATT name="Aggregation">KindIsAssociation</ATT>
             <ATT name="IsChangeable">false</ATT>
@@ -46,7 +46,7 @@
             <ATT name="Visibility">Public</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"></ATT>
+            <ATT name="Name"><![CDATA[controlador]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
@@ -63,7 +63,7 @@
                   <ATT name="IsDerived">false</ATT>
                   <ATT name="IsOrdered">false</ATT>
                   <ATT name="IsUnique">false</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
                   <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
                   <ATT name="Visibility">Public</ATT>
                   <ATT name="IsClass">false</ATT>
@@ -73,7 +73,7 @@
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <COMP relation="Opposite">
-                    <COMPID name="" mc="Standard.AssociationEnd" uid="bbb38086-cbc6-4677-ac74-5b8d386c9692"/>
+                    <COMPID name="controlador" mc="Standard.AssociationEnd" uid="bbb38086-cbc6-4677-ac74-5b8d386c9692"/>
                   </COMP>
                   <COMP relation="Association">
                     <OBJECT>
@@ -94,7 +94,7 @@
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="" mc="Standard.AssociationEnd" uid="0d116f45-18c3-405b-926e-d75c67498599"/>
+          <ID name="vista" mc="Standard.AssociationEnd" uid="0d116f45-18c3-405b-926e-d75c67498599"/>
           <ATTRIBUTES>
             <ATT name="Aggregation">KindIsAssociation</ATT>
             <ATT name="IsChangeable">true</ATT>
@@ -102,12 +102,12 @@
             <ATT name="IsDerived">false</ATT>
             <ATT name="IsOrdered">false</ATT>
             <ATT name="IsUnique">false</ATT>
-            <ATT name="MultiplicityMin"></ATT>
+            <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
             <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
             <ATT name="Visibility">Public</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"></ATT>
+            <ATT name="Name"><![CDATA[vista]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
@@ -124,8 +124,8 @@
                   <ATT name="IsDerived">false</ATT>
                   <ATT name="IsOrdered">false</ATT>
                   <ATT name="IsUnique">false</ATT>
-                  <ATT name="MultiplicityMin"></ATT>
-                  <ATT name="MultiplicityMax"></ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
                   <ATT name="Visibility">Public</ATT>
                   <ATT name="IsClass">false</ATT>
                   <ATT name="IsAbstract">false</ATT>
@@ -134,7 +134,7 @@
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <COMP relation="Opposite">
-                    <COMPID name="" mc="Standard.AssociationEnd" uid="0d116f45-18c3-405b-926e-d75c67498599"/>
+                    <COMPID name="vista" mc="Standard.AssociationEnd" uid="0d116f45-18c3-405b-926e-d75c67498599"/>
                   </COMP>
                   <COMP relation="Association">
                     <OBJECT>
