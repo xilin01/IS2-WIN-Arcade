@@ -13,11 +13,15 @@
       <ATT name="status">1970354901745664</ATT>
     </ATTRIBUTES>
     <DEPENDENCIES>
+      <COMP relation="OwnedBehavior">
+        <COMPID name="Interaction" mc="Standard.Interaction" uid="8f710800-4603-4414-8e87-ad129970ecd4"/>
+      </COMP>
       <COMP relation="OwnedElement">
         <COMPID name="mainLauncher" mc="Standard.Package" uid="ea522128-1e93-4654-befd-e9058de3dccb"/>
         <COMPID name="presentacion" mc="Standard.Package" uid="779f1377-bcb2-404d-964f-8893810fa8e0"/>
         <COMPID name="negocio" mc="Standard.Package" uid="212c5953-6a09-4c00-a310-9029b3f055b4"/>
         <COMPID name="integracion" mc="Standard.Package" uid="fff61833-ad4c-4f08-929a-fdf5e0c940df"/>
+        <COMPID name="Actor" mc="Standard.Actor" uid="8a70a536-a6f8-4816-9eac-7e6ef57e9e46"/>
       </COMP>
       <COMP relation="Product">
         <COMPID name="solounaentidad Class diagram" mc="Standard.ClassDiagram" uid="d3ab546d-15a7-46a5-a3a7-fccf059db001"/>
