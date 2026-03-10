@@ -1,0 +1,4 @@
+Como la base de datos es local, o sea, cada uno va a tener una base de datos propia en su ordenador, lo único que podemos
+compartir son los archivos sql de create, insert, update, etc.
+En esta carpeta los dejamos todos con el propósito de que todas nuestras bases de datos sean iguales. 
+VIVA EL EQUIPO 4
