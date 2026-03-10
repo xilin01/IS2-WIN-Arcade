@@ -4,7 +4,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import negocio.tCliente;
 
 @objid ("916a8918-6c10-4150-8235-52c01b81dbe7")
-public class DAOClienteImp implements DAOCliente, DAOCliente {
+public class DAOClienteImp implements DAOCliente {
     @objid ("f497545b-41c2-43b2-b1c8-0df6f0889592")
     public int createCliente(final tCliente cliente) {
         // TODO Auto-generated return
