@@ -18,6 +18,10 @@ public class tCliente {
 
     @objid ("f892fd71-665f-4d31-9c25-cabf1bac8380")
     public tCliente(final int id, final String dni, final String nombre, final boolean activo) {
+    	this.id = id;
+    	this.dni = dni;
+    	this.nombre = nombre;
+    	this.activo = activo;
     }
 
     @objid ("a3d871a2-741b-4e4b-9650-fdfb570ee58e")

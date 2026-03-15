@@ -9,7 +9,7 @@ public interface DAOCliente {
     int createCliente(final tCliente cliente);
 
     @objid ("a22eec57-7fb2-480a-a47d-5434a9e9fc37")
-    tCliente readCliente();
+    tCliente readCliente(int id);
 
     @objid ("bf596e07-16c1-49fc-b60f-c64cb21ae15f")
     int updateCliente(final tCliente cliente);
