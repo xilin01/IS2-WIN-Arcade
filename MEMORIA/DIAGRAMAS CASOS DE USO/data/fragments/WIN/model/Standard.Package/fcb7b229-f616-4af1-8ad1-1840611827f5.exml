@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Subsistema paquete de juegos" version="4">
+  <OBJECT>
+    <ID name="Subsistema paquete de juegos" mc="Standard.Package" uid="fcb7b229-f616-4af1-8ad1-1840611827f5"/>
+    <PID name="win" mc="Standard.Package" uid="b2c75e1a-1ceb-4a0a-9807-74da106ef690"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Subsistema paquete de juegos]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedBehavior">
+        <COMPID name="Añadir nuevo paquete de juegos" mc="Standard.Activity" uid="b361bf84-e82f-4266-a59a-829c1f1a93be"/>
+      </COMP>
+      <COMP relation="OwnedElement">
+        <COMPID name="Añadir nuevo paquete de juegos" mc="Standard.UseCase" uid="ae837507-948e-4b0c-82ec-26316a5c3251"/>
+        <COMPID name="Eliminar paquete de juegos existente" mc="Standard.UseCase" uid="d90dee81-69ae-44f7-ba5b-83a3baa19d46"/>
+        <COMPID name="Consultar paquetes de juegos disponibles" mc="Standard.UseCase" uid="9d14deff-3638-4d5a-a435-8c23f38625a6"/>
+        <COMPID name="Comprar paquete de juegos" mc="Standard.UseCase" uid="dc3826b5-1a92-48b1-a199-4129a448778c"/>
+        <COMPID name="Modificar paquete de juegos" mc="Standard.UseCase" uid="eccf30e5-ae12-482d-abf1-ef4037adccbc"/>
+      </COMP>
+      <COMP relation="Product">
+        <COMPID name="Diagrama de casos de uso" mc="Standard.UseCaseDiagram" uid="7093a896-082e-463c-96d6-91d777912ff8"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

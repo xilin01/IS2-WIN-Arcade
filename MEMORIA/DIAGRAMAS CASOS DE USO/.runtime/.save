@@ -1,0 +1,9 @@
+#Mon Mar 16 18:25:32 CET 2026
+org.modelio.app.diagram.editor.OpenedDiagrams0='Diagrama de casos de uso' {da0582e4-4d24-4fde-ae32-215216b37602} Standard.UseCaseDiagram
+org.modelio.app.diagram.editor.OpenedDiagrams3='Diagrama de actividad\: registrarse' {eeb9baba-7b84-42c9-b613-f582c27d8b4a} Standard.ActivityDiagram
+org.modelio.app.diagram.editor.OpenedDiagrams4='Diagrama de actividad\: iniciar sesi\u00F3n' {d07dfbb9-3ea1-4074-aa19-ddd2a816b4b1} Standard.ActivityDiagram
+org.modelio.app.diagram.editor.OpenedDiagrams1='Diagrama de casos de uso' {534ae88e-3e45-4fe7-8fba-744156c0fb0e} Standard.UseCaseDiagram
+org.modelio.app.diagram.editor.OpenedDiagrams2='Diagrama de casos de uso' {7093a896-082e-463c-96d6-91d777912ff8} Standard.UseCaseDiagram
+org.modelio.app.diagram.editor.OpenedDiagrams7='Diagrama de actividad\: a\u00F1adir nuevo producto' {0b135376-d2ab-45a8-8ec4-b7019db43efe} Standard.ActivityDiagram
+org.modelio.app.diagram.editor.OpenedDiagrams5='Diagrama de actividad\: jugar partida de ruleta' {6275e6d5-39c1-409d-841f-7fbc7c84dae4} Standard.ActivityDiagram
+org.modelio.app.diagram.editor.OpenedDiagrams6='Diagrama de actividad\: jugar mano de blackjack' {baa21ba6-7a46-436b-939c-43d55f6a38be} Standard.ActivityDiagram

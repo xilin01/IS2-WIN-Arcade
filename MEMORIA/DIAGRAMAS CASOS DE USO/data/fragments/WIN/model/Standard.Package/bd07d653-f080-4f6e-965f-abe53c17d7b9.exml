@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Subsistema juego" version="4">
+  <OBJECT>
+    <ID name="Subsistema juego" mc="Standard.Package" uid="bd07d653-f080-4f6e-965f-abe53c17d7b9"/>
+    <PID name="win" mc="Standard.Package" uid="b2c75e1a-1ceb-4a0a-9807-74da106ef690"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Subsistema juego]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedBehavior">
+        <COMPID name="Jugar partida de ruleta" mc="Standard.Activity" uid="2d86871c-e224-447a-b5b7-4f3d9e3036a7"/>
+        <COMPID name="Jugar mano de blackjack" mc="Standard.Activity" uid="dcbfa17e-de7f-471e-9aa6-a174087519a9"/>
+      </COMP>
+      <COMP relation="OwnedElement">
+        <COMPID name="Jugar partida de ruleta" mc="Standard.UseCase" uid="97ad9d4f-fd2e-4f44-9e0a-e83de17365d2"/>
+        <COMPID name="Jugar mano de blackjack" mc="Standard.UseCase" uid="ce12e96c-d889-46da-8fbd-0af4da08e700"/>
+      </COMP>
+      <COMP relation="Product">
+        <COMPID name="Diagrama de casos de uso" mc="Standard.UseCaseDiagram" uid="534ae88e-3e45-4fe7-8fba-744156c0fb0e"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>
