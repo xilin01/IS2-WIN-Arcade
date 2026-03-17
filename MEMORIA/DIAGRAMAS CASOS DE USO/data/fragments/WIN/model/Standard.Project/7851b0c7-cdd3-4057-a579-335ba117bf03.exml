@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="WIN" version="4">
+  <OBJECT>
+    <ID name="WIN" mc="Standard.Project" uid="7851b0c7-cdd3-4057-a579-335ba117bf03"/>
+    <ATTRIBUTES>
+      <ATT name="ProjectContext"></ATT>
+      <ATT name="ProjectDescr"></ATT>
+      <ATT name="Name"><![CDATA[WIN]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="Model">
+        <COMPID name="win" mc="Standard.Package" uid="b2c75e1a-1ceb-4a0a-9807-74da106ef690"/>
+      </COMP>
+      <COMP relation="DiagramRoot">
+        <COMPID name="WIN" mc="Infrastructure.DiagramSet" uid="1f60332d-dbf2-44bf-b843-bc7e0a285c33"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>
