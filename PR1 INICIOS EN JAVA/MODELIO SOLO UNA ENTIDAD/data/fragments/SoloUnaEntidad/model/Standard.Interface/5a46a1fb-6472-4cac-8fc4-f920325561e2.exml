@@ -80,6 +80,28 @@
                 <ID name="createCliente" mc="Standard.Operation" uid="f497545b-41c2-43b2-b1c8-0df6f0889592"/>
               </REFOBJ>
             </LINK>
+            <COMP relation="Descriptor">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="dcd1a805-bc11-4fea-a120-963d4d934e8b"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[Inserta un cliente a la base de datos.
+
+Argumentos:
+Cliente -> cliente a insertar en la base de datos
+
+Return:
+int -> numero de filas afectadas por la inserción]]></ATT>
+                  <ATT name="MimeType"></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="Javadoc" mc="Infrastructure.NoteType" uid="003800a8-0000-015f-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
@@ -95,6 +117,30 @@
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
+            <COMP relation="IO">
+              <OBJECT>
+                <ID name="dni" mc="Standard.Parameter" uid="df2f8287-0954-456d-a9f4-2840658ffce2"/>
+                <ATTRIBUTES>
+                  <ATT name="ParameterPassing">In</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="TypeConstraint"></ATT>
+                  <ATT name="DefaultValue"></ATT>
+                  <ATT name="IsOrdered">false</ATT>
+                  <ATT name="IsUnique">false</ATT>
+                  <ATT name="IsException">false</ATT>
+                  <ATT name="IsStream">false</ATT>
+                  <ATT name="Effect">ReadEffect</ATT>
+                  <ATT name="Name"><![CDATA[dni]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Type">
+                    <FOREIGNID name="string" mc="Standard.DataType" uid="00000004-0000-000d-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
             <COMP relation="Return">
               <OBJECT>
                 <ID name="" mc="Standard.Parameter" uid="07287f8f-8ac0-49c4-9a3e-013ea915c418"/>
@@ -124,6 +170,28 @@
                 <ID name="readCliente" mc="Standard.Operation" uid="c84ad11e-2c71-4ffc-9afb-16c89e062d95"/>
               </REFOBJ>
             </LINK>
+            <COMP relation="Descriptor">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="1934cbe9-bca7-46d7-9c8f-eab3fefa51f4"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[Lee los datos de un cliente en la base de datos.
+
+Argumentos:
+string dni -> El dni del usuario que se quiere leer
+
+Return:
+tCliente -> un tCliente con los valores de la bbdd asociados al dni]]></ATT>
+                  <ATT name="MimeType"></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="Javadoc" mc="Infrastructure.NoteType" uid="003800a8-0000-015f-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
@@ -192,6 +260,28 @@
                 <ID name="updateCliente" mc="Standard.Operation" uid="df3573cb-7ca4-46d5-b789-f3a6bcec5034"/>
               </REFOBJ>
             </LINK>
+            <COMP relation="Descriptor">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="a2ddf444-9e43-40a3-bb89-8aa7915cfead"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[Actualiza los datos de un cliente existente en la base de datos.
+
+Argumentos:
+tCliente cliente -> El cliente con los nuevos datos a actualizar
+
+Return:
+int -> El número de filas afectadas por la actualización]]></ATT>
+                  <ATT name="MimeType"></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="Javadoc" mc="Infrastructure.NoteType" uid="003800a8-0000-015f-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
@@ -251,6 +341,28 @@
                 <DEPENDENCIES>
                   <LINK relation="Type">
                     <FOREIGNID name="integer" mc="Standard.DataType" uid="00000004-0000-0009-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <COMP relation="Descriptor">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="c46def87-63b7-40e8-a03a-775ff4264369"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[Elimina un cliente de la base de datos.
+
+Argumentos:
+String dni -> El dni del cliente que se quiere eliminar
+
+Return:
+int -> El número de filas afectadas por el borrado]]></ATT>
+                  <ATT name="MimeType"></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="Javadoc" mc="Infrastructure.NoteType" uid="003800a8-0000-015f-0000-000000000000"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>

@@ -80,6 +80,28 @@
                 <ID name="altaCliente" mc="Standard.Operation" uid="03ba48e0-e6e9-446c-aa3d-df7741d311e4"/>
               </REFOBJ>
             </LINK>
+            <COMP relation="Descriptor">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="b3b897a3-8c27-464b-a9a9-87f397b1901a"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[Valida los datos y registra un nuevo cliente en el sistema.
+
+Argumentos:
+tCliente cliente -> El cliente que se quiere dar de alta
+
+Return:
+int -> El número de filas afectadas]]></ATT>
+                  <ATT name="MimeType"></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="Javadoc" mc="Infrastructure.NoteType" uid="003800a8-0000-015f-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
@@ -95,6 +117,30 @@
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
+            <COMP relation="IO">
+              <OBJECT>
+                <ID name="dni" mc="Standard.Parameter" uid="ff19ce73-dbca-476b-a669-fdb4e9e1c6e0"/>
+                <ATTRIBUTES>
+                  <ATT name="ParameterPassing">In</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="TypeConstraint"></ATT>
+                  <ATT name="DefaultValue"></ATT>
+                  <ATT name="IsOrdered">false</ATT>
+                  <ATT name="IsUnique">false</ATT>
+                  <ATT name="IsException">false</ATT>
+                  <ATT name="IsStream">false</ATT>
+                  <ATT name="Effect">ReadEffect</ATT>
+                  <ATT name="Name"><![CDATA[dni]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Type">
+                    <FOREIGNID name="string" mc="Standard.DataType" uid="00000004-0000-000d-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
             <COMP relation="Return">
               <OBJECT>
                 <ID name="" mc="Standard.Parameter" uid="e8dbc53a-59ab-4d0a-8502-56f3997c07bd"/>
@@ -124,6 +170,28 @@
                 <ID name="leerCliente" mc="Standard.Operation" uid="41363b00-839c-4740-93ad-d35ef7555d06"/>
               </REFOBJ>
             </LINK>
+            <COMP relation="Descriptor">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="0817beb8-c741-4e00-b774-72ed8d582518"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[Valida el dni y busca los datos de un cliente en el sistema.
+
+Argumentos:
+String dni -> El dni del cliente que se quiere consultar
+
+Return:
+tCliente -> El objeto con los datos del cliente, o null si no existe]]></ATT>
+                  <ATT name="MimeType"></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="Javadoc" mc="Infrastructure.NoteType" uid="003800a8-0000-015f-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
@@ -192,6 +260,28 @@
                 <ID name="actualizarCliente" mc="Standard.Operation" uid="8d9a7111-3e7a-444c-b943-a7fc48fbdb02"/>
               </REFOBJ>
             </LINK>
+            <COMP relation="Descriptor">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="4be0b0b6-f0d3-49db-8aaf-0e1828531334"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[Valida los datos y actualiza la información de un cliente en el sistema.
+
+Argumentos:
+tCliente cliente -> El cliente con los datos modificados
+
+Return:
+int -> El numero de filas afectadas por el update]]></ATT>
+                  <ATT name="MimeType"></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="Javadoc" mc="Infrastructure.NoteType" uid="003800a8-0000-015f-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
@@ -260,68 +350,27 @@
                 <ID name="borrarCliente" mc="Standard.Operation" uid="af684d06-6239-4850-89d9-b4b20ea53d1d"/>
               </REFOBJ>
             </LINK>
-          </DEPENDENCIES>
-        </OBJECT>
-      </COMP>
-      <COMP relation="OwnedEnd">
-        <OBJECT>
-          <ID name="daoCliente" mc="Standard.AssociationEnd" uid="d83d92ae-22a6-4757-abcf-c7ba3c7147fa"/>
-          <ATTRIBUTES>
-            <ATT name="Aggregation">KindIsAssociation</ATT>
-            <ATT name="IsChangeable">true</ATT>
-            <ATT name="Changeable">AccesNone</ATT>
-            <ATT name="IsDerived">false</ATT>
-            <ATT name="IsOrdered">false</ATT>
-            <ATT name="IsUnique">false</ATT>
-            <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
-            <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
-            <ATT name="Visibility">Private</ATT>
-            <ATT name="IsClass">false</ATT>
-            <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[daoCliente]]></ATT>
-            <ATT name="status">1970354901745664</ATT>
-          </ATTRIBUTES>
-          <DEPENDENCIES>
-            <LINK relation="Target">
-              <ID name="DAOCliente" mc="Standard.Interface" uid="5a46a1fb-6472-4cac-8fc4-f920325561e2"/>
-            </LINK>
-            <COMP relation="Opposite">
+            <COMP relation="Descriptor">
               <OBJECT>
-                <ID name="" mc="Standard.AssociationEnd" uid="14a8abe0-b3fe-4863-a9ad-e1c6b449ed0a"/>
+                <ID name="" mc="Infrastructure.Note" uid="9a9886f5-4cfa-4357-91d0-4158637c2918"/>
                 <ATTRIBUTES>
-                  <ATT name="Aggregation">KindIsAssociation</ATT>
-                  <ATT name="IsChangeable">true</ATT>
-                  <ATT name="Changeable">AccesNone</ATT>
-                  <ATT name="IsDerived">false</ATT>
-                  <ATT name="IsOrdered">false</ATT>
-                  <ATT name="IsUnique">false</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
-                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
-                  <ATT name="Visibility">Public</ATT>
-                  <ATT name="IsClass">false</ATT>
-                  <ATT name="IsAbstract">false</ATT>
+                  <ATT name="Content"><![CDATA[Valida el dni y elimina un cliente del sistema.
+
+Argumentos:
+String dni -> El dni del cliente a borrar
+
+Return:
+int -> El numero de filas afectadas por el delete]]></ATT>
+                  <ATT name="MimeType"></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
                 <DEPENDENCIES>
-                  <COMP relation="Opposite">
-                    <COMPID name="daoCliente" mc="Standard.AssociationEnd" uid="d83d92ae-22a6-4757-abcf-c7ba3c7147fa"/>
-                  </COMP>
-                  <COMP relation="Association">
-                    <OBJECT>
-                      <ID name="" mc="Standard.Association" uid="7678c3b2-45bb-4056-bd12-c4f77d3e2ec0"/>
-                      <ATTRIBUTES>
-                        <ATT name="Name"></ATT>
-                        <ATT name="status">1970354901745664</ATT>
-                      </ATTRIBUTES>
-                      <DEPENDENCIES></DEPENDENCIES>
-                    </OBJECT>
-                  </COMP>
+                  <LINK relation="Model">
+                    <FOREIGNID name="Javadoc" mc="Infrastructure.NoteType" uid="003800a8-0000-015f-0000-000000000000"/>
+                  </LINK>
                 </DEPENDENCIES>
               </OBJECT>
-            </COMP>
-            <COMP relation="Association">
-              <COMPID name="" mc="Standard.Association" uid="7678c3b2-45bb-4056-bd12-c4f77d3e2ec0"/>
             </COMP>
           </DEPENDENCIES>
         </OBJECT>

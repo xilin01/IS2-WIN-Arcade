@@ -82,6 +82,60 @@
                 <ID name="createCliente" mc="Standard.Operation" uid="0dda0d1c-df49-4e08-8f8c-92c11adaf514"/>
               </REFOBJ>
             </LINK>
+            <COMP relation="Descriptor">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="b4e3e2e0-b3de-4a8b-83dd-a5b24caaa2e8"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[int rowCount = 0;
+    	
+BDConexion miConexion = new BDConexion();
+Connection conexion = miConexion.getConnection();
+        
+if (conexion != null) {
+    try {
+        String query = "INSERT INTO usuario (dni, nombre, contrasenya, activo) VALUES (?, ?, ?, ?)";
+        PreparedStatement pst = conexion.prepareStatement(query);
+        		
+         pst.setString(1, cliente.getDni());
+         pst.setString(2, cliente.getNombre());
+         pst.setString(3, cliente.getContrasenya());
+         pst.setBoolean(4, cliente.getActivo());
+        		
+         rowCount = pst.executeUpdate();
+        		
+         pst.close();
+
+	} catch(SQLException e) {
+        	e.printStackTrace();
+	} finally {
+		miConexion.desconectar();
+	}
+}]]></ATT>
+                  <ATT name="MimeType"></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="b8159cf9-a61b-43af-82e4-ede19d896330"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[return rowCount;]]></ATT>
+                  <ATT name="MimeType"></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaReturned" mc="Infrastructure.NoteType" uid="003800a8-0000-0190-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
@@ -97,6 +151,30 @@
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
+            <COMP relation="IO">
+              <OBJECT>
+                <ID name="dni" mc="Standard.Parameter" uid="59694ad6-2faf-4580-b879-3ee54ca2b360"/>
+                <ATTRIBUTES>
+                  <ATT name="ParameterPassing">In</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="TypeConstraint"></ATT>
+                  <ATT name="DefaultValue"></ATT>
+                  <ATT name="IsOrdered">false</ATT>
+                  <ATT name="IsUnique">false</ATT>
+                  <ATT name="IsException">false</ATT>
+                  <ATT name="IsStream">false</ATT>
+                  <ATT name="Effect">ReadEffect</ATT>
+                  <ATT name="Name"><![CDATA[dni]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Type">
+                    <FOREIGNID name="string" mc="Standard.DataType" uid="00000004-0000-000d-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
             <COMP relation="Return">
               <OBJECT>
                 <ID name="" mc="Standard.Parameter" uid="592b18e6-c38d-47a1-9aa8-5ac1f5369299"/>
@@ -126,6 +204,64 @@
                 <ID name="readCliente" mc="Standard.Operation" uid="a22eec57-7fb2-480a-a47d-5434a9e9fc37"/>
               </REFOBJ>
             </LINK>
+            <COMP relation="Descriptor">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="656bddb0-bc9f-4cf0-87a6-099fbe9a9edf"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[tCliente cliente = null;
+
+BDConexion miConexion = new BDConexion();
+Connection conexion = miConexion.getConnection();
+
+if (conexion != null) {
+	try {
+		String query = "SELECT id, nombre, dni, email, contrasenya, activo FROM usuario WHERE id = ?";
+		PreparedStatement pst = conexion.prepareStatement(query);
+		pst.setString(1, dni);
+		
+		ResultSet rs = pst.executeQuery();
+		
+		if (rs.next()) {
+            String nombre = rs.getString("nombre");
+            String contrasenya = rs.getString("contrasenya");
+            boolean activo = rs.getBoolean("activo");
+            
+            cliente = new tCliente(dni, nombre, contrasenya, activo);
+		}
+		rs.close();
+		pst.close();
+		
+	} catch(SQLException e) {
+		e.printStackTrace();
+	} finally {
+		miConexion.desconectar();
+	}
+}]]></ATT>
+                  <ATT name="MimeType"></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="6d33fdde-4c99-4683-a351-7ab0eb013b8d"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[return cliente;]]></ATT>
+                  <ATT name="MimeType"></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaReturned" mc="Infrastructure.NoteType" uid="003800a8-0000-0190-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
@@ -194,6 +330,60 @@
                 <ID name="updateCliente" mc="Standard.Operation" uid="bf596e07-16c1-49fc-b60f-c64cb21ae15f"/>
               </REFOBJ>
             </LINK>
+            <COMP relation="Descriptor">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="6c71186b-d2b5-4ae4-82f5-26765a9d6a52"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[int rowCount = 0;
+
+BDConexion miConexion = new BDConexion();
+Connection conexion = miConexion.getConnection();
+
+if (conexion != null) {
+	try {
+		String query = "UPDATE usuario SET nombre = ?, contrasenya = ?, activo = ? WHERE dni = ?";
+		
+		PreparedStatement pst = conexion.prepareStatement(query);
+		pst.setString(1, cliente.getNombre());
+		pst.setString(2, cliente.getContrasenya());
+		pst.setBoolean(3, cliente.getActivo());
+		pst.setString(4, cliente.getDni());
+		
+		rowCount = pst.executeUpdate();
+		
+		pst.close();
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		miConexion.desconectar();
+	}
+}]]></ATT>
+                  <ATT name="MimeType"></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="a8da7320-239b-49dc-9cc8-8383735aa592"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[return rowCount;]]></ATT>
+                  <ATT name="MimeType"></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaReturned" mc="Infrastructure.NoteType" uid="003800a8-0000-0190-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
@@ -262,6 +452,57 @@
                 <ID name="deleteCliente" mc="Standard.Operation" uid="85fe8495-34fe-4aae-89b5-4967f516b4d2"/>
               </REFOBJ>
             </LINK>
+            <COMP relation="Descriptor">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="00811ebc-2f60-4869-9acb-23eb2304424d"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[int rowCount = 0;
+
+BDConexion miConexion = new BDConexion();
+Connection conexion = miConexion.getConnection();
+
+if (conexion != null) {
+	try {
+		String query = "DELETE FROM usuario WHERE dni = ?";
+		
+		PreparedStatement pst = conexion.prepareStatement(query);
+		pst.setString(1, dni);
+		
+		rowCount = pst.executeUpdate();
+		
+		pst.close();
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		miConexion.desconectar();
+	}
+}]]></ATT>
+                  <ATT name="MimeType"></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="6fe63553-0f33-4a15-981f-0de709eec60d"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[return rowCount;]]></ATT>
+                  <ATT name="MimeType"></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaReturned" mc="Infrastructure.NoteType" uid="003800a8-0000-0190-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
           </DEPENDENCIES>
         </OBJECT>
       </COMP>
