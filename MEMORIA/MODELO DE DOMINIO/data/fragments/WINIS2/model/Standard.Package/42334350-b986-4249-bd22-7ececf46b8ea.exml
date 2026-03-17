@@ -27,7 +27,6 @@
         <COMPID name="JuegoDeCartas" mc="Standard.Class" uid="1ccb960b-73dd-45cc-bb6d-3f09c52855d3"/>
         <COMPID name="JuegoDeAzar" mc="Standard.Class" uid="0f1e608a-38d6-4074-86a4-a6200fa00be7"/>
         <COMPID name="Inventario" mc="Standard.Class" uid="79109e2f-e150-425c-bb11-9b4c0480b437"/>
-        <COMPID name="Tienda" mc="Standard.Class" uid="0ae4cd93-cd5c-44da-b362-3080a4f56910"/>
       </COMP>
       <COMP relation="Product">
         <COMPID name="winis2 Class diagram" mc="Standard.ClassDiagram" uid="494d0099-6376-4f17-9c84-3b4d21ccd5ca"/>

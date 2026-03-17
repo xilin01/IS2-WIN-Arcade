@@ -135,9 +135,9 @@
                   </COMP>
                   <COMP relation="Association">
                     <OBJECT>
-                      <ID name="registra" mc="Standard.Association" uid="79159b3c-b72e-4cea-a6f6-b0b9a7302cea"/>
+                      <ID name="gestiona" mc="Standard.Association" uid="79159b3c-b72e-4cea-a6f6-b0b9a7302cea"/>
                       <ATTRIBUTES>
-                        <ATT name="Name"><![CDATA[registra]]></ATT>
+                        <ATT name="Name"><![CDATA[gestiona]]></ATT>
                         <ATT name="status">1970354901745664</ATT>
                       </ATTRIBUTES>
                       <DEPENDENCIES></DEPENDENCIES>
@@ -147,12 +147,15 @@
               </OBJECT>
             </COMP>
             <COMP relation="Association">
-              <COMPID name="registra" mc="Standard.Association" uid="79159b3c-b72e-4cea-a6f6-b0b9a7302cea"/>
+              <COMPID name="gestiona" mc="Standard.Association" uid="79159b3c-b72e-4cea-a6f6-b0b9a7302cea"/>
             </COMP>
           </DEPENDENCIES>
         </OBJECT>
         <REFOBJ>
           <ID name="" mc="Standard.AssociationEnd" uid="bb17c3b5-6cb1-40fe-92a2-6b16fdfbd9b1"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="" mc="Standard.AssociationEnd" uid="328f7a99-d241-46f1-8f4b-b0f9bbfd5222"/>
         </REFOBJ>
       </COMP>
     </DEPENDENCIES>
