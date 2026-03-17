@@ -125,7 +125,7 @@
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="" mc="Standard.AssociationEnd" uid="a02562c9-0d79-4123-b88d-75069998d5d3"/>
+          <ID name="" mc="Standard.AssociationEnd" uid="5c4c88d0-0497-401b-bc15-95b53abb6d71"/>
           <ATTRIBUTES>
             <ATT name="Aggregation">KindIsAssociation</ATT>
             <ATT name="IsChangeable">true</ATT>
@@ -144,7 +144,7 @@
           <DEPENDENCIES>
             <COMP relation="Opposite">
               <OBJECT>
-                <ID name="" mc="Standard.AssociationEnd" uid="bf5ffcdc-f517-4bb6-88cc-b159b6607075"/>
+                <ID name="" mc="Standard.AssociationEnd" uid="cac639ee-bf0a-43ec-a345-9d25225e2109"/>
                 <ATTRIBUTES>
                   <ATT name="Aggregation">KindIsAssociation</ATT>
                   <ATT name="IsChangeable">true</ATT>
@@ -162,11 +162,11 @@
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <COMP relation="Opposite">
-                    <COMPID name="" mc="Standard.AssociationEnd" uid="a02562c9-0d79-4123-b88d-75069998d5d3"/>
+                    <COMPID name="" mc="Standard.AssociationEnd" uid="5c4c88d0-0497-401b-bc15-95b53abb6d71"/>
                   </COMP>
                   <COMP relation="Association">
                     <OBJECT>
-                      <ID name="juega" mc="Standard.Association" uid="2e191b4a-c392-4e31-9dca-23447d97bf40"/>
+                      <ID name="juega" mc="Standard.Association" uid="717af9a8-a4ca-4a49-a7eb-5db4c8c09614"/>
                       <ATTRIBUTES>
                         <ATT name="Name"><![CDATA[juega]]></ATT>
                         <ATT name="status">1970354901745664</ATT>
@@ -178,65 +178,7 @@
               </OBJECT>
             </COMP>
             <COMP relation="Association">
-              <COMPID name="juega" mc="Standard.Association" uid="2e191b4a-c392-4e31-9dca-23447d97bf40"/>
-            </COMP>
-          </DEPENDENCIES>
-        </OBJECT>
-        <OBJECT>
-          <ID name="" mc="Standard.AssociationEnd" uid="15e841ce-de44-4b02-8fce-b0fe0391a0ab"/>
-          <ATTRIBUTES>
-            <ATT name="Aggregation">KindIsAssociation</ATT>
-            <ATT name="IsChangeable">true</ATT>
-            <ATT name="Changeable">AccesNone</ATT>
-            <ATT name="IsDerived">false</ATT>
-            <ATT name="IsOrdered">false</ATT>
-            <ATT name="IsUnique">false</ATT>
-            <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
-            <ATT name="MultiplicityMax"><![CDATA[*]]></ATT>
-            <ATT name="Visibility">Public</ATT>
-            <ATT name="IsClass">false</ATT>
-            <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"></ATT>
-            <ATT name="status">1970354901745664</ATT>
-          </ATTRIBUTES>
-          <DEPENDENCIES>
-            <COMP relation="Opposite">
-              <OBJECT>
-                <ID name="" mc="Standard.AssociationEnd" uid="bb17c3b5-6cb1-40fe-92a2-6b16fdfbd9b1"/>
-                <ATTRIBUTES>
-                  <ATT name="Aggregation">KindIsAggregation</ATT>
-                  <ATT name="IsChangeable">true</ATT>
-                  <ATT name="Changeable">AccesNone</ATT>
-                  <ATT name="IsDerived">false</ATT>
-                  <ATT name="IsOrdered">false</ATT>
-                  <ATT name="IsUnique">false</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
-                  <ATT name="MultiplicityMax"><![CDATA[*]]></ATT>
-                  <ATT name="Visibility">Public</ATT>
-                  <ATT name="IsClass">false</ATT>
-                  <ATT name="IsAbstract">false</ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <COMP relation="Opposite">
-                    <COMPID name="" mc="Standard.AssociationEnd" uid="15e841ce-de44-4b02-8fce-b0fe0391a0ab"/>
-                  </COMP>
-                  <COMP relation="Association">
-                    <OBJECT>
-                      <ID name="tiene" mc="Standard.Association" uid="adb6c718-b758-4c5d-985e-78738554aa27"/>
-                      <ATTRIBUTES>
-                        <ATT name="Name"><![CDATA[tiene]]></ATT>
-                        <ATT name="status">1970354901745664</ATT>
-                      </ATTRIBUTES>
-                      <DEPENDENCIES></DEPENDENCIES>
-                    </OBJECT>
-                  </COMP>
-                </DEPENDENCIES>
-              </OBJECT>
-            </COMP>
-            <COMP relation="Association">
-              <COMPID name="tiene" mc="Standard.Association" uid="adb6c718-b758-4c5d-985e-78738554aa27"/>
+              <COMPID name="juega" mc="Standard.Association" uid="717af9a8-a4ca-4a49-a7eb-5db4c8c09614"/>
             </COMP>
           </DEPENDENCIES>
         </OBJECT>

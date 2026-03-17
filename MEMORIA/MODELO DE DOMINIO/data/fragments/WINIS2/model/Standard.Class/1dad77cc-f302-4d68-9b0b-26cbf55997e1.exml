@@ -90,8 +90,11 @@
         </OBJECT>
       </COMP>
       <COMP relation="OwnedEnd">
+        <REFOBJ>
+          <ID name="" mc="Standard.AssociationEnd" uid="762afeb2-30c9-4877-b14e-39637a01d33a"/>
+        </REFOBJ>
         <OBJECT>
-          <ID name="" mc="Standard.AssociationEnd" uid="996be537-55da-4c92-b2f1-bc051beca8cc"/>
+          <ID name="" mc="Standard.AssociationEnd" uid="3bd3408b-80b9-4b69-8980-678b9d6973d3"/>
           <ATTRIBUTES>
             <ATT name="Aggregation">KindIsAssociation</ATT>
             <ATT name="IsChangeable">true</ATT>
@@ -110,7 +113,7 @@
           <DEPENDENCIES>
             <COMP relation="Opposite">
               <OBJECT>
-                <ID name="" mc="Standard.AssociationEnd" uid="5643aba3-ec29-40e5-9750-31bdd39d1a66"/>
+                <ID name="" mc="Standard.AssociationEnd" uid="f8f288dc-6d6a-43b8-a1de-6ff4fb0645fa"/>
                 <ATTRIBUTES>
                   <ATT name="Aggregation">KindIsAssociation</ATT>
                   <ATT name="IsChangeable">true</ATT>
@@ -128,11 +131,11 @@
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <COMP relation="Opposite">
-                    <COMPID name="" mc="Standard.AssociationEnd" uid="996be537-55da-4c92-b2f1-bc051beca8cc"/>
+                    <COMPID name="" mc="Standard.AssociationEnd" uid="3bd3408b-80b9-4b69-8980-678b9d6973d3"/>
                   </COMP>
                   <COMP relation="Association">
                     <OBJECT>
-                      <ID name="gestiona" mc="Standard.Association" uid="c594b3e4-7c0f-4779-ba0e-24277fa10b11"/>
+                      <ID name="gestiona" mc="Standard.Association" uid="48eb3f0f-fb9b-4a2a-80c8-ec14fd773c47"/>
                       <ATTRIBUTES>
                         <ATT name="Name"><![CDATA[gestiona]]></ATT>
                         <ATT name="status">1970354901745664</ATT>
@@ -144,13 +147,10 @@
               </OBJECT>
             </COMP>
             <COMP relation="Association">
-              <COMPID name="gestiona" mc="Standard.Association" uid="c594b3e4-7c0f-4779-ba0e-24277fa10b11"/>
+              <COMPID name="gestiona" mc="Standard.Association" uid="48eb3f0f-fb9b-4a2a-80c8-ec14fd773c47"/>
             </COMP>
           </DEPENDENCIES>
         </OBJECT>
-        <REFOBJ>
-          <ID name="" mc="Standard.AssociationEnd" uid="b83be1c7-fb8d-4531-b385-c26d8afe6a77"/>
-        </REFOBJ>
       </COMP>
     </DEPENDENCIES>
   </OBJECT>

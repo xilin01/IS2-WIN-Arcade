@@ -83,7 +83,7 @@
       </COMP>
       <COMP relation="OwnedEnd">
         <OBJECT>
-          <ID name="" mc="Standard.AssociationEnd" uid="7c52c618-31c7-4d4d-a8eb-f5fec0dbb33e"/>
+          <ID name="" mc="Standard.AssociationEnd" uid="05ac559b-ee90-42af-9ccd-0e81d48c42e1"/>
           <ATTRIBUTES>
             <ATT name="Aggregation">KindIsAssociation</ATT>
             <ATT name="IsChangeable">true</ATT>
@@ -102,7 +102,7 @@
           <DEPENDENCIES>
             <COMP relation="Opposite">
               <OBJECT>
-                <ID name="" mc="Standard.AssociationEnd" uid="878c4536-b236-48ca-bf26-58932c2b9389"/>
+                <ID name="" mc="Standard.AssociationEnd" uid="75a07f30-3491-47ee-b917-6b56c013cde6"/>
                 <ATTRIBUTES>
                   <ATT name="Aggregation">KindIsComposition</ATT>
                   <ATT name="IsChangeable">true</ATT>
@@ -120,11 +120,11 @@
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <COMP relation="Opposite">
-                    <COMPID name="" mc="Standard.AssociationEnd" uid="7c52c618-31c7-4d4d-a8eb-f5fec0dbb33e"/>
+                    <COMPID name="" mc="Standard.AssociationEnd" uid="05ac559b-ee90-42af-9ccd-0e81d48c42e1"/>
                   </COMP>
                   <COMP relation="Association">
                     <OBJECT>
-                      <ID name="tiene" mc="Standard.Association" uid="341eeb21-6ae5-4f5b-8690-581de217e318"/>
+                      <ID name="tiene" mc="Standard.Association" uid="5f3a429f-64c8-4d4c-90ec-30a133043a78"/>
                       <ATTRIBUTES>
                         <ATT name="Name"><![CDATA[tiene]]></ATT>
                         <ATT name="status">1970354901745664</ATT>
@@ -132,27 +132,11 @@
                       <DEPENDENCIES></DEPENDENCIES>
                     </OBJECT>
                   </COMP>
-                  <COMP relation="Descriptor">
-                    <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="d516282d-8459-43a5-8ab0-346aca137c4d"/>
-                      <ATTRIBUTES>
-                        <ATT name="Content"><![CDATA[<Enter note text here>]]></ATT>
-                        <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
-                        <ATT name="Name"></ATT>
-                        <ATT name="status">1970354901745664</ATT>
-                      </ATTRIBUTES>
-                      <DEPENDENCIES>
-                        <LINK relation="Model">
-                          <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
-                        </LINK>
-                      </DEPENDENCIES>
-                    </OBJECT>
-                  </COMP>
                 </DEPENDENCIES>
               </OBJECT>
             </COMP>
             <COMP relation="Association">
-              <COMPID name="tiene" mc="Standard.Association" uid="341eeb21-6ae5-4f5b-8690-581de217e318"/>
+              <COMPID name="tiene" mc="Standard.Association" uid="5f3a429f-64c8-4d4c-90ec-30a133043a78"/>
             </COMP>
           </DEPENDENCIES>
         </OBJECT>
