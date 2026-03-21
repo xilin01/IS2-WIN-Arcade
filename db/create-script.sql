@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS usuario;
 
 CREATE TABLE usuario (
     dni VARCHAR(15) NOT NULL UNIQUE,
-    nombre_usuario VARCHAR(50) NOT NULL UNIQUE,
+    nombre VARCHAR(50) NOT NULL UNIQUE,
     contrasenya VARCHAR(50) NOT NULL,
     activo BOOLEAN DEFAULT TRUE NOT NULL,
     
