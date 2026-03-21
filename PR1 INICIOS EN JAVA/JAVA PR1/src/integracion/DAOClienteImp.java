@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
@@ -131,6 +132,43 @@ public class DAOClienteImp implements DAOCliente {
         	}
         }
         return rowCount;
+    }
+
+    @Override
+    public Collection<tCliente> readAllClientes() {
+        Collection<tCliente> clientes = new java.util.ArrayList<>();
+
+        BDConexion miConexion = new BDConexion();
+        Connection conexion = miConexion.getConnection();
+
+        if (conexion != null) {
+            try {
+                String query = "SELECT dni, nombre, contrasenya, activo FROM usuario";
+                PreparedStatement pst = conexion.prepareStatement(query);
+
+                ResultSet rs = pst.executeQuery();
+
+                while (rs.next()) {
+                    String dni = rs.getString("dni");
+                    String nombre = rs.getString("nombre");
+                    String contrasenya = rs.getString("contrasenya");
+                    boolean activo = rs.getBoolean("activo");
+
+                    tCliente cliente = new tCliente(dni, nombre, contrasenya, activo);
+                    clientes.add(cliente);
+                }
+
+                rs.close();
+                pst.close();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                miConexion.desconectar();
+            }
+        }
+
+        return clientes;
     }
 
 }

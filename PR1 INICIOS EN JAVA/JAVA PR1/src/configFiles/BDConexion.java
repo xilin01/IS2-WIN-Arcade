@@ -4,9 +4,9 @@ import java.sql.*;
 
 public class BDConexion {
 	/**Parametros de conexion**/
-	static String bd = "e04win";
+	static String bd = "win";
 	static String login = "root";
-	static String password = "equipo04";
+	static String password = "equipo4";
 	static String url = "jdbc:mysql://localhost/" + bd;
 	Connection connection = null;
 

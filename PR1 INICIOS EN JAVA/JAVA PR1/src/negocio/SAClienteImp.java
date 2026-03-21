@@ -1,5 +1,7 @@
 package negocio;
 
+import java.util.Collection;
+
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import integracion.DAOCliente;
 
@@ -52,6 +54,11 @@ public class SAClienteImp implements SACliente {
         // TODO Auto-generated return
         return 0;
     }
+    
+    @Override
+	public Collection<tCliente> leerTodosClientes() {
+		return daoCliente.readAllClientes(); 
+	}
 
     /**
      * Valida el dni y elimina un cliente del sistema.

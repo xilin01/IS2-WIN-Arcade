@@ -74,9 +74,11 @@ public class tCliente {
     }
 
     @objid ("b599eb48-e160-45b3-82ee-c4a135a3e6d0")
+    @Override
     public String toString() {
-        // TODO Auto-generated return
-        return null;
+        return "DNI: " + dni +
+               ", Nombre: " + nombre +
+               ", Activo: " + activo;
     }
 
 }

@@ -1,5 +1,7 @@
 package integracion;
 
+import java.util.Collection;
+
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import negocio.tCliente;
 
@@ -52,5 +54,7 @@ public interface DAOCliente {
      */
     @objid ("85fe8495-34fe-4aae-89b5-4967f516b4d2")
     int deleteCliente(final String dni);
+
+	Collection<tCliente> readAllClientes();
 
 }
