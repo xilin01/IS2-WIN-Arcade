@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="MODELO DE DOMINIO" version="4">
+  <OBJECT>
+    <ID name="MODELO DE DOMINIO" mc="Infrastructure.DiagramSet" uid="26879ec3-0dad-46f9-9ad0-0aa48ef7837d"/>
+    <PID name="MODELO DE DOMINIO" mc="Standard.Project" uid="694f1b20-a59d-4a6b-899d-c939be905e2d"/>
+    <ATTRIBUTES>
+      <ATT name="Name"><![CDATA[MODELO DE DOMINIO]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES></DEPENDENCIES>
+  </OBJECT>
+</EXT>
