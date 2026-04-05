@@ -1,11 +1,11 @@
 package negocio;
 
 import java.util.Collection;
-
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("adece493-ec9f-4c1f-9e56-03888713105a")
 public interface SACliente {
+	
     /**
      * Valida los datos y registra un nuevo cliente en el sistema.
      * 
@@ -55,6 +55,4 @@ public interface SACliente {
     int borrarCliente(final String dni);
     
 	Collection<tCliente> leerTodosClientes();
-
-
 }

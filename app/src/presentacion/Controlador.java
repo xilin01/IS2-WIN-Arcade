@@ -1,7 +1,6 @@
 package presentacion;
 
 import java.util.Collection;
-
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import negocio.SACliente;
 import negocio.SAClienteImp;
@@ -15,7 +14,6 @@ public class Controlador {
     @objid ("7d6f7991-228b-4d7a-a5ff-094d1cd303bf")
     public static void accion(final int evento, final tCliente datos) {
 		switch (evento) {
-		
 			case Evento.ALTA_CLIENTE: { // 1 = ALTA_CLIENTES
 				// TBD (To Be Developed)
 				break;
@@ -23,10 +21,9 @@ public class Controlador {
 			case Evento.MOSTRAR_CLIENTES: { // 2 = MOSTRAR_CLIENTES
 				SACliente SACliente = new SAClienteImp();
 				Collection<tCliente> res = SACliente.leerTodosClientes();
-				if (!res.isEmpty())
-					VistaCliente.actualizar(Evento.RES_MOSTRAR_CLIENTES_OK, res);
-				else
-					VistaCliente.actualizar(Evento.RES_MOSTRAR_CLIENTES_KO, null);
+				
+				if (!res.isEmpty()) VistaCliente.actualizar(Evento.RES_MOSTRAR_CLIENTES_OK, res);
+				else VistaCliente.actualizar(Evento.RES_MOSTRAR_CLIENTES_KO, null);
 				break;
 			}
 			case Evento.BUSCAR_CLIENTE: { // 3 = BUSCAR_CLIENTE
@@ -43,5 +40,4 @@ public class Controlador {
 			}
 		}
 	}
-
 }
