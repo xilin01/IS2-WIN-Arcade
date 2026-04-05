@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="win" version="4">
+  <OBJECT>
+    <ID name="win" mc="Standard.Package" uid="b2c75e1a-1ceb-4a0a-9807-74da106ef690"/>
+    <PID name="WIN" mc="Standard.Project" uid="7851b0c7-cdd3-4057-a579-335ba117bf03"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[win]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="Subsistema usuario" mc="Standard.Package" uid="ab14ec90-5a06-44c5-bbee-c9fe89719189"/>
+        <COMPID name="Subsistema juego" mc="Standard.Package" uid="bd07d653-f080-4f6e-965f-abe53c17d7b9"/>
+        <COMPID name="Subsistema paquete de juegos" mc="Standard.Package" uid="fcb7b229-f616-4af1-8ad1-1840611827f5"/>
+        <COMPID name="Subsistema producto" mc="Standard.Package" uid="cb5dfa05-3975-4434-b6fe-3f9448de52bf"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>
