@@ -3,7 +3,7 @@ package negocio;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("6412596d-6469-4893-83ec-0812aedc297c")
-public class tCliente {
+public class tUsuario {
     @objid ("875bd37e-a168-4a27-b799-60641af9d538")
     private String dni;
     @objid ("a669f9bd-cd6d-4a2a-9563-a8dcabdec084")
@@ -14,16 +14,16 @@ public class tCliente {
     private boolean activo;
 
     /**
-     * Crea una nueva instancia de cliente con todos sus atributos.
+     * Crea una nueva instancia de usuario con todos sus atributos.
      * 
      * Argumentos:
-     * String dni -> El dni del cliente
-     * String nombre -> El nombre de usuario del cliente
-     * String contrasenya -> La contraseña del cliente
-     * boolean activo -> El estado del cliente (true si está activo, false si no)
+     * String dni -> El dni del usuario
+     * String nombre -> El nombre de usuario del usuario
+     * String contrasenya -> La contraseña del usuario
+     * boolean activo -> El estado del usuario (true si está activo, false si no)
      */
     @objid ("f892fd71-665f-4d31-9c25-cabf1bac8380")
-    public tCliente(final String dni, final String nombre, final String contrasenya, final boolean activo) {
+    public tUsuario(final String dni, final String nombre, final String contrasenya, final boolean activo) {
         this.dni = dni;
         this.nombre = nombre;
         this.contrasenya = contrasenya;

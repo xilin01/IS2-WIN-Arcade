@@ -7,12 +7,12 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.ArrayList;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import negocio.tCliente;
+import negocio.tUsuario;
 
 @objid ("916a8918-6c10-4150-8235-52c01b81dbe7")
-public class DAOClienteImp implements DAOCliente {
+public class DAOUsuarioImp implements DAOUsuario {
     @objid ("f497545b-41c2-43b2-b1c8-0df6f0889592")
-    public int createCliente(final tCliente cliente) {
+    public int createUsuario(final tUsuario usuario) {
         int rowCount = 0;
         Connection connection = DBConnection.getConnection();
                 
@@ -21,10 +21,10 @@ public class DAOClienteImp implements DAOCliente {
                 String query = "INSERT INTO usuario (dni, nombre, contrasenya, activo) VALUES (?, ?, ?, ?)";
                 PreparedStatement pst = connection.prepareStatement(query);
                 		
-				pst.setString(1, cliente.getDni());
-				pst.setString(2, cliente.getNombre());
-				pst.setString(3, cliente.getContrasenya());
-				pst.setBoolean(4, cliente.getActivo());
+				pst.setString(1, usuario.getDni());
+				pst.setString(2, usuario.getNombre());
+				pst.setString(3, usuario.getContrasenya());
+				pst.setBoolean(4, usuario.getActivo());
 				rowCount = pst.executeUpdate();
 				pst.close();
         	} 
@@ -36,8 +36,8 @@ public class DAOClienteImp implements DAOCliente {
     }
 
     @objid ("c84ad11e-2c71-4ffc-9afb-16c89e062d95")
-    public tCliente readCliente(final String dni) {
-    	tCliente cliente = null;
+    public tUsuario readUsuario(final String dni) {
+    	tUsuario usuario = null;
         Connection conexion = DBConnection.getConnection();
         
         if(conexion != null) {
@@ -52,7 +52,7 @@ public class DAOClienteImp implements DAOCliente {
                     String contrasenya = rs.getString("contrasenya");
                     boolean activo = rs.getBoolean("activo");
                     
-                    cliente = new tCliente(dni, nombre, contrasenya, activo);
+                    usuario = new tUsuario(dni, nombre, contrasenya, activo);
         		}
         		rs.close();
         		pst.close();
@@ -61,11 +61,11 @@ public class DAOClienteImp implements DAOCliente {
         		e.printStackTrace();
         	}
         }
-        return cliente;
+        return usuario;
     }
 
     @objid ("df3573cb-7ca4-46d5-b789-f3a6bcec5034")
-    public int updateCliente(final tCliente cliente) {
+    public int updateUsuario(final tUsuario usuario) {
         int rowCount = 0;
         Connection conexion = DBConnection.getConnection();
         
@@ -74,10 +74,10 @@ public class DAOClienteImp implements DAOCliente {
         		String query = "UPDATE usuario SET nombre = ?, contrasenya = ?, activo = ? WHERE dni = ?";
         		
         		PreparedStatement pst = conexion.prepareStatement(query);
-        		pst.setString(1, cliente.getNombre());
-        		pst.setString(2, cliente.getContrasenya());
-        		pst.setBoolean(3, cliente.getActivo());
-        		pst.setString(4, cliente.getDni());
+        		pst.setString(1, usuario.getNombre());
+        		pst.setString(2, usuario.getContrasenya());
+        		pst.setBoolean(3, usuario.getActivo());
+        		pst.setString(4, usuario.getDni());
         		rowCount = pst.executeUpdate();
         		pst.close();
         	} 
@@ -89,7 +89,7 @@ public class DAOClienteImp implements DAOCliente {
     }
 
     @objid ("c6c8747e-8b83-4d56-98bc-16c48b6f140f")
-    public int deleteCliente(final String dni) {
+    public int deleteUsuario(final String dni) {
         int rowCount = 0;
         Connection conexion = DBConnection.getConnection();
         
@@ -110,8 +110,8 @@ public class DAOClienteImp implements DAOCliente {
     }
 
     @Override
-    public Collection<tCliente> readAllClientes() {
-        Collection<tCliente> clientes = new ArrayList<>();
+    public Collection<tUsuario> readAllUsuarios() {
+        Collection<tUsuario> usuarios = new ArrayList<>();
         Connection conexion = DBConnection.getConnection();
 
         if(conexion != null) {
@@ -126,8 +126,8 @@ public class DAOClienteImp implements DAOCliente {
                     String contrasenya = rs.getString("contrasena");
                     boolean activo = rs.getBoolean("activo");
 
-                    tCliente cliente = new tCliente(dni, nombre, contrasenya, activo);
-                    clientes.add(cliente);
+                    tUsuario usuario = new tUsuario(dni, nombre, contrasenya, activo);
+                    usuarios.add(usuario);
                 }
                 rs.close();
                 pst.close();
@@ -136,6 +136,6 @@ public class DAOClienteImp implements DAOCliente {
                 e.printStackTrace();
             }
         }
-        return clientes;
+        return usuarios;
     }
 }

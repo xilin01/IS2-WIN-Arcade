@@ -2,44 +2,44 @@ package negocio;
 
 import java.util.Collection;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import integracion.DAOCliente;
+import integracion.DAOUsuario;
 
 @objid ("3e41cb74-2903-4975-b822-3a84bb853f25")
-public class SAClienteImp implements SACliente {
+public class SAUsuarioImp implements SAUsuario {
     @objid ("d83d92ae-22a6-4757-abcf-c7ba3c7147fa")
-    private DAOCliente daoCliente;
+    private DAOUsuario daoUsuario;
 
     @objid ("03ba48e0-e6e9-446c-aa3d-df7741d311e4")
-    public int altaCliente(final tCliente cliente) {
+    public int altaUsuario(final tUsuario usuario) {
         // TODO Auto-generated return
         return 0;
     }
 
     @objid ("41363b00-839c-4740-93ad-d35ef7555d06")
-    public tCliente leerCliente(final String dni) {
+    public tUsuario leerUsuario(final String dni) {
         // TODO Auto-generated return
         return null;
     }
 
     @objid ("8d9a7111-3e7a-444c-b943-a7fc48fbdb02")
-    public int actualizarCliente(final tCliente cliente) {
+    public int actualizarUsuario(final tUsuario usuario) {
         // TODO Auto-generated return
         return 0;
     }
     
     @Override
-	public Collection<tCliente> leerTodosClientes() {
-		return daoCliente.readAllClientes(); 
+	public Collection<tUsuario> leerTodosUsuarios() {
+		return daoUsuario.readAllUsuarios(); 
 	}
 
     @objid ("af684d06-6239-4850-89d9-b4b20ea53d1d")
-    public int borrarCliente(final String dni) {
+    public int borrarUsuario(final String dni) {
         // TODO Auto-generated return
         return 0;
     }
 
     @objid ("f3ca4813-ec77-4455-a092-46f5071ca40f")
-    public SAClienteImp() {
-        this.daoCliente = new integracion.DAOClienteImp();
+    public SAUsuarioImp() {
+        this.daoUsuario = new integracion.DAOUsuarioImp();
     }
 }

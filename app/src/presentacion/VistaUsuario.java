@@ -11,9 +11,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 @SuppressWarnings("serial")
-public class VistaCliente extends JFrame{
+public class VistaUsuario extends JFrame{
 	
-	public VistaCliente() {
+	public VistaUsuario() {
 		super();
 		initGUI();
 	}
@@ -21,19 +21,19 @@ public class VistaCliente extends JFrame{
 	void initGUI() {
 		JFrame menuPrincipal = new JFrame();
 		
-	    menuPrincipal.setTitle("Menu CRUDs Cliente"); 
+	    menuPrincipal.setTitle("Menu CRUDs Usuario"); 
 	    menuPrincipal.setBounds(100, 100, 450, 300); 
 	    menuPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 	    menuPrincipal.getContentPane().setLayout(new FlowLayout()); 
 	    menuPrincipal.setVisible(true);
 	    
 	    JButton botonAlta = new JButton();     
-	    botonAlta.setText("Alta Cliente"); 
+	    botonAlta.setText("Alta Usuario"); 
 	    botonAlta.setBounds(153, 180, 132, 32); 
 	    menuPrincipal.getContentPane().add(botonAlta); 
 	          
 	    JButton botonReadAll = new JButton();     
-	    botonReadAll.setText("Mostrar clientes"); 
+	    botonReadAll.setText("Mostrar usuarios"); 
 	    botonReadAll.setBounds(253, 380, 132, 32); 
 	    menuPrincipal.getContentPane().add(botonReadAll); 
 	    
@@ -45,13 +45,13 @@ public class VistaCliente extends JFrame{
 	    }); 
 	    botonReadAll.addActionListener(new ActionListener() { 
 			public void actionPerformed (ActionEvent e) { 
-				Controlador.accion(Evento.MOSTRAR_CLIENTES, null);  
+				Controlador.accion(Evento.MOSTRAR_USUARIOS, null);  
 			} 
 		}); 
 	}
 	
 	public static void actualizar(int evento, Object datos) { 
-		if (evento == Evento.RES_MOSTRAR_CLIENTES_OK) { 
+		if (evento == Evento.RES_MOSTRAR_USUARIOS_OK) { 
 			JTextArea textArea = new JTextArea(datos.toString());
 			
 			textArea.setLineWrap(true); 
@@ -59,8 +59,8 @@ public class VistaCliente extends JFrame{
 			textArea.setWrapStyleWord(true); 
 			JScrollPane scrollPane = new JScrollPane(textArea); 
 			scrollPane.setPreferredSize( new Dimension( 500, 200 ) ); 
-			JOptionPane.showMessageDialog(null, scrollPane, "CLIENTES", JOptionPane.DEFAULT_OPTION); 
+			JOptionPane.showMessageDialog(null, scrollPane, "USUARIOS", JOptionPane.DEFAULT_OPTION); 
 		}
-		else if (evento == Evento.RES_MOSTRAR_CLIENTES_KO) JOptionPane.showMessageDialog(null, "No se ha podido encontrar ningun cliente"); 
+		else if (evento == Evento.RES_MOSTRAR_USUARIOS_KO) JOptionPane.showMessageDialog(null, "No se ha podido encontrar ningun usuario"); 
 	} 
 }
