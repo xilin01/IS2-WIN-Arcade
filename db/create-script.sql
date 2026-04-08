@@ -1,134 +1,131 @@
 -- Limpieza
-DROP TABLE IF EXISTS inventario_producto; 
-DROP TABLE IF EXISTS inventario_juego; 
-DROP TABLE IF EXISTS producto;
-DROP TABLE IF EXISTS paquete_detalle;
-DROP TABLE IF EXISTS paquete_juegos;
-DROP TABLE IF EXISTS juego;
-DROP TABLE IF EXISTS jugador;
-DROP TABLE IF EXISTS personal;
-DROP TABLE IF EXISTS usuario;
+DROP TABLE IF EXISTS productsInventory; 
+DROP TABLE IF EXISTS gamesInventory; 
+DROP TABLE IF EXISTS product;
+DROP TABLE IF EXISTS packageDetail;
+DROP TABLE IF EXISTS gamesPackage;
+DROP TABLE IF EXISTS game;
+DROP TABLE IF EXISTS player;
+DROP TABLE IF EXISTS staff;
+DROP TABLE IF EXISTS user;
 
 -- Tablas
-CREATE TABLE usuario (
-    dni VARCHAR(9) NOT NULL,
-    nombre VARCHAR(50) NOT NULL UNIQUE,
-    contrasena VARCHAR(50) NOT NULL,
-    activo BOOLEAN DEFAULT TRUE NOT NULL,
+CREATE TABLE user (
+    name VARCHAR(50) NOT NULL,
+    password VARCHAR(50) NOT NULL,
+    active BOOLEAN DEFAULT TRUE NOT NULL,
     
-    PRIMARY KEY (dni)
+    PRIMARY KEY (name)
 );
-CREATE TABLE personal (
-    dni VARCHAR(9) NOT NULL,
+CREATE TABLE staff (
+    name VARCHAR(50) NOT NULL,
 
-	PRIMARY KEY (dni),
-    FOREIGN KEY (dni) REFERENCES usuario(dni)
+	PRIMARY KEY (name),
+    FOREIGN KEY (name) REFERENCES user(name)
 );
-CREATE TABLE jugador (
-    dni VARCHAR(9) NOT NULL,
-    puntos INT DEFAULT 0 NOT NULL,
-    partidas_jugadas INT DEFAULT 0 NOT NULL,
+CREATE TABLE player (
+    name VARCHAR(50) NOT NULL,
+    points INT DEFAULT 0 NOT NULL,
+    gamesPlayed INT DEFAULT 0 NOT NULL,
     
-    PRIMARY KEY (dni),
-	FOREIGN KEY (dni) REFERENCES usuario(dni)
+    PRIMARY KEY (name),
+	FOREIGN KEY (name) REFERENCES user(name)
 );
-CREATE TABLE juego (
-	id INT NOT NULL,
-    nombre VARCHAR(50) NOT NULL,
+CREATE TABLE game (
+    name VARCHAR(50) NOT NULL,
     
-    PRIMARY KEY (id)
+    PRIMARY KEY (name)
 );
-CREATE TABLE paquete_juegos (
-    id INT NOT NULL,
-    precio DOUBLE NOT NULL,
+CREATE TABLE gamesPackage (
+    name VARCHAR(50) NOT NULL,
+    price DOUBLE NOT NULL,
     
-    PRIMARY KEY (id)
+    PRIMARY KEY (name)
 );
-CREATE TABLE paquete_detalle (
-    id_paquete INT NOT NULL,
-    id_juego INT NOT NULL,
-    puntos INT NOT NULL,
-    cantidad INT NOT NULL,
+CREATE TABLE packageDetail (
+	packageName VARCHAR(50) NOT NULL,
+    gameName VARCHAR(50) NOT NULL,
+    points INT NOT NULL,
+    amount INT NOT NULL,
     
-    PRIMARY KEY (id_paquete, id_juego),
-    FOREIGN KEY (id_paquete) REFERENCES paquete_juegos(id),
-    FOREIGN KEY (id_juego) REFERENCES juego(id)
+    PRIMARY KEY (packageName, gameName, points),
+    FOREIGN KEY (packageName) REFERENCES gamesPackage(name),
+    FOREIGN KEY (gameName) REFERENCES game(name)
 );
-CREATE TABLE producto (
-	id INT NOT NULL,
-    nombre VARCHAR(50) NOT NULL,
-    precio INT NOT NULL,
+CREATE TABLE product (
+    name VARCHAR(50) NOT NULL,
+    price INT NOT NULL,
     
-    PRIMARY KEY (id)
+    PRIMARY KEY (name)
 );
-CREATE TABLE inventario_juego (
-    dni_jugador VARCHAR(9) NOT NULL,
-    id_juego INT NOT NULL,
-    puntos INT NOT NULL,
-    cantidad INT NOT NULL,
+CREATE TABLE gamesInventory (
+    playerName VARCHAR(50) NOT NULL,
+    gameName VARCHAR(50) NOT NULL,
+    points INT NOT NULL,
+    amount INT NOT NULL,
     
-    PRIMARY KEY (dni_jugador, id_juego),
-    FOREIGN KEY (dni_jugador) REFERENCES jugador(dni),
-    FOREIGN KEY (id_juego) REFERENCES juego(id)
+    PRIMARY KEY (playerName, gameName, points),
+    FOREIGN KEY (playerName) REFERENCES player(name),
+    FOREIGN KEY (gameName) REFERENCES game(name)
 );
-CREATE TABLE inventario_producto (
-    dni_jugador VARCHAR(9) NOT NULL,
-    id_producto INT NOT NULL,
-    cantidad INT NOT NULL,
+CREATE TABLE productsInventory (
+    playerName VARCHAR(50) NOT NULL,
+    productName VARCHAR(50) NOT NULL,
+    amount INT NOT NULL,
     
-    PRIMARY KEY (dni_jugador, id_producto),
-    FOREIGN KEY (dni_jugador) REFERENCES jugador(dni),
-    FOREIGN KEY (id_producto) REFERENCES producto(id)
+    PRIMARY KEY (playerName, productName),
+    FOREIGN KEY (playerName) REFERENCES player(name),
+    FOREIGN KEY (productName) REFERENCES product(name)
 );
 
 -- Inicialización
-INSERT INTO usuario (dni, nombre, contrasena, activo) VALUES
-('11111111A', 'Xiang', 'xiang', TRUE),
-('22222222B', 'MarioR', 'marior', TRUE),
-('33333333C', 'MarioG', 'mariog', TRUE),
-('44444444D', 'Diego', 'diego', TRUE),
-('55555555E', 'Luis', 'luis', TRUE),
-('66666666F', 'Adrian', 'adrian', TRUE),
-('00000000A', 'Jug1', 'jug1', TRUE),
-('00000001A', 'Jug2', 'Jug2', TRUE);
-INSERT INTO personal (dni) VALUES
-('11111111A'),
-('22222222B'),
-('33333333C'),
-('44444444D'),
-('55555555E'),
-('66666666F');
-INSERT INTO jugador (dni, puntos, partidas_jugadas) VALUES
-('00000000A', 0, 0),
-('00000001A', 1000, 100);
-INSERT INTO juego (id, nombre) VALUES
-(0, 'Ruleta'),
-(1, 'Blackjack'); 
-INSERT INTO paquete_juegos (id, precio) VALUES
-(0, 19.99),
-(1, 49.99);
-INSERT INTO paquete_detalle (id_paquete, id_juego, puntos, cantidad) VALUES
-(0, 0, 100, 1),
-(1, 0, 150, 1),
-(1, 1, 500, 2);
-INSERT INTO producto (id, nombre, precio) VALUES
-(0, 'Camiseta', 20),
-(1, 'Taza', 10),
-(2, 'Pin', 5);
-INSERT INTO inventario_juego (dni_jugador, id_juego, puntos, cantidad) VALUES
-('00000001A', 0, 100, 10),
-('00000001A', 1, 500, 10);
-INSERT INTO inventario_producto (dni_jugador, id_producto, cantidad) VALUES
-('00000001A', 0, 1),
-('00000001A', 1, 1);
+INSERT INTO user (name, password, active) VALUES
+('Xiang', 'xiang', TRUE),
+('MarioR', 'marior', TRUE),
+('MarioG', 'mariog', TRUE),
+('Diego', 'diego', TRUE),
+('Luis', 'luis', TRUE),
+('Adrian', 'adrian', TRUE),
+('Jug1', 'jug1', TRUE),
+('Jug2', 'Jug2', TRUE);
+INSERT INTO staff (name) VALUES
+('Xiang'),
+('MarioR'),
+('MarioG'),
+('Diego'),
+('Luis'),
+('Adrian');
+INSERT INTO player (name, points, gamesPlayed) VALUES
+('Jug1', 0, 0),
+('Jug2', 1000, 100);
+INSERT INTO game (name) VALUES
+('Ruleta'),
+('Blackjack'); 
+INSERT INTO gamesPackage (name, price) VALUES
+('Paq0', 19.99),
+('Paq1', 49.99);
+INSERT INTO packageDetail (packageName, gameName, points, amount) VALUES
+('Paq0', 'Ruleta', 100, 1),
+('Paq1', 'Ruleta', 150, 1),
+('Paq1', 'Blackjack', 500, 2);
+INSERT INTO product (name, price) VALUES
+('Camiseta', 20),
+('Taza', 10),
+('Pin', 5);
+INSERT INTO gamesInventory (playerName, gameName, points, amount) VALUES
+('Jug1', 'Ruleta', 100, 10),
+('Jug1', 'Blackjack', 500, 10);
+INSERT INTO productsInventory (playerName, productName, amount) VALUES
+('Jug1', 'Camiseta', 2),
+('Jug1', 'Taza', 1);
 
 -- Visualización
-SELECT * FROM usuario;
-SELECT * FROM personal;
-SELECT * FROM jugador;
-SELECT * FROM juego;
-SELECT * FROM paquete_juegos;
-SELECT * FROM paquete_detalle;
-SELECT * FROM producto;
-SELECT * FROM inventario_juego;
-SELECT * FROM inventario_producto;
+SELECT * FROM user;
+SELECT * FROM staff;
+SELECT * FROM player;
+SELECT * FROM game;
+SELECT * FROM gamesPackage;
+SELECT * FROM packageDetail;
+SELECT * FROM product;
+SELECT * FROM gamesInventory;
+SELECT * FROM productsInventory;
