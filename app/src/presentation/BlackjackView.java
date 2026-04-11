@@ -3,20 +3,21 @@ package presentation;
 import java.util.Scanner;
 import business.Blackjack;
 
+// Maqueta inicial para probar el blackjack
 public class BlackjackView {
 	
     public void initBlackjack() {
         Scanner scanner = new Scanner(System.in);
         Blackjack blackjack = new Blackjack();
 
-        System.out.println("BLACKJACK");
+        System.out.println("========BLACKJACK=========");
+        System.out.println("Turno del croupier");
         int croupierVisiblePoints = blackjack.play();
-        System.out.println("El croupier muestra una carta. Puntos visibles: " + croupierVisiblePoints);
-        boolean turnoJugador = true;
-        while (turnoJugador) {
-            System.out.println("Turno jugador");
-            System.out.println("Tus cartas: " + blackjack.getPlayerCards());
-            System.out.println("Tus puntos actuales: " + blackjack.getPlayerPoints());
+        System.out.println("Cartas del croupier: [" + blackjack.getCroupierVisibleCard() + ", ?] (" + croupierVisiblePoints + "p)");
+        boolean playerTurn = true, end = false;
+        while(playerTurn) {
+            System.out.println("Turno del jugador");
+            System.out.println("Cartas del jugador: " + blackjack.getPlayerCards() + " (" + blackjack.getPlayerPoints() + "p)");
             System.out.println("Que vas a hacer?");
             System.out.println("1. Pedir carta (Hit)");
             System.out.println("2. Plantarse (Stand)");
@@ -26,27 +27,30 @@ public class BlackjackView {
                 int estado = blackjack.playerHit();
                 
                 if(estado == -1) { // LOST
-                    System.out.println("Tus cartas: " + blackjack.getPlayerCards());
-                    System.out.println("Tus puntos: " + blackjack.getPlayerPoints());
+                	System.out.println("Cartas del jugador: " + blackjack.getPlayerCards() + " (" + blackjack.getPlayerPoints() + "p)");
                     System.out.println("Te has pasado de 21, has perdido..");
-                    turnoJugador = false;
-                } 
-                else if(estado == 1) {
-                    System.out.println("Has conseguido 21!");
-                    turnoJugador = false;
+                    playerTurn = false;
+                    end = true;
                 }
-            } 
-            else if(opcion == 2) turnoJugador = false; // El jugador se planta
-            else System.out.println("Seleccione una opcion valida");
+                else if(estado == 1) { // WON
+                	System.out.println("Cartas del jugador: " + blackjack.getPlayerCards() + " (" + blackjack.getPlayerPoints() + "p)");
+                    System.out.println("Has conseguido 21!");
+                    playerTurn = false;
+                    end = true;
+                }
+            }
+            else if(opcion == 2) playerTurn = false; // El jugador se planta
+            else System.out.println("Selecciona una opcion valida");
         }
-        // Turno del croupier
-        System.out.println("Turno del croupier");
-        blackjack.croupierPlay();
-        System.out.println("Cartas del croupier: " + blackjack.getCroupierCards());
-        System.out.println("Puntos totales del croupier: " + blackjack.getCroupierPoints());
-        // Resultado
-        System.out.println("RESULTADO");
-        if(blackjack.hasPlayerWon()) System.out.println("Felicidades, has ganado la partida!");
-        else System.out.println("Lo siento, gana CROUPIER..");
+        if(!end) {
+            System.out.println("Turno del croupier");
+            if(blackjack.getCroupierPoints() < blackjack.getPlayerPoints()) blackjack.croupierPlay();
+            System.out.println("Cartas del croupier: " + blackjack.getCroupierCards() + " (" + blackjack.getCroupierPoints() + "p)");
+        }
+        System.out.println("=========RESULTADO=========");
+        int result = blackjack.getResult();
+        if(result == -1) System.out.println("Lo siento, gana el croupier..");
+        else if(result == 0) System.out.println("Empate");
+        else System.out.println("Felicidades, has ganado la partida!");
     }
 }

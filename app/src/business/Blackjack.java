@@ -69,9 +69,14 @@ public class Blackjack extends CardGame {
 		return visiblePoints; 
 	}
 	
+	public Cards getCroupierVisibleCard() {
+		if(croupier.cards == null || croupier.cards.isEmpty()) throw new IllegalStateException("The croupier's hand is empty");
+		return croupier.cards.get(0);
+	}
+	
 	public int croupierPlay() {
-		while(croupier.getPoints() < CROUPIER_LIMIT && croupier.getStatus() == CONTINUE) croupier.addCard(getRandomCard());
-		return CONTINUE;
+		while(croupier.getPoints() < CROUPIER_LIMIT) croupier.addCard(getRandomCard());
+		return croupier.getStatus();
 	}
 	
 	public int playerHit() {
@@ -79,12 +84,13 @@ public class Blackjack extends CardGame {
 		return player.getStatus();
 	}
 	
-	public boolean hasPlayerWon() {
+	public int getResult() { // Jugador pierde = -1, empate = 0 y jugador gana = 1
 		int playerPoints = player.getPoints(), croupierPoints = croupier.getPoints();
 		
-		if(playerPoints > BLACKJACK_LIMIT) return false;
-		if(croupierPoints > BLACKJACK_LIMIT) return true;
-		return playerPoints > croupierPoints;
+		if(playerPoints > BLACKJACK_LIMIT) return -1;
+		if(croupierPoints > BLACKJACK_LIMIT) return 1;
+		if(playerPoints == croupierPoints) return 0;
+		return playerPoints > croupierPoints ? 1 : -1;
 	}
 	
 	public List<Cards> getPlayerCards() {
