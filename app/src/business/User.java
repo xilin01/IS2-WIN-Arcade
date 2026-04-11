@@ -1,9 +1,9 @@
-package negocio;
+package business;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("6412596d-6469-4893-83ec-0812aedc297c")
-public class tUsuario {
+public class User {
     @objid ("875bd37e-a168-4a27-b799-60641af9d538")
     private String dni;
     @objid ("a669f9bd-cd6d-4a2a-9563-a8dcabdec084")
@@ -23,7 +23,7 @@ public class tUsuario {
      * boolean activo -> El estado del usuario (true si está activo, false si no)
      */
     @objid ("f892fd71-665f-4d31-9c25-cabf1bac8380")
-    public tUsuario(final String dni, final String nombre, final String contrasenya, final boolean activo) {
+    public User(final String dni, final String nombre, final String contrasenya, final boolean activo) {
         this.dni = dni;
         this.nombre = nombre;
         this.contrasenya = contrasenya;

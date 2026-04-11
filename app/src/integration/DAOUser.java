@@ -1,11 +1,12 @@
-package integracion;
+package integration;
 
 import java.util.Collection;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import negocio.tUsuario;
+
+import business.User;
 
 @objid ("5a46a1fb-6472-4cac-8fc4-f920325561e2")
-public interface DAOUsuario {
+public interface DAOUser {
 	
     /**
      * Inserta un usuario a la base de datos.
@@ -17,7 +18,7 @@ public interface DAOUsuario {
      * int -> numero de filas afectadas por la inserción
      */
     @objid ("0dda0d1c-df49-4e08-8f8c-92c11adaf514")
-    int createUsuario(final tUsuario usuario);
+    int createUsuario(final User usuario);
 
     /**
      * Lee los datos de un usuario en la base de datos.
@@ -29,7 +30,7 @@ public interface DAOUsuario {
      * tUsuario -> un tUsuario con los valores de la bbdd asociados al dni
      */
     @objid ("a22eec57-7fb2-480a-a47d-5434a9e9fc37")
-    tUsuario readUsuario(final String dni);
+    User readUsuario(final String dni);
 
     /**
      * Actualiza los datos de un usuario existente en la base de datos.
@@ -41,7 +42,7 @@ public interface DAOUsuario {
      * int -> El número de filas afectadas por la actualización
      */
     @objid ("bf596e07-16c1-49fc-b60f-c64cb21ae15f")
-    int updateUsuario(final tUsuario usuario);
+    int updateUsuario(final User usuario);
 
     /**
      * Elimina un usuario de la base de datos.
@@ -55,5 +56,5 @@ public interface DAOUsuario {
     @objid ("85fe8495-34fe-4aae-89b5-4967f516b4d2")
     int deleteUsuario(final String dni);
 
-	Collection<tUsuario> readAllUsuarios();
+	Collection<User> readAllUsuarios();
 }

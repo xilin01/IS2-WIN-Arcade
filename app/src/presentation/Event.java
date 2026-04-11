@@ -1,6 +1,6 @@
-package presentacion;
+package presentation;
 
-public class Evento {
+public class Event {
 	// Evento Usuario 
 	public static final int ALTA_USUARIO = 100; 
 	public static final int ELIMINAR_USUARIO = 101; 

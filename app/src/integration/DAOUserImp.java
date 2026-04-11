@@ -1,4 +1,4 @@
-package integracion;
+package integration;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,14 +7,15 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.ArrayList;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import negocio.tUsuario;
+
+import business.User;
 
 @objid ("916a8918-6c10-4150-8235-52c01b81dbe7")
-public class DAOUsuarioImp implements DAOUsuario {
+public class DAOUserImp implements DAOUser {
     @objid ("f497545b-41c2-43b2-b1c8-0df6f0889592")
-    public int createUsuario(final tUsuario usuario) {
+    public int createUsuario(final User usuario) {
         int rowCount = 0;
-        Connection connection = DBConnection.getConnection();
+        Connection connection = DB.getConnection();
                 
         if (connection != null) {
             try {
@@ -36,9 +37,9 @@ public class DAOUsuarioImp implements DAOUsuario {
     }
 
     @objid ("c84ad11e-2c71-4ffc-9afb-16c89e062d95")
-    public tUsuario readUsuario(final String dni) {
-    	tUsuario usuario = null;
-        Connection conexion = DBConnection.getConnection();
+    public User readUsuario(final String dni) {
+    	User usuario = null;
+        Connection conexion = DB.getConnection();
         
         if(conexion != null) {
         	try {
@@ -52,7 +53,7 @@ public class DAOUsuarioImp implements DAOUsuario {
                     String contrasenya = rs.getString("contrasenya");
                     boolean activo = rs.getBoolean("activo");
                     
-                    usuario = new tUsuario(dni, nombre, contrasenya, activo);
+                    usuario = new User(dni, nombre, contrasenya, activo);
         		}
         		rs.close();
         		pst.close();
@@ -65,9 +66,9 @@ public class DAOUsuarioImp implements DAOUsuario {
     }
 
     @objid ("df3573cb-7ca4-46d5-b789-f3a6bcec5034")
-    public int updateUsuario(final tUsuario usuario) {
+    public int updateUsuario(final User usuario) {
         int rowCount = 0;
-        Connection conexion = DBConnection.getConnection();
+        Connection conexion = DB.getConnection();
         
         if(conexion != null) {
         	try {
@@ -91,7 +92,7 @@ public class DAOUsuarioImp implements DAOUsuario {
     @objid ("c6c8747e-8b83-4d56-98bc-16c48b6f140f")
     public int deleteUsuario(final String dni) {
         int rowCount = 0;
-        Connection conexion = DBConnection.getConnection();
+        Connection conexion = DB.getConnection();
         
         if(conexion != null) {
         	try {
@@ -110,9 +111,9 @@ public class DAOUsuarioImp implements DAOUsuario {
     }
 
     @Override
-    public Collection<tUsuario> readAllUsuarios() {
-        Collection<tUsuario> usuarios = new ArrayList<>();
-        Connection conexion = DBConnection.getConnection();
+    public Collection<User> readAllUsuarios() {
+        Collection<User> usuarios = new ArrayList<>();
+        Connection conexion = DB.getConnection();
 
         if(conexion != null) {
             try {
@@ -126,7 +127,7 @@ public class DAOUsuarioImp implements DAOUsuario {
                     String contrasenya = rs.getString("contrasena");
                     boolean activo = rs.getBoolean("activo");
 
-                    tUsuario usuario = new tUsuario(dni, nombre, contrasenya, activo);
+                    User usuario = new User(dni, nombre, contrasenya, activo);
                     usuarios.add(usuario);
                 }
                 rs.close();

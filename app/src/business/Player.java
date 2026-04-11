@@ -1,17 +1,17 @@
-package negocio;
+package business;
 
-public class tJugador extends tUsuario {
+public class Player extends User {
 
 	private int puntos;
 	private int partidasJugadas;
 	
-	public tJugador(String dni, String nombre, String contrasenya, boolean activo) {
+	public Player(String dni, String nombre, String contrasenya, boolean activo) {
 		super(dni, nombre, contrasenya, activo);
 		puntos = 0;
 		partidasJugadas = 0;
 	}
 	
-	public tJugador(String dni, String nombre, String contrasenya, boolean activo, int puntos, int partidasJugadas) {
+	public Player(String dni, String nombre, String contrasenya, boolean activo, int puntos, int partidasJugadas) {
 		super(dni, nombre, contrasenya, activo);
 		this.puntos = puntos;
 		this.partidasJugadas = partidasJugadas;

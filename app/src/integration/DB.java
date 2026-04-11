@@ -1,9 +1,9 @@
-package integracion;
+package integration;
 
 import java.sql.*;
 
 // Singleton Pattern
-public class DBConnection {
+public class DB {
 	private static final String DB = "e4win";
 	private static final String LOGIN = "root";
 	private static final String PASSWORD = "equipo4";
@@ -11,7 +11,7 @@ public class DBConnection {
 	
 	private static Connection connection = null;
 
-	private DBConnection() {
+	private DB() {
 	}
 
 	public static Connection getConnection() {

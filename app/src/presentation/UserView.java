@@ -1,4 +1,4 @@
-package presentacion;
+package presentation;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -11,9 +11,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 @SuppressWarnings("serial")
-public class VistaUsuario extends JFrame{
+public class UserView extends JFrame{
 	
-	public VistaUsuario() {
+	public UserView() {
 		super();
 		initGUI();
 	}
@@ -45,13 +45,13 @@ public class VistaUsuario extends JFrame{
 	    }); 
 	    botonReadAll.addActionListener(new ActionListener() { 
 			public void actionPerformed (ActionEvent e) { 
-				Controlador.accion(Evento.MOSTRAR_USUARIOS, null);  
+				Controller.accion(Event.MOSTRAR_USUARIOS, null);  
 			} 
 		}); 
 	}
 	
 	public static void actualizar(int evento, Object datos) { 
-		if (evento == Evento.RES_MOSTRAR_USUARIOS_OK) { 
+		if (evento == Event.RES_MOSTRAR_USUARIOS_OK) { 
 			JTextArea textArea = new JTextArea(datos.toString());
 			
 			textArea.setLineWrap(true); 
@@ -61,6 +61,6 @@ public class VistaUsuario extends JFrame{
 			scrollPane.setPreferredSize( new Dimension( 500, 200 ) ); 
 			JOptionPane.showMessageDialog(null, scrollPane, "USUARIOS", JOptionPane.DEFAULT_OPTION); 
 		}
-		else if (evento == Evento.RES_MOSTRAR_USUARIOS_KO) JOptionPane.showMessageDialog(null, "No se ha podido encontrar ningun usuario"); 
+		else if (evento == Event.RES_MOSTRAR_USUARIOS_KO) JOptionPane.showMessageDialog(null, "No se ha podido encontrar ningun usuario"); 
 	} 
 }
