@@ -7,28 +7,26 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.ArrayList;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-
 import business.User;
 
 @objid ("916a8918-6c10-4150-8235-52c01b81dbe7")
 public class DAOUserImp implements DAOUser {
-    @objid ("f497545b-41c2-43b2-b1c8-0df6f0889592")
-    public int createUsuario(final User usuario) {
+    @objid ("f497545b-41c2-43b2-b1c8-0df6f0889592")    
+    public int createUser(User user) {
         int rowCount = 0;
         Connection connection = DB.getConnection();
                 
-        if (connection != null) {
+        if(connection != null) {
             try {
-                String query = "INSERT INTO usuario (dni, nombre, contrasenya, activo) VALUES (?, ?, ?, ?)";
+                String query = "INSERT INTO user (name, password, active) VALUES (?, ?, ?)";
                 PreparedStatement pst = connection.prepareStatement(query);
                 		
-				pst.setString(1, usuario.getDni());
-				pst.setString(2, usuario.getNombre());
-				pst.setString(3, usuario.getContrasenya());
-				pst.setBoolean(4, usuario.getActivo());
+				pst.setString(1, user.getName());
+				pst.setString(2, user.getPassword());
+				pst.setBoolean(3, user.getActive());
 				rowCount = pst.executeUpdate();
 				pst.close();
-        	} 
+        	}
             catch(SQLException e) {
             	e.printStackTrace();
         	}
@@ -36,25 +34,21 @@ public class DAOUserImp implements DAOUser {
         return rowCount;
     }
 
-    @objid ("c84ad11e-2c71-4ffc-9afb-16c89e062d95")
-    public User readUsuario(final String dni) {
-    	User usuario = null;
-        Connection conexion = DB.getConnection();
+    @objid ("c84ad11e-2c71-4ffc-9afb-16c89e062d95")    
+    public User readUser(String name) {
+    	User user = null;
+        Connection connection = DB.getConnection();
         
-        if(conexion != null) {
+        if(connection != null) {
         	try {
-        		String query = "SELECT id, nombre, dni, email, contrasenya, activo FROM usuario WHERE id = ?";
-        		PreparedStatement pst = conexion.prepareStatement(query);
+        		String query = "SELECT password, active "
+        					+ "FROM user "
+        					+ "WHERE name = ?";
+        		PreparedStatement pst = connection.prepareStatement(query);
         		
-        		pst.setString(1, dni);
+        		pst.setString(1, name);
         		ResultSet rs = pst.executeQuery();
-        		if (rs.next()) {
-                    String nombre = rs.getString("nombre");
-                    String contrasenya = rs.getString("contrasenya");
-                    boolean activo = rs.getBoolean("activo");
-                    
-                    usuario = new User(dni, nombre, contrasenya, activo);
-        		}
+        		if(rs.next()) user = new User(name, rs.getString("password"), rs.getBoolean("active"));
         		rs.close();
         		pst.close();
         	} 
@@ -62,47 +56,27 @@ public class DAOUserImp implements DAOUser {
         		e.printStackTrace();
         	}
         }
-        return usuario;
+        return user;
     }
 
     @objid ("df3573cb-7ca4-46d5-b789-f3a6bcec5034")
-    public int updateUsuario(final User usuario) {
+    public int updateUser(User user) {
         int rowCount = 0;
-        Connection conexion = DB.getConnection();
+        Connection connection = DB.getConnection();
         
-        if(conexion != null) {
+        if(connection != null) {
         	try {
-        		String query = "UPDATE usuario SET nombre = ?, contrasenya = ?, activo = ? WHERE dni = ?";
+        		String query = "UPDATE user "
+        					+ "SET password = ?, active = ? "
+        					+ "WHERE name = ?";
+        		PreparedStatement pst = connection.prepareStatement(query);
         		
-        		PreparedStatement pst = conexion.prepareStatement(query);
-        		pst.setString(1, usuario.getNombre());
-        		pst.setString(2, usuario.getContrasenya());
-        		pst.setBoolean(3, usuario.getActivo());
-        		pst.setString(4, usuario.getDni());
+        		pst.setString(1, user.getPassword());
+        		pst.setBoolean(2, user.getActive());
+        		pst.setString(3, user.getName());
         		rowCount = pst.executeUpdate();
         		pst.close();
-        	} 
-        	catch (SQLException e) {
-        		e.printStackTrace();
         	}
-        }
-        return rowCount;
-    }
-
-    @objid ("c6c8747e-8b83-4d56-98bc-16c48b6f140f")
-    public int deleteUsuario(final String dni) {
-        int rowCount = 0;
-        Connection conexion = DB.getConnection();
-        
-        if(conexion != null) {
-        	try {
-        		String query = "DELETE FROM usuario WHERE dni = ?";
-        		PreparedStatement pst = conexion.prepareStatement(query);
-        		
-        		pst.setString(1, dni);
-        		rowCount = pst.executeUpdate();
-        		pst.close();
-        	} 
         	catch(SQLException e) {
         		e.printStackTrace();
         	}
@@ -110,33 +84,49 @@ public class DAOUserImp implements DAOUser {
         return rowCount;
     }
 
-    @Override
-    public Collection<User> readAllUsuarios() {
-        Collection<User> usuarios = new ArrayList<>();
-        Connection conexion = DB.getConnection();
+    @objid ("c6c8747e-8b83-4d56-98bc-16c48b6f140f")
+    public int deleteUser(String name) { // Borrado lógico
+        int rowCount = 0;
+        Connection connection = DB.getConnection();
+        
+        if(connection != null) {
+        	try {
+        		String query = "UPDATE user "
+    					+ "SET active = FALSE "
+    					+ "WHERE name = ?";
+        		PreparedStatement pst = connection.prepareStatement(query);
+    		
+        		pst.setString(1, name);
+	    		rowCount = pst.executeUpdate();
+	    		pst.close();
+        	}
+        	catch(SQLException e) {
+        		e.printStackTrace();
+        	}
+        }
+        return rowCount;
+    }
+   
+    @Override    
+    public Collection<User> readAllUsers() {
+        Collection<User> users = new ArrayList<>();
+        Connection connection = DB.getConnection();
 
-        if(conexion != null) {
+        if(connection != null) {
             try {
-                String query = "SELECT dni, nombre, contrasena, activo FROM usuario";
-                PreparedStatement pst = conexion.prepareStatement(query);
+                String query = "SELECT name, password, active "
+                			+ "FROM user";
+                PreparedStatement pst = connection.prepareStatement(query);
 
                 ResultSet rs = pst.executeQuery();
-                while (rs.next()) {
-                    String dni = rs.getString("dni");
-                    String nombre = rs.getString("nombre");
-                    String contrasenya = rs.getString("contrasena");
-                    boolean activo = rs.getBoolean("activo");
-
-                    User usuario = new User(dni, nombre, contrasenya, activo);
-                    usuarios.add(usuario);
-                }
+                while(rs.next()) users.add(new User(rs.getString("name"), rs.getString("password"), rs.getBoolean("active")));
                 rs.close();
                 pst.close();
             } 
-            catch (SQLException e) {
+            catch(SQLException e) {
                 e.printStackTrace();
             }
         }
-        return usuarios;
-    }
+        return users;
+    }   
 }

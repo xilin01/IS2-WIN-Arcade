@@ -1,5 +1,6 @@
 package presentation;
 
+// Por traducir..
 public class Event {
 	// Evento Usuario 
 	public static final int ALTA_USUARIO = 100; 

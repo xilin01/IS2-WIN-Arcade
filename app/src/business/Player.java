@@ -1,36 +1,38 @@
 package business;
 
 public class Player extends User {
-
-	private int puntos;
-	private int partidasJugadas;
+	private int points;
+	private int gamesPlayed;
 	
-	public Player(String dni, String nombre, String contrasenya, boolean activo) {
-		super(dni, nombre, contrasenya, activo);
-		puntos = 0;
-		partidasJugadas = 0;
+	public Player(String name, String password) {
+		super(name, password, true);
+		points = 0;
+		gamesPlayed = 0;
 	}
 	
-	public Player(String dni, String nombre, String contrasenya, boolean activo, int puntos, int partidasJugadas) {
-		super(dni, nombre, contrasenya, activo);
-		this.puntos = puntos;
-		this.partidasJugadas = partidasJugadas;
+	public Player(String name, String password, boolean active, int points, int gamesPlayed) {
+		super(name, password, active);
+		this.points = points;
+		this.gamesPlayed = gamesPlayed;
 	}
 
-	public int getPuntos() {
-		return puntos;
+	public int getPoints() {
+		return points;
 	}
 
-	public void setPuntos(int puntos) {
-		this.puntos = puntos;
+	public void addPoints(int points) {
+		this.points += points;
+	}
+	
+	public void removePoints(int points) {
+		this.points -= points;
 	}
 
-	public int getPartidasJugadas() {
-		return partidasJugadas;
+	public int getGamesPlayed() {
+		return gamesPlayed;
 	}
 
-	public void setPartidasJugadas(int partidasJugadas) {
-		this.partidasJugadas = partidasJugadas;
+	public void addGamePlayed() {
+		this.gamesPlayed++;
 	}
-
 }

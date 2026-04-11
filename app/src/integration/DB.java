@@ -2,7 +2,7 @@ package integration;
 
 import java.sql.*;
 
-// Singleton Pattern
+// Patrón Singleton
 public class DB {
 	private static final String DB = "e4win";
 	private static final String LOGIN = "root";

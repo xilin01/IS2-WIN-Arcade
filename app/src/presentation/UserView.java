@@ -10,8 +10,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+// POR TRADUCIR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 @SuppressWarnings("serial")
-public class UserView extends JFrame{
+public class UserView extends JFrame {
 	
 	public UserView() {
 		super();
@@ -45,7 +46,7 @@ public class UserView extends JFrame{
 	    }); 
 	    botonReadAll.addActionListener(new ActionListener() { 
 			public void actionPerformed (ActionEvent e) { 
-				Controller.accion(Event.MOSTRAR_USUARIOS, null);  
+				Controller.action(Event.MOSTRAR_USUARIOS, null);  
 			} 
 		}); 
 	}
