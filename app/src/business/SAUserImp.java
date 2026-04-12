@@ -16,37 +16,25 @@ public class SAUserImp implements SAUser {
     }
     
     @objid ("03ba48e0-e6e9-446c-aa3d-df7741d311e4")
-    public int createUser(final tUser user) {
-        tUser actualUser = daoUser.readUser(user.getName());
-        
-        if (actualUser == null) {
-        	return daoUser.createUser(user);
-        }
+    public int createUser(tUser user) {
+        if(daoUser.readUser(user.getName()) == null) return daoUser.createUser(user);
         return -1;
     }
 
     @objid ("41363b00-839c-4740-93ad-d35ef7555d06")
-    public tUser readUser(final String name) {
+    public tUser readUser(String name) {
         return daoUser.readUser(name);
     }
 
     @objid ("8d9a7111-3e7a-444c-b943-a7fc48fbdb02")
-    public int updateUser(final tUser user) {
-        tUser actualUser = daoUser.readUser(user.getName());
-        
-        if (actualUser != null) {
-        	return daoUser.updateUser(user);
-        }
+    public int updateUser(tUser user) {
+        if(daoUser.readUser(user.getName()) != null) return daoUser.updateUser(user);
         return -1;
     }
     
     @objid ("af684d06-6239-4850-89d9-b4b20ea53d1d")
-    public int deleteUser(final String name) {
-        tUser actualUser = daoUser.readUser(name);
-        
-        if (actualUser != null) {
-        	return daoUser.deleteUser(name);
-        }
+    public int deleteUser(String name) {
+        if(daoUser.readUser(name) != null) return daoUser.deleteUser(name);
         return -1;
     }
 

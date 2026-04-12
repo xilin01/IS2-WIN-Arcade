@@ -9,6 +9,7 @@ public class UserRegisterView {
     private tUser user;
     
     @objid ("91a5c399-b421-4e2e-a148-a658a7e3da51")
-    public void registerUserView() {
+    public void userRegisterView() {
+    	// TODO
     }
 }

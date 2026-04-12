@@ -19,12 +19,13 @@ public class Roulette extends ChanceGame {
         public static Bet straight(int n1) {
             return new Bet("Sencillo al " + n1, 35, n -> n == n1);
         }
-        /* Por ahora no lo hacemos porque es dificil de implementar
+        
+        /* A DISCUTIR EL MARTES
         public static Bet doble(int n1, int n2) {
             return new Bet("Doble al " + n1 + " y " + n2, 17, n -> n == n1 || n == n2);
         }
         
-        public static triple?
+        public static Bet triple?
 
         public static Bet corner(int n1, int n2, int n3, int n4) {
             return new Bet("Esquina al " + n1 + ", " + n2 + ", " + n3 + " y " + n4, 8, n -> n == n1 || n == n2 || n == n3 || n == n4);
@@ -61,11 +62,11 @@ public class Roulette extends ChanceGame {
             return new Bet("Impar", 1, n -> n != 0 && n % 2 == 1);
         }
 
-        public static Bet low() { // 1-18
+        public static Bet low() {
             return new Bet("1-18", 1, n -> 1 <= n && n <= 18);
         }
 
-        public static Bet high() { // 19-36
+        public static Bet high() {
             return new Bet("19-36", 1, n -> 19 <= n && n <= 36);
         }
 

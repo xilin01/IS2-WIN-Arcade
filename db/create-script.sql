@@ -21,7 +21,7 @@ CREATE TABLE staff (
     name VARCHAR(50) NOT NULL,
 
 	PRIMARY KEY (name),
-    FOREIGN KEY (name) REFERENCES user(name)
+    FOREIGN KEY (name) REFERENCES user(name) ON UPDATE CASCADE
 );
 CREATE TABLE player (
     name VARCHAR(50) NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE player (
     gamesPlayed INT DEFAULT 0 NOT NULL,
     
     PRIMARY KEY (name),
-	FOREIGN KEY (name) REFERENCES user(name)
+	FOREIGN KEY (name) REFERENCES user(name) ON UPDATE CASCADE
 );
 CREATE TABLE game (
     name VARCHAR(50) NOT NULL,
@@ -50,8 +50,8 @@ CREATE TABLE packageDetail (
     amount INT NOT NULL,
     
     PRIMARY KEY (packageName, gameName, gameBasePoints),
-    FOREIGN KEY (packageName) REFERENCES gamesPackage(name),
-    FOREIGN KEY (gameName, gameBasePoints) REFERENCES game(name, basePoints)
+    FOREIGN KEY (packageName) REFERENCES gamesPackage(name) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (gameName, gameBasePoints) REFERENCES game(name, basePoints) ON UPDATE CASCADE ON DELETE CASCADE
 );
 CREATE TABLE product (
     name VARCHAR(50) NOT NULL,
@@ -66,8 +66,8 @@ CREATE TABLE gamesInventory (
     amount INT NOT NULL,
     
     PRIMARY KEY (playerName, gameName, gameBasePoints),
-    FOREIGN KEY (playerName) REFERENCES player(name),
-    FOREIGN KEY (gameName, gameBasePoints) REFERENCES game(name, basePoints)
+    FOREIGN KEY (playerName) REFERENCES player(name) ON UPDATE CASCADE,
+    FOREIGN KEY (gameName, gameBasePoints) REFERENCES game(name, basePoints) ON UPDATE CASCADE ON DELETE CASCADE
 );
 CREATE TABLE productsInventory (
     playerName VARCHAR(50) NOT NULL,
@@ -75,8 +75,8 @@ CREATE TABLE productsInventory (
     amount INT NOT NULL,
     
     PRIMARY KEY (playerName, productName),
-    FOREIGN KEY (playerName) REFERENCES player(name),
-    FOREIGN KEY (productName) REFERENCES product(name)
+    FOREIGN KEY (playerName) REFERENCES player(name) ON UPDATE CASCADE, 
+    FOREIGN KEY (productName) REFERENCES product(name) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 -- Inicialización
