@@ -33,24 +33,25 @@ CREATE TABLE player (
 );
 CREATE TABLE game (
     name VARCHAR(50) NOT NULL,
+    basePoints INT NOT NULL,
     
-    PRIMARY KEY (name)
+    PRIMARY KEY (name, basePoints)
 );
 CREATE TABLE gamesPackage (
     name VARCHAR(50) NOT NULL,
-    price DOUBLE NOT NULL,
+    price DECIMAL(5, 2) NOT NULL,
     
     PRIMARY KEY (name)
 );
 CREATE TABLE packageDetail (
 	packageName VARCHAR(50) NOT NULL,
     gameName VARCHAR(50) NOT NULL,
-    points INT NOT NULL,
+    gameBasePoints INT NOT NULL,
     amount INT NOT NULL,
     
-    PRIMARY KEY (packageName, gameName, points),
+    PRIMARY KEY (packageName, gameName, gameBasePoints),
     FOREIGN KEY (packageName) REFERENCES gamesPackage(name),
-    FOREIGN KEY (gameName) REFERENCES game(name)
+    FOREIGN KEY (gameName, gameBasePoints) REFERENCES game(name, basePoints)
 );
 CREATE TABLE product (
     name VARCHAR(50) NOT NULL,
@@ -61,12 +62,12 @@ CREATE TABLE product (
 CREATE TABLE gamesInventory (
     playerName VARCHAR(50) NOT NULL,
     gameName VARCHAR(50) NOT NULL,
-    points INT NOT NULL,
+    gameBasePoints INT NOT NULL,
     amount INT NOT NULL,
     
-    PRIMARY KEY (playerName, gameName, points),
+    PRIMARY KEY (playerName, gameName, gameBasePoints),
     FOREIGN KEY (playerName) REFERENCES player(name),
-    FOREIGN KEY (gameName) REFERENCES game(name)
+    FOREIGN KEY (gameName, gameBasePoints) REFERENCES game(name, basePoints)
 );
 CREATE TABLE productsInventory (
     playerName VARCHAR(50) NOT NULL,
@@ -98,23 +99,35 @@ INSERT INTO staff (name) VALUES
 INSERT INTO player (name, points, gamesPlayed) VALUES
 ('Jug1', 0, 0),
 ('Jug2', 1000, 100);
-INSERT INTO game (name) VALUES
-('Ruleta'),
-('Blackjack'); 
+INSERT INTO game (name, basePoints) VALUES
+('Ruleta', 10),
+('Ruleta', 20),
+('Blackjack', 10),
+('Blackjack', 20);
 INSERT INTO gamesPackage (name, price) VALUES
-('Paq0', 19.99),
-('Paq1', 49.99);
-INSERT INTO packageDetail (packageName, gameName, points, amount) VALUES
-('Paq0', 'Ruleta', 100, 1),
-('Paq1', 'Ruleta', 150, 1),
-('Paq1', 'Blackjack', 500, 2);
+('Paq0', 9.99),
+('Paq1', 29.99),
+('Paq2', 49.99);
+INSERT INTO packageDetail (packageName, gameName, gameBasePoints, amount) VALUES
+('Paq0', 'Ruleta', 10, 1),
+('Paq0', 'Blackjack', 10, 1),
+('Paq1', 'Ruleta', 10, 2),
+('Paq1', 'Ruleta', 20, 1),
+('Paq1', 'Blackjack', 10, 2),
+('Paq1', 'Blackjack', 20, 1),
+('Paq2', 'Ruleta', 10, 3),
+('Paq2', 'Ruleta', 20, 3),
+('Paq2', 'Blackjack', 10, 3),
+('Paq2', 'Blackjack', 20, 3);
 INSERT INTO product (name, price) VALUES
-('Camiseta', 20),
-('Taza', 10),
-('Pin', 5);
-INSERT INTO gamesInventory (playerName, gameName, points, amount) VALUES
-('Jug1', 'Ruleta', 100, 10),
-('Jug1', 'Blackjack', 500, 10);
+('Camiseta', 100),
+('Taza', 50),
+('Pin', 10);
+INSERT INTO gamesInventory (playerName, gameName, gameBasePoints, amount) VALUES
+('Jug1', 'Ruleta', 10, 10),
+('Jug1', 'Ruleta', 20, 10),
+('Jug1', 'Blackjack', 10, 10),
+('Jug1', 'Blackjack', 20, 10);
 INSERT INTO productsInventory (playerName, productName, amount) VALUES
 ('Jug1', 'Camiseta', 2),
 ('Jug1', 'Taza', 1);
