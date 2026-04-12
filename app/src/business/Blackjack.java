@@ -53,8 +53,8 @@ public class Blackjack extends CardGame {
 	private Hand croupier;
 	private Hand player;
 	
-	public Blackjack() {
-		super(NAME);
+	public Blackjack(int basePoints) {
+		super(NAME, basePoints);
 		croupier = new Hand();
 		player = new Hand();
 	}

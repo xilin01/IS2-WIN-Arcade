@@ -6,9 +6,9 @@ import business.Blackjack;
 // Maqueta inicial para probar el blackjack
 public class BlackjackView {
 	
-    public void initBlackjack() {
+    public void initBlackjack(int basePoints) {
         Scanner scanner = new Scanner(System.in);
-        Blackjack blackjack = new Blackjack();
+        Blackjack blackjack = new Blackjack(basePoints);
 
         System.out.println("========BLACKJACK=========");
         System.out.println("Turno del croupier");
@@ -51,6 +51,6 @@ public class BlackjackView {
         int result = blackjack.getResult();
         if(result == -1) System.out.println("Lo siento, gana el croupier..");
         else if(result == 0) System.out.println("Empate");
-        else System.out.println("Felicidades, has ganado la partida!");
+        else System.out.println("Felicidades, has ganado " + blackjack.getPointsWon() + " puntos!");
     }
 }

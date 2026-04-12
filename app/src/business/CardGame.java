@@ -19,8 +19,8 @@ public abstract class CardGame extends Game {
 	
 	protected List<Cards> deck;
 	
-	protected CardGame(String name) {
-		super(name);
+	protected CardGame(String name, int basePoints) {
+		super(name, basePoints);
 		deck = new ArrayList<>(Arrays.asList(Cards.values()));
 		Collections.shuffle(deck, RAND);
 	}
