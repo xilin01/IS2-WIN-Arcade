@@ -1,16 +1,16 @@
 package business;
 
-public class Player extends User {
+public class tPlayer extends tUser {
 	private int points;
 	private int gamesPlayed;
 	
-	public Player(String name, String password) {
+	public tPlayer(String name, String password) {
 		super(name, password, true);
 		points = 0;
 		gamesPlayed = 0;
 	}
 	
-	public Player(String name, String password, boolean active, int points, int gamesPlayed) {
+	public tPlayer(String name, String password, boolean active, int points, int gamesPlayed) {
 		super(name, password, active);
 		this.points = points;
 		this.gamesPlayed = gamesPlayed;

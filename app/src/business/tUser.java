@@ -3,7 +3,7 @@ package business;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("6412596d-6469-4893-83ec-0812aedc297c")
-public class User {
+public class tUser {
     @objid ("a669f9bd-cd6d-4a2a-9563-a8dcabdec084")
     private String name;
     @objid ("260eec0d-4175-4e20-9b2b-1377f14b222d")
@@ -12,7 +12,7 @@ public class User {
     private boolean active;
 
     @objid ("f892fd71-665f-4d31-9c25-cabf1bac8380")
-    public User(String name, String password, boolean active) {
+    public tUser(String name, String password, boolean active) {
         this.name = name;
         this.password = password;
         this.active = active;
