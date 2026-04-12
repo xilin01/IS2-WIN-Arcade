@@ -23,6 +23,6 @@ public class Main {
     	new RouletteView().initRouletteView(10, Roulette.Bet.straight(0));
     	new RouletteView().initRouletteView(10, Roulette.Bet.red());
     	new RouletteView().initRouletteView(10, Roulette.Bet.dozen(2));
-    	new RouletteView().initRouletteView(10, Roulette.Bet.corner(8, 9, 11, 12));
+    	//new RouletteView().initRouletteView(10, Roulette.Bet.corner(8, 9, 11, 12));
     }
 }
