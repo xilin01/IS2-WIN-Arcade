@@ -52,16 +52,56 @@ public class UserView extends JFrame {
 	}
 	
 	public static void actualizar(int evento, Object datos) { 
-		if (evento == Event.RES_MOSTRAR_USUARIOS_OK) { 
-			JTextArea textArea = new JTextArea(datos.toString());
-			
-			textArea.setLineWrap(true); 
-			textArea.setEditable(false); 
-			textArea.setWrapStyleWord(true); 
-			JScrollPane scrollPane = new JScrollPane(textArea); 
-			scrollPane.setPreferredSize( new Dimension( 500, 200 ) ); 
-			JOptionPane.showMessageDialog(null, scrollPane, "USUARIOS", JOptionPane.DEFAULT_OPTION); 
+		switch (evento) {
+		
+			case Event.RES_ALTA_USUARIO_OK: {
+				JOptionPane.showMessageDialog(null, "Usuario registrado con éxito.");
+				break;
+			}
+			case Event.RES_ALTA_USUARIO_KO : {
+				JOptionPane.showMessageDialog(null, "No se ha podido dar de alta al usuario. El nombre ya existe.");
+				break;
+			}
+			case Event.RES_MOSTRAR_USUARIOS_OK: {
+				JTextArea textArea = new JTextArea(datos.toString());
+				
+				textArea.setLineWrap(true); 
+				textArea.setEditable(false); 
+				textArea.setWrapStyleWord(true); 
+				JScrollPane scrollPane = new JScrollPane(textArea); 
+				scrollPane.setPreferredSize( new Dimension( 500, 200 ) ); 
+				JOptionPane.showMessageDialog(null, scrollPane, "USUARIOS", JOptionPane.DEFAULT_OPTION);
+				
+				break;
+			}
+			case Event.RES_MOSTRAR_USUARIOS_KO: {
+				JOptionPane.showMessageDialog(null, "No se ha podido encontrar ningun usuario");
+				break;
+			}
+			case Event.RES_BUSCAR_USUARIO_OK : {
+				JOptionPane.showMessageDialog(null, "Usuario encontrado:\n" + datos.toString());
+				break;
+			}
+			case Event.RES_BUSCAR_USUARIO_KO : {
+				JOptionPane.showMessageDialog(null, "No se ha podido encontrar el usuario");
+				break;
+			}
+			case Event.RES_ELIMINAR_USUARIO_OK : {
+				JOptionPane.showMessageDialog(null, "Usuario eliminado correctamente");
+				break;
+			}
+			case Event.RES_ELIMINAR_USUARIO_KO : {
+				JOptionPane.showMessageDialog(null, "No se ha podido encontrar el usuario");
+				break;
+			}
+			case Event.RES_MODIFICAR_USUARIO_OK : {
+				JOptionPane.showMessageDialog(null, "Usuario modificado correctamente");
+				break;
+			}
+			case Event.RES_MODIFICAR_USUARIO_KO : {
+				JOptionPane.showMessageDialog(null, "No se ha podido encontrar el usuario");
+				break;
+			}
 		}
-		else if (evento == Event.RES_MOSTRAR_USUARIOS_KO) JOptionPane.showMessageDialog(null, "No se ha podido encontrar ningun usuario"); 
 	} 
 }

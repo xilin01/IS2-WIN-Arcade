@@ -7,12 +7,12 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.ArrayList;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import business.User;
+import business.tUser;
 
 @objid ("916a8918-6c10-4150-8235-52c01b81dbe7")
 public class DAOUserImp implements DAOUser {
     @objid ("f497545b-41c2-43b2-b1c8-0df6f0889592")    
-    public int createUser(User user) {
+    public int createUser(tUser user) {
         int rowCount = 0;
         Connection connection = DB.getConnection();
                 
@@ -35,8 +35,8 @@ public class DAOUserImp implements DAOUser {
     }
 
     @objid ("c84ad11e-2c71-4ffc-9afb-16c89e062d95")    
-    public User readUser(String name) {
-    	User user = null;
+    public tUser readUser(String name) {
+    	tUser user = null;
         Connection connection = DB.getConnection();
         
         if(connection != null) {
@@ -48,7 +48,7 @@ public class DAOUserImp implements DAOUser {
         		
         		pst.setString(1, name);
         		ResultSet rs = pst.executeQuery();
-        		if(rs.next()) user = new User(name, rs.getString("password"), rs.getBoolean("active"));
+        		if(rs.next()) user = new tUser(name, rs.getString("password"), rs.getBoolean("active"));
         		rs.close();
         		pst.close();
         	} 
@@ -60,7 +60,7 @@ public class DAOUserImp implements DAOUser {
     }
 
     @objid ("df3573cb-7ca4-46d5-b789-f3a6bcec5034")
-    public int updateUser(User user) {
+    public int updateUser(tUser user) {
         int rowCount = 0;
         Connection connection = DB.getConnection();
         
@@ -108,8 +108,8 @@ public class DAOUserImp implements DAOUser {
     }
    
     @Override    
-    public Collection<User> readAllUsers() {
-        Collection<User> users = new ArrayList<>();
+    public Collection<tUser> readAllUsers() {
+        Collection<tUser> users = new ArrayList<>();
         Connection connection = DB.getConnection();
 
         if(connection != null) {
@@ -119,7 +119,7 @@ public class DAOUserImp implements DAOUser {
                 PreparedStatement pst = connection.prepareStatement(query);
 
                 ResultSet rs = pst.executeQuery();
-                while(rs.next()) users.add(new User(rs.getString("name"), rs.getString("password"), rs.getBoolean("active")));
+                while(rs.next()) users.add(new tUser(rs.getString("name"), rs.getString("password"), rs.getBoolean("active")));
                 rs.close();
                 pst.close();
             } 
