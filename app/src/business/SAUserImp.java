@@ -6,7 +6,7 @@ import integration.DAOUser;
 import integration.DAOUserImp;
 
 @objid ("3e41cb74-2903-4975-b822-3a84bb853f25")
-public class SAUserImp implements SAUser {
+public	 class SAUserImp implements SAUser {
     @objid ("d83d92ae-22a6-4757-abcf-c7ba3c7147fa")
     private DAOUser daoUser;
     
