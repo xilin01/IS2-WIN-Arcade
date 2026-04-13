@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.ArrayList;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+
+import business.tPlayer;
+import business.tStaff;
 import business.tUser;
 
 @objid ("916a8918-6c10-4150-8235-52c01b81dbe7")
@@ -26,7 +29,7 @@ public class DAOUserImp implements DAOUser {
 				pst.setBoolean(3, user.getActive());
 				rowCount = pst.executeUpdate();
 				pst.close();
-        	}
+        	} 
             catch(SQLException e) {
             	e.printStackTrace();
         	}
@@ -41,14 +44,22 @@ public class DAOUserImp implements DAOUser {
         
         if(connection != null) {
         	try {
-        		String query = "SELECT password, active "
-        					+ "FROM user "
-        					+ "WHERE name = ?";
+        		String query = "SELECT u.password, u.active, p.name AS playerName, p.points, s.name AS staffName "
+        					+ "FROM user u "
+        					+ "LEFT JOIN player p ON u.name = p.name "
+        					+ "LEFT JOIN staff s ON u.name = s.name "
+        					+ "WHERE u.name = ?";
         		PreparedStatement pst = connection.prepareStatement(query);
         		
         		pst.setString(1, name);
         		ResultSet rs = pst.executeQuery();
-        		if(rs.next()) user = new tUser(name, rs.getString("password"), rs.getBoolean("active"));
+        		if(rs.next()) {
+        			String password = rs.getString("password");
+        			boolean active = rs.getBoolean("active");
+        		
+        			if(rs.getString("staffName") != null) user = new tStaff(name, password, active);
+        			else if(rs.getString("playerName") != null) user = new tPlayer(name, password, active, null,  rs.getInt("points"));
+        		}
         		rs.close();
         		pst.close();
         	} 
@@ -66,9 +77,7 @@ public class DAOUserImp implements DAOUser {
         
         if(connection != null) {
         	try {
-        		String query = "UPDATE user "
-        					+ "SET password = ?, active = ? "
-        					+ "WHERE name = ?";
+        		String query = "UPDATE user SET password = ?, active = ? WHERE name = ?";
         		PreparedStatement pst = connection.prepareStatement(query);
         		
         		pst.setString(1, user.getPassword());
@@ -76,7 +85,7 @@ public class DAOUserImp implements DAOUser {
         		pst.setString(3, user.getName());
         		rowCount = pst.executeUpdate();
         		pst.close();
-        	}
+        	} 
         	catch(SQLException e) {
         		e.printStackTrace();
         	}
@@ -91,15 +100,13 @@ public class DAOUserImp implements DAOUser {
         
         if(connection != null) {
         	try {
-        		String query = "UPDATE user "
-    					+ "SET active = FALSE "
-    					+ "WHERE name = ?";
+        		String query = "UPDATE user SET active = FALSE WHERE name = ?";
         		PreparedStatement pst = connection.prepareStatement(query);
-    		
+        		
         		pst.setString(1, name);
 	    		rowCount = pst.executeUpdate();
 	    		pst.close();
-        	}
+        	} 
         	catch(SQLException e) {
         		e.printStackTrace();
         	}
@@ -114,12 +121,21 @@ public class DAOUserImp implements DAOUser {
 
         if(connection != null) {
             try {
-                String query = "SELECT name, password, active "
-                			+ "FROM user";
+                String query = "SELECT u.name, u.password, u.active, p.name AS playerName, p.points, s.name AS staffName "
+                             + "FROM user u "
+                             + "LEFT JOIN player p ON u.name = p.name "
+                             + "LEFT JOIN staff s ON u.name = s.name";
                 PreparedStatement pst = connection.prepareStatement(query);
-
                 ResultSet rs = pst.executeQuery();
-                while(rs.next()) users.add(new tUser(rs.getString("name"), rs.getString("password"), rs.getBoolean("active")));
+                
+                while(rs.next()) {
+                    String name = rs.getString("name");
+                    String password = rs.getString("password");
+                    boolean active = rs.getBoolean("active");
+                    
+                    if(rs.getString("staffName") != null) users.add(new tStaff(name, password, active));
+                    else if(rs.getString("playerName") != null) users.add(new tPlayer(name, password, active, null, rs.getInt("points")));
+                }
                 rs.close();
                 pst.close();
             } 
@@ -128,5 +144,5 @@ public class DAOUserImp implements DAOUser {
             }
         }
         return users;
-    }   
+    }
 }
