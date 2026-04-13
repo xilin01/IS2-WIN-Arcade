@@ -3,7 +3,6 @@ package business;
 import java.util.ArrayList;
 import java.util.List;
 
-// Por el MVC, esto será llamado por un controlador gigante (?)
 public class Blackjack extends CardGame {
 	private class Hand {
 		private List<Cards> cards;

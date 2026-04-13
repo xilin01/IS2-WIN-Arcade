@@ -26,7 +26,6 @@ CREATE TABLE staff (
 CREATE TABLE player (
     name VARCHAR(50) NOT NULL,
     points INT DEFAULT 0 NOT NULL,
-    gamesPlayed INT DEFAULT 0 NOT NULL,
     
     PRIMARY KEY (name),
 	FOREIGN KEY (name) REFERENCES user(name) ON UPDATE CASCADE
@@ -96,9 +95,9 @@ INSERT INTO staff (name) VALUES
 ('Diego'),
 ('Luis'),
 ('Adrian');
-INSERT INTO player (name, points, gamesPlayed) VALUES
-('Jug1', 0, 0),
-('Jug2', 1000, 100);
+INSERT INTO player (name, points) VALUES
+('Jug1', 0),
+('Jug2', 1000);
 INSERT INTO game (name, basePoints) VALUES
 ('Ruleta', 10),
 ('Ruleta', 20),
