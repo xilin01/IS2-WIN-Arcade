@@ -26,4 +26,11 @@ public class Event {
 	// ..  
 	//public static final int RES_ELIMINAR_PRODUCTO_OK = 502; 
 	// ..  
+	
+	
+	public static final int LOGIN = 106;
+	public static final int STAFF_LOGIN = 107;
+	public static final int RES_LOGIN_OK = 402;
+	public static final int RES_LOGIN_STAFF_OK = 403;
+	public static final int RES_LOGIN_KO = 404;
 }

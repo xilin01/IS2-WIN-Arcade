@@ -58,6 +58,28 @@ public class Controller {
 				else UserView.actualizar(Event.RES_MODIFICAR_USUARIO_KO, null);
 				break;
 			}
+			case Event.LOGIN: {
+			    tUser credentials = (tUser) data;
+			    tUser user = saUser.readUser(credentials.getName());
+
+			    if (user != null && user.getPassword().equals(credentials.getPassword()) && user.getActive()) {
+			        LoginView.actualizar(Event.RES_LOGIN_OK, user);
+			    } else {
+			    	LoginView.actualizar(Event.RES_LOGIN_KO, null);
+			    }
+			    break;
+			}
+			case Event.STAFF_LOGIN: {
+			    tUser credentials = (tUser) data;
+			    tUser user = saUser.readUser(credentials.getName());
+
+			    if (user != null && user.getPassword().equals(credentials.getPassword()) && user.getActive()) {
+			        LoginView.actualizar(Event.RES_LOGIN_STAFF_OK, user);
+			    } else {
+			    	LoginView.actualizar(Event.RES_LOGIN_KO, null);
+			    }
+			    break;
+			}
 		}
 	}
 }
