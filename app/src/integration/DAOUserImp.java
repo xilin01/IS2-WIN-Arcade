@@ -45,9 +45,7 @@ public class DAOUserImp implements DAOUser {
         if(connection != null) {
         	try {
         		String query = "SELECT u.password, u.active, s.name AS staffName, p.name AS playerName, p.points "
-        					+ "FROM user u "
-        					+ "LEFT JOIN staff s ON u.name = s.name "
-        					+ "LEFT JOIN player p ON u.name = p.name "
+        					+ "FROM user u LEFT JOIN staff s ON u.name = s.name LEFT JOIN player p ON u.name = p.name "
         					+ "WHERE u.name = ?";
         		PreparedStatement pst = connection.prepareStatement(query);
         		
@@ -126,9 +124,7 @@ public class DAOUserImp implements DAOUser {
         if(connection != null) {
             try {
             	String query = "SELECT u.password, u.active, s.name AS staffName, p.name AS playerName, p.points "
-    					+ "FROM user u "
-    					+ "LEFT JOIN staff s ON u.name = s.name "
-    					+ "LEFT JOIN player p ON u.name = p.name"; 
+    						+ "FROM user u LEFT JOIN staff s ON u.name = s.name LEFT JOIN player p ON u.name = p.name";
                 PreparedStatement pst = connection.prepareStatement(query);
                 ResultSet rs = pst.executeQuery();
                 

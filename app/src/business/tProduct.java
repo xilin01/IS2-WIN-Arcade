@@ -4,6 +4,11 @@ public class tProduct {
 	private String name;
 	private int price;
 	
+	public tProduct(String name, int price) {
+		this.name = name;
+		this.price = price;
+	}
+	
 	public String getName() {
 		return name;
 	}
