@@ -20,9 +20,9 @@ public class Main {
     @objid ("0699632e-2ac8-43b2-b795-5017a07d6fd5")
     public static void main(String[] args) {
     	SwingUtilities.invokeLater(() -> new LoginView());
-    	// new BlackjackView().initBlackjack(10);
-    	new RouletteView().initRouletteView(10, Roulette.Bet.straight(0));
-    	new RouletteView().initRouletteView(10, Roulette.Bet.red());
-    	new RouletteView().initRouletteView(10, Roulette.Bet.dozen(2));
+//    	new BlackjackView().initBlackjack(10);
+//    	new RouletteView().initRouletteView(10, Roulette.Bet.straight(0));
+//    	new RouletteView().initRouletteView(10, Roulette.Bet.red());
+//    	new RouletteView().initRouletteView(10, Roulette.Bet.dozen(2));
     }
 }
