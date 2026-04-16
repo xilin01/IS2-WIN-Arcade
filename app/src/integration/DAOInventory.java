@@ -1,7 +1,7 @@
 package integration;
 
 import java.util.Collection;
-import business.tInventory;
+import business.tPlayer.tInventory;
 
 public interface DAOInventory {
 	

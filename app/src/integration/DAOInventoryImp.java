@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import business.tGame;
-import business.tInventory;
+import business.tPlayer.tInventory;
 import business.tProduct;
 
 public class DAOInventoryImp implements DAOInventory {

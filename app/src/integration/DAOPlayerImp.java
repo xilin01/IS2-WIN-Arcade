@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
-import business.tInventory;
+import business.tPlayer.tInventory;
 import business.tPlayer;
 import business.tUser;
 
