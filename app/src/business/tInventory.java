@@ -1,5 +1,6 @@
 package business;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class tInventory {
@@ -11,6 +12,10 @@ public class tInventory {
     	this.playerName = playerName;
     	this.games = games;
     	this.products = products;
+    }
+    
+    public tInventory(String playerName) {
+    	this(playerName, new HashMap<>(), new HashMap<>());
     }
 
 	public String getPlayerName() {

@@ -2,14 +2,18 @@ package integration;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import business.tInventory;
 import business.tPlayer;
 import business.tUser;
 
 public class DAOPlayerImp implements DAOPlayer {
-    private DAOUser daoUser = new DAOUserImp(); // Composición
+	// Composiciones
+    private DAOUser daoUser = new DAOUserImp();
+    private DAOInventory daoInventory = new DAOInventoryImp();
 
     @Override
     public int createPlayer(tPlayer player) {
@@ -52,12 +56,36 @@ public class DAOPlayerImp implements DAOPlayer {
         }
         return rowCount;
     }
-
+    
     @Override
     public tPlayer readPlayer(String name) {
         tUser user = daoUser.readUser(name);
         
-        if(user instanceof tPlayer) return (tPlayer)user;
+        if(user instanceof tPlayer) {
+            tPlayer player = (tPlayer)user;
+            Connection connection = DB.getConnection();
+            
+            if(connection != null) {
+                try {
+                    String query = "SELECT points "
+                    				+ "FROM player "
+                    				+ "WHERE name = ?";
+                    PreparedStatement pst = connection.prepareStatement(query);
+                    
+                    pst.setString(1, name);
+                    ResultSet rs = pst.executeQuery();
+                    if(rs.next()) player.setPoints(rs.getInt("points"));
+                    rs.close();
+                    pst.close();
+                }
+                catch(SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            tInventory inventory = daoInventory.readInventory(name);
+            player.setInventory(inventory != null ? inventory : new tInventory(name));
+            return player;
+        }
         return null;
     }
 
@@ -71,8 +99,8 @@ public class DAOPlayerImp implements DAOPlayer {
                 connection.setAutoCommit(false);
                 if(daoUser.updateUser(player) == 1) {
                     String query = "UPDATE player "
-                    			+ "SET points = ? "
-                    			+ "WHERE name = ?";
+                    				+ "SET points = ? "
+                    				+ "WHERE name = ?";
                     PreparedStatement pst = connection.prepareStatement(query);
                     
                     pst.setInt(1, player.getPoints());
@@ -101,6 +129,7 @@ public class DAOPlayerImp implements DAOPlayer {
                 	e.printStackTrace();
                 }
             }
+            if(rowCount == 1) daoInventory.updateInventory(player.getInventory());
         }
         return rowCount;
     }
@@ -113,9 +142,33 @@ public class DAOPlayerImp implements DAOPlayer {
     @Override
     public Collection<tPlayer> readAllPlayers() {
         Collection<tPlayer> players = new ArrayList<>();
+        Connection connection = DB.getConnection();
    
         for(tUser user: daoUser.readAllUsers()) {
-            if(user instanceof tPlayer) players.add((tPlayer)user);
+            if(user instanceof tPlayer) {
+                tPlayer player = (tPlayer)user;
+                
+                if(connection != null) {
+                    try {
+                        String query = "SELECT points "
+                        				+ "FROM player "
+                        				+ "WHERE name = ?";
+                        PreparedStatement pst = connection.prepareStatement(query);
+                        
+                        pst.setString(1, player.getName());
+                        ResultSet rs = pst.executeQuery();
+                        if(rs.next()) player.setPoints(rs.getInt("points"));
+                        rs.close();
+                        pst.close();
+                    }
+                    catch(SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                tInventory inventory = daoInventory.readInventory(player.getName());
+                player.setInventory(inventory != null ? inventory : new tInventory(player.getName()));
+                players.add(player);
+            }
         }
         return players;
     }

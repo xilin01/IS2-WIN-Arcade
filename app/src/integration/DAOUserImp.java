@@ -38,15 +38,15 @@ public class DAOUserImp implements DAOUser {
     }
 
     @objid ("c84ad11e-2c71-4ffc-9afb-16c89e062d95")    
-    public tUser readUser(String name) {
+    public tUser readUser(String name) { // Leer usuario activo
     	tUser user = null;
         Connection connection = DB.getConnection();
         
         if(connection != null) {
         	try {
-        		String query = "SELECT u.password, u.active, s.name AS staffName, p.name AS playerName, p.points "
-        						+ "FROM user u LEFT JOIN staff s ON u.name = s.name LEFT JOIN player p ON u.name = p.name "
-        						+ "WHERE u.name = ?";
+        		String query = "SELECT u.password, u.active, s.name AS staffName "
+        						+ "FROM user u LEFT JOIN staff s ON u.name = s.name "
+        						+ "WHERE u.name = ? AND u.active = TRUE";
         		PreparedStatement pst = connection.prepareStatement(query);
         		
         		pst.setString(1, name);
@@ -56,7 +56,7 @@ public class DAOUserImp implements DAOUser {
         			boolean active = rs.getBoolean("active");
         		
         			if(rs.getString("staffName") != null) user = new tStaff(name, password, active);
-        			else user = new tPlayer(name, password, active, null,  rs.getInt("points"));
+        			else user = new tPlayer(name, password, active, null,  0);
         		}
         		rs.close();
         		pst.close();
@@ -117,14 +117,14 @@ public class DAOUserImp implements DAOUser {
     }
    
     @Override    
-    public Collection<tUser> readAllUsers() {
+    public Collection<tUser> readAllUsers() { // Leer usuarios activos y no activos
         Collection<tUser> users = new ArrayList<>();
         Connection connection = DB.getConnection();
 
         if(connection != null) {
             try {
-            	String query = "SELECT u.password, u.active, s.name AS staffName, p.name AS playerName, p.points "
-            					+ "FROM user u LEFT JOIN staff s ON u.name = s.name LEFT JOIN player p ON u.name = p.name";
+            	String query = "SELECT u.password, u.active, s.name AS staffName "
+            					+ "FROM user u LEFT JOIN staff s ON u.name = s.name";
                 PreparedStatement pst = connection.prepareStatement(query);
                 ResultSet rs = pst.executeQuery();
                 
@@ -134,7 +134,7 @@ public class DAOUserImp implements DAOUser {
                     boolean active = rs.getBoolean("active");
                     
                     if(rs.getString("staffName") != null) users.add(new tStaff(name, password, active));
-                    else users.add(new tPlayer(name, password, active, null, rs.getInt("points")));
+                    else users.add(new tPlayer(name, password, active, null, 0));
                 }
                 rs.close();
                 pst.close();

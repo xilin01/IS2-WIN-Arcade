@@ -1,5 +1,7 @@
 package business;
 
+import java.util.Objects;
+
 public class tProduct {
 	private String name;
 	private int price;
@@ -23,5 +25,18 @@ public class tProduct {
 	
 	public void setPrice(int price) {
 		this.price = price;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+	    if(this == obj) return true;
+	    if(obj == null || getClass() != obj.getClass()) return false;
+	    tProduct product = (tProduct)obj;
+	    return name.equals(product.name) && price == product.price;
+	}
+
+	@Override
+	public int hashCode() {
+	    return Objects.hash(name, price);
 	}
 }

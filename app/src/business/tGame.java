@@ -1,5 +1,7 @@
 package business;
 
+import java.util.Objects;
+
 public class tGame {
     private String name;
     private int basePoints;
@@ -23,5 +25,18 @@ public class tGame {
 
     public void setBasePoints(int basePoints) {
         this.basePoints = basePoints;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj) return true;
+        if(obj == null || getClass() != obj.getClass()) return false;
+        tGame game = (tGame)obj;
+        return name.equals(game.name) && basePoints == game.basePoints;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, basePoints);
     }
 }

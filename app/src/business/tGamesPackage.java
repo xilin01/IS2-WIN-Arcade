@@ -37,4 +37,3 @@ public class tGamesPackage {
 		this.games = games;
 	}
 }
-	
