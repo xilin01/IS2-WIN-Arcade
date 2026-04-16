@@ -40,8 +40,8 @@ public class DAOProductImp implements DAOProduct {
         if(connection != null) {
             try {
                 String query = "SELECT name, price "
-                			+ "FROM product "
-                			+ "WHERE name = ?";
+                				+ "FROM product "
+                				+ "WHERE name = ?";
                 PreparedStatement pst = connection.prepareStatement(query);
                 
                 pst.setString(1, name);
@@ -65,8 +65,8 @@ public class DAOProductImp implements DAOProduct {
         if(connection != null) {
             try {
                 String query = "UPDATE product "
-                			+ "SET price = ? "
-                			+ "WHERE name = ?";
+                				+ "SET price = ? "
+                				+ "WHERE name = ?";
                 PreparedStatement pst = connection.prepareStatement(query);
                 
                 pst.setInt(1, product.getPrice());
@@ -110,7 +110,7 @@ public class DAOProductImp implements DAOProduct {
         if(connection != null) {
             try {
                 String query = "SELECT name, price "
-                			+ "FROM product";
+                				+ "FROM product";
                 PreparedStatement pst = connection.prepareStatement(query);
                 ResultSet rs = pst.executeQuery();
                 

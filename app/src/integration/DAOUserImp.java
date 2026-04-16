@@ -45,8 +45,8 @@ public class DAOUserImp implements DAOUser {
         if(connection != null) {
         	try {
         		String query = "SELECT u.password, u.active, s.name AS staffName, p.name AS playerName, p.points "
-        					+ "FROM user u LEFT JOIN staff s ON u.name = s.name LEFT JOIN player p ON u.name = p.name "
-        					+ "WHERE u.name = ?";
+        						+ "FROM user u LEFT JOIN staff s ON u.name = s.name LEFT JOIN player p ON u.name = p.name "
+        						+ "WHERE u.name = ?";
         		PreparedStatement pst = connection.prepareStatement(query);
         		
         		pst.setString(1, name);
@@ -76,8 +76,8 @@ public class DAOUserImp implements DAOUser {
         if(connection != null) {
         	try {
         		String query = "UPDATE user "
-        					+ "SET password = ?, active = ? "
-        					+ "WHERE name = ?";
+        						+ "SET password = ?, active = ? "
+        						+ "WHERE name = ?";
         		PreparedStatement pst = connection.prepareStatement(query);
         		
         		pst.setString(1, user.getPassword());
@@ -101,14 +101,14 @@ public class DAOUserImp implements DAOUser {
         if(connection != null) {
         	try {
         		String query = "UPDATE user "
-        					+ "SET active = FALSE "
-        					+ "WHERE name = ?";
+        						+ "SET active = FALSE "
+        						+ "WHERE name = ?";
         		PreparedStatement pst = connection.prepareStatement(query);
         		
         		pst.setString(1, name);
 	    		rowCount = pst.executeUpdate();
 	    		pst.close();
-        	} 
+        	}
         	catch(SQLException e) {
         		e.printStackTrace();
         	}
@@ -124,7 +124,7 @@ public class DAOUserImp implements DAOUser {
         if(connection != null) {
             try {
             	String query = "SELECT u.password, u.active, s.name AS staffName, p.name AS playerName, p.points "
-    						+ "FROM user u LEFT JOIN staff s ON u.name = s.name LEFT JOIN player p ON u.name = p.name";
+            					+ "FROM user u LEFT JOIN staff s ON u.name = s.name LEFT JOIN player p ON u.name = p.name";
                 PreparedStatement pst = connection.prepareStatement(query);
                 ResultSet rs = pst.executeQuery();
                 
@@ -140,6 +140,7 @@ public class DAOUserImp implements DAOUser {
                 pst.close();
             }
             catch(SQLException e) {
+            	users.clear();
                 e.printStackTrace();
             }
         }

@@ -29,8 +29,9 @@ public class DAOStaffImp implements DAOStaff {
                     connection.commit();
                 } 
                 else connection.rollback();
-            } 
+            }
             catch(SQLException e) {
+            	rowCount = 0;
                 try {
                 	connection.rollback();
                 }
@@ -38,7 +39,7 @@ public class DAOStaffImp implements DAOStaff {
                 	ex.printStackTrace();
                 }
                 e.printStackTrace();
-            } 
+            }
             finally {
                 try {
                 	connection.setAutoCommit(true);
@@ -55,7 +56,7 @@ public class DAOStaffImp implements DAOStaff {
     public tStaff readStaff(String name) {
         tUser user = daoUser.readUser(name);
         
-        if(user instanceof tStaff) return (tStaff) user;
+        if(user instanceof tStaff) return (tStaff)user;
         return null;
     }
 

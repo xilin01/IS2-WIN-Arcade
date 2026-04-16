@@ -42,6 +42,7 @@ public class DAOGamesPackageImp implements DAOGamesPackage {
                 connection.commit();
             }
             catch(SQLException e) {
+            	rowCount = 0;
                 try {
                     connection.rollback();
                 }
@@ -70,8 +71,8 @@ public class DAOGamesPackageImp implements DAOGamesPackage {
         if(connection != null) {
             try {
                 String query = "SELECT price "
-                			+ "FROM gamesPackage "
-                			+ "WHERE name = ?";
+                				+ "FROM gamesPackage "
+                				+ "WHERE name = ?";
                 PreparedStatement pst = connection.prepareStatement(query);
                 
                 pst.setString(1, name);
@@ -110,16 +111,15 @@ public class DAOGamesPackageImp implements DAOGamesPackage {
             try {
                 connection.setAutoCommit(false);
                 String query = "UPDATE gamesPackage "
-                			+ "SET price = ? "
-                			+ "WHERE name = ?";
+                				+ "SET price = ? "
+                				+ "WHERE name = ?";
                 PreparedStatement pst = connection.prepareStatement(query);
                 
                 pst.setDouble(1, gamesPackage.getPrice());
                 pst.setString(2, gamesPackage.getName());
                 rowCount = pst.executeUpdate();
                 pst.close();
-                query = "DELETE FROM packageDetail"
-                		+ "WHERE packageName = ?";
+                query = "DELETE FROM packageDetail WHERE packageName = ?";
                 pst = connection.prepareStatement(query);
                 pst.setString(1, gamesPackage.getName());
                 pst.executeUpdate();
@@ -139,6 +139,7 @@ public class DAOGamesPackageImp implements DAOGamesPackage {
                 connection.commit();
             }
             catch(SQLException e) {
+            	rowCount = 0;
                 try {
                     connection.rollback();
                 }
@@ -188,7 +189,7 @@ public class DAOGamesPackageImp implements DAOGamesPackage {
         if(connection != null) {
             try {
                 String query = "SELECT gp.name, gp.price, pd.gameName, pd.gameBasePoints, pd.amount "
-                             + "FROM gamesPackage gp LEFT JOIN packageDetail pd ON gp.name = pd.packageName";
+                             	+ "FROM gamesPackage gp LEFT JOIN packageDetail pd ON gp.name = pd.packageName";
                 PreparedStatement pst = connection.prepareStatement(query);
                 ResultSet rs = pst.executeQuery();
                 

@@ -30,8 +30,9 @@ public class DAOPlayerImp implements DAOPlayer {
                     connection.commit();
                 }
                 else connection.rollback();
-            } 
+            }
             catch(SQLException e) {
+            	rowCount = 0;
                 try {
                 	connection.rollback();
                 } 
@@ -56,7 +57,7 @@ public class DAOPlayerImp implements DAOPlayer {
     public tPlayer readPlayer(String name) {
         tUser user = daoUser.readUser(name);
         
-        if(user instanceof tPlayer) return (tPlayer) user;
+        if(user instanceof tPlayer) return (tPlayer)user;
         return null;
     }
 
@@ -79,10 +80,11 @@ public class DAOPlayerImp implements DAOPlayer {
                     rowCount = pst.executeUpdate();
                     pst.close();
                     connection.commit();
-                } 
+                }
                 else connection.rollback();
             } 
             catch(SQLException e) {
+            	rowCount = 0;
                 try {
                 	connection.rollback();
                 }

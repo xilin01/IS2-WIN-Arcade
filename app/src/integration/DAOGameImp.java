@@ -24,7 +24,7 @@ public class DAOGameImp implements DAOGame {
                 pst.setInt(2, game.getBasePoints());
                 rowCount = pst.executeUpdate();
                 pst.close();
-            } 
+            }
             catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -40,8 +40,8 @@ public class DAOGameImp implements DAOGame {
         if(connection != null) {
             try {
                 String query = "SELECT name, basePoints "
-                			+ "FROM game "
-                			+ "WHERE name = ? AND basePoints = ?";
+                				+ "FROM game "
+                				+ "WHERE name = ? AND basePoints = ?";
                 PreparedStatement pst = connection.prepareStatement(query);
                 
                 pst.setString(1, name);
@@ -88,7 +88,7 @@ public class DAOGameImp implements DAOGame {
         if(connection != null) {
             try {
                 String query = "SELECT name, basePoints "
-                			+ "FROM game";
+                				+ "FROM game";
                 PreparedStatement pst = connection.prepareStatement(query);
                 ResultSet rs = pst.executeQuery();
                 
@@ -97,6 +97,7 @@ public class DAOGameImp implements DAOGame {
                 pst.close();
             }
             catch(SQLException e) {
+            	games.clear();
                 e.printStackTrace();
             }
         }

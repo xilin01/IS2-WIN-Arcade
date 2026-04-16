@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -51,6 +50,7 @@ public class DAOInventoryImp implements DAOInventory {
                 connection.commit();
             }
             catch(SQLException e) {
+            	rowCount = 0;
                 try {
                     connection.rollback();
                 }
@@ -81,8 +81,8 @@ public class DAOInventoryImp implements DAOInventory {
                 Map<tGame, Integer> games = new HashMap<>();
                 Map<tProduct, Integer> products = new HashMap<>();
                 String query = "SELECT gameName, gameBasePoints, amount "
-                			+ "FROM gamesInventory "
-                			+ "WHERE playerName = ?";
+                				+ "FROM gamesInventory "
+                				+ "WHERE playerName = ?";
                 PreparedStatement pst = connection.prepareStatement(query);
                 
                 pst.setString(1, playerName);
@@ -91,8 +91,8 @@ public class DAOInventoryImp implements DAOInventory {
                 rs.close();
                 pst.close();
                 query = "SELECT pi.productName, p.price, pi.amount "
-                	+ "FROM productsInventory pi JOIN product p ON pi.productName = p.name "
-                	+ "WHERE pi.playerName = ?";
+                		+ "FROM productsInventory pi JOIN product p ON pi.productName = p.name "
+                		+ "WHERE pi.playerName = ?";
                 pst = connection.prepareStatement(query);
                 pst.setString(1, playerName);
                 rs = pst.executeQuery();
@@ -154,6 +154,7 @@ public class DAOInventoryImp implements DAOInventory {
                 if(rowCount == 0) rowCount = 1; // Si el inventario está vacío, el update sigue siendo exitoso
             }
             catch(SQLException e) {
+            	rowCount = 0;
                 try {
                     connection.rollback();
                 }
@@ -161,7 +162,6 @@ public class DAOInventoryImp implements DAOInventory {
                     ex.printStackTrace();
                 }
                 e.printStackTrace();
-                // rowCount = 0; ?
             }
             finally {
                 try {
@@ -196,6 +196,7 @@ public class DAOInventoryImp implements DAOInventory {
                 connection.commit();
             }
             catch(SQLException e) {
+            	rowCount = 0;
                 try {
                     connection.rollback();
                 }
@@ -213,7 +214,7 @@ public class DAOInventoryImp implements DAOInventory {
                 }
             }
         }
-        return rowCount;
+        return rowCount > 0 ? 1 : 0;
     }
 
     @Override
@@ -224,7 +225,7 @@ public class DAOInventoryImp implements DAOInventory {
         if(connection != null) {
             try {
                 String query = "SELECT playerName, gameName, gameBasePoints, amount "
-                			+ "FROM gamesInventory";
+                				+ "FROM gamesInventory";
                 PreparedStatement pst = connection.prepareStatement(query);
                 ResultSet rs = pst.executeQuery();
                 
@@ -250,6 +251,7 @@ public class DAOInventoryImp implements DAOInventory {
                 pst.close();
             }
             catch(SQLException e) {
+            	inventories.clear();
                 e.printStackTrace();
             }
         }
