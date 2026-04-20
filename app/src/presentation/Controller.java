@@ -80,6 +80,20 @@ public class Controller {
 			    }
 			    break;
 			}
+			case Event.LOGOUT: {
+				new LoginView();
+				break;
+			}
+			case Event.ABRIR_GESTOR_PAQUETES: {
+				String username = (String) data;
+                new PackageManagerView(username);
+				break;
+			}
+			case Event.CERRAR_GESTOR_PAQUETES: {
+				String username = (String) data;
+				new StaffView(username);
+				break;
+			}
 		}
 	}
 }

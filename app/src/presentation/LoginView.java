@@ -57,7 +57,7 @@ public class LoginView extends JFrame {
         switch (evento) {
             case Event.RES_LOGIN_STAFF_OK -> {
                 instance.dispose();
-                //new StaffView((tStaff) datos);
+                new StaffView((String)datos);
             }
             case Event.RES_LOGIN_OK -> {
                 instance.dispose();

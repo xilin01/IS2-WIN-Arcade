@@ -33,4 +33,9 @@ public class Event {
 	public static final int RES_LOGIN_OK = 402;
 	public static final int RES_LOGIN_STAFF_OK = 403;
 	public static final int RES_LOGIN_KO = 404;
+	
+	public static final int LOGOUT = 108;
+	
+	public static final int ABRIR_GESTOR_PAQUETES = 110;
+	public static final int CERRAR_GESTOR_PAQUETES = 111;
 }
