@@ -15,11 +15,11 @@ public	 class SAUserImp implements SAUser {
         daoUser = new DAOUserImp();
     }
     
-//    @objid ("03ba48e0-e6e9-446c-aa3d-df7741d311e4")
-//    public int createUser(tUser user) {
-//        if(daoUser.readUser(user.getName()) == null) return daoUser.createUser(user);
-//        return -1;
-//    }
+    @objid ("03ba48e0-e6e9-446c-aa3d-df7741d311e4")
+    public int createUser(tUser user) {
+        if(daoUser.readUser(user.getName()) == null) return daoUser.createUser(user);
+        return -1;
+    }
 
     @objid ("41363b00-839c-4740-93ad-d35ef7555d06")
     public tUser readUser(String name) {
