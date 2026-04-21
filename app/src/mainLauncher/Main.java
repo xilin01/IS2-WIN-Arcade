@@ -20,8 +20,7 @@ public class Main {
 
     @objid ("0699632e-2ac8-43b2-b795-5017a07d6fd5")
     public static void main(String[] args) {
-    	new StaffView("Pepe");
-    	//SwingUtilities.invokeLater(() -> new LoginView());
+    	SwingUtilities.invokeLater(LoginView::open);
 //    	new BlackjackView().initBlackjack(10);
 //    	new RouletteView().initRouletteView(10, Roulette.Bet.straight(0));
 //    	new RouletteView().initRouletteView(10, Roulette.Bet.red());

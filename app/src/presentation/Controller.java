@@ -4,6 +4,9 @@ import java.util.Collection;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import business.SAUser;
 import business.SAUserImp;
+import business.SAAuth;
+import business.SAAuthImp;
+import business.AuthResult;
 import business.tUser;
 
 // POR TRADUCIR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -11,16 +14,16 @@ import business.tUser;
 public class Controller {
     @objid ("473dcd65-39b0-4cac-b363-8e9abe4bf896")
     private static SAUser saUser = new SAUserImp();
+    private static SAAuth saAuth = new SAAuthImp();
     
     @objid ("7d6f7991-228b-4d7a-a5ff-094d1cd303bf")
     public static void action(final int event, final Object data) {
 		switch(event) {
 			case Event.ALTA_USUARIO: { // 1 = ALTA_USUARIOS
 				tUser newUser = (tUser)data;
-				//int res = saUser.createUser(newUser);
-				int res = 0;
+				int res = saUser.createUser(newUser);
 				if (res > 0) {
-					UserView.actualizar(Event.RES_ALTA_USUARIO_OK, res); // ¿Datos?
+					UserView.actualizar(Event.RES_ALTA_USUARIO_OK, res);
 				}
 				else {
 					UserView.actualizar(Event.RES_ALTA_USUARIO_KO, null);
@@ -59,29 +62,18 @@ public class Controller {
 				break;
 			}
 			case Event.LOGIN: {
-			    tUser credentials = (tUser) data;
-			    tUser user = saUser.readUser(credentials.getName());
-
-			    if (user != null && user.getPassword().equals(credentials.getPassword()) && user.getActive()) {
-			        LoginView.actualizar(Event.RES_LOGIN_OK, user);
-			    } else {
-			    	LoginView.actualizar(Event.RES_LOGIN_KO, null);
-			    }
-			    break;
-			}
-			case Event.STAFF_LOGIN: {
-			    tUser credentials = (tUser) data;
-			    tUser user = saUser.readUser(credentials.getName());
-
-			    if (user != null && user.getPassword().equals(credentials.getPassword()) && user.getActive()) {
-			        LoginView.actualizar(Event.RES_LOGIN_STAFF_OK, user);
-			    } else {
-			    	LoginView.actualizar(Event.RES_LOGIN_KO, null);
-			    }
+			    LoginCredentials credentials = (LoginCredentials) data;
+			    AuthResult result = saAuth.authenticate(credentials.name(), credentials.password());
+			    int loginEvent = switch (result.getOutcome()) {
+			        case STAFF_OK  -> Event.RES_LOGIN_STAFF_OK;
+			        case PLAYER_OK -> Event.RES_LOGIN_OK;
+			        case FAILURE   -> Event.RES_LOGIN_KO;
+			    };
+			    LoginView.actualizar(loginEvent, result.getPayload());
 			    break;
 			}
 			case Event.LOGOUT: {
-				new LoginView();
+				LoginView.open();
 				break;
 			}
 			case Event.ABRIR_GESTOR_PAQUETES: {
