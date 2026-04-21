@@ -17,8 +17,8 @@ public class Controller {
 		switch(event) {
 			case Event.ALTA_USUARIO: { // 1 = ALTA_USUARIOS
 				tUser newUser = (tUser)data;
-				int res = saUser.createUser(newUser);
-				
+				//int res = saUser.createUser(newUser);
+				int res = 0;
 				if (res > 0) {
 					UserView.actualizar(Event.RES_ALTA_USUARIO_OK, res); // ¿Datos?
 				}
