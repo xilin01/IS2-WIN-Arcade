@@ -48,6 +48,8 @@ public abstract class tUser {
         this.active = active;
     }
 
+    public abstract AuthResult toAuthResult();
+
     @objid ("b599eb48-e160-45b3-82ee-c4a135a3e6d0")
     @Override
     public String toString() {

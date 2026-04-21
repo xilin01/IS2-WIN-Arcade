@@ -68,4 +68,9 @@ public class tPlayer extends tUser {
     public void setPoints(int points) {
         this.points = points;
     }
+
+    @Override
+    public AuthResult toAuthResult() {
+        return AuthResult.playerOk(getName());
+    }
 }
