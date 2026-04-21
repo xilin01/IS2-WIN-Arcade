@@ -22,24 +22,24 @@ public class BlackjackView {
             System.out.println("1. Pedir carta (Hit)");
             System.out.println("2. Plantarse (Stand)");
             System.out.print("Elige una opción: ");
-            int opcion = scanner.nextInt();
-            if(opcion == 1) {
-                int estado = blackjack.playerHit();
-                
-                if(estado == -1) { // LOST
+            int choice = scanner.nextInt();
+            if(choice == 1) {
+                int status = blackjack.playerHit();
+
+                if(status == -1) { // LOST
                 	System.out.println("Cartas del jugador: " + blackjack.getPlayerCards() + " (" + blackjack.getPlayerPoints() + "p)");
                     System.out.println("Te has pasado de 21, has perdido..");
                     playerTurn = false;
                     end = true;
                 }
-                else if(estado == 1) { // WON
+                else if(status == 1) { // WON
                 	System.out.println("Cartas del jugador: " + blackjack.getPlayerCards() + " (" + blackjack.getPlayerPoints() + "p)");
                     System.out.println("Has conseguido 21!");
                     playerTurn = false;
                     end = true;
                 }
             }
-            else if(opcion == 2) playerTurn = false; // El jugador se planta
+            else if(choice == 2) playerTurn = false; // El jugador se planta
             else System.out.println("Selecciona una opcion valida");
         }
         if(!end) {

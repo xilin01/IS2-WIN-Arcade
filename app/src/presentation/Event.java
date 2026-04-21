@@ -1,41 +1,31 @@
 package presentation;
 
-// Por traducir..
 public class Event {
-	// Evento Usuario 
-	public static final int ALTA_USUARIO = 100; 
-	public static final int ELIMINAR_USUARIO = 101; 
-	public static final int MOSTRAR_USUARIOS = 102; 
-	public static final int MODIFICAR_USUARIO = 103; 
-	public static final int BUSCAR_USUARIO = 104; 
-	public static final int RES_ALTA_USUARIO_OK = 400; 
-	public static final int RES_ALTA_USUARIO_KO = 401; 
-	public static final int RES_ELIMINAR_USUARIO_OK = 500; 
-	public static final int RES_ELIMINAR_USUARIO_KO = 501; 
-	public static final int RES_BUSCAR_USUARIO_OK = 600; 
-	public static final int RES_BUSCAR_USUARIO_KO = 601; 
-	public static final int RES_MODIFICAR_USUARIO_OK = 700; 
-	public static final int RES_MODIFICAR_USUARIO_KO = 701; 
-	public static final int RES_MOSTRAR_USUARIOS_OK = 800; 
-	public static final int RES_MOSTRAR_USUARIOS_KO = 801; 
-	// Evento Producto 
-	//public static final int ALTA_PRODUCTO = 105; 
-	// ..  
-	//public static final int RES_ALTA_PRODUCTO_OK = 402; 
-	//public static final int RES_ALTA_PRODUCTO_KO = 403; 
-	// ..  
-	//public static final int RES_ELIMINAR_PRODUCTO_OK = 502; 
-	// ..  
-	
-	
-	public static final int LOGIN = 106;
-	public static final int STAFF_LOGIN = 107;
-	public static final int RES_LOGIN_OK = 402;
-	public static final int RES_LOGIN_STAFF_OK = 403;
-	public static final int RES_LOGIN_KO = 404;
-	
-	public static final int LOGOUT = 108;
-	
-	public static final int ABRIR_GESTOR_PAQUETES = 110;
-	public static final int CERRAR_GESTOR_PAQUETES = 111;
+	// User events
+	public static final int CREATE_USER = 100;
+	public static final int DELETE_USER = 101;
+	public static final int LIST_USERS  = 102;
+	public static final int UPDATE_USER = 103;
+	public static final int FIND_USER   = 104;
+	public static final int RES_CREATE_USER_SUCCESS = 400;
+	public static final int RES_CREATE_USER_FAILURE = 401;
+	public static final int RES_DELETE_USER_SUCCESS = 500;
+	public static final int RES_DELETE_USER_FAILURE = 501;
+	public static final int RES_FIND_USER_SUCCESS   = 600;
+	public static final int RES_FIND_USER_FAILURE   = 601;
+	public static final int RES_UPDATE_USER_SUCCESS = 700;
+	public static final int RES_UPDATE_USER_FAILURE = 701;
+	public static final int RES_LIST_USERS_SUCCESS  = 800;
+	public static final int RES_LIST_USERS_FAILURE  = 801;
+
+	// Auth events
+	public static final int LOGIN                = 106;
+	public static final int RES_LOGIN_SUCCESS    = 402;
+	public static final int RES_LOGIN_STAFF_SUCCESS = 403;
+	public static final int RES_LOGIN_FAILURE    = 404;
+	public static final int LOGOUT               = 108;
+
+	// Navigation events
+	public static final int OPEN_PACKAGE_MANAGER  = 110;
+	public static final int CLOSE_PACKAGE_MANAGER = 111;
 }

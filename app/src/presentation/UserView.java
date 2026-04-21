@@ -10,98 +10,94 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-// POR TRADUCIR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 @SuppressWarnings("serial")
 public class UserView extends JFrame {
-	
+
 	public UserView() {
 		super();
 		initGUI();
 	}
-	
+
 	void initGUI() {
-		JFrame menuPrincipal = new JFrame();
-		
-	    menuPrincipal.setTitle("Menu CRUDs Usuario"); 
-	    menuPrincipal.setBounds(100, 100, 450, 300); 
-	    menuPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-	    menuPrincipal.getContentPane().setLayout(new FlowLayout()); 
-	    menuPrincipal.setVisible(true);
-	    
-	    JButton botonAlta = new JButton();     
-	    botonAlta.setText("Alta Usuario"); 
-	    botonAlta.setBounds(153, 180, 132, 32); 
-	    menuPrincipal.getContentPane().add(botonAlta); 
-	          
-	    JButton botonReadAll = new JButton();     
-	    botonReadAll.setText("Mostrar usuarios"); 
-	    botonReadAll.setBounds(253, 380, 132, 32); 
-	    menuPrincipal.getContentPane().add(botonReadAll); 
-	    
-	    // Listener's 
-	    botonAlta.addActionListener(new ActionListener() { 
-			public void actionPerformed (ActionEvent e) { 
-			// TBD (To Be Developed) 
-			} 
-	    }); 
-	    botonReadAll.addActionListener(new ActionListener() { 
-			public void actionPerformed (ActionEvent e) { 
-				Controller.action(Event.MOSTRAR_USUARIOS, null);  
-			} 
-		}); 
+		JFrame mainFrame = new JFrame();
+
+		mainFrame.setTitle("Menu CRUDs Usuario");
+		mainFrame.setBounds(100, 100, 450, 300);
+		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mainFrame.getContentPane().setLayout(new FlowLayout());
+		mainFrame.setVisible(true);
+
+		JButton createButton = new JButton();
+		createButton.setText("Alta Usuario");
+		createButton.setBounds(153, 180, 132, 32);
+		mainFrame.getContentPane().add(createButton);
+
+		JButton readAllButton = new JButton();
+		readAllButton.setText("Mostrar usuarios");
+		readAllButton.setBounds(253, 380, 132, 32);
+		mainFrame.getContentPane().add(readAllButton);
+
+		// Listener's
+		createButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// TBD (To Be Developed)
+			}
+		});
+		readAllButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Controller.action(Event.LIST_USERS, null);
+			}
+		});
 	}
-	
-	public static void actualizar(int evento, Object datos) { 
-		switch (evento) {
-		
-			case Event.RES_ALTA_USUARIO_OK: {
+
+	public static void update(int event, Object data) {
+		switch (event) {
+			case Event.RES_CREATE_USER_SUCCESS: {
 				JOptionPane.showMessageDialog(null, "Usuario registrado con éxito.");
 				break;
 			}
-			case Event.RES_ALTA_USUARIO_KO : {
+			case Event.RES_CREATE_USER_FAILURE: {
 				JOptionPane.showMessageDialog(null, "No se ha podido dar de alta al usuario. El nombre ya existe.");
 				break;
 			}
-			case Event.RES_MOSTRAR_USUARIOS_OK: {
-				JTextArea textArea = new JTextArea(datos.toString());
-				
-				textArea.setLineWrap(true); 
-				textArea.setEditable(false); 
-				textArea.setWrapStyleWord(true); 
-				JScrollPane scrollPane = new JScrollPane(textArea); 
-				scrollPane.setPreferredSize( new Dimension( 500, 200 ) ); 
+			case Event.RES_LIST_USERS_SUCCESS: {
+				JTextArea textArea = new JTextArea(data.toString());
+				textArea.setLineWrap(true);
+				textArea.setEditable(false);
+				textArea.setWrapStyleWord(true);
+				JScrollPane scrollPane = new JScrollPane(textArea);
+				scrollPane.setPreferredSize(new Dimension(500, 200));
 				JOptionPane.showMessageDialog(null, scrollPane, "USUARIOS", JOptionPane.DEFAULT_OPTION);
-				
 				break;
 			}
-			case Event.RES_MOSTRAR_USUARIOS_KO: {
+			case Event.RES_LIST_USERS_FAILURE: {
 				JOptionPane.showMessageDialog(null, "No se ha podido encontrar ningun usuario");
 				break;
 			}
-			case Event.RES_BUSCAR_USUARIO_OK : {
-				JOptionPane.showMessageDialog(null, "Usuario encontrado:\n" + datos.toString());
+			case Event.RES_FIND_USER_SUCCESS: {
+				JOptionPane.showMessageDialog(null, "Usuario encontrado:\n" + data.toString());
 				break;
 			}
-			case Event.RES_BUSCAR_USUARIO_KO : {
+			case Event.RES_FIND_USER_FAILURE: {
 				JOptionPane.showMessageDialog(null, "No se ha podido encontrar el usuario");
 				break;
 			}
-			case Event.RES_ELIMINAR_USUARIO_OK : {
+			case Event.RES_DELETE_USER_SUCCESS: {
 				JOptionPane.showMessageDialog(null, "Usuario eliminado correctamente");
 				break;
 			}
-			case Event.RES_ELIMINAR_USUARIO_KO : {
+			case Event.RES_DELETE_USER_FAILURE: {
 				JOptionPane.showMessageDialog(null, "No se ha podido encontrar el usuario");
 				break;
 			}
-			case Event.RES_MODIFICAR_USUARIO_OK : {
+			case Event.RES_UPDATE_USER_SUCCESS: {
 				JOptionPane.showMessageDialog(null, "Usuario modificado correctamente");
 				break;
 			}
-			case Event.RES_MODIFICAR_USUARIO_KO : {
+			case Event.RES_UPDATE_USER_FAILURE: {
 				JOptionPane.showMessageDialog(null, "No se ha podido encontrar el usuario");
 				break;
 			}
 		}
-	} 
+	}
 }
