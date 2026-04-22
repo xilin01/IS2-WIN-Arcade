@@ -6,12 +6,16 @@ import business.SAUser;
 import business.SAAuth;
 import business.SAPlayer;
 import business.AuthResult;
+import business.Blackjack;
 import business.ServiceLocator;
 import business.tUser;
 
 @objid ("89dcc83d-dee8-45f7-aee4-45b7f33b671f")
 public class Controller {
-
+	
+	private static BlackJackGUI blackJackGUI;
+	private static Blackjack blackjack;
+	
     @objid ("7d6f7991-228b-4d7a-a5ff-094d1cd303bf")
     public static void action(final int event, final Object data) {
         switch (event) {
@@ -88,6 +92,41 @@ public class Controller {
                 new StaffView(username);
                 break;
             }
+            
+            
+            
+            
+            //Games
+            case Event.BLACKJACK_PLAY:{
+            	blackjack = new Blackjack((Integer) data);
+            	int croupierPoints = blackjack.play();
+            	blackJackGUI = new BlackJackGUI(blackjack.getCroupierVisibleCard(), 
+            			blackjack.getPlayerCards(), croupierPoints, blackjack.getPlayerPoints());
+            	break;
+            }
+            case Event.BLACKJACK_HIT:{
+            	int res = blackjack.playerHit();
+            	blackJackGUI.showDecks(blackjack.getCroupierCards(), blackjack.getPlayerCards());
+            	if(res != Blackjack.CONTINUE) 
+            		blackJackGUI.end(res == Blackjack.WON ? "Victoria. Llegaste a 21" : "Derrota. Te pasaste");
+            	break;
+            }
+            case Event.BLACKJACK_STAND:{
+            	if(blackjack.getCroupierPoints() < blackjack.getPlayerPoints()) blackjack.croupierPlay();
+            	int res = blackjack.getResult();
+            	switch(res) {
+            	case Blackjack.LOST:blackJackGUI.end("Lo siento, gana el croupier.."); break;
+            	case Blackjack.CONTINUE: blackJackGUI.end("Empate"); break;
+            	case Blackjack.WON:{ 
+            		blackJackGUI.end("Felicidades, has ganado " + blackjack.getPointsWon() + " puntos!"); 
+            		//TODO meterle los puntos al jugador
+            		break;
+            	}
+            	}
+            	Controller.action(Event.GAMES_PANEL, null); //TODO redirige al panel de juegos
+            	break;
+            }
+            default: System.err.println("Aún no esta implementado");
         }
     }
 }

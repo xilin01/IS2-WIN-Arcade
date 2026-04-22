@@ -45,9 +45,9 @@ public class Blackjack extends CardGame {
 	private static final int BLACKJACK_LIMIT = 21;
 	private static final int CROUPIER_LIMIT = 17;
 	//
-	private static final int LOST = -1;
-	private static final int CONTINUE = 0;
-	private static final int WON = 1;
+	public static final int LOST = -1;
+	public static final int CONTINUE = 0;
+	public static final int WON = 1;
 	
 	private Hand croupier;
 	private Hand player;
