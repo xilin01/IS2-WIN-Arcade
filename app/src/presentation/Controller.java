@@ -106,13 +106,16 @@ public class Controller {
             }
             case Event.BLACKJACK_HIT:{
             	int res = blackjack.playerHit();
-            	blackJackGUI.showDecks(blackjack.getCroupierCards(), blackjack.getPlayerCards());
+            	blackJackGUI.update(blackjack.getCroupierCards(), blackjack.getPlayerCards(), 
+            			blackjack.getCroupierPoints(), blackjack.getPlayerPoints(), false);
             	if(res != Blackjack.CONTINUE) 
             		blackJackGUI.end(res == Blackjack.WON ? "Victoria. Llegaste a 21" : "Derrota. Te pasaste");
             	break;
             }
             case Event.BLACKJACK_STAND:{
             	if(blackjack.getCroupierPoints() < blackjack.getPlayerPoints()) blackjack.croupierPlay();
+            	blackJackGUI.update(blackjack.getCroupierCards(), blackjack.getPlayerCards(), 
+            			blackjack.getCroupierPoints(), blackjack.getPlayerPoints(), true);
             	int res = blackjack.getResult();
             	switch(res) {
             	case Blackjack.LOST:blackJackGUI.end("Lo siento, gana el croupier.."); break;
@@ -123,7 +126,6 @@ public class Controller {
             		break;
             	}
             	}
-            	Controller.action(Event.GAMES_PANEL, null); //TODO redirige al panel de juegos
             	break;
             }
             default: System.err.println("Aún no esta implementado");

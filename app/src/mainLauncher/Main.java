@@ -9,6 +9,8 @@ import business.SAPlayerImp;
 import business.SAUser;
 import business.SAUserImp;
 import business.ServiceLocator;
+import presentation.Controller;
+import presentation.Event;
 import presentation.LoginView;
 
 @objid ("e7eced22-b4e5-44ef-b114-f8e3351b0184")
@@ -21,5 +23,6 @@ public class Main {
         ServiceLocator.register(SAPlayer.class, new SAPlayerImp());
 
         SwingUtilities.invokeLater(LoginView::open);
+    	//Controller.action(Event.BLACKJACK_PLAY, 20);
     }
 }
