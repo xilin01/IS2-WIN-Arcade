@@ -23,6 +23,12 @@ public class SAPlayerImp implements SAPlayer {
     }
 
     @Override
+    public int createPlayer(String name, String password) {
+        tPlayer player = new tPlayer(name, password, true, new tPlayer.tInventory(name), 0);
+        return createPlayer(player);
+    }
+
+    @Override
     public tPlayer readPlayer(String name) {
         return daoPlayer.readPlayer(name);
     }

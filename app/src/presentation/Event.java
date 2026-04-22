@@ -25,6 +25,11 @@ public class Event {
 	public static final int RES_LOGIN_FAILURE    = 404;
 	public static final int LOGOUT               = 108;
 
+	// Sign-up events
+	public static final int SIGN_UP                 = 112;
+	public static final int RES_SIGN_UP_SUCCESS     = 802;
+	public static final int RES_SIGN_UP_FAILURE     = 803;
+
 	// Navigation events
 	public static final int OPEN_PACKAGE_MANAGER  = 110;
 	public static final int CLOSE_PACKAGE_MANAGER = 111;

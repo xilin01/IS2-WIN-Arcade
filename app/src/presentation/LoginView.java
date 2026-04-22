@@ -40,18 +40,26 @@ public class LoginView extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         gbc.gridx = 0; gbc.gridy = 0; add(new JLabel("Usuario:"), gbc);
-        gbc.gridx = 1;                add(txtName, gbc);
+        gbc.gridx = 1; add(txtName, gbc);
         gbc.gridx = 0; gbc.gridy = 1; add(new JLabel("Contraseña:"), gbc);
-        gbc.gridx = 1;                add(txtPass, gbc);
+        gbc.gridx = 1; add(txtPass, gbc);
 
         JButton btnLogin = new JButton("Iniciar sesión");
+        JButton btnSignUp = new JButton("¿No tienes cuenta? Regístrate");
         gbc.gridx = 0; gbc.gridy = 2; gbc.gridwidth = 2;
         add(btnLogin, gbc);
+        gbc.gridy = 3;
+        add(btnSignUp, gbc);
 
         btnLogin.addActionListener(e -> {
             String name = txtName.getText().trim();
             String pass = new String(txtPass.getPassword());
             Controller.action(Event.LOGIN, new LoginCredentials(name, pass));
+        });
+
+        btnSignUp.addActionListener(e -> {
+            instance.dispose();
+            SignUpView.open();
         });
     }
 

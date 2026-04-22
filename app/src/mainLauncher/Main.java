@@ -4,6 +4,8 @@ import javax.swing.SwingUtilities;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import business.SAAuth;
 import business.SAAuthImp;
+import business.SAPlayer;
+import business.SAPlayerImp;
 import business.SAUser;
 import business.SAUserImp;
 import business.ServiceLocator;
@@ -16,6 +18,7 @@ public class Main {
     public static void main(String[] args) {
         ServiceLocator.register(SAUser.class, new SAUserImp());
         ServiceLocator.register(SAAuth.class, new SAAuthImp());
+        ServiceLocator.register(SAPlayer.class, new SAPlayerImp());
 
         SwingUtilities.invokeLater(LoginView::open);
     }
