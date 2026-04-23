@@ -30,7 +30,8 @@ public class StaffView extends JFrame {
     private void initGUI() {
         this.setLayout(new BorderLayout());
         this.setTitle("Menú principal - Personal");
-        this.setBounds(100, 100, 650, 400);
+        this.setSize(650, 400);
+        this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Barra superior
@@ -52,13 +53,23 @@ public class StaffView extends JFrame {
             dispose();
         });
         JButton manageProductsButton = new JButton("GESTIONAR PRODUCTOS");
+        manageProductsButton.addActionListener((e) -> {
+        	new ProductManagerView(this.userName);
+        	
+        	dispose();
+        });
         JButton manageUsersButton = new JButton("GESTIONAR USUARIOS");
+        manageUsersButton.addActionListener((e) -> {
+        	new UsersManagerView(userName);
+        	
+        	dispose();
+        });
 
-        Dimension buttonSize = new Dimension(160, 40);
-
-        managePackagesButton.setPreferredSize(buttonSize);
-        manageProductsButton.setPreferredSize(buttonSize);
-        manageUsersButton.setPreferredSize(buttonSize);
+//        Dimension buttonSize = new Dimension(200, 40);
+//
+//        managePackagesButton.setPreferredSize(buttonSize);
+//        manageProductsButton.setPreferredSize(buttonSize);
+//        manageUsersButton.setPreferredSize(buttonSize);
 
         mainPanel.add(managePackagesButton);
         mainPanel.add(manageProductsButton);

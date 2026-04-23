@@ -47,7 +47,7 @@ public class DAOUserImp implements DAOUser {
             try {
                 String query = "SELECT u.password, u.active, s.name AS staffName "
                                 + "FROM user u LEFT JOIN staff s ON u.name = s.name "
-                                + "WHERE u.name = ? AND u.active = TRUE";
+                                + "WHERE u.name = ?";
                 PreparedStatement pst = connection.prepareStatement(query);
 
                 pst.setString(1, name);
@@ -124,7 +124,7 @@ public class DAOUserImp implements DAOUser {
 
         if(connection != null) {
             try {
-                String query = "SELECT u.password, u.active, s.name AS staffName "
+                String query = "SELECT u.name, u.password, u.active, s.name AS staffName "
                                 + "FROM user u LEFT JOIN staff s ON u.name = s.name";
                 PreparedStatement pst = connection.prepareStatement(query);
                 ResultSet rs = pst.executeQuery();
