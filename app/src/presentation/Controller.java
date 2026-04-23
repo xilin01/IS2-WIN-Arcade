@@ -2,20 +2,28 @@ package presentation;
 
 import java.util.Collection;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import business.SAUser;
-import business.SAAuth;
-import business.SAPlayer;
-import business.AuthResult;
-import business.Blackjack;
+import business.auth.AuthResult;
+import business.auth.SAAuth;
+import business.game.Blackjack;
+import business.player.SAPlayer;
 import business.ServiceLocator;
-import business.tUser;
+import business.user.SAUser;
+import business.user.tUser;
+import presentation.auth.LoginCredentials;
+import presentation.auth.LoginView;
+import presentation.auth.SignUpCredentials;
+import presentation.auth.SignUpView;
+import presentation.game.BlackJackGUI;
+import presentation.packages.PackageManagerView;
+import presentation.user.StaffView;
+import presentation.user.UserView;
 
 @objid ("89dcc83d-dee8-45f7-aee4-45b7f33b671f")
 public class Controller {
-	
-	private static BlackJackGUI blackJackGUI;
-	private static Blackjack blackjack;
-	
+
+    private static BlackJackGUI blackJackGUI;
+    private static Blackjack blackjack;
+
     @objid ("7d6f7991-228b-4d7a-a5ff-094d1cd303bf")
     public static void action(final int event, final Object data) {
         switch (event) {
@@ -92,41 +100,38 @@ public class Controller {
                 new StaffView(username);
                 break;
             }
-            
-            
-            
-            
+
             //Games
-            case Event.BLACKJACK_PLAY:{
-            	blackjack = new Blackjack((Integer) data);
-            	int croupierPoints = blackjack.play();
-            	blackJackGUI = new BlackJackGUI(blackjack.getCroupierVisibleCard(), 
-            			blackjack.getPlayerCards(), croupierPoints, blackjack.getPlayerPoints());
-            	break;
+            case Event.BLACKJACK_PLAY: {
+                blackjack = new Blackjack((Integer) data);
+                int croupierPoints = blackjack.play();
+                blackJackGUI = new BlackJackGUI(blackjack.getCroupierVisibleCard(),
+                        blackjack.getPlayerCards(), croupierPoints, blackjack.getPlayerPoints());
+                break;
             }
-            case Event.BLACKJACK_HIT:{
-            	int res = blackjack.playerHit();
-            	blackJackGUI.update(blackjack.getCroupierCards(), blackjack.getPlayerCards(), 
-            			blackjack.getCroupierPoints(), blackjack.getPlayerPoints(), false);
-            	if(res != Blackjack.CONTINUE) 
-            		blackJackGUI.end(res == Blackjack.WON ? "Victoria. Llegaste a 21" : "Derrota. Te pasaste");
-            	break;
+            case Event.BLACKJACK_HIT: {
+                int res = blackjack.playerHit();
+                blackJackGUI.update(blackjack.getCroupierCards(), blackjack.getPlayerCards(),
+                        blackjack.getCroupierPoints(), blackjack.getPlayerPoints(), false);
+                if(res != Blackjack.CONTINUE)
+                    blackJackGUI.end(res == Blackjack.WON ? "Victoria. Llegaste a 21" : "Derrota. Te pasaste");
+                break;
             }
-            case Event.BLACKJACK_STAND:{
-            	if(blackjack.getCroupierPoints() < blackjack.getPlayerPoints()) blackjack.croupierPlay();
-            	blackJackGUI.update(blackjack.getCroupierCards(), blackjack.getPlayerCards(), 
-            			blackjack.getCroupierPoints(), blackjack.getPlayerPoints(), true);
-            	int res = blackjack.getResult();
-            	switch(res) {
-            	case Blackjack.LOST:blackJackGUI.end("Lo siento, gana el croupier.."); break;
-            	case Blackjack.CONTINUE: blackJackGUI.end("Empate"); break;
-            	case Blackjack.WON:{ 
-            		blackJackGUI.end("Felicidades, has ganado " + blackjack.getPointsWon() + " puntos!"); 
-            		//TODO meterle los puntos al jugador
-            		break;
-            	}
-            	}
-            	break;
+            case Event.BLACKJACK_STAND: {
+                if(blackjack.getCroupierPoints() < blackjack.getPlayerPoints()) blackjack.croupierPlay();
+                blackJackGUI.update(blackjack.getCroupierCards(), blackjack.getPlayerCards(),
+                        blackjack.getCroupierPoints(), blackjack.getPlayerPoints(), true);
+                int res = blackjack.getResult();
+                switch(res) {
+                case Blackjack.LOST: blackJackGUI.end("Lo siento, gana el croupier.."); break;
+                case Blackjack.CONTINUE: blackJackGUI.end("Empate"); break;
+                case Blackjack.WON: {
+                    blackJackGUI.end("Felicidades, has ganado " + blackjack.getPointsWon() + " puntos!");
+                    //TODO meterle los puntos al jugador
+                    break;
+                }
+                }
+                break;
             }
             default: System.err.println("Aún no esta implementado");
         }

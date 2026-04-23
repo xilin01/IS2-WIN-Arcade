@@ -2,16 +2,16 @@ package mainLauncher;
 
 import javax.swing.SwingUtilities;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import business.SAAuth;
-import business.SAAuthImp;
-import business.SAPlayer;
-import business.SAPlayerImp;
-import business.SAUser;
-import business.SAUserImp;
+import business.auth.SAAuth;
+import business.auth.SAAuthImp;
+import business.player.SAPlayer;
+import business.player.SAPlayerImp;
 import business.ServiceLocator;
+import business.user.SAUser;
+import business.user.SAUserImp;
+import presentation.auth.LoginView;
 import presentation.Controller;
 import presentation.Event;
-import presentation.LoginView;
 
 @objid ("e7eced22-b4e5-44ef-b114-f8e3351b0184")
 public class Main {
@@ -23,6 +23,6 @@ public class Main {
         ServiceLocator.register(SAPlayer.class, new SAPlayerImp());
 
         SwingUtilities.invokeLater(LoginView::open);
-    	//Controller.action(Event.BLACKJACK_PLAY, 20);
+        //Controller.action(Event.BLACKJACK_PLAY, 20);
     }
 }
