@@ -13,6 +13,16 @@ public class Roulette extends ChanceGame {
         private final String description;
         private final int multiplier;
         private final Predicate<Integer> winCondition;
+        
+        public class tBet{
+        	public String betName;
+        	public int[] data;
+        	
+        	public tBet(String betName, int[] data) {
+        		this.betName = betName;
+        		this.data = data;
+        	}
+        }
 
         private Bet(String description, int multiplier, Predicate<Integer> winCondition) {
             this.description = description;
@@ -85,8 +95,28 @@ public class Roulette extends ChanceGame {
         this.bet = bet;
         winningNumber = -1;
     }
+    
+    public Roulette(int basePoints, Bet.tBet bet) {
+    	this(basePoints, toBet(bet));
+    }
+    
+    public static Bet toBet(Bet.tBet bet) {
+    	switch(bet.betName) {
+    	case "Sencillo": return Bet.straight(bet.data[0]); 
+    	case "Calle": return Bet.street(bet.data[0], bet.data[1], bet.data[2]); 
+    	case "Columna": return Bet.column(bet.data[0]); 
+    	case "Docena": return Bet.dozen(bet.data[0]); 
+    	case "Rojo": return Bet.red();
+    	case "Negro": return Bet.black(); 
+    	case "Par": return Bet.even();
+    	case "Impar": return Bet.odd();
+    	case "1-18": return Bet.low(); 
+    	case "19-36": return Bet.high();
+    	default: return Bet.red();
+    	}
+    }
 
-    @Override
+	@Override
     public int play() {
         winningNumber = RAND.nextInt(37);
         return bet.isWinner(winningNumber) ? getPointsWon() : 0;
@@ -96,4 +126,9 @@ public class Roulette extends ChanceGame {
         if(winningNumber == -1) throw new IllegalStateException("Play the roulette to know the winning number");
         return winningNumber;
     }
+
+	public static String[] getBets() {
+		return new String[] {"Sencillo", "Calle", "Columna", "Docena", 
+				"Rojo", "Negro", "Par", "Impar", "1-18", "19-36"};
+	}
 }

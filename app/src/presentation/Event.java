@@ -42,5 +42,10 @@ public class Event {
 	public static final int BLACKJACK_HIT = 27;
 	public static final int BLACKJACK_STAND = 28;
 	
+		// Roulette
+	public static final int ROULETTE_PLAY = 29;
+	public static final int ROULETTE_ROLL = 30;
+//	public static final int ROULETTE_STAND = 28;	
+	
 	
 }

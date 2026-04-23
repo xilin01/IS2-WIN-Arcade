@@ -74,7 +74,8 @@ public class Blackjack extends CardGame {
     }
 
     public int croupierPlay() {
-        while(croupier.getPoints() < CROUPIER_LIMIT) croupier.addCard(getRandomCard());
+    	if(getCroupierPoints() < getPlayerPoints()) 
+    		while(croupier.getPoints() < CROUPIER_LIMIT) croupier.addCard(getRandomCard());
         return croupier.getStatus();
     }
 

@@ -5,6 +5,9 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import business.auth.AuthResult;
 import business.auth.SAAuth;
 import business.game.Blackjack;
+import business.game.Roulette;
+import business.game.Roulette.Bet;
+import business.game.Roulette.Bet.tBet;
 import business.player.SAPlayer;
 import business.ServiceLocator;
 import business.user.SAUser;
@@ -14,6 +17,7 @@ import presentation.auth.LoginView;
 import presentation.auth.SignUpCredentials;
 import presentation.auth.SignUpView;
 import presentation.game.BlackJackGUI;
+import presentation.game.RouletteGUI;
 import presentation.packages.PackageManagerView;
 import presentation.user.StaffView;
 import presentation.user.UserView;
@@ -23,6 +27,10 @@ public class Controller {
 
     private static BlackJackGUI blackJackGUI;
     private static Blackjack blackjack;
+    
+    private static RouletteGUI rouletteGUI;
+    private static Roulette roulette;
+    private static int puntosRuleta;
 
     @objid ("7d6f7991-228b-4d7a-a5ff-094d1cd303bf")
     public static void action(final int event, final Object data) {
@@ -118,7 +126,7 @@ public class Controller {
                 break;
             }
             case Event.BLACKJACK_STAND: {
-                if(blackjack.getCroupierPoints() < blackjack.getPlayerPoints()) blackjack.croupierPlay();
+                blackjack.croupierPlay();
                 blackJackGUI.update(blackjack.getCroupierCards(), blackjack.getPlayerCards(),
                         blackjack.getCroupierPoints(), blackjack.getPlayerPoints(), true);
                 int res = blackjack.getResult();
@@ -132,6 +140,16 @@ public class Controller {
                 }
                 }
                 break;
+            }
+            case Event.ROULETTE_PLAY: {
+            	rouletteGUI = new RouletteGUI();
+            	puntosRuleta = (Integer) data;
+            	//
+            }
+            case Event.ROULETTE_ROLL: {
+            	roulette = new Roulette(puntosRuleta, (tBet) data);
+            	int puntos = roulette.play();
+            	rouletteGUI.showResult(puntos, roulette.getWinningNumber());
             }
             default: System.err.println("Aún no esta implementado");
         }
