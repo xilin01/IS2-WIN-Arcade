@@ -48,7 +48,7 @@ public class StaffView extends JFrame {
 
         JButton managePackagesButton = new JButton("GESTIONAR PAQUETES");
         managePackagesButton.addActionListener((e) -> {
-            Controller.action(Event.OPEN_PACKAGE_MANAGER, this.userName);
+            Controller.getInstance().action(Event.OPEN_PACKAGE_MANAGER, this.userName);
             dispose();
         });
         JButton manageProductsButton = new JButton("GESTIONAR PRODUCTOS");
@@ -67,7 +67,7 @@ public class StaffView extends JFrame {
         this.add(mainPanel, BorderLayout.CENTER);
 
         logOutButton.addActionListener((e) -> {
-            Controller.action(Event.LOGOUT, null);
+            Controller.getInstance().action(Event.LOGOUT, null);
             dispose();
         });
 

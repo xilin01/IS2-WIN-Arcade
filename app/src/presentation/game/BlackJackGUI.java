@@ -61,11 +61,11 @@ public class BlackJackGUI extends JFrame {
         mainPanel.add(choiceButtonsPanel, BorderLayout.CENTER);
 
         JButton hitButton = new JButton("Pedir carta");
-        hitButton.addActionListener((a) -> Controller.action(Event.BLACKJACK_HIT, null));
+        hitButton.addActionListener((a) -> Controller.getInstance().action(Event.BLACKJACK_HIT, null));
         choiceButtonsPanel.add(hitButton);
 
         JButton standButton = new JButton("Plantarse");
-        standButton.addActionListener((a) -> Controller.action(Event.BLACKJACK_STAND, null));
+        standButton.addActionListener((a) -> Controller.getInstance().action(Event.BLACKJACK_STAND, null));
         choiceButtonsPanel.add(standButton);
 
         JPanel backPanel = new JPanel();
@@ -139,7 +139,7 @@ public class BlackJackGUI extends JFrame {
 
     public void end(String message) {
         JOptionPane.showMessageDialog(this, message);
-        Controller.action(Event.GAMES_PANEL, null); //TODO redirige al panel de juegos
+        Controller.getInstance().action(Event.GAMES_PANEL, null); //TODO redirige al panel de juegos
         dispose();
     }
 

@@ -68,7 +68,7 @@ public class SignUpView extends JFrame {
                 JOptionPane.showMessageDialog(instance, "Las contraseñas no coinciden.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            Controller.action(Event.SIGN_UP, new SignUpCredentials(name, password));
+            Controller.getInstance().action(Event.SIGN_UP, new SignUpCredentials(name, password));
         });
 
         btnBack.addActionListener(e -> {

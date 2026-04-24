@@ -23,6 +23,6 @@ public class Main {
         ServiceLocator.register(SAPlayer.class, new SAPlayerImp());
 
         SwingUtilities.invokeLater(LoginView::open);
-        //Controller.action(Event.BLACKJACK_PLAY, 20);
+        Controller.getInstance().action(Event.BLACKJACK_PLAY, 20);
     }
 }

@@ -58,7 +58,7 @@ public class LoginView extends JFrame {
         btnLogin.addActionListener(e -> {
             String name = txtName.getText().trim();
             String pass = new String(txtPass.getPassword());
-            Controller.action(Event.LOGIN, new LoginCredentials(name, pass));
+            Controller.getInstance().action(Event.LOGIN, new LoginCredentials(name, pass));
         });
 
         btnSignUp.addActionListener(e -> {

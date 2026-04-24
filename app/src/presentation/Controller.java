@@ -21,49 +21,38 @@ import presentation.user.UserView;
 @objid ("89dcc83d-dee8-45f7-aee4-45b7f33b671f")
 public class Controller {
 
-    private static BlackJackGUI blackJackGUI;
-    private static Blackjack blackjack;
+    private static final Controller INSTANCE = new Controller();
+    private BlackJackGUI blackJackGUI;
+    private Blackjack blackjack;
+    private Controller() {}
+    public static Controller getInstance() { return INSTANCE; }
 
     @objid ("7d6f7991-228b-4d7a-a5ff-094d1cd303bf")
-    public static void action(final int event, final Object data) {
+    public void action(final int event, final Object data) {
         switch (event) {
             case Event.CREATE_USER: {
-                SAUser saUser = ServiceLocator.get(SAUser.class);
-                tUser newUser = (tUser) data;
-                int res = saUser.createUser(newUser);
-                if (res > 0) UserView.update(Event.RES_CREATE_USER_SUCCESS, res);
-                else UserView.update(Event.RES_CREATE_USER_FAILURE, null);
+                int res = ServiceLocator.get(SAUser.class).createUser((tUser) data);
+                viewResult(res > 0, UserView::update, Event.RES_CREATE_USER_SUCCESS, res, Event.RES_CREATE_USER_FAILURE);
                 break;
             }
             case Event.LIST_USERS: {
-                SAUser saUser = ServiceLocator.get(SAUser.class);
-                Collection<tUser> res = saUser.readAllUsers();
-                if (!res.isEmpty()) UserView.update(Event.RES_LIST_USERS_SUCCESS, res);
-                else UserView.update(Event.RES_LIST_USERS_FAILURE, null);
+                Collection<tUser> res = ServiceLocator.get(SAUser.class).readAllUsers();
+                viewResult(!res.isEmpty(), UserView::update, Event.RES_LIST_USERS_SUCCESS, res, Event.RES_LIST_USERS_FAILURE);
                 break;
             }
             case Event.FIND_USER: {
-                SAUser saUser = ServiceLocator.get(SAUser.class);
-                String name = (String) data;
-                tUser user = saUser.readUser(name);
-                if (user != null) UserView.update(Event.RES_FIND_USER_SUCCESS, user);
-                else UserView.update(Event.RES_FIND_USER_FAILURE, null);
+                tUser user = ServiceLocator.get(SAUser.class).readUser((String) data);
+                viewResult(user != null, UserView::update, Event.RES_FIND_USER_SUCCESS, user, Event.RES_FIND_USER_FAILURE);
                 break;
             }
             case Event.DELETE_USER: {
-                SAUser saUser = ServiceLocator.get(SAUser.class);
-                String name = (String) data;
-                int res = saUser.deleteUser(name);
-                if (res > 0) UserView.update(Event.RES_DELETE_USER_SUCCESS, data);
-                else UserView.update(Event.RES_DELETE_USER_FAILURE, null);
+                int res = ServiceLocator.get(SAUser.class).deleteUser((String) data);
+                viewResult(res > 0, UserView::update, Event.RES_DELETE_USER_SUCCESS, data, Event.RES_DELETE_USER_FAILURE);
                 break;
             }
             case Event.UPDATE_USER: {
-                SAUser saUser = ServiceLocator.get(SAUser.class);
-                tUser modUser = (tUser) data;
-                int res = saUser.updateUser(modUser);
-                if (res > 0) UserView.update(Event.RES_UPDATE_USER_SUCCESS, data);
-                else UserView.update(Event.RES_UPDATE_USER_FAILURE, null);
+                int res = ServiceLocator.get(SAUser.class).updateUser((tUser) data);
+                viewResult(res > 0, UserView::update, Event.RES_UPDATE_USER_SUCCESS, data, Event.RES_UPDATE_USER_FAILURE);
                 break;
             }
             case Event.LOGIN: {
@@ -79,11 +68,9 @@ public class Controller {
                 break;
             }
             case Event.SIGN_UP: {
-                SAPlayer saPlayer = ServiceLocator.get(SAPlayer.class);
-                SignUpCredentials credentials = (SignUpCredentials) data;
-                int res = saPlayer.createPlayer(credentials.name(), credentials.password());
-                if (res > 0) SignUpView.update(Event.RES_SIGN_UP_SUCCESS, null);
-                else SignUpView.update(Event.RES_SIGN_UP_FAILURE, null);
+                SignUpCredentials creds = (SignUpCredentials) data;
+                int res = ServiceLocator.get(SAPlayer.class).createPlayer(creds.name(), creds.password());
+                viewResult(res > 0, SignUpView::update, Event.RES_SIGN_UP_SUCCESS, null, Event.RES_SIGN_UP_FAILURE);
                 break;
             }
             case Event.LOGOUT: {
@@ -118,30 +105,37 @@ public class Controller {
                 break;
             }
             case Event.BLACKJACK_HIT: {
+                if (blackjack == null || blackJackGUI == null) { System.err.println("BLACKJACK_HIT sin partida activa"); break; }
                 int res = blackjack.playerHit();
                 blackJackGUI.update(blackjack.getCroupierCards(), blackjack.getPlayerCards(),
                         blackjack.getCroupierPoints(), blackjack.getPlayerPoints(), false);
-                if(res != Blackjack.CONTINUE)
+                if (res != Blackjack.CONTINUE)
                     blackJackGUI.end(res == Blackjack.WON ? "Victoria. Llegaste a 21" : "Derrota. Te pasaste");
                 break;
             }
             case Event.BLACKJACK_STAND: {
-                if(blackjack.getCroupierPoints() < blackjack.getPlayerPoints()) blackjack.croupierPlay();
+                if (blackjack == null || blackJackGUI == null) { System.err.println("BLACKJACK_STAND sin partida activa"); break; }
+                if (blackjack.getCroupierPoints() < blackjack.getPlayerPoints()) blackjack.croupierPlay();
                 blackJackGUI.update(blackjack.getCroupierCards(), blackjack.getPlayerCards(),
                         blackjack.getCroupierPoints(), blackjack.getPlayerPoints(), true);
                 int res = blackjack.getResult();
-                switch(res) {
-                case Blackjack.LOST: blackJackGUI.end("Lo siento, gana el croupier.."); break;
-                case Blackjack.CONTINUE: blackJackGUI.end("Empate"); break;
-                case Blackjack.WON: {
-                    blackJackGUI.end("Felicidades, has ganado " + blackjack.getPointsWon() + " puntos!");
-                    //TODO meterle los puntos al jugador
-                    break;
-                }
+                switch (res) {
+                    case Blackjack.LOST: blackJackGUI.end("Lo siento, gana el croupier.."); break;
+                    case Blackjack.CONTINUE: blackJackGUI.end("Empate"); break;
+                    case Blackjack.WON: {
+                        blackJackGUI.end("Felicidades, has ganado " + blackjack.getPointsWon() + " puntos!");
+                        //TODO meterle los puntos al jugador
+                        break;
+                    }
                 }
                 break;
             }
             default: System.err.println("Aún no esta implementado");
         }
+    }
+
+    private static void viewResult(boolean ok, ViewUpdater view, int okEvent, Object okPayload, int failEvent) {
+        if (ok) view.update(okEvent, okPayload);
+        else view.update(failEvent, null);
     }
 }

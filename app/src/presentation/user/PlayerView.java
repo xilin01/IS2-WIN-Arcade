@@ -41,7 +41,7 @@ public class PlayerView extends JFrame {
         playButton.setPreferredSize(new Dimension(200, 100));
         playButton.setFont(playButton.getFont().deriveFont(Font.BOLD, 28f));
         playButton.addActionListener((e) -> 
-        	Controller.action(Event.GAMES_PANEL, userName)
+        	Controller.getInstance().action(Event.GAMES_PANEL, userName)
         	);
         centerPanel.add(playButton);
         add(centerPanel, BorderLayout.CENTER);
@@ -53,17 +53,17 @@ public class PlayerView extends JFrame {
         storeButton.setPreferredSize(buttonSize);
         inventoryButton.setPreferredSize(buttonSize);
         storeButton.addActionListener((e) -> 
-        	Controller.action(Event.OPEN_STORE, userName)
+        	Controller.getInstance().action(Event.OPEN_STORE, userName)
         	);
         inventoryButton.addActionListener((e) -> 
-        	Controller.action(Event.OPEN_INVENTORY, userName)
+        	Controller.getInstance().action(Event.OPEN_INVENTORY, userName)
         	);
         bottomPanel.add(storeButton);
         bottomPanel.add(inventoryButton);
         add(bottomPanel, BorderLayout.SOUTH);
 
         logOutButton.addActionListener((e) -> {
-            Controller.action(Event.LOGOUT, null);
+            Controller.getInstance().action(Event.LOGOUT, null);
             dispose();
         });
 

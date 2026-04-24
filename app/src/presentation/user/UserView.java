@@ -47,7 +47,7 @@ public class UserView extends JFrame {
         });
         readAllButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Controller.action(Event.LIST_USERS, null);
+                Controller.getInstance().action(Event.LIST_USERS, null);
             }
         });
     }

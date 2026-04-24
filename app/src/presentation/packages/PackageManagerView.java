@@ -73,7 +73,7 @@ public class PackageManagerView extends JFrame {
         this.add(bottomPanel, BorderLayout.SOUTH);
 
         backButton.addActionListener((e) -> {
-            Controller.action(Event.CLOSE_PACKAGE_MANAGER, userName);
+            Controller.getInstance().action(Event.CLOSE_PACKAGE_MANAGER, userName);
             dispose();
         });
 
