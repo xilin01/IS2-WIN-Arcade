@@ -5,6 +5,8 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import business.auth.AuthResult;
 import business.auth.SAAuth;
 import business.game.Blackjack;
+import business.game.Roulette;
+import business.game.Roulette.Bet.tBet;
 import business.player.SAPlayer;
 import business.ServiceLocator;
 import business.user.SAUser;
@@ -14,6 +16,7 @@ import presentation.auth.LoginView;
 import presentation.auth.SignUpCredentials;
 import presentation.auth.SignUpView;
 import presentation.game.BlackJackGUI;
+import presentation.game.RouletteGUI;
 import presentation.packages.PackageManagerView;
 import presentation.user.StaffView;
 import presentation.user.UserView;
@@ -24,6 +27,9 @@ public class Controller {
     private static final Controller INSTANCE = new Controller();
     private BlackJackGUI blackJackGUI;
     private Blackjack blackjack;
+    private RouletteGUI rouletteGUI;
+    private Roulette roulette;
+    private int puntosRuleta;
     private Controller() {}
     public static Controller getInstance() { return INSTANCE; }
 
@@ -128,6 +134,18 @@ public class Controller {
                         break;
                     }
                 }
+                break;
+            }
+            case Event.ROULETTE_PLAY: {
+                rouletteGUI = new RouletteGUI();
+                puntosRuleta = (Integer) data;
+                break;
+            }
+            case Event.ROULETTE_ROLL: {
+                if (rouletteGUI == null) { System.err.println("ROULETTE_ROLL sin partida activa"); break; }
+                roulette = new Roulette(puntosRuleta, (tBet) data);
+                int puntos = roulette.play();
+                rouletteGUI.showResult(puntos, roulette.getWinningNumber());
                 break;
             }
             default: System.err.println("Aún no esta implementado");

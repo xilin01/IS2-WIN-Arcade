@@ -35,7 +35,8 @@ public class PackageManagerView extends JFrame {
     private void initGUI() {
         this.setLayout(new BorderLayout());
         this.setTitle("Gestor de paquetes");
-        this.setBounds(100, 100, 500, 600);
+        this.setSize(500, 600);
+        this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Boton Crear paquete de juegos
@@ -43,7 +44,8 @@ public class PackageManagerView extends JFrame {
         JButton createPackButton = new JButton("CREAR NUEVO PAQUETE");
         createPackButton.setPreferredSize(new Dimension(150, 35));
         createPackButton.addActionListener((e) -> {
-
+        	new GamesPackageEditor(this, null);
+        	updateList();
         });
 
         createPackPanel.add(createPackButton);
@@ -53,7 +55,7 @@ public class PackageManagerView extends JFrame {
         //Lista de paquetes
         packListPanel = new JPanel();
         packListPanel.setLayout(new BoxLayout(packListPanel, BoxLayout.Y_AXIS));
-        //Margen
+
         packListPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 
         for (tGamesPackage pack : gamePackages.readAllGamesPackages()) {
@@ -100,12 +102,21 @@ public class PackageManagerView extends JFrame {
         JButton editButton = new JButton(new ImageIcon("resources/icons/edit.png"));
         editButton.setPreferredSize(new Dimension(35, 35));
         editButton.addActionListener((e) -> {
-
+        	new GamesPackageEditor(this, gamePack);
+        	updateList();
         });
         JButton deleteButton = new JButton(new ImageIcon("resources/icons/delete.png"));
         deleteButton.setPreferredSize(new Dimension(35, 35));
         deleteButton.addActionListener((e) -> {
+        	int confirm = javax.swing.JOptionPane.showConfirmDialog(this, 
+        	        "¿Borrar el paquete '" + gamePack.getName() + "'?", "Confirmar",
+        	        javax.swing.JOptionPane.YES_NO_OPTION
+        	    );
 
+    	   	if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+    	        this.gamePackages.deleteGamesPackage(gamePack.getName()); 
+    	        updateList();
+    	    }
         });
 
         buttonsPanel.add(editButton);
@@ -114,5 +125,14 @@ public class PackageManagerView extends JFrame {
         packagePanel.add(buttonsPanel, BorderLayout.EAST);
 
         return packagePanel;
+    }
+    
+    private void updateList() {
+        packListPanel.removeAll();
+        for (tGamesPackage pack : gamePackages.readAllGamesPackages()) {
+            packListPanel.add(packageElement(pack));
+        }
+        packListPanel.revalidate();
+        packListPanel.repaint();
     }
 }

@@ -21,8 +21,9 @@ public class Main {
         ServiceLocator.register(SAUser.class, new SAUserImp());
         ServiceLocator.register(SAAuth.class, new SAAuthImp());
         ServiceLocator.register(SAPlayer.class, new SAPlayerImp());
-
         SwingUtilities.invokeLater(LoginView::open);
-        Controller.getInstance().action(Event.BLACKJACK_PLAY, 20);
+        
+    	Controller.getInstance().action(Event.BLACKJACK_PLAY, 20);
+
     }
 }

@@ -37,12 +37,14 @@ public class Event {
 	// Games
 	public static final int GAMES_PANEL = 25;
 	
-		// BlackJack
+			// BlackJack
 	public static final int BLACKJACK_PLAY = 26;
 	public static final int BLACKJACK_HIT = 27;
 	public static final int BLACKJACK_STAND = 28;
-
+		// Roulette
+	public static final int ROULETTE_PLAY = 29;
+	public static final int ROULETTE_ROLL = 30;
 	// Player navigation
-	public static final int OPEN_STORE     = 29;
-	public static final int OPEN_INVENTORY = 30;
+	public static final int OPEN_STORE     = 31;
+	public static final int OPEN_INVENTORY = 32;
 }
