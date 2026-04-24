@@ -41,6 +41,8 @@ public class Event {
 	public static final int BLACKJACK_PLAY = 26;
 	public static final int BLACKJACK_HIT = 27;
 	public static final int BLACKJACK_STAND = 28;
-	
-	
+
+	// Player navigation
+	public static final int OPEN_STORE     = 29;
+	public static final int OPEN_INVENTORY = 30;
 }

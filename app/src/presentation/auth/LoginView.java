@@ -11,6 +11,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import presentation.Controller;
 import presentation.Event;
+import presentation.user.PlayerView;
+import presentation.user.StaffView;
 
 public class LoginView extends JFrame {
 
@@ -69,11 +71,11 @@ public class LoginView extends JFrame {
         switch (event) {
             case Event.RES_LOGIN_STAFF_SUCCESS -> {
                 instance.dispose();
-                new presentation.user.StaffView((String) data);
+                new StaffView((String) data);
             }
             case Event.RES_LOGIN_SUCCESS -> {
                 instance.dispose();
-                // TODO: new PlayerView((String) data);
+                new PlayerView((String) data);
             }
             case Event.RES_LOGIN_FAILURE ->
                 JOptionPane.showMessageDialog(instance, "Usuario o contraseña incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);

@@ -100,6 +100,14 @@ public class Controller {
                 new StaffView(username);
                 break;
             }
+            case Event.OPEN_STORE: {
+                System.err.println("Tienda: aún no implementada");
+                break;
+            }
+            case Event.OPEN_INVENTORY: {
+                System.err.println("Inventario: aún no implementado");
+                break;
+            }
 
             //Games
             case Event.BLACKJACK_PLAY: {
