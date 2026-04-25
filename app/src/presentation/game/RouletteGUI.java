@@ -3,6 +3,7 @@ package presentation.game;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
@@ -89,6 +90,8 @@ public class RouletteGUI extends JFrame {
     }
     
     private class ImputDialog extends JDialog{
+    	private static final int betsHeight = 200;
+        private static final int betsWidth = betsHeight * 2;
     	private Bets betName;
     	private DefaultComboBoxModel <String> select;
     	private JLabel text;
@@ -124,8 +127,12 @@ public class RouletteGUI extends JFrame {
     		
     		
     		JPanel mainPanel = new JPanel();
-    		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
     		setContentPane(mainPanel);
+    		
+    		ImageIcon icon = new ImageIcon("resources/icons/apuestas_ruleta.png");
+            Image img = icon.getImage().getScaledInstance(betsWidth, betsHeight, Image.SCALE_SMOOTH);
+            ImageIcon scaledIcon = new ImageIcon(img);
+            mainPanel.add(new JLabel(scaledIcon));
     		
     		JButton goButton = new JButton("Listo");
     		goButton.addActionListener(a -> ready());
@@ -136,7 +143,7 @@ public class RouletteGUI extends JFrame {
     		
     		setLocationRelativeTo(RouletteGUI.this);
     		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-    		setPreferredSize(new Dimension(200, 100));
+    		setPreferredSize(new Dimension(400, 280));
     		pack();
     		setVisible(true);
     	}
@@ -203,13 +210,12 @@ public class RouletteGUI extends JFrame {
         optionsPanel.setPreferredSize(new Dimension(90, 0));
         mainPanel.add(optionsPanel, BorderLayout.WEST);
 
-        playButton = new JButton();
-        playButton.setIcon(new ImageIcon("resources/icons/play.png"));
+        playButton = new JButton("Tirar");
         playButton.setEnabled(false);
         playButton.addActionListener(a -> playRoulette());
         optionsPanel.add(playButton);
 
-        JButton backButton = new JButton("Back");
+        JButton backButton = new JButton("Atrás");
         backButton.addActionListener(a -> giveUp());
         optionsPanel.add(backButton);
         
