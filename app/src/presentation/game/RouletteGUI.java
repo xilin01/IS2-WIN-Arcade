@@ -7,12 +7,17 @@ import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import business.game.Roulette;
+import business.game.Roulette.Bet.Bets;
 import business.game.Roulette.Bet.tBet;
 import presentation.Controller;
 import presentation.Event;
@@ -48,10 +53,77 @@ public class RouletteGUI extends JFrame {
             repaint();
         }
     }
+    
+    private class ImputDialog extends JDialog{
+    	private Bets betName;
+    	private DefaultComboBoxModel <String> select;
+    	private JLabel text;
+    	
+    	public ImputDialog(Bets betName) {
+    		this.betName = betName;
+    		select = new DefaultComboBoxModel<>();
+    		text = new JLabel();
+    		initGUI();
+    	}
+    	
+    	private void initGUI() {
+    		switch (betName){
+    		case Sencillo:{
+    			for(int i = 0; i < 36; i++) select.addElement(""+i); 
+    			text.setText("Elige el número (del 0 al 36)");
+    			break;
+    		}
+            case Calle:{
+            	for(int i = 1; i <= 34; i+=3) select.addElement(i+","+(i+1)+","+(i+2)); 
+            	text.setText("Elige calle de entre las opciones");
+            	break;
+            }
+            case Columna: 
+            case Docena: {
+            	for(int i = 1; i <= 3; i++) select.addElement(""+i); 
+            	text.setText("Elige entre una de las tres");
+            	break;
+            }
+			default: break;
+    		}
+  
+    		setTitle("Panel de seleccion");
+    		JPanel mainPanel = new JPanel();
+    		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+    		setContentPane(mainPanel);
+    		
+    		mainPanel.add(text);
+    		mainPanel.add(new JComboBox<>(select));
+    		JButton goButton = new JButton("Listo");
+    		goButton.addActionListener(a -> ready());
+    	}
+    	
+    	private void ready() {
+    		switch (betName) {
+    		case Columna:
+    		case Docena:
+            case Sencillo: {
+                bet = new tBet(betName, new int[]{ (Integer)select.getSelectedItem() });
+                break;
+            }
+            case Calle: {
+                String[] parts = ((String)select.getSelectedItem()).split(",");
+                bet = new tBet(betName, new int[]{ Integer.parseInt(parts[0]),
+                    Integer.parseInt(parts[1]),Integer.parseInt(parts[2])});
+                break;
+            }
+			default: break;
+    		}
+    		setVisible(false);
+    		dispose();
+    	}
+
+    }
 
     private RuletaRotada ruleta;
-    private static final String[] bets = Roulette.getBets();
+    private static final Bets[] bets = Bets.values();
     private tBet bet;
+    JButton playButton;
 
     public RouletteGUI() {
         super("Roulette");
@@ -64,19 +136,19 @@ public class RouletteGUI extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(800, 600);
 
-        BackgroundPanel mainPanel = new BackgroundPanel("");
+        BackgroundPanel mainPanel = new BackgroundPanel("resources/icons/fondo_blackjack.png");
         mainPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
         setContentPane(mainPanel);
 
         ruleta = new RuletaRotada();
         mainPanel.add(ruleta);
 
-        JPanel optionsPanel = new JPanel();
-        optionsPanel.setLayout(new BoxLayout(optionsPanel, BoxLayout.Y_AXIS));
+        JPanel optionsPanel = new JPanel(new GridLayout(2, 1, 20, 20));
         mainPanel.add(optionsPanel);
 
-        JButton playButton = new JButton();
-        playButton.setIcon(new ImageIcon("")); //TODO icono play
+        playButton = new JButton();
+        playButton.setIcon(new ImageIcon("resources/icons/play.png")); 
+        playButton.setEnabled(false);
         playButton.addActionListener(a -> playRoulette());
         optionsPanel.add(playButton);
 
@@ -84,58 +156,30 @@ public class RouletteGUI extends JFrame {
         backButton.addActionListener(a -> giveUp());
         optionsPanel.add(backButton);
 
-        JPanel betsPanel = new JPanel(new GridLayout(2, 5, 1, 1));
+        JPanel betsPanel = new JPanel(new GridLayout(5, 2, 1, 1));
         mainPanel.add(betsPanel);
         for (int i = 0; i < bets.length; i++) {
-            String betName = bets[i];
-            JButton betButton = new JButton(betName);
+            Bets betName = bets[i];
+            JButton betButton = new JButton(""+betName);
             betButton.addActionListener(a -> setBet(betName));
             betsPanel.add(betButton);
         }
     }
 
-    private void setBet(String betName) {
+    private void setBet(Bets betName) {
         switch (betName) {
-            case "Sencillo": {
-                String input = JOptionPane.showInputDialog(this, "Número (0-36):");
-                if (input == null) return;
-                bet = new tBet(betName, new int[]{ Integer.parseInt(input.trim()) });
-                break;
-            }
-            case "Calle": {
-                String input = JOptionPane.showInputDialog(this, "3 números separados por coma (ej: 1,2,3):");
-                if (input == null) return;
-                String[] parts = input.split(",");
-                bet = new tBet(betName, new int[]{
-                    Integer.parseInt(parts[0].trim()),
-                    Integer.parseInt(parts[1].trim()),
-                    Integer.parseInt(parts[2].trim())
-                });
-                break;
-            }
-            case "Columna": {
-                String input = JOptionPane.showInputDialog(this, "Columna (1-3):");
-                if (input == null) return;
-                bet = new tBet(betName, new int[]{ Integer.parseInt(input.trim()) });
-                break;
-            }
-            case "Docena": {
-                String input = JOptionPane.showInputDialog(this, "Docena (1-3):");
-                if (input == null) return;
-                bet = new tBet(betName, new int[]{ Integer.parseInt(input.trim()) });
-                break;
-            }
-            default:
-                bet = new tBet(betName, new int[]{});
+            case Sencillo:
+            case Calle: 
+            case Columna: 
+            case Docena: new ImputDialog(betName); break;
+            default: bet = new tBet(betName, new int[]{}); break;
         }
+        playButton.setEnabled(true);
     }
 
-    private void playRoulette() {
-        if (bet == null) {
-            JOptionPane.showMessageDialog(this, "Selecciona una apuesta primero.", "Sin apuesta", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
+    private void playRoulette() { //en setBet se activa el boton. 
         Controller.getInstance().action(Event.ROULETTE_ROLL, bet);
+        playButton.setEnabled(false);
     }
 
     public void end(String message) {

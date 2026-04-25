@@ -13,12 +13,13 @@ public class Roulette extends ChanceGame {
         private final String description;
         private final int multiplier;
         private final Predicate<Integer> winCondition;
+        public enum Bets {Sencillo, Calle, Columna, Docena, Rojo, Negro, Par, Impar, Low, High};
         
         public static class tBet{
-        	public String betName;
+        	public Bets betName;
         	public int[] data;
         	
-        	public tBet(String betName, int[] data) {
+        	public tBet(Bets betName, int[] data) {
         		this.betName = betName;
         		this.data = data;
         	}
@@ -102,16 +103,16 @@ public class Roulette extends ChanceGame {
     
     public static Bet toBet(Bet.tBet bet) {
     	switch(bet.betName) {
-    	case "Sencillo": return Bet.straight(bet.data[0]); 
-    	case "Calle": return Bet.street(bet.data[0], bet.data[1], bet.data[2]); 
-    	case "Columna": return Bet.column(bet.data[0]); 
-    	case "Docena": return Bet.dozen(bet.data[0]); 
-    	case "Rojo": return Bet.red();
-    	case "Negro": return Bet.black(); 
-    	case "Par": return Bet.even();
-    	case "Impar": return Bet.odd();
-    	case "1-18": return Bet.low(); 
-    	case "19-36": return Bet.high();
+    	case Sencillo: return Bet.straight(bet.data[0]); 
+    	case Calle: return Bet.street(bet.data[0], bet.data[1], bet.data[2]); 
+    	case Columna: return Bet.column(bet.data[0]); 
+    	case Docena: return Bet.dozen(bet.data[0]); 
+    	case Rojo: return Bet.red();
+    	case Negro: return Bet.black(); 
+    	case Par: return Bet.even();
+    	case Impar: return Bet.odd();
+    	case Low: return Bet.low(); 
+    	case High: return Bet.high();
     	default: return Bet.red();
     	}
     }
@@ -126,9 +127,4 @@ public class Roulette extends ChanceGame {
         if(winningNumber == -1) throw new IllegalStateException("Play the roulette to know the winning number");
         return winningNumber;
     }
-
-	public static String[] getBets() {
-		return new String[] {"Sencillo", "Calle", "Columna", "Docena", 
-				"Rojo", "Negro", "Par", "Impar", "1-18", "19-36"};
-	}
 }
