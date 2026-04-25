@@ -1,11 +1,20 @@
 package presentation.game;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -16,7 +25,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import business.game.Roulette;
+import javax.swing.Timer;
+
 import business.game.Roulette.Bet.Bets;
 import business.game.Roulette.Bet.tBet;
 import presentation.Controller;
@@ -26,30 +36,54 @@ import presentation.Event;
 public class RouletteGUI extends JFrame {
 
     private class RuletaRotada extends JPanel {
+    	private static int SIZE = 450;
         private Image image;
         private double angle;
 
         public RuletaRotada() {
-            ImageIcon icon = new ImageIcon("resources/icons/ruleta.png");
-            this.image = icon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-            this.angle = 0;
-            setPreferredSize(new Dimension(100, 100));
+        	try {
+                BufferedImage original = ImageIO.read(new File("resources/icons/ruleta.png"));
+                BufferedImage compatible = new BufferedImage(SIZE, SIZE, BufferedImage.TYPE_INT_ARGB);
+                Graphics2D g2d = compatible.createGraphics();
+                g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+                g2d.drawImage(original, 0, 0, SIZE, SIZE, null);
+                g2d.dispose();
+                this.image = compatible;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        	
+        	this.angle = 0;
+            setPreferredSize(new Dimension(SIZE, SIZE));
+            setOpaque(false);
         }
 
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             Graphics2D g2 = (Graphics2D) g.create();
-            int w = getWidth();
-            int h = getHeight();
-            g2.translate(w / 2, h / 2);
+            g2.translate(SIZE / 2, SIZE / 2);
             g2.rotate(angle);
-            g2.drawImage(image, -w / 2, -h / 2, null);
+            g2.drawImage(image, -SIZE / 2, -SIZE / 2, null);
+            drawPointer(g);
             g2.dispose();
+        }
+        
+        private void drawPointer(Graphics g) {
+        	Graphics2D gPointer = (Graphics2D) g.create();
+        	int centerX = SIZE / 2;
+
+            int[] xPoints = { centerX - 10, centerX + 10, centerX };
+            int[] yPoints = { 30, 30, 60 };
+
+            gPointer.setColor(Color.RED);
+            gPointer.fillPolygon(xPoints, yPoints, 3);
+            gPointer.dispose();
         }
 
         public void advance() {
-            this.angle = (this.angle + 1) % (2 * Math.PI);
+            this.angle = (this.angle - ((2 * Math.PI) / 37)) % (2 * Math.PI);
             repaint();
         }
     }
@@ -60,6 +94,7 @@ public class RouletteGUI extends JFrame {
     	private JLabel text;
     	
     	public ImputDialog(Bets betName) {
+    		super(RouletteGUI.this, "Panel de seleccion", true);
     		this.betName = betName;
     		select = new DefaultComboBoxModel<>();
     		text = new JLabel();
@@ -86,16 +121,24 @@ public class RouletteGUI extends JFrame {
             }
 			default: break;
     		}
-  
-    		setTitle("Panel de seleccion");
+    		
+    		
     		JPanel mainPanel = new JPanel();
     		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
     		setContentPane(mainPanel);
     		
-    		mainPanel.add(text);
-    		mainPanel.add(new JComboBox<>(select));
     		JButton goButton = new JButton("Listo");
     		goButton.addActionListener(a -> ready());
+    		mainPanel.add(text);
+    		mainPanel.add(goButton);
+    		mainPanel.add(new JComboBox<>(select));
+    		
+    		
+    		setLocationRelativeTo(RouletteGUI.this);
+    		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+    		setPreferredSize(new Dimension(200, 100));
+    		pack();
+    		setVisible(true);
     	}
     	
     	private void ready() {
@@ -103,7 +146,7 @@ public class RouletteGUI extends JFrame {
     		case Columna:
     		case Docena:
             case Sencillo: {
-                bet = new tBet(betName, new int[]{ (Integer)select.getSelectedItem() });
+                bet = new tBet(betName, new int[]{ Integer.parseInt("" + select.getSelectedItem()) });
                 break;
             }
             case Calle: {
@@ -114,56 +157,66 @@ public class RouletteGUI extends JFrame {
             }
 			default: break;
     		}
-    		setVisible(false);
     		dispose();
     	}
 
     }
-
+    
+    private Map<Integer, Integer> numberToSteps;
     private RuletaRotada ruleta;
     private static final Bets[] bets = Bets.values();
     private tBet bet;
     JButton playButton;
+    private static int animationCount = 0;
 
     public RouletteGUI() {
         super("Roulette");
+        initNumberToSteps();
         initGUI();
     }
 
     private void initGUI() {
-        this.setVisible(true);
-        this.setResizable(false);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(800, 600);
-
-        BackgroundPanel mainPanel = new BackgroundPanel("resources/icons/fondo_blackjack.png");
-        mainPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
+        BackgroundPanel mainPanel = new BackgroundPanel("resources/icons/fondo_juegos.png");
+        mainPanel.setLayout(new BorderLayout());
         setContentPane(mainPanel);
 
         ruleta = new RuletaRotada();
-        mainPanel.add(ruleta);
+        JPanel panelRuleta = new JPanel();
+        panelRuleta.setOpaque(false);
+        panelRuleta.add(ruleta);
+        panelRuleta.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));
+        mainPanel.add(panelRuleta, BorderLayout.CENTER);
 
+        JPanel betsPanel = new JPanel(new GridLayout(5, 2, 1, 1));
+        betsPanel.setOpaque(false);
+        betsPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 20));
+        mainPanel.add(betsPanel, BorderLayout.EAST);
+        for (Bets b: bets) {
+            JButton betButton = new JButton(""+b);
+            betButton.addActionListener(a -> setBet(b));
+            betsPanel.add(betButton);
+        }
+        
         JPanel optionsPanel = new JPanel(new GridLayout(2, 1, 20, 20));
-        mainPanel.add(optionsPanel);
+        optionsPanel.setOpaque(false);
+        optionsPanel.setBorder(BorderFactory.createEmptyBorder(200, 20, 200, 0));
+        optionsPanel.setPreferredSize(new Dimension(90, 0));
+        mainPanel.add(optionsPanel, BorderLayout.WEST);
 
         playButton = new JButton();
-        playButton.setIcon(new ImageIcon("resources/icons/play.png")); 
+        playButton.setIcon(new ImageIcon("resources/icons/play.png"));
         playButton.setEnabled(false);
         playButton.addActionListener(a -> playRoulette());
         optionsPanel.add(playButton);
 
-        JButton backButton = new JButton("Abandonar");
+        JButton backButton = new JButton("Back");
         backButton.addActionListener(a -> giveUp());
         optionsPanel.add(backButton);
-
-        JPanel betsPanel = new JPanel(new GridLayout(5, 2, 1, 1));
-        mainPanel.add(betsPanel);
-        for (int i = 0; i < bets.length; i++) {
-            Bets betName = bets[i];
-            JButton betButton = new JButton(""+betName);
-            betButton.addActionListener(a -> setBet(betName));
-            betsPanel.add(betButton);
-        }
+        
+        this.setVisible(true);
+        this.setResizable(false);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(800, 600);
     }
 
     private void setBet(Bets betName) {
@@ -196,8 +249,46 @@ public class RouletteGUI extends JFrame {
     }
 
     public void showResult(int puntos, int winningNumber) {
-        JOptionPane.showMessageDialog(this, puntos == 0
-                ? "Perdiste. El número fue " + winningNumber
-                : "Ganaste con el " + winningNumber);
+    	String message = puntos == 0 ? "Perdiste. El número fue el " + winningNumber: "Ganaste con el " + winningNumber;
+    	showAnimation(winningNumber, () -> end(message));
+    }
+    
+    private void showAnimation(int n, Runnable onFinish) {
+    	int steps = numberToSteps.get(n) + 37;
+        Timer timer = new Timer(50, null);
+
+        timer.addActionListener(e -> {
+        	ruleta.advance();
+        	animationCount++;
+	
+	        if (animationCount >= steps) {
+	            timer.stop();
+	            onFinish.run();
+	    }});
+
+        timer.start();
+    }
+    
+    private void initNumberToSteps() {
+    	numberToSteps = new HashMap<>();numberToSteps.put(0, 0);
+    	numberToSteps.put(0, 0);    numberToSteps.put(1, 23);
+    	numberToSteps.put(2, 6);    numberToSteps.put(3, 35);
+    	numberToSteps.put(4, 4);    numberToSteps.put(5, 19);
+    	numberToSteps.put(6, 10);   numberToSteps.put(7, 31);
+    	numberToSteps.put(8, 16);   numberToSteps.put(9, 27);
+    	numberToSteps.put(10, 18);  numberToSteps.put(11, 14);
+    	numberToSteps.put(12, 33);  numberToSteps.put(13, 12);
+    	numberToSteps.put(14, 25);  numberToSteps.put(15, 2);
+    	numberToSteps.put(16, 21);  numberToSteps.put(17, 8);
+    	numberToSteps.put(18, 29);  numberToSteps.put(19, 3);
+    	numberToSteps.put(20, 24);  numberToSteps.put(21, 5);
+    	numberToSteps.put(22, 28);  numberToSteps.put(23, 17);
+    	numberToSteps.put(24, 20);  numberToSteps.put(25, 7);
+    	numberToSteps.put(26, 36);  numberToSteps.put(27, 11);
+    	numberToSteps.put(28, 32);  numberToSteps.put(29, 30);
+    	numberToSteps.put(30, 15);  numberToSteps.put(31, 26);
+    	numberToSteps.put(32, 1);   numberToSteps.put(33, 22);
+    	numberToSteps.put(34, 9);   numberToSteps.put(35, 34);
+    	numberToSteps.put(36, 13);
     }
 }

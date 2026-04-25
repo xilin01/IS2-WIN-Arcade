@@ -36,12 +36,7 @@ public class BlackJackGUI extends JFrame {
     }
 
     private void initGUI(Cards croupierCard, List<Cards> playerDeck, int croupierPoints, int playerPoints) {
-        this.setVisible(true);
-        this.setResizable(false);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(800, 600);
-
-        BackgroundPanel mainPanel = new BackgroundPanel("resources/icons/fondo_blackjack.png");
+        BackgroundPanel mainPanel = new BackgroundPanel("resources/icons/fondo_juegos.png");
         mainPanel.setLayout(new BorderLayout());
         setContentPane(mainPanel);
 
@@ -95,6 +90,11 @@ public class BlackJackGUI extends JFrame {
 
         showInitDecks(croupierCard, playerDeck);
         setScores(croupierPoints, playerPoints, true);
+        
+        this.setVisible(true);
+        this.setResizable(false);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(800, 600);
     }
 
     private void showInitDecks(Cards croupierCard, List<Cards> playerDeck) {
