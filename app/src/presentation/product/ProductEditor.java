@@ -1,9 +1,8 @@
-package presentation.user; // O el paquete donde estés metiendo las vistas
+package presentation.product;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -13,17 +12,15 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
-
 import business.product.SAProduct;
 import business.product.SAProductImp;
 import business.product.tProduct;
 
+@SuppressWarnings("serial")
 public class ProductEditor extends JDialog {
-
     private JTextField nameField;
     private JSpinner priceSpinner;
     private tProduct currentProduct; 
-    
     private SAProduct saProduct = new SAProductImp();
 
     public ProductEditor(JFrame parent, tProduct product) {
@@ -51,9 +48,7 @@ public class ProductEditor extends JDialog {
 
         formPanel.add(new JLabel("Precio (puntos):"));
         priceSpinner = new JSpinner(new SpinnerNumberModel(10, 0, 999999, 1));
-        if (currentProduct != null) {
-            priceSpinner.setValue(currentProduct.getPrice());
-        }
+        if (currentProduct != null) priceSpinner.setValue(currentProduct.getPrice());
         formPanel.add(priceSpinner);
 
         this.add(formPanel, BorderLayout.CENTER);
@@ -63,17 +58,15 @@ public class ProductEditor extends JDialog {
         JButton cancelButton = new JButton("Cancelar");
         JButton saveButton = new JButton("Guardar");
 
-        cancelButton.addActionListener((e) -> dispose());
+        cancelButton.addActionListener(e -> dispose());
 
-        saveButton.addActionListener((e) -> {
+        saveButton.addActionListener(e -> {
             String name = nameField.getText().trim();
-            int price = (int) priceSpinner.getValue();
+            int price = (int)priceSpinner.getValue();
             
             if (!name.isEmpty()) {
-                if (currentProduct == null) {
-                    tProduct newProduct = new tProduct(name, price);
-                    saProduct.createProduct(newProduct); 
-                } else {
+                if (currentProduct == null) saProduct.createProduct(new tProduct(name, price)); 
+                else {
                     currentProduct.setPrice(price);
                     saProduct.updateProduct(currentProduct); 
                 }

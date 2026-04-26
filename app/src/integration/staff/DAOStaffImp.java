@@ -1,13 +1,15 @@
-package integration.user;
+package integration.staff;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
-import business.user.tStaff;
+import business.staff.tStaff;
 import business.user.tUser;
 import integration.DB;
+import integration.user.DAOUser;
+import integration.user.DAOUserImp;
 
 public class DAOStaffImp implements DAOStaff {
     private DAOUser daoUser = new DAOUserImp(); // Composición

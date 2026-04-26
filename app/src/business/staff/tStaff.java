@@ -1,6 +1,7 @@
-package business.user;
+package business.staff;
 
 import business.auth.AuthResult;
+import business.user.tUser;
 
 public class tStaff extends tUser {
 
@@ -10,6 +11,6 @@ public class tStaff extends tUser {
 
     @Override
     public AuthResult toAuthResult() {
-        return AuthResult.staffOk(getName());
+        return AuthResult.staffOk(name);
     }
 }

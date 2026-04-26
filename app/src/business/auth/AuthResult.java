@@ -1,8 +1,7 @@
 package business.auth;
 
 public class AuthResult {
-
-    public enum Outcome { STAFF_OK, PLAYER_OK, FAILURE }
+    public enum Outcome {STAFF_OK, PLAYER_OK, FAILURE}
 
     private final Outcome outcome;
     private final Object payload;
@@ -24,6 +23,11 @@ public class AuthResult {
         return new AuthResult(Outcome.FAILURE, null);
     }
 
-    public Outcome getOutcome() { return outcome; }
-    public Object getPayload()  { return payload; }
+    public Outcome getOutcome() {
+    	return outcome;
+    }
+    
+    public Object getPayload() {
+    	return payload;
+    }
 }

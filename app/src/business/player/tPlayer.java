@@ -75,6 +75,6 @@ public class tPlayer extends tUser {
 
     @Override
     public AuthResult toAuthResult() {
-        return AuthResult.playerOk(getName());
+        return AuthResult.playerOk(name);
     }
 }

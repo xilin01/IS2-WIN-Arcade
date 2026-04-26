@@ -1,8 +1,10 @@
-package business.user;
+package integration.staff;
 
 import java.util.Collection;
+import business.staff.tStaff;
 
-public interface SAStaff {
+public interface DAOStaff {
+	
     int createStaff(tStaff staff);
     tStaff readStaff(String name);
     int updateStaff(tStaff staff);

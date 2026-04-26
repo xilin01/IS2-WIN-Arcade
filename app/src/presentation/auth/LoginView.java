@@ -14,10 +14,11 @@ import presentation.Event;
 import presentation.user.PlayerView;
 import presentation.user.StaffView;
 
+@SuppressWarnings("serial")
 public class LoginView extends JFrame {
-
+	public record LoginCredentials(String name, String password) {}
+	
     private static LoginView instance;
-
     private final JTextField txtName = new JTextField(16);
     private final JPasswordField txtPass = new JPasswordField(16);
 
@@ -27,9 +28,7 @@ public class LoginView extends JFrame {
     }
 
     public static void open() {
-        if (instance == null || !instance.isDisplayable()) {
-            instance = new LoginView();
-        }
+        if (instance == null || !instance.isDisplayable()) instance = new LoginView();
         instance.setVisible(true);
     }
 
@@ -55,11 +54,7 @@ public class LoginView extends JFrame {
         gbc.gridy = 3;
         add(btnSignUp, gbc);
 
-        btnLogin.addActionListener(e -> {
-            String name = txtName.getText().trim();
-            String pass = new String(txtPass.getPassword());
-            Controller.getInstance().action(Event.LOGIN, new LoginCredentials(name, pass));
-        });
+        btnLogin.addActionListener(e -> Controller.getInstance().action(Event.LOGIN, new LoginCredentials(txtName.getText().trim(), new String(txtPass.getPassword()))));
 
         btnSignUp.addActionListener(e -> {
             instance.dispose();
@@ -68,17 +63,16 @@ public class LoginView extends JFrame {
     }
 
     public static void update(int event, Object data) {
-        switch (event) {
-            case Event.RES_LOGIN_STAFF_SUCCESS -> {
+        switch(event) {
+            case Event.RES_LOGIN_STAFF_SUCCESS:
                 instance.dispose();
                 new StaffView((String) data);
-            }
-            case Event.RES_LOGIN_SUCCESS -> {
+                break;
+            case Event.RES_LOGIN_SUCCESS:
                 instance.dispose();
                 new PlayerView((String) data);
-            }
-            case Event.RES_LOGIN_FAILURE ->
-                JOptionPane.showMessageDialog(instance, "Usuario o contraseña incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+            case Event.RES_LOGIN_FAILURE: JOptionPane.showMessageDialog(instance, "Usuario o contraseña incorrectos.", "Error", JOptionPane.ERROR_MESSAGE); break;
         }
     }
 }

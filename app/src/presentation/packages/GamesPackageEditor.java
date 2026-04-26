@@ -1,6 +1,7 @@
 package presentation.packages;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -8,7 +9,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -22,7 +22,6 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
-
 import business.game.SAGame;
 import business.game.SAGameImp;
 import business.game.tGame;
@@ -30,17 +29,17 @@ import business.packages.SAGamesPackage;
 import business.packages.SAGamesPackageImp;
 import business.packages.tGamesPackage;
 
+@SuppressWarnings("serial")
 public class GamesPackageEditor extends JDialog {
-
     private JTextField nameField;
     private JSpinner priceSpinner;
-    private tGamesPackage currentPack; 
     
+    private tGamesPackage currentPack; 
     private Map<tGame, Integer> gamesMap; // Juegos que se van a guardar en el paquete
     
     private JPanel gamesListPanel;
     private JLabel totalPointsLabel; 
-    private double currentTotalPoints = 0.0; 
+    private double currentTotalPoints = 0; 
 
     private SAGamesPackage saGamesPackage = new SAGamesPackageImp();
     private SAGame saGame = new SAGameImp();
@@ -48,13 +47,8 @@ public class GamesPackageEditor extends JDialog {
     public GamesPackageEditor(JFrame parent, tGamesPackage pack) {
         super(parent, pack == null ? "Crear Nuevo Paquete" : "Editar Paquete", true);
         this.currentPack = pack;
-        
-        if (currentPack != null && currentPack.getGames() != null) {
-            this.gamesMap = new HashMap<>(currentPack.getGames());
-        } else {
-            this.gamesMap = new HashMap<>();
-        }
-        
+        if (currentPack != null && currentPack.getGames() != null) this.gamesMap = new HashMap<>(currentPack.getGames());
+        else this.gamesMap = new HashMap<>();
         initGUI();
     }
 
@@ -82,7 +76,7 @@ public class GamesPackageEditor extends JDialog {
         
         topPanel.add(infoPanel);
 
-
+        
         // --- BARRA PARA AÑADIR JUEGOS ---
         JPanel addGamePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         
@@ -98,9 +92,7 @@ public class GamesPackageEditor extends JDialog {
         // 2. CREAMOS LOS DESPLEGABLES
         addGamePanel.add(new JLabel("Juego:"));
         JComboBox<String> gameNameComboBox = new JComboBox<>();
-        for (String gameName : availableGamesMap.keySet()) {
-            gameNameComboBox.addItem(gameName);
-        }
+        for (String gameName : availableGamesMap.keySet()) gameNameComboBox.addItem(gameName);
         addGamePanel.add(gameNameComboBox);
 
         addGamePanel.add(new JLabel("Puntos:"));
@@ -113,20 +105,17 @@ public class GamesPackageEditor extends JDialog {
 
         // 3. LÓGICA: Cuando cambie el juego seleccionado, actualizamos la lista de puntos
         gameNameComboBox.addActionListener(e -> {
-            String selectedGame = (String) gameNameComboBox.getSelectedItem();
+            String selectedGame = (String)gameNameComboBox.getSelectedItem();
+            
             gamePointsComboBox.removeAllItems(); // Vaciamos los puntos anteriores
             if (selectedGame != null) {
                 // Llenamos con los puntos válidos para el juego actual
-                for (Integer pts : availableGamesMap.get(selectedGame)) {
-                    gamePointsComboBox.addItem(pts);
-                }
+                for (Integer pts : availableGamesMap.get(selectedGame)) gamePointsComboBox.addItem(pts);
             }
         });
 
         // Forzamos la selección del primer elemento para que se rellene la lista de puntos al abrir la ventana
-        if (gameNameComboBox.getItemCount() > 0) {
-            gameNameComboBox.setSelectedIndex(0);
-        }
+        if (gameNameComboBox.getItemCount() > 0) gameNameComboBox.setSelectedIndex(0);
 
         // 4. BOTÓN AÑADIR
         JButton addGameBtn = new JButton("Añadir");
@@ -149,7 +138,7 @@ public class GamesPackageEditor extends JDialog {
         topPanel.add(addGamePanel);
 
         this.add(topPanel, BorderLayout.NORTH);
-
+        
 
         // --- PANEL CENTRAL (Lista de Juegos añadidos) ---
         gamesListPanel = new JPanel();
@@ -169,7 +158,7 @@ public class GamesPackageEditor extends JDialog {
         
         totalPointsLabel = new JLabel("Valor en puntos: 0");
         totalPointsLabel.setFont(totalPointsLabel.getFont().deriveFont(java.awt.Font.BOLD, 14f));
-        totalPointsLabel.setForeground(java.awt.Color.GRAY);
+        totalPointsLabel.setForeground(Color.GRAY);
         bottomPanel.add(totalPointsLabel, BorderLayout.WEST);
 
         JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -183,10 +172,8 @@ public class GamesPackageEditor extends JDialog {
             double finalPrice = (double) priceSpinner.getValue();
             
             if (!name.isEmpty()) {
-                if (currentPack == null) {
-                    tGamesPackage nuevoPaquete = new tGamesPackage(name, finalPrice, gamesMap); 
-                    saGamesPackage.createGamesPackage(nuevoPaquete); 
-                } else {
+                if (currentPack == null) saGamesPackage.createGamesPackage( new tGamesPackage(name, finalPrice, gamesMap)); 
+                else {
                     currentPack.setName(name);
                     currentPack.setPrice(finalPrice); 
                     currentPack.setGames(gamesMap); 
@@ -213,14 +200,14 @@ public class GamesPackageEditor extends JDialog {
         for (Map.Entry<tGame, Integer> entry : gamesMap.entrySet()) {
             tGame juego = entry.getKey();
             Integer cantidad = entry.getValue();
-
             int subtotalJuego = juego.getBasePoints() * cantidad;
+            
             currentTotalPoints += subtotalJuego; 
 
             JPanel row = new JPanel(new BorderLayout());
             row.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createEmptyBorder(2, 2, 2, 2),
-                BorderFactory.createLineBorder(java.awt.Color.LIGHT_GRAY)
+                BorderFactory.createLineBorder(Color.LIGHT_GRAY)
             ));
             row.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
 

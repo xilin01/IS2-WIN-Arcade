@@ -1,4 +1,4 @@
-package presentation.user; 
+package presentation.product; 
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 import business.product.SAProduct;
 import business.product.SAProductImp;
 import business.product.tProduct;
+import presentation.user.StaffView;
 
 public class ProductManagerView extends JFrame {
 

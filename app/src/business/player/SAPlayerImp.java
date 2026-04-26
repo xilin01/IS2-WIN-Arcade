@@ -24,8 +24,7 @@ public class SAPlayerImp implements SAPlayer {
 
     @Override
     public int createPlayer(String name, String password) {
-        tPlayer player = new tPlayer(name, password, true, new tPlayer.tInventory(name), 0);
-        return createPlayer(player);
+        return createPlayer(new tPlayer(name, password, true, new tPlayer.tInventory(name), 0));
     }
 
     @Override
@@ -58,12 +57,6 @@ public class SAPlayerImp implements SAPlayer {
     @Override
     public int updateInventory(tInventory inventory) {
         if(daoPlayer.readPlayer(inventory.getPlayerName()) != null) return daoInventory.updateInventory(inventory);
-        return -1;
-    }
-
-    @Override
-    public int deleteInventory(String playerName) {
-        if(daoPlayer.readPlayer(playerName) != null) return daoInventory.deleteInventory(playerName);
         return -1;
     }
 

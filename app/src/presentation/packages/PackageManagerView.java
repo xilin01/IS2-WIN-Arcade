@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.Border;
@@ -19,14 +20,14 @@ import business.packages.tGamesPackage;
 import presentation.Controller;
 import presentation.Event;
 
+@SuppressWarnings("serial")
 public class PackageManagerView extends JFrame {
-
     private JPanel packListPanel;
     private SAGamesPackage gamePackages;
     private String userName;
 
     public PackageManagerView(String userName) {
-        super();
+        super("Gestor de paquetes");
         this.gamePackages = new SAGamesPackageImp();
         this.userName = userName;
         initGUI();
@@ -34,7 +35,6 @@ public class PackageManagerView extends JFrame {
 
     private void initGUI() {
         this.setLayout(new BorderLayout());
-        this.setTitle("Gestor de paquetes");
         this.setSize(500, 600);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,7 +43,7 @@ public class PackageManagerView extends JFrame {
         JPanel createPackPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JButton createPackButton = new JButton("CREAR NUEVO PAQUETE");
         createPackButton.setPreferredSize(new Dimension(150, 35));
-        createPackButton.addActionListener((e) -> {
+        createPackButton.addActionListener(e -> {
         	new GamesPackageEditor(this, null);
         	updateList();
         });
@@ -58,10 +58,7 @@ public class PackageManagerView extends JFrame {
 
         packListPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 
-        for (tGamesPackage pack : gamePackages.readAllGamesPackages()) {
-            JPanel gamePanel = packageElement(pack);
-            packListPanel.add(gamePanel);
-        }
+        for (tGamesPackage pack : gamePackages.readAllGamesPackages()) packListPanel.add(packageElement(pack));
         JScrollPane packScrollPane = new JScrollPane(packListPanel);
 
         this.add(packScrollPane, BorderLayout.CENTER);
@@ -74,7 +71,7 @@ public class PackageManagerView extends JFrame {
 
         this.add(bottomPanel, BorderLayout.SOUTH);
 
-        backButton.addActionListener((e) -> {
+        backButton.addActionListener(e -> {
             Controller.getInstance().action(Event.CLOSE_PACKAGE_MANAGER, userName);
             dispose();
         });
@@ -101,19 +98,17 @@ public class PackageManagerView extends JFrame {
 
         JButton editButton = new JButton(new ImageIcon("resources/icons/edit.png"));
         editButton.setPreferredSize(new Dimension(35, 35));
-        editButton.addActionListener((e) -> {
+        editButton.addActionListener(e -> {
         	new GamesPackageEditor(this, gamePack);
         	updateList();
         });
         JButton deleteButton = new JButton(new ImageIcon("resources/icons/delete.png"));
         deleteButton.setPreferredSize(new Dimension(35, 35));
-        deleteButton.addActionListener((e) -> {
-        	int confirm = javax.swing.JOptionPane.showConfirmDialog(this, 
-        	        "¿Borrar el paquete '" + gamePack.getName() + "'?", "Confirmar",
-        	        javax.swing.JOptionPane.YES_NO_OPTION
-        	    );
+        deleteButton.addActionListener(e -> {
+        	int confirm = JOptionPane.showConfirmDialog(this, "¿Borrar el paquete '" + gamePack.getName() + "'?",
+        			"Confirmar", JOptionPane.YES_NO_OPTION);
 
-    	   	if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+    	   	if (confirm == JOptionPane.YES_OPTION) {
     	        this.gamePackages.deleteGamesPackage(gamePack.getName()); 
     	        updateList();
     	    }
@@ -129,9 +124,7 @@ public class PackageManagerView extends JFrame {
     
     private void updateList() {
         packListPanel.removeAll();
-        for (tGamesPackage pack : gamePackages.readAllGamesPackages()) {
-            packListPanel.add(packageElement(pack));
-        }
+        for (tGamesPackage pack : gamePackages.readAllGamesPackages()) packListPanel.add(packageElement(pack));
         packListPanel.revalidate();
         packListPanel.repaint();
     }

@@ -3,28 +3,26 @@ package presentation.user;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-
 import business.user.SAUser;
 import business.user.SAUserImp;
 import business.player.tPlayer;
 import business.user.tUser;
 
+@SuppressWarnings("serial")
 public class UserEditor extends JDialog {
-
     private JTextField nameField;
     private JTextField passwordField;
     private JCheckBox activeCheckBox; 
     private tUser currentUser; 
-    
     private SAUser saUser = new SAUserImp();
 
     public UserEditor(JFrame parent, tUser user) {
@@ -54,9 +52,7 @@ public class UserEditor extends JDialog {
         // Contraseña
         formPanel.add(new JLabel("Contraseña:"));
         passwordField = new JTextField();
-        if (currentUser != null) {
-            passwordField.setText(currentUser.getPassword());
-        }
+        if (currentUser != null) passwordField.setText(currentUser.getPassword());
         formPanel.add(passwordField);
 
         // Activo
@@ -72,26 +68,23 @@ public class UserEditor extends JDialog {
         JButton cancelButton = new JButton("Cancelar");
         JButton saveButton = new JButton("Guardar");
 
-        cancelButton.addActionListener((e) -> dispose());
+        cancelButton.addActionListener(e -> dispose());
 
-        saveButton.addActionListener((e) -> {
+        saveButton.addActionListener(e -> {
             String name = nameField.getText().trim();
             String password = passwordField.getText().trim();
             boolean isActive = activeCheckBox.isSelected();
             
             if (!name.isEmpty() && !password.isEmpty()) {
-                if (currentUser == null) {
-                    tUser newPlayer = new tPlayer(name, password, isActive, new tPlayer.tInventory(name), 0);
-                    saUser.createUser(newPlayer); 
-                } else {
+                if (currentUser == null) saUser.createUser(new tPlayer(name, password, isActive, new tPlayer.tInventory(name), 0)); 
+                else {
                     currentUser.setPassword(password);
                     currentUser.setActive(isActive);
                     saUser.updateUser(currentUser); 
                 }
                 dispose(); 
-            } else {
-                javax.swing.JOptionPane.showMessageDialog(this, "El nombre y la contraseña no pueden estar vacíos.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-            }
+            } 
+            else JOptionPane.showMessageDialog(this, "El nombre o la contraseña no pueden estar vacíos.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         });
 
         bottomPanel.add(cancelButton);

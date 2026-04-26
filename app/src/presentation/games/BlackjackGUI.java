@@ -1,4 +1,4 @@
-package presentation.game;
+package presentation.games;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -19,19 +19,18 @@ import presentation.Controller;
 import presentation.Event;
 
 @SuppressWarnings("serial")
-public class BlackJackGUI extends JFrame {
+public class BlackjackGUI extends JFrame {
     private static final int cardHeight = 200;
-    private static final int cardWidth = (int) (cardHeight / 1.4);
+    private static final int cardWidth = (int)(cardHeight / 1.4);
 
     private JPanel croupierDeckPanel;
     private JPanel playerDeckPanel;
-
     private JLabel playerScore;
     private JLabel croupierScore;
     private Font font = new Font("", Font.PLAIN, 15);
 
-    public BlackJackGUI(Cards croupierCard, List<Cards> playerDeck, int croupierPoints, int playerPoints) {
-        super("Black Jack");
+    public BlackjackGUI(Cards croupierCard, List<Cards> playerDeck, int croupierPoints, int playerPoints) {
+        super("Blackjack");
         initGUI(croupierCard, playerDeck, croupierPoints, playerPoints);
     }
 
@@ -40,7 +39,7 @@ public class BlackJackGUI extends JFrame {
         mainPanel.setLayout(new BorderLayout());
         setContentPane(mainPanel);
 
-        //Mano del croupier.
+        // Mano del croupier
         croupierDeckPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 20));
         croupierDeckPanel.setPreferredSize(new Dimension(0, 250));
         croupierDeckPanel.setOpaque(false);
@@ -56,11 +55,11 @@ public class BlackJackGUI extends JFrame {
         mainPanel.add(choiceButtonsPanel, BorderLayout.CENTER);
 
         JButton hitButton = new JButton("Pedir carta");
-        hitButton.addActionListener((a) -> Controller.getInstance().action(Event.BLACKJACK_HIT, null));
+        hitButton.addActionListener(a -> Controller.getInstance().action(Event.BLACKJACK_HIT, null));
         choiceButtonsPanel.add(hitButton);
 
         JButton standButton = new JButton("Plantarse");
-        standButton.addActionListener((a) -> Controller.getInstance().action(Event.BLACKJACK_STAND, null));
+        standButton.addActionListener(a -> Controller.getInstance().action(Event.BLACKJACK_STAND, null));
         choiceButtonsPanel.add(standButton);
 
         JPanel backPanel = new JPanel();
@@ -69,7 +68,7 @@ public class BlackJackGUI extends JFrame {
         mainPanel.add(backPanel, BorderLayout.WEST);
 
         JButton backButton = new JButton("Abandonar");
-        backButton.addActionListener((a) -> giveUp());
+        backButton.addActionListener(a -> giveUp());
         backPanel.add(backButton);
 
         JPanel scoresPanel = new JPanel();
@@ -112,12 +111,13 @@ public class BlackJackGUI extends JFrame {
         if(showFullCroupier) {
             croupierDeckPanel.removeAll();
             for(Cards c: croupierDeck) showCard(croupierDeckPanel, c);
-            croupierDeckPanel.revalidate(); croupierDeckPanel.repaint();
+            croupierDeckPanel.revalidate(); 
+            croupierDeckPanel.repaint();
         }
-
         playerDeckPanel.removeAll();
         for(Cards c: playerDeck) showCard(playerDeckPanel, c);
-        playerDeckPanel.revalidate(); playerDeckPanel.repaint();
+        playerDeckPanel.revalidate();
+        playerDeckPanel.repaint();
     }
 
     private void setScores(int croupierPoints, int playerPoints, boolean showFullCroupier) {
@@ -134,19 +134,22 @@ public class BlackJackGUI extends JFrame {
         ImageIcon icon = new ImageIcon("resources/cards/"+cardName+".png");
         Image img = icon.getImage().getScaledInstance(cardWidth, cardHeight, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(img);
+        
         deckPanel.add(new JLabel(scaledIcon));
     }
-
+    
     public void end(String message) {
         JOptionPane.showMessageDialog(this, message);
-        Controller.getInstance().action(Event.GAMES_PANEL, null); //TODO redirige al panel de juegos
+        Controller.getInstance().action(Event.GAMES_PANEL, null); 
         dispose();
     }
-
+    
     private void giveUp() {
-        int option = JOptionPane.showConfirmDialog(this,
-                "¿Estás seguro de que quieres abandonar? \nSe perderá la partida",
-                "Confirmar salida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if(option == JOptionPane.OK_OPTION) end("Abandonaste la partida. Rendirse no es la solucion.");
+        int option = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que quieres abandonar?\n La partida se perderá",
+                "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if(option == JOptionPane.OK_OPTION) {
+            Controller.getInstance().action(Event.GAMES_PANEL, null); 
+            dispose();
+        }
     }
 }

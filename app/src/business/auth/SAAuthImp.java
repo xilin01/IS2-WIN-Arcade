@@ -5,7 +5,6 @@ import business.user.SAUserImp;
 import business.user.tUser;
 
 public class SAAuthImp implements SAAuth {
-
     private final SAUser saUser;
 
     public SAAuthImp() {
@@ -15,8 +14,8 @@ public class SAAuthImp implements SAAuth {
     @Override
     public AuthResult authenticate(String name, String password) {
         tUser user = saUser.readUser(name);
-        if (user == null || !user.getActive() || !user.getPassword().equals(password))
-            return AuthResult.failure();
+        
+        if(user == null || !user.getActive() || !user.getPassword().equals(password)) return AuthResult.failure();
         return user.toAuthResult();
     }
 }

@@ -1,4 +1,4 @@
-package presentation.game;
+package presentation.games;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -16,7 +16,6 @@ class BackgroundPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if(background != null) 
-        	g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
+        if(background != null) g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
     }
 }

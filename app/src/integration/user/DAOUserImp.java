@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.ArrayList;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import business.player.tPlayer;
-import business.user.tStaff;
+import business.staff.tStaff;
 import business.user.tUser;
 import integration.DB;
 

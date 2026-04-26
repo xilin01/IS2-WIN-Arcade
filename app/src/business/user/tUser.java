@@ -6,11 +6,11 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 @objid ("6412596d-6469-4893-83ec-0812aedc297c")
 public abstract class tUser {
     @objid ("a669f9bd-cd6d-4a2a-9563-a8dcabdec084")
-    private String name;
+    protected String name;
     @objid ("260eec0d-4175-4e20-9b2b-1377f14b222d")
-    private String password;
+    protected String password;
     @objid ("aa5ac128-fc37-43d5-9b0b-e1ad1cf37078")
-    private boolean active;
+    protected boolean active;
 
     @objid ("f892fd71-665f-4d31-9c25-cabf1bac8380")
     public tUser(String name, String password, boolean active) {
@@ -49,11 +49,11 @@ public abstract class tUser {
         this.active = active;
     }
 
-    public abstract AuthResult toAuthResult();
-
     @objid ("b599eb48-e160-45b3-82ee-c4a135a3e6d0")
     @Override
     public String toString() {
         return "[NAME: " + name + ", ACTIVE: " + active + "]";
     }
+    
+    abstract public AuthResult toAuthResult();
 }

@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import business.user.tUser;
 import presentation.Controller;
 import presentation.Event;
+import presentation.product.ProductManagerView;
 
 public class StaffView extends JFrame {
 

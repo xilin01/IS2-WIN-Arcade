@@ -12,10 +12,11 @@ import java.awt.Insets;
 import presentation.Controller;
 import presentation.Event;
 
+@SuppressWarnings("serial")
 public class SignUpView extends JFrame {
+	public record SignUpCredentials(String name, String password) {}
 
     private static SignUpView instance;
-
     private final JTextField txtName = new JTextField(16);
     private final JPasswordField txtPassword = new JPasswordField(16);
     private final JPasswordField txtConfirm = new JPasswordField(16);
@@ -26,9 +27,7 @@ public class SignUpView extends JFrame {
     }
 
     public static void open() {
-        if (instance == null || !instance.isDisplayable()) {
-            instance = new SignUpView();
-        }
+        if (instance == null || !instance.isDisplayable()) instance = new SignUpView();
         instance.setVisible(true);
     }
 
@@ -61,7 +60,7 @@ public class SignUpView extends JFrame {
             String confirm = new String(txtConfirm.getPassword());
 
             if (name.isEmpty() || password.isEmpty()) {
-                JOptionPane.showMessageDialog(instance, "El usuario y la contraseña no pueden estar vacíos.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(instance, "El usuario o la contraseña no pueden estar vacíos.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (!password.equals(confirm)) {
@@ -78,14 +77,13 @@ public class SignUpView extends JFrame {
     }
 
     public static void update(int event, Object data) {
-        switch (event) {
-            case Event.RES_SIGN_UP_SUCCESS -> {
-                JOptionPane.showMessageDialog(instance, "Registro completado. Ya puedes iniciar sesión.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        switch(event) {
+            case Event.RES_SIGN_UP_SUCCESS:
+                JOptionPane.showMessageDialog(instance, "Registro completado, ya puedes iniciar sesión.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 instance.dispose();
                 LoginView.open();
-            }
-            case Event.RES_SIGN_UP_FAILURE ->
-                JOptionPane.showMessageDialog(instance, "El nombre de usuario ya existe.", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+            case Event.RES_SIGN_UP_FAILURE: JOptionPane.showMessageDialog(instance, "El nombre de usuario ya existe.", "Error", JOptionPane.ERROR_MESSAGE); break;
         }
     }
 }

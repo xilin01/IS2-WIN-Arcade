@@ -18,13 +18,12 @@ public class Main {
 
     @objid ("0699632e-2ac8-43b2-b795-5017a07d6fd5")
     public static void main(String[] args) {
-//        ServiceLocator.register(SAUser.class, new SAUserImp());
-//        ServiceLocator.register(SAAuth.class, new SAAuthImp());
-//        ServiceLocator.register(SAPlayer.class, new SAPlayerImp());
-//        SwingUtilities.invokeLater(LoginView::open);
-        
+    	ServiceLocator.register(SAUser.class, new SAUserImp());
+    	ServiceLocator.register(SAPlayer.class, new SAPlayerImp());
+    	ServiceLocator.register(SAAuth.class, new SAAuthImp());
+    	SwingUtilities.invokeLater(LoginView::open);
+      
 //    	Controller.getInstance().action(Event.BLACKJACK_PLAY, 20);
-    	Controller.getInstance().action(Event.ROULETTE_PLAY, 20);
-
+//		Controller.getInstance().action(Event.ROULETTE_PLAY, 20);
     }
 }

@@ -177,48 +177,6 @@ public class DAOInventoryImp implements DAOInventory {
     }
 
     @Override
-    public int deleteInventory(String playerName) {
-        int rowCount = 0;
-        Connection connection = DB.getConnection();
-
-        if(connection != null) {
-            try {
-                connection.setAutoCommit(false);
-                String query = "DELETE FROM gamesInventory WHERE playerName = ?";
-                PreparedStatement pst = connection.prepareStatement(query);
-                pst.setString(1, playerName);
-                rowCount += pst.executeUpdate();
-                pst.close();
-                query = "DELETE FROM productsInventory WHERE playerName = ?";
-                pst = connection.prepareStatement(query);
-                pst.setString(1, playerName);
-                rowCount += pst.executeUpdate();
-                pst.close();
-                connection.commit();
-            }
-            catch(SQLException e) {
-                rowCount = 0;
-                try {
-                    connection.rollback();
-                }
-                catch(SQLException ex) {
-                    ex.printStackTrace();
-                }
-                e.printStackTrace();
-            }
-            finally {
-                try {
-                    connection.setAutoCommit(true);
-                }
-                catch(SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return rowCount > 0 ? 1 : 0;
-    }
-
-    @Override
     public Collection<tInventory> readAllInventories() {
         Map<String, tInventory> inventories = new HashMap<>();
         Connection connection = DB.getConnection();

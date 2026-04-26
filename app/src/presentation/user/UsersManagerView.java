@@ -4,29 +4,28 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
-
 import business.player.tPlayer;
 import business.user.SAUser;
 import business.user.SAUserImp;
 import business.user.tUser;
 
+@SuppressWarnings("serial")
 public class UsersManagerView extends JFrame {
-
     private JPanel userListPanel;
     private SAUser saUser;
     private String currentUserName;
 
     public UsersManagerView(String currentUserName) {
-        super();
+        super("Gestor de usuarios");
         this.currentUserName = currentUserName;
         this.saUser = new SAUserImp(); 
         initGUI();
@@ -34,7 +33,6 @@ public class UsersManagerView extends JFrame {
 
     private void initGUI() {
         this.setLayout(new BorderLayout());
-        this.setTitle("Gestor de Usuarios");
         this.setBounds(100, 100, 550, 600);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,7 +41,7 @@ public class UsersManagerView extends JFrame {
         JPanel createUserPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JButton createUserButton = new JButton("CREAR NUEVO USUARIO");
         createUserButton.setPreferredSize(new Dimension(200, 35));
-        createUserButton.addActionListener((e) -> {
+        createUserButton.addActionListener(e -> {
             new UserEditor(this, null);
             updateList(); 
         });
@@ -67,9 +65,8 @@ public class UsersManagerView extends JFrame {
         bottomPanel.add(backButton);
         this.add(bottomPanel, BorderLayout.SOUTH);
 
-        backButton.addActionListener((e) -> {
+        backButton.addActionListener(e -> {
             new StaffView(currentUserName); 
-            
             dispose(); 
         });
 
@@ -81,18 +78,13 @@ public class UsersManagerView extends JFrame {
     private JPanel userElement(tUser user) {
         JPanel userPanel = new JPanel(new BorderLayout());
         userPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
-        userPanel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createEmptyBorder(5, 5, 5, 5),
-            BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1)
-        ));
+        userPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5), BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1)));
 
         JPanel userInfo = new JPanel(new FlowLayout(FlowLayout.LEFT));
         String statusText = user.getActive() ? "(Activo)" : "(Inactivo)";
         JLabel nameLabel = new JLabel("  " + user.getName() + "  " + statusText);
         
-        if (!user.getActive()) {
-            nameLabel.setForeground(Color.GRAY);
-        }
+        if (!user.getActive()) nameLabel.setForeground(Color.GRAY);
         userInfo.add(nameLabel);
         userPanel.add(userInfo, BorderLayout.CENTER);
 
@@ -100,7 +92,7 @@ public class UsersManagerView extends JFrame {
         JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
         JButton editButton = new JButton("Editar"); 
-        editButton.addActionListener((e) -> {
+        editButton.addActionListener(e -> {
             new UserEditor(this, user);
             updateList();
         });
@@ -108,15 +100,11 @@ public class UsersManagerView extends JFrame {
         JButton deleteButton = new JButton("X");
         deleteButton.setForeground(Color.RED);
 
-        deleteButton.addActionListener((e) -> {
-            int confirm = javax.swing.JOptionPane.showConfirmDialog(
-                this, 
-                "¿Borrar definitivamente al usuario '" + user.getName() + "'?",
-                "Confirmar",
-                javax.swing.JOptionPane.YES_NO_OPTION
-            );
+        deleteButton.addActionListener(e -> {
+            int confirm = JOptionPane.showConfirmDialog(this, "¿Borrar al usuario '" + user.getName() + "'?",
+                "Confirmar", JOptionPane.YES_NO_OPTION);
 
-            if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+            if (confirm == JOptionPane.YES_OPTION) {
                 this.saUser.deleteUser(user.getName()); 
                 updateList();
             }
@@ -131,10 +119,8 @@ public class UsersManagerView extends JFrame {
 
     private void updateList() {
         userListPanel.removeAll();
-        for (tUser u : saUser.readAllUsers()) {
-            if (u instanceof tPlayer) {
-                userListPanel.add(userElement(u));
-            }
+        for (tUser u: saUser.readAllUsers()) {
+            if (u instanceof tPlayer) userListPanel.add(userElement(u));
         }
         userListPanel.revalidate();
         userListPanel.repaint();

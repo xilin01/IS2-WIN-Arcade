@@ -1,8 +1,9 @@
-package business.user;
+package business.staff;
 
 import java.util.Collection;
-import integration.user.DAOStaff;
-import integration.user.DAOStaffImp;
+
+import integration.staff.DAOStaff;
+import integration.staff.DAOStaffImp;
 
 public class SAStaffImp implements SAStaff {
     private DAOStaff daoStaff;
