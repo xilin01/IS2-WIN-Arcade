@@ -3,6 +3,8 @@ package presentation;
 import java.util.Collection;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
+
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import business.auth.AuthResult;
 import business.auth.SAAuth;
@@ -10,8 +12,10 @@ import business.game.Blackjack;
 import business.game.Roulette;
 import business.game.Roulette.Bet.tBet;
 import business.game.tGame;
+import business.packages.tGamesPackage;
 import business.player.SAPlayer;
 import business.player.tPlayer;
+import business.product.tProduct;
 import business.ServiceLocator;
 import business.user.SAUser;
 import business.user.tUser;
@@ -24,6 +28,7 @@ import presentation.games.GamesPanelView;
 import presentation.games.RouletteGUI;
 import presentation.packages.PackageManagerView;
 import presentation.user.StaffView;
+import presentation.user.StoreView;
 import presentation.user.UserView;
 
 // Patrón Singleton
@@ -120,8 +125,34 @@ public class Controller {
                 new StaffView(username);
                 break;
             }
-            case Event.OPEN_STORE: {
-                System.err.println("Tienda: aún no implementada");
+            case Event.OPEN_STORE: {            	
+                new StoreView(currUser);
+                break;
+            }
+            case Event.BUY_PACKAGE: {
+                tGamesPackage pack = (tGamesPackage)data;
+                SAPlayer saPlayer = ServiceLocator.get(SAPlayer.class);
+                tPlayer player = saPlayer.readPlayer(currUser);
+                Map<tGame, Integer> playerGames = player.getInventory().getGames();
+                
+                for(Map.Entry<tGame, Integer> entry: pack.getGames().entrySet()) playerGames.put(entry.getKey(), playerGames.getOrDefault(entry.getKey(), 0) + entry.getValue());
+                saPlayer.updateInventory(player.getInventory());
+                JOptionPane.showMessageDialog(null, "¡" + pack.getName() + " comprado con éxito!", "Compra exitosa", JOptionPane.INFORMATION_MESSAGE);
+                break;
+            }
+            case Event.BUY_PRODUCT: {
+                tProduct prod = (tProduct)data;
+                SAPlayer saPlayer = ServiceLocator.get(SAPlayer.class);
+                tPlayer player = saPlayer.readPlayer(currUser);
+
+                if(player.getPoints() >= prod.getPrice()) {
+                    player.setPoints(player.getPoints() - prod.getPrice());
+                    Map<tProduct, Integer> playerProducts = player.getInventory().getProducts();
+                    playerProducts.put(prod, playerProducts.getOrDefault(prod, 0) + 1);
+                    saPlayer.updatePlayer(player); 
+                    JOptionPane.showMessageDialog(null, "¡" + prod.getName() + " canjead@ con éxito!", "Canje exitoso", JOptionPane.INFORMATION_MESSAGE);
+                } 
+                else JOptionPane.showMessageDialog(null, "No tienes suficientes puntos para canjear este producto.", "Puntos insuficientes", JOptionPane.ERROR_MESSAGE);
                 break;
             }
             case Event.OPEN_INVENTORY: {

@@ -1,7 +1,6 @@
 package presentation.user;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,8 +11,8 @@ import presentation.Controller;
 import presentation.Event;
 import presentation.product.ProductManagerView;
 
+@SuppressWarnings("serial")
 public class StaffView extends JFrame {
-
     private String userName;
 
     public StaffView(String userName) {

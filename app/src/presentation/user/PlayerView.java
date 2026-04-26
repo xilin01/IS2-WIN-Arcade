@@ -35,7 +35,7 @@ public class PlayerView extends JFrame {
         add(topPanel, BorderLayout.NORTH);
 
         JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 80));
-        JButton playButton = new JButton("JUGAR");
+        JButton playButton = new JButton("Jugar");
         playButton.setPreferredSize(new Dimension(200, 100));
         playButton.setFont(playButton.getFont().deriveFont(Font.BOLD, 28f));
         playButton.addActionListener(e -> {
@@ -51,8 +51,14 @@ public class PlayerView extends JFrame {
         Dimension buttonSize = new Dimension(120, 35);
         storeButton.setPreferredSize(buttonSize);
         inventoryButton.setPreferredSize(buttonSize);
-        storeButton.addActionListener(e -> Controller.getInstance().action(Event.OPEN_STORE, userName));
-        inventoryButton.addActionListener(e -> Controller.getInstance().action(Event.OPEN_INVENTORY, userName));
+        storeButton.addActionListener(e -> {
+        	Controller.getInstance().action(Event.OPEN_STORE, null);
+        	dispose();
+        });
+        inventoryButton.addActionListener(e -> {
+        	Controller.getInstance().action(Event.OPEN_INVENTORY, userName);
+        	dispose();
+        });
         bottomPanel.add(storeButton);
         bottomPanel.add(inventoryButton);
         add(bottomPanel, BorderLayout.SOUTH);
