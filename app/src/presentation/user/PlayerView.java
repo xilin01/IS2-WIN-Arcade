@@ -38,7 +38,10 @@ public class PlayerView extends JFrame {
         JButton playButton = new JButton("JUGAR");
         playButton.setPreferredSize(new Dimension(200, 100));
         playButton.setFont(playButton.getFont().deriveFont(Font.BOLD, 28f));
-        playButton.addActionListener(e -> Controller.getInstance().action(Event.GAMES_PANEL, userName));
+        playButton.addActionListener(e -> {
+        	Controller.getInstance().action(Event.GAMES_PANEL, userName);
+        	dispose();
+        });
         centerPanel.add(playButton);
         add(centerPanel, BorderLayout.CENTER);
 

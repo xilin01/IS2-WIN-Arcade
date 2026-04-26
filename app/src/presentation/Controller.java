@@ -133,10 +133,11 @@ public class Controller {
                 break;
             }
             case Event.BLACKJACK_PLAY: {
-            	basePoints = (Integer)data;
+                basePoints = (Integer)data;
                 useGame(new tGame("Blackjack", basePoints));
                 blackjack = new Blackjack(basePoints);
-                blackJackGUI = new BlackjackGUI(blackjack.getCroupierVisibleCard(), blackjack.getPlayerCards(), blackjack.play(), blackjack.getPlayerPoints());
+                int croupierVisiblePoints = blackjack.play();
+                blackJackGUI = new BlackjackGUI(blackjack.getCroupierVisibleCard(), blackjack.getPlayerCards(), croupierVisiblePoints, blackjack.getPlayerPoints());
                 break;
             }
             case Event.BLACKJACK_HIT: {
