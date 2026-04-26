@@ -87,7 +87,7 @@ INSERT INTO user (name, password, active) VALUES
 ('Luis', 'luis', TRUE),
 ('Adrian', 'adrian', TRUE),
 ('Jug1', 'jug1', TRUE),
-('Jug2', 'Jug2', TRUE);
+('Jug2', 'jug2', TRUE);
 INSERT INTO staff (name) VALUES
 ('Xiang'),
 ('MarioR'),
