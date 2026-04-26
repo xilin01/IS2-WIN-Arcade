@@ -56,7 +56,7 @@ public class PlayerView extends JFrame {
         	dispose();
         });
         inventoryButton.addActionListener(e -> {
-        	Controller.getInstance().action(Event.OPEN_INVENTORY, userName);
+        	Controller.getInstance().action(Event.OPEN_INVENTORY, null);
         	dispose();
         });
         bottomPanel.add(storeButton);

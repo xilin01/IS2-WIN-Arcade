@@ -27,6 +27,7 @@ import presentation.games.BlackjackGUI;
 import presentation.games.GamesPanelView;
 import presentation.games.RouletteGUI;
 import presentation.packages.PackageManagerView;
+import presentation.user.InventoryView;
 import presentation.user.StaffView;
 import presentation.user.StoreView;
 import presentation.user.UserView;
@@ -156,7 +157,7 @@ public class Controller {
                 break;
             }
             case Event.OPEN_INVENTORY: {
-                System.err.println("Inventario: aún no implementado");
+                new InventoryView(currUser);
                 break;
             }
             case Event.GAMES_PANEL: {
