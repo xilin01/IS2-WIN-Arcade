@@ -35,10 +35,17 @@ public class InventoryView extends JFrame {
         setSize(500, 500);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        tPlayer.tInventory inventory = ServiceLocator.get(SAPlayer.class).readPlayer(playerName).getInventory();
-        JTabbedPane tabbedPane = new JTabbedPane();
         
+        tPlayer player = ServiceLocator.get(SAPlayer.class).readPlayer(playerName);
+        tPlayer.tInventory inventory = player.getInventory();
+
+        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JLabel pointsLabel = new JLabel(playerName + " (" + player.getPoints() + "p)");
+        pointsLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        topPanel.add(pointsLabel);
+        add(topPanel, BorderLayout.NORTH);
+        
+        JTabbedPane tabbedPane = new JTabbedPane();
         JPanel gamesPanel = new JPanel();
         gamesPanel.setLayout(new BoxLayout(gamesPanel, BoxLayout.Y_AXIS));
         if(!inventory.getGames().isEmpty()) {
@@ -51,7 +58,6 @@ public class InventoryView extends JFrame {
             gamesPanel.add(emptyPanel);
         }
         tabbedPane.addTab("Juegos", new JScrollPane(gamesPanel));
-
         JPanel productsPanel = new JPanel();
         productsPanel.setLayout(new BoxLayout(productsPanel, BoxLayout.Y_AXIS));
         if(!inventory.getProducts().isEmpty()) {
@@ -64,7 +70,6 @@ public class InventoryView extends JFrame {
             productsPanel.add(emptyPanel);
         }
         tabbedPane.addTab("Productos", new JScrollPane(productsPanel));
-
         add(tabbedPane, BorderLayout.CENTER);
 
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));

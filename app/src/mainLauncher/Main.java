@@ -10,8 +10,6 @@ import business.ServiceLocator;
 import business.user.SAUser;
 import business.user.SAUserImp;
 import presentation.auth.LoginView;
-import presentation.Controller;
-import presentation.Event;
 
 @objid ("e7eced22-b4e5-44ef-b114-f8e3351b0184")
 public class Main {
@@ -22,8 +20,5 @@ public class Main {
     	ServiceLocator.register(SAPlayer.class, new SAPlayerImp());
     	ServiceLocator.register(SAAuth.class, new SAAuthImp());
     	SwingUtilities.invokeLater(LoginView::open);
-      
-//    	Controller.getInstance().action(Event.BLACKJACK_PLAY, 20);
-//		Controller.getInstance().action(Event.ROULETTE_PLAY, 20);
     }
 }

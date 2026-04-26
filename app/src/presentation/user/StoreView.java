@@ -16,9 +16,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
+import business.ServiceLocator;
 import business.game.tGame;
 import business.packages.SAGamesPackageImp;
 import business.packages.tGamesPackage;
+import business.player.SAPlayer;
 import business.product.SAProductImp;
 import business.product.tProduct;
 import presentation.Controller;
@@ -27,6 +29,7 @@ import presentation.Event;
 @SuppressWarnings("serial")
 public class StoreView extends JFrame {
     private String playerName;
+    private JLabel pointsLabel;
 
     public StoreView(String userName) {
         super("Tienda");
@@ -40,18 +43,21 @@ public class StoreView extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        pointsLabel = new JLabel(playerName + " (" + ServiceLocator.get(SAPlayer.class).readPlayer(playerName).getPoints() + "p)");
+        pointsLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        topPanel.add(pointsLabel);
+        add(topPanel, BorderLayout.NORTH);
+
         JTabbedPane tabbedPane = new JTabbedPane();
-        
         JPanel packagesPanel = new JPanel();
         packagesPanel.setLayout(new BoxLayout(packagesPanel, BoxLayout.Y_AXIS));
         for(tGamesPackage pack: new SAGamesPackageImp().readAllGamesPackages()) packagesPanel.add(createPackagePanel(pack));
         tabbedPane.addTab("Paquetes de juegos", new JScrollPane(packagesPanel));
-
         JPanel productsPanel = new JPanel();
         productsPanel.setLayout(new BoxLayout(productsPanel, BoxLayout.Y_AXIS));
         for(tProduct prod: new SAProductImp().readAllProducts()) productsPanel.add(createProductPanel(prod));
         tabbedPane.addTab("Productos", new JScrollPane(productsPanel));
-
         add(tabbedPane, BorderLayout.CENTER);
 
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -106,7 +112,10 @@ public class StoreView extends JFrame {
 
         JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JButton buyButton = new JButton("Canjear");
-        buyButton.addActionListener(e -> Controller.getInstance().action(Event.BUY_PRODUCT, prod));
+        buyButton.addActionListener(e -> {
+        	Controller.getInstance().action(Event.BUY_PRODUCT, prod);
+        	pointsLabel.setText(playerName + " (" + ServiceLocator.get(SAPlayer.class).readPlayer(playerName).getPoints() + "p)");
+        });
         btnPanel.add(buyButton);
         panel.add(btnPanel, BorderLayout.EAST);
         return panel;

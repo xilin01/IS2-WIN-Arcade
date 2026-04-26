@@ -8,6 +8,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import business.ServiceLocator;
+import business.player.SAPlayer;
+import business.player.tPlayer;
 import presentation.Controller;
 import presentation.Event;
 
@@ -26,9 +30,9 @@ public class PlayerView extends JFrame {
         setSize(650, 400);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        JLabel userLabel = new JLabel(userName + " | ");
+        JLabel userLabel = new JLabel(userName + " (" + ServiceLocator.get(SAPlayer.class).readPlayer(userName).getPoints() + "p) | ");
         JButton logOutButton = new JButton("Cerrar Sesión");
         topPanel.add(userLabel);
         topPanel.add(logOutButton);

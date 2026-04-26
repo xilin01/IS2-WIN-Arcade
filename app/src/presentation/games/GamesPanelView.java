@@ -46,13 +46,17 @@ public class GamesPanelView extends JFrame {
         gamesListPanel.setLayout(new BoxLayout(gamesListPanel, BoxLayout.Y_AXIS));
         gamesListPanel.setOpaque(false);
         if(loadGames(gamesListPanel)) {
-            JPanel headerPanel = new JPanel();
+            JPanel headerPanel = new JPanel(new BorderLayout());
             headerPanel.setOpaque(false);
-            headerPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
+            headerPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 10, 20));
             JLabel title = new JLabel("Selecciona un juego");
             title.setFont(new Font("Arial", Font.BOLD, 28));
             title.setForeground(Color.WHITE);
-            headerPanel.add(title);
+            headerPanel.add(title, BorderLayout.WEST);
+            JLabel pointsLabel = new JLabel(playerName + " (" + ServiceLocator.get(SAPlayer.class).readPlayer(playerName).getPoints() + "p)");
+            pointsLabel.setFont(new Font("Arial", Font.BOLD, 20));
+            pointsLabel.setForeground(Color.YELLOW);
+            headerPanel.add(pointsLabel, BorderLayout.EAST);
             mainPanel.add(headerPanel, BorderLayout.NORTH);
 
             JScrollPane scrollPane = new JScrollPane(gamesListPanel);
