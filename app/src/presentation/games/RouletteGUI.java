@@ -161,7 +161,7 @@ public class RouletteGUI extends JFrame {
     private RotatedRoulette roulette;
     private tBet bet;
     JButton playButton;
-    private static int animationCount = 0;
+    private int animationCount = 0;
 
     public RouletteGUI() {
         super("Roulette");
