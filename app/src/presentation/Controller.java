@@ -2,10 +2,7 @@ package presentation;
 
 import java.util.Collection;
 import java.util.Map;
-
 import javax.swing.JOptionPane;
-
-import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import business.auth.AuthResult;
 import business.auth.SAAuth;
 import business.game.Blackjack;
@@ -33,7 +30,6 @@ import presentation.user.StoreView;
 import presentation.user.UserView;
 
 // Patrón Singleton
-@objid ("89dcc83d-dee8-45f7-aee4-45b7f33b671f")
 public class Controller {    
 	private static final Controller INSTANCE = new Controller();
 	 
@@ -55,7 +51,6 @@ public class Controller {
 		return currUser;
 	}
 
-    @objid ("7d6f7991-228b-4d7a-a5ff-094d1cd303bf")
     public void action(final int event, final Object data) {
         switch(event) {
             case Event.CREATE_USER: {

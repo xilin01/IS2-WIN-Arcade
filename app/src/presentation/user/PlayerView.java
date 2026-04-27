@@ -8,10 +8,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import business.ServiceLocator;
 import business.player.SAPlayer;
-import business.player.tPlayer;
 import presentation.Controller;
 import presentation.Event;
 

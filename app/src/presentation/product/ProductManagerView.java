@@ -4,29 +4,28 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
-
 import business.product.SAProduct;
 import business.product.SAProductImp;
 import business.product.tProduct;
 import presentation.user.StaffView;
 
+@SuppressWarnings("serial")
 public class ProductManagerView extends JFrame {
-
     private JPanel productListPanel;
     private SAProduct saProduct;
     private String userName;
 
     public ProductManagerView(String userName) {
-        super();
+        super("Gestor de productos");
         this.userName = userName;
         this.saProduct = new SAProductImp(); 
         initGUI();
@@ -34,7 +33,6 @@ public class ProductManagerView extends JFrame {
 
     private void initGUI() {
         this.setLayout(new BorderLayout());
-        this.setTitle("Gestor de Productos");
         this.setBounds(100, 100, 500, 600);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,7 +41,7 @@ public class ProductManagerView extends JFrame {
         JPanel createProdPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JButton createProdButton = new JButton("CREAR NUEVO PRODUCTO");
         createProdButton.setPreferredSize(new Dimension(200, 35));
-        createProdButton.addActionListener((e) -> {
+        createProdButton.addActionListener(e -> {
             new ProductEditor(this, null);
             updateList(); 
         });
@@ -58,22 +56,19 @@ public class ProductManagerView extends JFrame {
         listWrapper.setBorder(new EmptyBorder(10, 10, 10, 10));
         JScrollPane prodScrollPane = new JScrollPane(productListPanel);
         listWrapper.add(prodScrollPane, BorderLayout.CENTER);
-        
         this.add(listWrapper, BorderLayout.CENTER);
 
-        // Boton atras
+        // Boton volver
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JButton backButton = new JButton("Back");
-        bottomPanel.add(backButton);
-        this.add(bottomPanel, BorderLayout.SOUTH);
-
-        backButton.addActionListener((e) -> {
+        JButton backButton = new JButton("<- Volver");
+        backButton.addActionListener(e -> {
             new StaffView(userName); 
             dispose();
         });
-
-        updateList();
+        bottomPanel.add(backButton);
+        this.add(bottomPanel, BorderLayout.SOUTH);
         
+        updateList();
         this.setVisible(true);
     }
 
@@ -81,53 +76,39 @@ public class ProductManagerView extends JFrame {
     private JPanel productElement(tProduct product) {
         JPanel productPanel = new JPanel(new BorderLayout());
         productPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
-        productPanel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createEmptyBorder(5, 5, 5, 5),
-            BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1)
-        ));
+        productPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5), BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1)));
 
         JPanel prodInfo = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        prodInfo.add(new JLabel("  " + product.getName() + "  -  " + product.getPrice() + " pts"));
+        prodInfo.add(new JLabel("   " + product.getName() + " (" + product.getPrice() + " p)"));
         productPanel.add(prodInfo, BorderLayout.CENTER);
 
         JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-
         JButton editButton = new JButton("Editar"); 
-        editButton.addActionListener((e) -> {
+        editButton.addActionListener(e-> {
             new ProductEditor(this, product);
             updateList();
         });
-
         JButton deleteButton = new JButton("X");
         deleteButton.setForeground(Color.RED);
-        deleteButton.addActionListener((e) -> {
-            int confirm = javax.swing.JOptionPane.showConfirmDialog(
-                this, 
-                "¿Borrar el producto '" + product.getName() + "'?",
-                "Confirmar",
-                javax.swing.JOptionPane.YES_NO_OPTION
-            );
+        deleteButton.addActionListener(e -> {
+            int confirm = JOptionPane.showConfirmDialog(this, "¿Borrar el producto '" + product.getName() + "'?", "Confirmar", JOptionPane.YES_NO_OPTION);
 
-            if (confirm == javax.swing.JOptionPane.YES_OPTION) {
-                // Borra directo desde la vista
-                this.saProduct.deleteProduct(product.getName()); 
+            if (confirm == JOptionPane.YES_OPTION) {
+                this.saProduct.deleteProduct(product.getName()); // Borra directo desde la vista
                 updateList();
             }
         });
-
         buttonsPanel.add(editButton);
         buttonsPanel.add(deleteButton);
+        
         productPanel.add(buttonsPanel, BorderLayout.EAST);
-
         return productPanel;
     }
 
     
     private void updateList() {
         productListPanel.removeAll();
-        for (tProduct prod : saProduct.readAllProducts()) {
-            productListPanel.add(productElement(prod));
-        }
+        for(tProduct prod: saProduct.readAllProducts()) productListPanel.add(productElement(prod));
         productListPanel.revalidate();
         productListPanel.repaint();
     }

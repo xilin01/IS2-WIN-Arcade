@@ -6,16 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.ArrayList;
-import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import business.player.tPlayer;
 import business.staff.tStaff;
 import business.user.tUser;
 import integration.DB;
 
-@objid ("916a8918-6c10-4150-8235-52c01b81dbe7")
 public class DAOUserImp implements DAOUser {
 
-    @objid ("f497545b-41c2-43b2-b1c8-0df6f0889592")
     public int createUser(tUser user) {
         int rowCount = 0;
         Connection connection = DB.getConnection();
@@ -38,7 +35,6 @@ public class DAOUserImp implements DAOUser {
         return rowCount;
     }
 
-    @objid ("c84ad11e-2c71-4ffc-9afb-16c89e062d95")
     public tUser readUser(String name) { // Leer usuario activo
         tUser user = null;
         Connection connection = DB.getConnection();
@@ -69,7 +65,6 @@ public class DAOUserImp implements DAOUser {
         return user;
     }
 
-    @objid ("df3573cb-7ca4-46d5-b789-f3a6bcec5034")
     public int updateUser(tUser user) {
         int rowCount = 0;
         Connection connection = DB.getConnection();
@@ -94,7 +89,6 @@ public class DAOUserImp implements DAOUser {
         return rowCount;
     }
 
-    @objid ("c6c8747e-8b83-4d56-98bc-16c48b6f140f")
     public int deleteUser(String name) { // Borrado lógico
         int rowCount = 0;
         Connection connection = DB.getConnection();
