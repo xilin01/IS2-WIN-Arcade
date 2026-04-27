@@ -9,7 +9,7 @@ import javax.swing.JTextField;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import business.auth.tLoginCredentials;
+import business.auth.tCredentials;
 import presentation.Controller;
 import presentation.Event;
 import presentation.user.PlayerView;
@@ -53,7 +53,7 @@ public class LoginView extends JFrame {
         gbc.gridy = 3;
         add(btnSignUp, gbc);
 
-        btnLogin.addActionListener(e -> Controller.getInstance().action(Event.LOGIN, new tLoginCredentials(txtName.getText().trim(), new String(txtPass.getPassword()))));
+        btnLogin.addActionListener(e -> Controller.getInstance().action(Event.LOGIN, new tCredentials(txtName.getText().trim(), new String(txtPass.getPassword()))));
 
         btnSignUp.addActionListener(e -> {
             instance.dispose();

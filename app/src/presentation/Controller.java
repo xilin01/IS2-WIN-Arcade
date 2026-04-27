@@ -19,8 +19,7 @@ import business.product.tProduct;
 import business.ServiceLocator;
 import business.user.SAUser;
 import business.user.tUser;
-import business.auth.tLoginCredentials;
-import business.auth.tSignUpCredentials;
+import business.auth.tCredentials;
 import business.store.SAStore;
 import presentation.auth.LoginView;
 import presentation.auth.SignUpView;
@@ -89,7 +88,7 @@ public class Controller {
             }
             case Event.LOGIN: {
             	SAAuth saAuth = ServiceLocator.get(SAAuth.class);
-                tLoginCredentials credentials = (tLoginCredentials)data;
+                tCredentials credentials = (tCredentials)data;
                 AuthResult result = saAuth.authenticate(credentials.name(), credentials.password());
                 
                 if(result.getOutcome() != AuthResult.Outcome.FAILURE) currUser = (String)result.getPayload();
@@ -102,7 +101,7 @@ public class Controller {
                 break;
             }
             case Event.SIGN_UP: {
-                tSignUpCredentials creds = (tSignUpCredentials)data;
+                tCredentials creds = (tCredentials)data;
                 int res = ServiceLocator.get(SAPlayer.class).createPlayer(creds.name(), creds.password());
                 
                 viewResult(res > 0, SignUpView::update, Event.RES_SIGN_UP_SUCCESS, null, Event.RES_SIGN_UP_FAILURE);
