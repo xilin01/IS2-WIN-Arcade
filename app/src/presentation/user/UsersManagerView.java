@@ -100,7 +100,7 @@ public class UsersManagerView extends JFrame {
         deleteButton.setForeground(Color.RED);
 
         deleteButton.addActionListener(e -> {
-            int confirm = JOptionPane.showConfirmDialog(this, "¿Borrar al usuario '" + user.getName() + "'?", "Confirmar", JOptionPane.YES_NO_OPTION);
+            int confirm = JOptionPane.showConfirmDialog(this, "¿Desactivar al usuario '" + user.getName() + "'? El usuario quedará inactivo pero no se eliminará.", "Confirmar", JOptionPane.YES_NO_OPTION);
 
             if (confirm == JOptionPane.YES_OPTION) {
                 Controller.getInstance().action(Event.DELETE_USER, user.getName());

@@ -90,7 +90,7 @@ public class ProductManagerView extends JFrame {
         JButton deleteButton = new JButton("X");
         deleteButton.setForeground(Color.RED);
         deleteButton.addActionListener(e -> {
-            int confirm = JOptionPane.showConfirmDialog(this, "¿Borrar el producto '" + product.getName() + "'?", "Confirmar", JOptionPane.YES_NO_OPTION);
+            int confirm = JOptionPane.showConfirmDialog(this, "¿Eliminar definitivamente el producto '" + product.getName() + "'? Esta acción no se puede deshacer.", "Confirmar", JOptionPane.YES_NO_OPTION);
 
             if (confirm == JOptionPane.YES_OPTION) {
                 Controller.getInstance().action(Event.DELETE_PRODUCT, product.getName());

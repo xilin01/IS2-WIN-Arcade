@@ -101,7 +101,7 @@ public class PackageManagerView extends JFrame {
         JButton deleteButton = new JButton(new ImageIcon("resources/icons/delete.png"));
         deleteButton.setPreferredSize(new Dimension(35, 35));
         deleteButton.addActionListener(e -> {
-        	int confirm = JOptionPane.showConfirmDialog(this, "¿Borrar el paquete '" + gamePack.getName() + "'?",
+        	int confirm = JOptionPane.showConfirmDialog(this, "¿Eliminar definitivamente el paquete '" + gamePack.getName() + "'? Esta acción no se puede deshacer.",
         			"Confirmar", JOptionPane.YES_NO_OPTION);
 
     	   	if (confirm == JOptionPane.YES_OPTION) {
