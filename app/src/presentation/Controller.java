@@ -10,6 +10,7 @@ import business.game.Roulette;
 import business.game.Roulette.Bet.tBet;
 import business.game.tGame;
 import business.packages.tGamesPackage;
+import business.player.SAInventory;
 import business.player.SAPlayer;
 import business.player.tPlayer;
 import business.product.tProduct;
@@ -132,7 +133,7 @@ public class Controller {
                 Map<tGame, Integer> playerGames = player.getInventory().getGames();
                 
                 for(Map.Entry<tGame, Integer> entry: pack.getGames().entrySet()) playerGames.put(entry.getKey(), playerGames.getOrDefault(entry.getKey(), 0) + entry.getValue());
-                saPlayer.updateInventory(player.getInventory());
+                ServiceLocator.get(SAInventory.class).updateInventory(player.getInventory());
                 JOptionPane.showMessageDialog(null, "¡" + pack.getName() + " comprado con éxito!", "Compra exitosa", JOptionPane.INFORMATION_MESSAGE);
                 break;
             }
@@ -224,7 +225,7 @@ public class Controller {
             
             if(amount >= 2) games.put(game, amount - 1);
             else games.remove(game);
-            saPlayer.updateInventory(player.getInventory());
+            ServiceLocator.get(SAInventory.class).updateInventory(player.getInventory());
         }
     }
     
