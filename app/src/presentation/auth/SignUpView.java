@@ -9,13 +9,12 @@ import javax.swing.JTextField;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import business.auth.tSignUpCredentials;
 import presentation.Controller;
 import presentation.Event;
 
 @SuppressWarnings("serial")
 public class SignUpView extends JFrame {
-	public record SignUpCredentials(String name, String password) {}
-
     private static SignUpView instance;
     private final JTextField txtName = new JTextField(16);
     private final JPasswordField txtPassword = new JPasswordField(16);
@@ -67,7 +66,7 @@ public class SignUpView extends JFrame {
                 JOptionPane.showMessageDialog(instance, "Las contraseñas no coinciden.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            Controller.getInstance().action(Event.SIGN_UP, new SignUpCredentials(name, password));
+            Controller.getInstance().action(Event.SIGN_UP, new tSignUpCredentials(name, password));
         });
 
         btnBack.addActionListener(e -> {

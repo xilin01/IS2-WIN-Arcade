@@ -9,6 +9,7 @@ import javax.swing.JTextField;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import business.auth.tLoginCredentials;
 import presentation.Controller;
 import presentation.Event;
 import presentation.user.PlayerView;
@@ -16,8 +17,6 @@ import presentation.user.StaffView;
 
 @SuppressWarnings("serial")
 public class LoginView extends JFrame {
-	public record LoginCredentials(String name, String password) {}
-	
     private static LoginView instance;
     private final JTextField txtName = new JTextField(16);
     private final JPasswordField txtPass = new JPasswordField(16);
@@ -54,7 +53,7 @@ public class LoginView extends JFrame {
         gbc.gridy = 3;
         add(btnSignUp, gbc);
 
-        btnLogin.addActionListener(e -> Controller.getInstance().action(Event.LOGIN, new LoginCredentials(txtName.getText().trim(), new String(txtPass.getPassword()))));
+        btnLogin.addActionListener(e -> Controller.getInstance().action(Event.LOGIN, new tLoginCredentials(txtName.getText().trim(), new String(txtPass.getPassword()))));
 
         btnSignUp.addActionListener(e -> {
             instance.dispose();
