@@ -1,7 +1,6 @@
 package presentation;
 
 import java.util.Collection;
-import java.util.Map;
 import javax.swing.JOptionPane;
 import business.auth.AuthResult;
 import business.auth.SAAuth;
@@ -20,10 +19,11 @@ import business.product.tProduct;
 import business.ServiceLocator;
 import business.user.SAUser;
 import business.user.tUser;
+import business.auth.tLoginCredentials;
+import business.auth.tSignUpCredentials;
+import business.store.SAStore;
 import presentation.auth.LoginView;
-import presentation.auth.LoginView.LoginCredentials;
 import presentation.auth.SignUpView;
-import presentation.auth.SignUpView.SignUpCredentials;
 import presentation.games.BlackjackGUI;
 import presentation.games.GamesPanelView;
 import presentation.games.RouletteGUI;
@@ -89,7 +89,7 @@ public class Controller {
             }
             case Event.LOGIN: {
             	SAAuth saAuth = ServiceLocator.get(SAAuth.class);
-                LoginCredentials credentials = (LoginCredentials)data;
+                tLoginCredentials credentials = (tLoginCredentials)data;
                 AuthResult result = saAuth.authenticate(credentials.name(), credentials.password());
                 
                 if(result.getOutcome() != AuthResult.Outcome.FAILURE) currUser = (String)result.getPayload();
@@ -102,7 +102,7 @@ public class Controller {
                 break;
             }
             case Event.SIGN_UP: {
-                SignUpCredentials creds = (SignUpCredentials)data;
+                tSignUpCredentials creds = (tSignUpCredentials)data;
                 int res = ServiceLocator.get(SAPlayer.class).createPlayer(creds.name(), creds.password());
                 
                 viewResult(res > 0, SignUpView::update, Event.RES_SIGN_UP_SUCCESS, null, Event.RES_SIGN_UP_FAILURE);
@@ -131,27 +131,15 @@ public class Controller {
             }
             case Event.BUY_PACKAGE: {
                 tGamesPackage pack = (tGamesPackage)data;
-                SAPlayer saPlayer = ServiceLocator.get(SAPlayer.class);
-                tPlayer player = saPlayer.readPlayer(currUser);
-                Map<tGame, Integer> playerGames = player.getInventory().getGames();
-                
-                for(Map.Entry<tGame, Integer> entry: pack.getGames().entrySet()) playerGames.put(entry.getKey(), playerGames.getOrDefault(entry.getKey(), 0) + entry.getValue());
-                ServiceLocator.get(SAInventory.class).updateInventory(player.getInventory());
-                JOptionPane.showMessageDialog(null, "¡" + pack.getName() + " comprado con éxito!", "Compra exitosa", JOptionPane.INFORMATION_MESSAGE);
+                boolean ok = ServiceLocator.get(SAStore.class).buyPackage(currUser, pack);
+                if (ok) JOptionPane.showMessageDialog(null, "¡" + pack.getName() + " comprado con éxito!", "Compra exitosa", JOptionPane.INFORMATION_MESSAGE);
+                else JOptionPane.showMessageDialog(null, "No se pudo completar la compra.", "Error", JOptionPane.ERROR_MESSAGE);
                 break;
             }
             case Event.BUY_PRODUCT: {
                 tProduct prod = (tProduct)data;
-                SAPlayer saPlayer = ServiceLocator.get(SAPlayer.class);
-                tPlayer player = saPlayer.readPlayer(currUser);
-
-                if(player.getPoints() >= prod.getPrice()) {
-                    player.setPoints(player.getPoints() - prod.getPrice());
-                    Map<tProduct, Integer> playerProducts = player.getInventory().getProducts();
-                    playerProducts.put(prod, playerProducts.getOrDefault(prod, 0) + 1);
-                    saPlayer.updatePlayer(player); 
-                    JOptionPane.showMessageDialog(null, "¡" + prod.getName() + " canjead@ con éxito!", "Canje exitoso", JOptionPane.INFORMATION_MESSAGE);
-                } 
+                boolean ok = ServiceLocator.get(SAStore.class).buyProduct(currUser, prod);
+                if (ok) JOptionPane.showMessageDialog(null, "¡" + prod.getName() + " canjead@ con éxito!", "Canje exitoso", JOptionPane.INFORMATION_MESSAGE);
                 else JOptionPane.showMessageDialog(null, "No tienes suficientes puntos para canjear este producto.", "Puntos insuficientes", JOptionPane.ERROR_MESSAGE);
                 break;
             }
@@ -165,13 +153,14 @@ public class Controller {
             }
             case Event.BLACKJACK_PLAY: {
                 basePoints = (Integer)data;
-                useGame(new tGame("Blackjack", basePoints));
+                ServiceLocator.get(SAInventory.class).consumeGame(currUser, new tGame("Blackjack", basePoints));
                 blackjack = new Blackjack(basePoints);
                 int croupierVisiblePoints = blackjack.play();
                 blackJackGUI = new BlackjackGUI(blackjack.getCroupierVisibleCard(), blackjack.getPlayerCards(), croupierVisiblePoints, blackjack.getPlayerPoints());
                 break;
             }
             case Event.BLACKJACK_HIT: {
+                if (blackjack == null || blackJackGUI == null) { System.err.println("BLACKJACK_HIT sin partida activa"); break; }
                 int res = blackjack.playerHit();
                 blackJackGUI.update(blackjack.getCroupierCards(), blackjack.getPlayerCards(), blackjack.getCroupierPoints(), blackjack.getPlayerPoints(), false);
                 if(res != Blackjack.CONTINUE) {
@@ -184,6 +173,7 @@ public class Controller {
                 break;
             }
             case Event.BLACKJACK_STAND: {
+                if (blackjack == null || blackJackGUI == null) { System.err.println("BLACKJACK_STAND sin partida activa"); break; }
                 if(blackjack.getCroupierPoints() < blackjack.getPlayerPoints()) blackjack.croupierPlay();
                 blackJackGUI.update(blackjack.getCroupierCards(), blackjack.getPlayerCards(), blackjack.getCroupierPoints(), blackjack.getPlayerPoints(), true);
                 switch(blackjack.getResult()) {
@@ -198,7 +188,7 @@ public class Controller {
             }
             case Event.ROULETTE_PLAY: {
                 basePoints = (Integer)data;
-                useGame(new tGame("Ruleta", basePoints));
+                ServiceLocator.get(SAInventory.class).consumeGame(currUser, new tGame("Ruleta", basePoints));
                 rouletteGUI = new RouletteGUI();
                 break;
             }
@@ -246,20 +236,6 @@ public class Controller {
     private static void viewResult(boolean ok, ViewUpdater view, int okEvent, Object okPayload, int failEvent) {
         if(ok) view.update(okEvent, okPayload);
         else view.update(failEvent, null);
-    }
-    
-    private void useGame(tGame game) {
-        SAPlayer saPlayer = ServiceLocator.get(SAPlayer.class);
-        tPlayer player = saPlayer.readPlayer(currUser);
-        
-        if(!player.getInventory().getGames().isEmpty()) {
-            Map<tGame, Integer> games = player.getInventory().getGames();
-            int amount = games.get(game);
-            
-            if(amount >= 2) games.put(game, amount - 1);
-            else games.remove(game);
-            ServiceLocator.get(SAInventory.class).updateInventory(player.getInventory());
-        }
     }
     
     private void addPoints(int points) {
