@@ -13,8 +13,7 @@ public class SAPlayerImp implements SAPlayer {
 
     @Override
     public int createPlayer(tPlayer player) {
-        if(daoPlayer.readPlayer(player.getName()) == null) return daoPlayer.createPlayer(player);
-        return -1;
+        return daoPlayer.createPlayer(player);
     }
 
     @Override
@@ -29,14 +28,12 @@ public class SAPlayerImp implements SAPlayer {
 
     @Override
     public int updatePlayer(tPlayer player) {
-        if(daoPlayer.readPlayer(player.getName()) != null) return daoPlayer.updatePlayer(player);
-        return -1;
+        return daoPlayer.updatePlayer(player);
     }
 
     @Override
     public int deletePlayer(String name) {
-        if(daoPlayer.readPlayer(name) != null) return daoPlayer.deletePlayer(name);
-        return -1;
+        return daoPlayer.deletePlayer(name);
     }
 
     @Override

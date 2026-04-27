@@ -12,8 +12,7 @@ public class SAUserImp implements SAUser {
     }
 
     public int createUser(tUser user) {
-        if(daoUser.readUser(user.getName()) == null) return daoUser.createUser(user);
-        return -1;
+        return daoUser.createUser(user);
     }
 
     public tUser readUser(String name) {
@@ -21,13 +20,11 @@ public class SAUserImp implements SAUser {
     }
 
     public int updateUser(tUser user) {
-        if(daoUser.readUser(user.getName()) != null) return daoUser.updateUser(user);
-        return -1;
+        return daoUser.updateUser(user);
     }
 
     public int deleteUser(String name) {
-        if(daoUser.readUser(name) != null) return daoUser.deleteUser(name);
-        return -1;
+        return daoUser.deleteUser(name);
     }
 
     @Override

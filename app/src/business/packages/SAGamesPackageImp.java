@@ -13,8 +13,7 @@ public class SAGamesPackageImp implements SAGamesPackage {
 
     @Override
     public int createGamesPackage(tGamesPackage gamesPackage) {
-        if(daoGamesPackage.readGamesPackage(gamesPackage.getName()) == null) return daoGamesPackage.createGamesPackage(gamesPackage);
-        return -1;
+        return daoGamesPackage.createGamesPackage(gamesPackage);
     }
 
     @Override
@@ -24,14 +23,12 @@ public class SAGamesPackageImp implements SAGamesPackage {
 
     @Override
     public int updateGamesPackage(tGamesPackage gamesPackage) {
-        if(daoGamesPackage.readGamesPackage(gamesPackage.getName()) != null) return daoGamesPackage.updateGamesPackage(gamesPackage);
-        return -1;
+        return daoGamesPackage.updateGamesPackage(gamesPackage);
     }
 
     @Override
     public int deleteGamesPackage(String name) {
-        if(daoGamesPackage.readGamesPackage(name) != null) return daoGamesPackage.deleteGamesPackage(name);
-        return -1;
+        return daoGamesPackage.deleteGamesPackage(name);
     }
 
     @Override

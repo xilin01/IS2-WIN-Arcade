@@ -13,8 +13,7 @@ public class SAProductImp implements SAProduct {
 
     @Override
     public int createProduct(tProduct product) {
-        if(daoProduct.readProduct(product.getName()) == null) return daoProduct.createProduct(product);
-        return -1;
+        return daoProduct.createProduct(product);
     }
 
     @Override
@@ -24,14 +23,12 @@ public class SAProductImp implements SAProduct {
 
     @Override
     public int updateProduct(tProduct product) {
-        if(daoProduct.readProduct(product.getName()) != null) return daoProduct.updateProduct(product);
-        return -1;
+        return daoProduct.updateProduct(product);
     }
 
     @Override
     public int deleteProduct(String name) {
-        if(daoProduct.readProduct(name) != null) return daoProduct.deleteProduct(name);
-        return -1;
+        return daoProduct.deleteProduct(name);
     }
 
     @Override

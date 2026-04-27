@@ -13,8 +13,7 @@ public class SAGameImp implements SAGame {
 
     @Override
     public int createGame(tGame game) {
-        if(daoGame.readGame(game.getName(), game.getBasePoints()) == null) return daoGame.createGame(game);
-        return -1;
+        return daoGame.createGame(game);
     }
 
     @Override
@@ -24,8 +23,7 @@ public class SAGameImp implements SAGame {
 
     @Override
     public int deleteGame(String name, int basePoints) {
-        if(daoGame.readGame(name, basePoints) != null) return daoGame.deleteGame(name, basePoints);
-        return -1;
+        return daoGame.deleteGame(name, basePoints);
     }
 
     @Override

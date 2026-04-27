@@ -1,7 +1,6 @@
 package business.staff;
 
 import java.util.Collection;
-
 import integration.staff.DAOStaff;
 import integration.staff.DAOStaffImp;
 
@@ -14,8 +13,7 @@ public class SAStaffImp implements SAStaff {
 
     @Override
     public int createStaff(tStaff staff) {
-        if(daoStaff.readStaff(staff.getName()) == null) return daoStaff.createStaff(staff);
-        return -1;
+        return daoStaff.createStaff(staff);
     }
 
     @Override
@@ -25,14 +23,12 @@ public class SAStaffImp implements SAStaff {
 
     @Override
     public int updateStaff(tStaff staff) {
-        if(daoStaff.readStaff(staff.getName()) != null) return daoStaff.updateStaff(staff);
-        return -1;
+        return daoStaff.updateStaff(staff);
     }
 
     @Override
     public int deleteStaff(String name) {
-        if(daoStaff.readStaff(name) != null) return daoStaff.deleteStaff(name);
-        return -1;
+        return daoStaff.deleteStaff(name);
     }
 
     @Override
