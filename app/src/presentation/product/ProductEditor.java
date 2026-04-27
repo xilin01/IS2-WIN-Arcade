@@ -12,16 +12,15 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
-import business.product.SAProduct;
-import business.product.SAProductImp;
 import business.product.tProduct;
+import presentation.Controller;
+import presentation.Event;
 
 @SuppressWarnings("serial")
 public class ProductEditor extends JDialog {
     private JTextField nameField;
     private JSpinner priceSpinner;
-    private tProduct currentProduct; 
-    private SAProduct saProduct = new SAProductImp();
+    private tProduct currentProduct;
 
     public ProductEditor(JFrame parent, tProduct product) {
         super(parent, product == null ? "Crear Nuevo Producto" : "Editar Producto", true);
@@ -65,10 +64,10 @@ public class ProductEditor extends JDialog {
             int price = (int)priceSpinner.getValue();
             
             if (!name.isEmpty()) {
-                if (currentProduct == null) saProduct.createProduct(new tProduct(name, price)); 
+                if (currentProduct == null) Controller.getInstance().action(Event.CREATE_PRODUCT, new tProduct(name, price));
                 else {
                     currentProduct.setPrice(price);
-                    saProduct.updateProduct(currentProduct); 
+                    Controller.getInstance().action(Event.UPDATE_PRODUCT, currentProduct);
                 }
                 dispose(); 
             }

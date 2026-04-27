@@ -13,21 +13,20 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
-import business.product.SAProduct;
-import business.product.SAProductImp;
+import java.util.Collection;
 import business.product.tProduct;
+import presentation.Controller;
+import presentation.Event;
 import presentation.user.StaffView;
 
 @SuppressWarnings("serial")
 public class ProductManagerView extends JFrame {
     private JPanel productListPanel;
-    private SAProduct saProduct;
     private String userName;
 
     public ProductManagerView(String userName) {
         super("Gestor de productos");
         this.userName = userName;
-        this.saProduct = new SAProductImp(); 
         initGUI();
     }
 
@@ -94,7 +93,7 @@ public class ProductManagerView extends JFrame {
             int confirm = JOptionPane.showConfirmDialog(this, "¿Borrar el producto '" + product.getName() + "'?", "Confirmar", JOptionPane.YES_NO_OPTION);
 
             if (confirm == JOptionPane.YES_OPTION) {
-                this.saProduct.deleteProduct(product.getName()); // Borra directo desde la vista
+                Controller.getInstance().action(Event.DELETE_PRODUCT, product.getName());
                 updateList();
             }
         });
@@ -108,7 +107,8 @@ public class ProductManagerView extends JFrame {
     
     private void updateList() {
         productListPanel.removeAll();
-        for(tProduct prod: saProduct.readAllProducts()) productListPanel.add(productElement(prod));
+        Collection<tProduct> products = Controller.getInstance().getAllProducts();
+        for(tProduct prod: products) productListPanel.add(productElement(prod));
         productListPanel.revalidate();
         productListPanel.repaint();
     }

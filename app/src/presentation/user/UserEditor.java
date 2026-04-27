@@ -12,18 +12,17 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import business.user.SAUser;
-import business.user.SAUserImp;
 import business.player.tPlayer;
 import business.user.tUser;
+import presentation.Controller;
+import presentation.Event;
 
 @SuppressWarnings("serial")
 public class UserEditor extends JDialog {
     private JTextField nameField;
     private JTextField passwordField;
     private JCheckBox activeCheckBox; 
-    private tUser currentUser; 
-    private SAUser saUser = new SAUserImp();
+    private tUser currentUser;
 
     public UserEditor(JFrame parent, tUser user) {
         super(parent, user == null ? "Crear Nuevo Jugador" : "Editar Jugador", true);
@@ -76,11 +75,11 @@ public class UserEditor extends JDialog {
             boolean isActive = activeCheckBox.isSelected();
             
             if (!name.isEmpty() && !password.isEmpty()) {
-                if (currentUser == null) saUser.createUser(new tPlayer(name, password, isActive, new tPlayer.tInventory(name), 0)); 
+                if (currentUser == null) Controller.getInstance().action(Event.CREATE_USER, new tPlayer(name, password, isActive, new tPlayer.tInventory(name), 0));
                 else {
                     currentUser.setPassword(password);
                     currentUser.setActive(isActive);
-                    saUser.updateUser(currentUser); 
+                    Controller.getInstance().action(Event.UPDATE_USER, currentUser);
                 }
                 dispose(); 
             } 

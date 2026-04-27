@@ -13,21 +13,20 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import java.util.Collection;
 import business.player.tPlayer;
-import business.user.SAUser;
-import business.user.SAUserImp;
 import business.user.tUser;
+import presentation.Controller;
+import presentation.Event;
 
 @SuppressWarnings("serial")
 public class UsersManagerView extends JFrame {
     private JPanel userListPanel;
-    private SAUser saUser;
     private String currentUserName;
 
     public UsersManagerView(String currentUserName) {
         super("Gestor de usuarios");
         this.currentUserName = currentUserName;
-        this.saUser = new SAUserImp(); 
         initGUI();
     }
 
@@ -104,7 +103,7 @@ public class UsersManagerView extends JFrame {
             int confirm = JOptionPane.showConfirmDialog(this, "¿Borrar al usuario '" + user.getName() + "'?", "Confirmar", JOptionPane.YES_NO_OPTION);
 
             if (confirm == JOptionPane.YES_OPTION) {
-                this.saUser.deleteUser(user.getName()); 
+                Controller.getInstance().action(Event.DELETE_USER, user.getName());
                 updateList();
             }
         });
@@ -118,9 +117,8 @@ public class UsersManagerView extends JFrame {
 
     private void updateList() {
         userListPanel.removeAll();
-        for (tUser u: saUser.readAllUsers()) {
-            if (u instanceof tPlayer) userListPanel.add(userElement(u));
-        }
+        Collection<tPlayer> players = Controller.getInstance().getAllPlayers();
+        for (tPlayer p: players) userListPanel.add(userElement(p));
         userListPanel.revalidate();
         userListPanel.repaint();
     }

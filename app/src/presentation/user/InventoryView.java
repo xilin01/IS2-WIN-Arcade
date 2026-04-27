@@ -14,11 +14,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import business.ServiceLocator;
 import business.game.tGame;
-import business.player.SAPlayer;
 import business.player.tPlayer;
 import business.product.tProduct;
+import presentation.Controller;
 
 @SuppressWarnings("serial")
 public class InventoryView extends JFrame {
@@ -36,7 +35,7 @@ public class InventoryView extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        tPlayer player = ServiceLocator.get(SAPlayer.class).readPlayer(playerName);
+        tPlayer player = Controller.getInstance().getPlayer(playerName);
         tPlayer.tInventory inventory = player.getInventory();
 
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));

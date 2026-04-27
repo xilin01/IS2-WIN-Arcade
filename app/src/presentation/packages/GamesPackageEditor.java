@@ -22,12 +22,11 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
-import business.game.SAGame;
-import business.game.SAGameImp;
+import java.util.Collection;
 import business.game.tGame;
-import business.packages.SAGamesPackage;
-import business.packages.SAGamesPackageImp;
 import business.packages.tGamesPackage;
+import presentation.Controller;
+import presentation.Event;
 
 @SuppressWarnings("serial")
 public class GamesPackageEditor extends JDialog {
@@ -41,8 +40,6 @@ public class GamesPackageEditor extends JDialog {
     private JLabel totalPointsLabel; 
     private double currentTotalPoints = 0; 
 
-    private SAGamesPackage saGamesPackage = new SAGamesPackageImp();
-    private SAGame saGame = new SAGameImp();
 
     public GamesPackageEditor(JFrame parent, tGamesPackage pack) {
         super(parent, pack == null ? "Crear Nuevo Paquete" : "Editar Paquete", true);
@@ -82,7 +79,8 @@ public class GamesPackageEditor extends JDialog {
         
         // 1. CARGAMOS LOS DATOS Y CREAMOS EL MAPA (Juego -> Lista de Puntos)
         Map<String, List<Integer>> availableGamesMap = new HashMap<>();
-        for (tGame g : saGame.readAllGames()) {
+        Collection<tGame> allGames = Controller.getInstance().getAllGames();
+        for (tGame g : allGames) {
             // Si el juego no está en el mapa, lo metemos con una lista vacía
             availableGamesMap.putIfAbsent(g.getName(), new ArrayList<>());
             // Añadimos los puntos a la lista de ese juego
@@ -172,12 +170,12 @@ public class GamesPackageEditor extends JDialog {
             double finalPrice = (double) priceSpinner.getValue();
             
             if (!name.isEmpty()) {
-                if (currentPack == null) saGamesPackage.createGamesPackage( new tGamesPackage(name, finalPrice, gamesMap)); 
+                if (currentPack == null) Controller.getInstance().action(Event.CREATE_PACKAGE, new tGamesPackage(name, finalPrice, gamesMap));
                 else {
                     currentPack.setName(name);
-                    currentPack.setPrice(finalPrice); 
-                    currentPack.setGames(gamesMap); 
-                    saGamesPackage.updateGamesPackage(currentPack); 
+                    currentPack.setPrice(finalPrice);
+                    currentPack.setGames(gamesMap);
+                    Controller.getInstance().action(Event.UPDATE_PACKAGE, currentPack);
                 }
                 dispose(); 
             }

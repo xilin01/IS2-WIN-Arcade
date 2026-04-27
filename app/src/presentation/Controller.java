@@ -8,11 +8,14 @@ import business.auth.SAAuth;
 import business.game.Blackjack;
 import business.game.Roulette;
 import business.game.Roulette.Bet.tBet;
+import business.game.SAGame;
 import business.game.tGame;
+import business.packages.SAGamesPackage;
 import business.packages.tGamesPackage;
 import business.player.SAInventory;
 import business.player.SAPlayer;
 import business.player.tPlayer;
+import business.product.SAProduct;
 import business.product.tProduct;
 import business.ServiceLocator;
 import business.user.SAUser;
@@ -206,8 +209,38 @@ public class Controller {
                 rouletteGUI.showResult(points, roulette.getWinningNumber());
                 break;
             }
+            case Event.CREATE_PACKAGE: { ServiceLocator.get(SAGamesPackage.class).createGamesPackage((tGamesPackage)data); break; }
+            case Event.UPDATE_PACKAGE: { ServiceLocator.get(SAGamesPackage.class).updateGamesPackage((tGamesPackage)data); break; }
+            case Event.DELETE_PACKAGE: { ServiceLocator.get(SAGamesPackage.class).deleteGamesPackage((String)data); break; }
+            case Event.CREATE_PRODUCT: { ServiceLocator.get(SAProduct.class).createProduct((tProduct)data); break; }
+            case Event.UPDATE_PRODUCT: { ServiceLocator.get(SAProduct.class).updateProduct((tProduct)data); break; }
+            case Event.DELETE_PRODUCT: { ServiceLocator.get(SAProduct.class).deleteProduct((String)data); break; }
             default: System.err.println("Aún no esta implementado"); break;
         }
+    }
+
+    public int getPlayerPoints(String username) {
+        return ServiceLocator.get(SAPlayer.class).readPlayer(username).getPoints();
+    }
+
+    public tPlayer getPlayer(String username) {
+        return ServiceLocator.get(SAPlayer.class).readPlayer(username);
+    }
+
+    public Collection<tPlayer> getAllPlayers() {
+        return ServiceLocator.get(SAPlayer.class).readAllPlayers();
+    }
+
+    public Collection<tGamesPackage> getAllPackages() {
+        return ServiceLocator.get(SAGamesPackage.class).readAllGamesPackages();
+    }
+
+    public Collection<tProduct> getAllProducts() {
+        return ServiceLocator.get(SAProduct.class).readAllProducts();
+    }
+
+    public Collection<tGame> getAllGames() {
+        return ServiceLocator.get(SAGame.class).readAllGames();
     }
 
     private static void viewResult(boolean ok, ViewUpdater view, int okEvent, Object okPayload, int failEvent) {

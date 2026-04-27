@@ -14,8 +14,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.Border;
-import business.packages.SAGamesPackage;
-import business.packages.SAGamesPackageImp;
 import business.packages.tGamesPackage;
 import presentation.Controller;
 import presentation.Event;
@@ -23,12 +21,10 @@ import presentation.Event;
 @SuppressWarnings("serial")
 public class PackageManagerView extends JFrame {
     private JPanel packListPanel;
-    private SAGamesPackage gamePackages;
     private String userName;
 
     public PackageManagerView(String userName) {
         super("Gestor de paquetes");
-        this.gamePackages = new SAGamesPackageImp();
         this.userName = userName;
         initGUI();
     }
@@ -58,7 +54,7 @@ public class PackageManagerView extends JFrame {
 
         packListPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 
-        for (tGamesPackage pack : gamePackages.readAllGamesPackages()) packListPanel.add(packageElement(pack));
+        for (tGamesPackage pack : Controller.getInstance().getAllPackages()) packListPanel.add(packageElement(pack));
         JScrollPane packScrollPane = new JScrollPane(packListPanel);
 
         this.add(packScrollPane, BorderLayout.CENTER);
@@ -109,7 +105,7 @@ public class PackageManagerView extends JFrame {
         			"Confirmar", JOptionPane.YES_NO_OPTION);
 
     	   	if (confirm == JOptionPane.YES_OPTION) {
-    	        this.gamePackages.deleteGamesPackage(gamePack.getName()); 
+    	        Controller.getInstance().action(Event.DELETE_PACKAGE, gamePack.getName());
     	        updateList();
     	    }
         });
@@ -124,7 +120,7 @@ public class PackageManagerView extends JFrame {
     
     private void updateList() {
         packListPanel.removeAll();
-        for (tGamesPackage pack : gamePackages.readAllGamesPackages()) packListPanel.add(packageElement(pack));
+        for (tGamesPackage pack : Controller.getInstance().getAllPackages()) packListPanel.add(packageElement(pack));
         packListPanel.revalidate();
         packListPanel.repaint();
     }

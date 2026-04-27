@@ -14,9 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import business.ServiceLocator;
 import business.game.tGame;
-import business.player.SAPlayer;
 import business.player.tPlayer;
 import presentation.Controller;
 import presentation.Event;
@@ -53,7 +51,7 @@ public class GamesPanelView extends JFrame {
             title.setFont(new Font("Arial", Font.BOLD, 28));
             title.setForeground(Color.WHITE);
             headerPanel.add(title, BorderLayout.WEST);
-            JLabel pointsLabel = new JLabel(playerName + " (" + ServiceLocator.get(SAPlayer.class).readPlayer(playerName).getPoints() + "p)");
+            JLabel pointsLabel = new JLabel(playerName + " (" + Controller.getInstance().getPlayerPoints(playerName) + "p)");
             pointsLabel.setFont(new Font("Arial", Font.BOLD, 20));
             pointsLabel.setForeground(Color.YELLOW);
             headerPanel.add(pointsLabel, BorderLayout.EAST);
@@ -82,8 +80,7 @@ public class GamesPanelView extends JFrame {
 
     private boolean loadGames(JPanel gamesListPanel) {
         boolean hasGames = false;
-        SAPlayer saPlayer = ServiceLocator.get(SAPlayer.class);
-        tPlayer player = saPlayer.readPlayer(playerName);
+        tPlayer player = Controller.getInstance().getPlayer(playerName);
 
         if(player.getInventory() != null && !player.getInventory().getGames().isEmpty()) {
         	hasGames = true;
