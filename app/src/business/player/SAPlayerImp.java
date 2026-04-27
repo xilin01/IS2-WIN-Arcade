@@ -42,11 +42,10 @@ public class SAPlayerImp implements SAPlayer {
     }
 
     @Override
-    public void addPoints(String username, int points) {
-        tPlayer player = readPlayer(username);
-        if (player != null) {
-            player.setPoints(player.getPoints() + points);
-            updatePlayer(player);
-        }
+    public void addPoints(String name, int points) {
+        tPlayer player = readPlayer(name);
+        
+        player.setPoints(player.getPoints() + points);
+        updatePlayer(player);
     }
 }

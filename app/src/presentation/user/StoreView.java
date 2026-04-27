@@ -14,7 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import java.util.Collection;
 import business.game.tGame;
 import business.packages.tGamesPackage;
 import business.product.tProduct;

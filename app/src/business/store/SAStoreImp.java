@@ -20,7 +20,8 @@ public class SAStoreImp implements SAStore {
     @Override
     public boolean buyProduct(String playerName, tProduct product) {
         tPlayer player = saPlayer.readPlayer(playerName);
-        if (player.getPoints() < product.getPrice()) return false;
+        
+        if(player.getPoints() < product.getPrice()) return false;
         player.setPoints(player.getPoints() - product.getPrice());
         Map<tProduct, Integer> inv = player.getInventory().getProducts();
         inv.put(product, inv.getOrDefault(product, 0) + 1);
@@ -31,9 +32,9 @@ public class SAStoreImp implements SAStore {
     @Override
     public boolean buyPackage(String playerName, tGamesPackage pack) {
         tPlayer player = saPlayer.readPlayer(playerName);
+        
         Map<tGame, Integer> inv = player.getInventory().getGames();
-        for (Map.Entry<tGame, Integer> entry : pack.getGames().entrySet())
-            inv.put(entry.getKey(), inv.getOrDefault(entry.getKey(), 0) + entry.getValue());
+        for(Map.Entry<tGame, Integer> entry: pack.getGames().entrySet()) inv.put(entry.getKey(), inv.getOrDefault(entry.getKey(), 0) + entry.getValue());
         saInventory.updateInventory(player.getInventory());
         return true;
     }

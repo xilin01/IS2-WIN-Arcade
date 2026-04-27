@@ -86,13 +86,11 @@ public class Roulette extends ChanceGame {
         }
     }
 
-    private static final String NAME = "Ruleta";
-
     private Bet bet;
     private int winningNumber;
 
     public Roulette(int basePoints, Bet bet) {
-        super(NAME, basePoints, bet.getMultiplier());
+        super(basePoints, bet.getMultiplier());
         this.bet = bet;
         winningNumber = -1;
     }
@@ -103,17 +101,17 @@ public class Roulette extends ChanceGame {
     
     public static Bet toBet(Bet.tBet bet) {
     	switch(bet.betName) {
-    	case Sencillo: return Bet.straight(bet.data[0]); 
-    	case Calle: return Bet.street(bet.data[0], bet.data[1], bet.data[2]); 
-    	case Columna: return Bet.column(bet.data[0]); 
-    	case Docena: return Bet.dozen(bet.data[0]); 
-    	case Rojo: return Bet.red();
-    	case Negro: return Bet.black(); 
-    	case Par: return Bet.even();
-    	case Impar: return Bet.odd();
-    	case Low: return Bet.low(); 
-    	case High: return Bet.high();
-    	default: return Bet.red();
+	    	case Sencillo: return Bet.straight(bet.data[0]); 
+	    	case Calle: return Bet.street(bet.data[0], bet.data[1], bet.data[2]); 
+	    	case Columna: return Bet.column(bet.data[0]); 
+	    	case Docena: return Bet.dozen(bet.data[0]); 
+	    	case Rojo: return Bet.red();
+	    	case Negro: return Bet.black(); 
+	    	case Par: return Bet.even();
+	    	case Impar: return Bet.odd();
+	    	case Low: return Bet.low(); 
+	    	case High: return Bet.high();
+	    	default: return Bet.red();
     	}
     }
 

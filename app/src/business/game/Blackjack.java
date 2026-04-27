@@ -41,10 +41,8 @@ public class Blackjack extends CardGame {
         }
     }
 
-    private static final String NAME = "Blackjack";
     private static final int BLACKJACK_LIMIT = 21;
     private static final int CROUPIER_LIMIT = 17;
-
     public static final int LOST = -1;
     public static final int CONTINUE = 0;
     public static final int WON = 1;
@@ -53,7 +51,7 @@ public class Blackjack extends CardGame {
     private Hand player;
 
     public Blackjack(int basePoints) {
-        super(NAME, basePoints);
+        super(basePoints);
         croupier = new Hand();
         player = new Hand();
     }
@@ -85,13 +83,13 @@ public class Blackjack extends CardGame {
         return player.getStatus();
     }
 
-    public int getResult() { // Jugador pierde = -1, empate = 0 y jugador gana = 1
+    public int getResult() {
         int playerPoints = player.getPoints(), croupierPoints = croupier.getPoints();
 
-        if(playerPoints > BLACKJACK_LIMIT) return -1;
-        if(croupierPoints > BLACKJACK_LIMIT) return 1;
-        if(playerPoints == croupierPoints) return 0;
-        return playerPoints > croupierPoints ? 1 : -1;
+        if(playerPoints > BLACKJACK_LIMIT) return LOST;
+        if(playerPoints == croupierPoints) return CONTINUE; // Empate
+        if(croupierPoints > BLACKJACK_LIMIT) return WON;
+        return playerPoints > croupierPoints ? WON : LOST;
     }
 
     public List<Cards> getPlayerCards() {

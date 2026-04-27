@@ -17,7 +17,7 @@ public class ServiceLocator {
     public static <T> T get(Class<T> type) {
         T service = type.cast(services.get(type));
         
-        if (service == null) throw new IllegalStateException("No service registered for " + type.getName());
+        if(service == null) throw new IllegalStateException("No service registered for " + type.getName());
         return service;
     }
 }

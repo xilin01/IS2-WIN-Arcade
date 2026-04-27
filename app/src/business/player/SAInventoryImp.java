@@ -34,8 +34,8 @@ public class SAInventoryImp implements SAInventory {
         tInventory inventory = daoInventory.readInventory(playerName);
         Map<tGame, Integer> games = inventory.getGames();
         Integer amount = games.get(game);
-        if (amount == null) return;
-        if (amount >= 2) games.put(game, amount - 1);
+        
+        if(amount >= 2) games.put(game, amount - 1);
         else games.remove(game);
         daoInventory.updateInventory(inventory);
     }

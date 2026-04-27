@@ -52,12 +52,12 @@ public class Event {
 	public static final int BUY_PACKAGE = 33;
 	public static final int BUY_PRODUCT = 34;
 
-	// Package CRUD (staff)
+	// Package
 	public static final int CREATE_PACKAGE = 35;
 	public static final int UPDATE_PACKAGE = 36;
 	public static final int DELETE_PACKAGE = 37;
 
-	// Product CRUD (staff)
+	// Product
 	public static final int CREATE_PRODUCT = 38;
 	public static final int UPDATE_PRODUCT = 39;
 	public static final int DELETE_PRODUCT = 40;

@@ -27,7 +27,7 @@ public class LoginView extends JFrame {
     }
 
     public static void open() {
-        if (instance == null || !instance.isDisplayable()) instance = new LoginView();
+        if(instance == null || !instance.isDisplayable()) instance = new LoginView();
         instance.setVisible(true);
     }
 

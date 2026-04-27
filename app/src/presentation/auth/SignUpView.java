@@ -26,7 +26,7 @@ public class SignUpView extends JFrame {
     }
 
     public static void open() {
-        if (instance == null || !instance.isDisplayable()) instance = new SignUpView();
+        if(instance == null || !instance.isDisplayable()) instance = new SignUpView();
         instance.setVisible(true);
     }
 
@@ -58,11 +58,11 @@ public class SignUpView extends JFrame {
             String password = new String(txtPassword.getPassword());
             String confirm = new String(txtConfirm.getPassword());
 
-            if (name.isEmpty() || password.isEmpty()) {
+            if(name.isEmpty() || password.isEmpty()) {
                 JOptionPane.showMessageDialog(instance, "El usuario o la contraseña no pueden estar vacíos.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            if (!password.equals(confirm)) {
+            if(!password.equals(confirm)) {
                 JOptionPane.showMessageDialog(instance, "Las contraseñas no coinciden.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }

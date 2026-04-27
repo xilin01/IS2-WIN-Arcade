@@ -139,7 +139,7 @@ public class RouletteGUI extends JFrame {
     	}
     	
     	private void ready() {
-    		switch (betName) {
+    		switch(betName) {
 	    		case Columna:
 	    		case Docena:
 	            case Sencillo: bet = new tBet(betName, new int[]{Integer.parseInt("" + select.getSelectedItem())}); break;
@@ -223,7 +223,7 @@ public class RouletteGUI extends JFrame {
         playButton.setEnabled(true);
     }
 
-    private void playRoulette() { // En setBet se activa el boton
+    private void playRoulette() { // En setBet se activa el botón
         Controller.getInstance().action(Event.ROULETTE_ROLL, bet);
         playButton.setEnabled(false);
     }
@@ -252,12 +252,10 @@ public class RouletteGUI extends JFrame {
     	animationCount = 0;
     	int steps = numberToSteps.get(n) + 37;
         Timer timer = new Timer(50, null);
-
         timer.addActionListener(e -> {
         	roulette.advance();
         	animationCount++;
-	
-	        if (animationCount >= steps) {
+	        if(animationCount >= steps) {
 	            timer.stop();
 	            onFinish.run();
 	        }

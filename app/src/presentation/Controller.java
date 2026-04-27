@@ -93,7 +93,7 @@ public class Controller {
                 AuthResult result = saAuth.authenticate(credentials.name(), credentials.password());
                 
                 if(result.getOutcome() != AuthResult.Outcome.FAILURE) currUser = (String)result.getPayload();
-                int loginEvent = switch (result.getOutcome()) {
+                int loginEvent = switch(result.getOutcome()) {
                     case STAFF_OK -> Event.RES_LOGIN_STAFF_SUCCESS;
                     case PLAYER_OK -> Event.RES_LOGIN_SUCCESS;
                     case FAILURE -> Event.RES_LOGIN_FAILURE;
@@ -131,15 +131,17 @@ public class Controller {
             }
             case Event.BUY_PACKAGE: {
                 tGamesPackage pack = (tGamesPackage)data;
-                boolean ok = ServiceLocator.get(SAStore.class).buyPackage(currUser, pack);
-                if (ok) JOptionPane.showMessageDialog(null, "¡" + pack.getName() + " comprado con éxito!", "Compra exitosa", JOptionPane.INFORMATION_MESSAGE);
+                
+                if(ServiceLocator.get(SAStore.class).buyPackage(currUser, pack)) 
+                	JOptionPane.showMessageDialog(null, "¡" + pack.getName() + " comprado con éxito!", "Compra exitosa", JOptionPane.INFORMATION_MESSAGE);
                 else JOptionPane.showMessageDialog(null, "No se pudo completar la compra.", "Error", JOptionPane.ERROR_MESSAGE);
                 break;
             }
             case Event.BUY_PRODUCT: {
                 tProduct prod = (tProduct)data;
-                boolean ok = ServiceLocator.get(SAStore.class).buyProduct(currUser, prod);
-                if (ok) JOptionPane.showMessageDialog(null, "¡" + prod.getName() + " canjead@ con éxito!", "Canje exitoso", JOptionPane.INFORMATION_MESSAGE);
+                
+                if(ServiceLocator.get(SAStore.class).buyProduct(currUser, prod))
+                	JOptionPane.showMessageDialog(null, "¡" + prod.getName() + " canjead@ con éxito!", "Canje exitoso", JOptionPane.INFORMATION_MESSAGE);
                 else JOptionPane.showMessageDialog(null, "No tienes suficientes puntos para canjear este producto.", "Puntos insuficientes", JOptionPane.ERROR_MESSAGE);
                 break;
             }
@@ -160,7 +162,10 @@ public class Controller {
                 break;
             }
             case Event.BLACKJACK_HIT: {
-                if (blackjack == null || blackJackGUI == null) { System.err.println("BLACKJACK_HIT sin partida activa"); break; }
+                if(blackjack == null || blackJackGUI == null) {
+                	System.err.println("BLACKJACK_HIT sin partida activa");
+                	break;
+                }
                 int res = blackjack.playerHit();
                 blackJackGUI.update(blackjack.getCroupierCards(), blackjack.getPlayerCards(), blackjack.getCroupierPoints(), blackjack.getPlayerPoints(), false);
                 if(res != Blackjack.CONTINUE) {
@@ -173,7 +178,10 @@ public class Controller {
                 break;
             }
             case Event.BLACKJACK_STAND: {
-                if (blackjack == null || blackJackGUI == null) { System.err.println("BLACKJACK_STAND sin partida activa"); break; }
+                if(blackjack == null || blackJackGUI == null) {
+                	System.err.println("BLACKJACK_STAND sin partida activa");
+                	break;
+                }
                 if(blackjack.getCroupierPoints() < blackjack.getPlayerPoints()) blackjack.croupierPlay();
                 blackJackGUI.update(blackjack.getCroupierCards(), blackjack.getPlayerCards(), blackjack.getCroupierPoints(), blackjack.getPlayerPoints(), true);
                 switch(blackjack.getResult()) {
@@ -199,22 +207,22 @@ public class Controller {
                 rouletteGUI.showResult(points, roulette.getWinningNumber());
                 break;
             }
-            case Event.CREATE_PACKAGE: { ServiceLocator.get(SAGamesPackage.class).createGamesPackage((tGamesPackage)data); break; }
-            case Event.UPDATE_PACKAGE: { ServiceLocator.get(SAGamesPackage.class).updateGamesPackage((tGamesPackage)data); break; }
-            case Event.DELETE_PACKAGE: { ServiceLocator.get(SAGamesPackage.class).deleteGamesPackage((String)data); break; }
-            case Event.CREATE_PRODUCT: { ServiceLocator.get(SAProduct.class).createProduct((tProduct)data); break; }
-            case Event.UPDATE_PRODUCT: { ServiceLocator.get(SAProduct.class).updateProduct((tProduct)data); break; }
-            case Event.DELETE_PRODUCT: { ServiceLocator.get(SAProduct.class).deleteProduct((String)data); break; }
-            default: System.err.println("Aún no esta implementado"); break;
+            case Event.CREATE_PACKAGE: ServiceLocator.get(SAGamesPackage.class).createGamesPackage((tGamesPackage)data); break;
+            case Event.UPDATE_PACKAGE: ServiceLocator.get(SAGamesPackage.class).updateGamesPackage((tGamesPackage)data); break;
+            case Event.DELETE_PACKAGE: ServiceLocator.get(SAGamesPackage.class).deleteGamesPackage((String)data); break;
+            case Event.CREATE_PRODUCT: ServiceLocator.get(SAProduct.class).createProduct((tProduct)data); break;
+            case Event.UPDATE_PRODUCT: ServiceLocator.get(SAProduct.class).updateProduct((tProduct)data); break;
+            case Event.DELETE_PRODUCT: ServiceLocator.get(SAProduct.class).deleteProduct((String)data); break;
+            default: System.err.println("No está implementado"); break;
         }
     }
 
-    public int getPlayerPoints(String username) {
-        return ServiceLocator.get(SAPlayer.class).readPlayer(username).getPoints();
+    public int getPlayerPoints(String name) {
+        return ServiceLocator.get(SAPlayer.class).readPlayer(name).getPoints();
     }
 
-    public tPlayer getPlayer(String username) {
-        return ServiceLocator.get(SAPlayer.class).readPlayer(username);
+    public tPlayer getPlayer(String name) {
+        return ServiceLocator.get(SAPlayer.class).readPlayer(name);
     }
 
     public Collection<tPlayer> getAllPlayers() {
@@ -234,8 +242,7 @@ public class Controller {
     }
 
     private static void viewResult(boolean ok, ViewUpdater view, int okEvent, Object okPayload, int failEvent) {
-        if(ok) view.update(okEvent, okPayload);
+        if(ok)view.update(okEvent, okPayload);
         else view.update(failEvent, null);
     }
-    
 }
