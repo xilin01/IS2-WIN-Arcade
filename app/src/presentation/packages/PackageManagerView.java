@@ -22,11 +22,9 @@ import presentation.user.StaffView;
 @SuppressWarnings("serial")
 public class PackageManagerView extends JFrame {
     private JPanel packListPanel;
-    private String userName;
 
-    public PackageManagerView(String userName) {
+    public PackageManagerView() {
         super("Gestor de paquetes");
-        this.userName = userName;
         initGUI();
     }
 
@@ -69,7 +67,7 @@ public class PackageManagerView extends JFrame {
         this.add(bottomPanel, BorderLayout.SOUTH);
 
         backButton.addActionListener(e -> {
-            new StaffView(Controller.getInstance().getUsername());
+            new StaffView();
             dispose();
         });
 

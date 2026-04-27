@@ -65,11 +65,11 @@ public class LoginView extends JFrame {
         switch(event) {
             case Event.RES_LOGIN_STAFF_SUCCESS:
                 instance.dispose();
-                new StaffView((String) data);
+                new StaffView();
                 break;
             case Event.RES_LOGIN_SUCCESS:
                 instance.dispose();
-                new PlayerView((String) data);
+                new PlayerView();
                 break;
             case Event.RES_LOGIN_FAILURE: JOptionPane.showMessageDialog(instance, "Usuario o contraseña incorrectos.", "Error", JOptionPane.ERROR_MESSAGE); break;
         }

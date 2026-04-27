@@ -22,11 +22,9 @@ import presentation.user.PlayerView;
 
 @SuppressWarnings("serial")
 public class GamesPanelView extends JFrame {
-    private String playerName;
 
-    public GamesPanelView(String playerName) {
+    public GamesPanelView() {
         super("Panel de juegos");
-        this.playerName = playerName;
         initGUI();
     }
 
@@ -51,7 +49,7 @@ public class GamesPanelView extends JFrame {
             title.setFont(new Font("Arial", Font.BOLD, 28));
             title.setForeground(Color.WHITE);
             headerPanel.add(title, BorderLayout.WEST);
-            JLabel pointsLabel = new JLabel(playerName + " (" + Controller.getInstance().getPlayerPoints(playerName) + "p)");
+            JLabel pointsLabel = new JLabel(Controller.getInstance().getUsername() + " (" + Controller.getInstance().getPlayerPoints(Controller.getInstance().getUsername()) + "p)");
             pointsLabel.setFont(new Font("Arial", Font.BOLD, 20));
             pointsLabel.setForeground(Color.YELLOW);
             headerPanel.add(pointsLabel, BorderLayout.EAST);
@@ -69,7 +67,7 @@ public class GamesPanelView extends JFrame {
         bottomPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         JButton backButton = new JButton("<- Volver");
         backButton.addActionListener(e -> {
-        	new PlayerView(playerName);
+        	new PlayerView();
             dispose();
         });
         bottomPanel.add(backButton);
@@ -80,7 +78,7 @@ public class GamesPanelView extends JFrame {
 
     private boolean loadGames(JPanel gamesListPanel) {
         boolean hasGames = false;
-        tPlayer player = Controller.getInstance().getPlayer(playerName);
+        tPlayer player = Controller.getInstance().getPlayer(Controller.getInstance().getUsername());
 
         if(player.getInventory() != null && !player.getInventory().getGames().isEmpty()) {
         	hasGames = true;

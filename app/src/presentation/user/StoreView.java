@@ -22,12 +22,10 @@ import presentation.Event;
 
 @SuppressWarnings("serial")
 public class StoreView extends JFrame {
-    private String playerName;
     private JLabel pointsLabel;
 
-    public StoreView(String userName) {
+    public StoreView() {
         super("Tienda");
-        this.playerName = userName;
         initGUI();
     }
 
@@ -38,7 +36,7 @@ public class StoreView extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        pointsLabel = new JLabel(playerName + " (" + Controller.getInstance().getPlayerPoints(playerName) + "p)");
+        pointsLabel = new JLabel(Controller.getInstance().getUsername() + " (" + Controller.getInstance().getPlayerPoints(Controller.getInstance().getUsername()) + "p)");
         pointsLabel.setFont(new Font("Arial", Font.BOLD, 14));
         topPanel.add(pointsLabel);
         add(topPanel, BorderLayout.NORTH);
@@ -57,7 +55,7 @@ public class StoreView extends JFrame {
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JButton backButton = new JButton("<- Volver");
         backButton.addActionListener(e -> {
-            new PlayerView(playerName);
+            new PlayerView();
             dispose();
         });
         bottomPanel.add(backButton);
@@ -108,7 +106,7 @@ public class StoreView extends JFrame {
         JButton buyButton = new JButton("Canjear");
         buyButton.addActionListener(e -> {
         	Controller.getInstance().action(Event.BUY_PRODUCT, prod);
-        	pointsLabel.setText(playerName + " (" + Controller.getInstance().getPlayerPoints(playerName) + "p)");
+        	pointsLabel.setText(Controller.getInstance().getUsername() + " (" + Controller.getInstance().getPlayerPoints(Controller.getInstance().getUsername()) + "p)");
         });
         btnPanel.add(buyButton);
         panel.add(btnPanel, BorderLayout.EAST);

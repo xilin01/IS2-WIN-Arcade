@@ -14,11 +14,9 @@ import presentation.games.GamesPanelView;
 
 @SuppressWarnings("serial")
 public class PlayerView extends JFrame {
-    private final String userName;
 
-    public PlayerView(String userName) {
+    public PlayerView() {
         super("Menú principal - Jugador");
-        this.userName = userName;
         initGUI();
     }
 
@@ -29,7 +27,7 @@ public class PlayerView extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        JLabel userLabel = new JLabel(userName + " (" + Controller.getInstance().getPlayerPoints(userName) + "p) | ");
+        JLabel userLabel = new JLabel(Controller.getInstance().getUsername() + " (" + Controller.getInstance().getPlayerPoints(Controller.getInstance().getUsername()) + "p) | ");
         JButton logOutButton = new JButton("Cerrar Sesión");
         topPanel.add(userLabel);
         topPanel.add(logOutButton);
@@ -40,7 +38,7 @@ public class PlayerView extends JFrame {
         playButton.setPreferredSize(new Dimension(200, 100));
         playButton.setFont(playButton.getFont().deriveFont(Font.BOLD, 28f));
         playButton.addActionListener(e -> {
-        	new GamesPanelView(Controller.getInstance().getUsername());
+        	new GamesPanelView();
         	dispose();
         });
         centerPanel.add(playButton);
@@ -53,11 +51,11 @@ public class PlayerView extends JFrame {
         storeButton.setPreferredSize(buttonSize);
         inventoryButton.setPreferredSize(buttonSize);
         storeButton.addActionListener(e -> {
-        	new StoreView(Controller.getInstance().getUsername());
+        	new StoreView();
         	dispose();
         });
         inventoryButton.addActionListener(e -> {
-        	new InventoryView(Controller.getInstance().getUsername());
+        	new InventoryView();
         	dispose();
         });
         bottomPanel.add(storeButton);

@@ -22,11 +22,9 @@ import presentation.Event;
 @SuppressWarnings("serial")
 public class UsersManagerView extends JFrame {
     private JPanel userListPanel;
-    private String currentUserName;
 
-    public UsersManagerView(String currentUserName) {
+    public UsersManagerView() {
         super("Gestor de usuarios");
-        this.currentUserName = currentUserName;
         initGUI();
     }
 
@@ -65,7 +63,7 @@ public class UsersManagerView extends JFrame {
         this.add(bottomPanel, BorderLayout.SOUTH);
 
         backButton.addActionListener(e -> {
-            new StaffView(currentUserName); 
+            new StaffView(); 
             dispose(); 
         });
 

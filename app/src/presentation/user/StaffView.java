@@ -6,7 +6,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import business.user.tUser;
 import presentation.Controller;
 import presentation.auth.LoginView;
 import presentation.packages.PackageManagerView;
@@ -14,17 +13,9 @@ import presentation.product.ProductManagerView;
 
 @SuppressWarnings("serial")
 public class StaffView extends JFrame {
-    private String userName;
 
-    public StaffView(String userName) {
+    public StaffView() {
         super();
-        this.userName = userName;
-        initGUI();
-    }
-
-    public StaffView(tUser user) {
-        super();
-        this.userName = user.getName();
         initGUI();
     }
 
@@ -37,7 +28,7 @@ public class StaffView extends JFrame {
 
         //Barra superior
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        JLabel userLabel = new JLabel(userName + " | ");
+        JLabel userLabel = new JLabel(Controller.getInstance().getUsername() + " | ");
         JButton logOutButton = new JButton("Cerrar Sesión");
 
         topPanel.add(userLabel);
@@ -49,20 +40,18 @@ public class StaffView extends JFrame {
         JPanel mainPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 100));
 
         JButton managePackagesButton = new JButton("GESTIONAR PAQUETES");
-        managePackagesButton.addActionListener((e) -> {
-            new PackageManagerView(Controller.getInstance().getUsername());
+        managePackagesButton.addActionListener(e -> {
+            new PackageManagerView();
             dispose();
         });
         JButton manageProductsButton = new JButton("GESTIONAR PRODUCTOS");
-        manageProductsButton.addActionListener((e) -> {
-        	new ProductManagerView(this.userName);
-        	
+        manageProductsButton.addActionListener(e -> {
+        	new ProductManagerView();
         	dispose();
         });
         JButton manageUsersButton = new JButton("GESTIONAR USUARIOS");
-        manageUsersButton.addActionListener((e) -> {
-        	new UsersManagerView(userName);
-        	
+        manageUsersButton.addActionListener(e -> {
+        	new UsersManagerView();
         	dispose();
         });
 
@@ -78,7 +67,7 @@ public class StaffView extends JFrame {
 
         this.add(mainPanel, BorderLayout.CENTER);
 
-        logOutButton.addActionListener((e) -> {
+        logOutButton.addActionListener(e -> {
             LoginView.open();
             dispose();
         });

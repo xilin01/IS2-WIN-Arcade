@@ -21,11 +21,9 @@ import presentation.Controller;
 
 @SuppressWarnings("serial")
 public class InventoryView extends JFrame {
-    private String playerName;
 
-    public InventoryView(String playerName) {
+    public InventoryView() {
         super("Inventario");
-        this.playerName = playerName;
         initGUI();
     }
 
@@ -35,11 +33,11 @@ public class InventoryView extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        tPlayer player = Controller.getInstance().getPlayer(playerName);
+        tPlayer player = Controller.getInstance().getPlayer(Controller.getInstance().getUsername());
         tPlayer.tInventory inventory = player.getInventory();
 
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        JLabel pointsLabel = new JLabel(playerName + " (" + player.getPoints() + "p)");
+        JLabel pointsLabel = new JLabel(Controller.getInstance().getUsername() + " (" + player.getPoints() + "p)");
         pointsLabel.setFont(new Font("Arial", Font.BOLD, 14));
         topPanel.add(pointsLabel);
         add(topPanel, BorderLayout.NORTH);
@@ -74,7 +72,7 @@ public class InventoryView extends JFrame {
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JButton backButton = new JButton("<- Volver");
         backButton.addActionListener(e -> {
-            new PlayerView(playerName);
+            new PlayerView();
             dispose();
         });
         bottomPanel.add(backButton);

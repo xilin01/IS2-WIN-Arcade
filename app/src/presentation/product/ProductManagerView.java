@@ -22,11 +22,9 @@ import presentation.user.StaffView;
 @SuppressWarnings("serial")
 public class ProductManagerView extends JFrame {
     private JPanel productListPanel;
-    private String userName;
 
-    public ProductManagerView(String userName) {
+    public ProductManagerView() {
         super("Gestor de productos");
-        this.userName = userName;
         initGUI();
     }
 
@@ -61,7 +59,7 @@ public class ProductManagerView extends JFrame {
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JButton backButton = new JButton("<- Volver");
         backButton.addActionListener(e -> {
-            new StaffView(userName); 
+            new StaffView(); 
             dispose();
         });
         bottomPanel.add(backButton);
@@ -104,7 +102,6 @@ public class ProductManagerView extends JFrame {
         return productPanel;
     }
 
-    
     private void updateList() {
         productListPanel.removeAll();
         Collection<tProduct> products = Controller.getInstance().getAllProducts();
