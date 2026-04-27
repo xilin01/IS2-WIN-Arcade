@@ -36,7 +36,7 @@ import presentation.user.UserView;
 public class Controller {    
 	private static final Controller INSTANCE = new Controller();
 	 
-	private String currUser;
+	private String username;
 	private BlackjackGUI blackJackGUI;
 	private Blackjack blackjack;
 	private RouletteGUI rouletteGUI;
@@ -50,8 +50,8 @@ public class Controller {
 		return INSTANCE;
 	}
 	
-	public String getCurrentUser() {
-		return currUser;
+	public String getUsername() {
+		return username;
 	}
 
     public void action(final int event, final Object data) {
@@ -91,7 +91,7 @@ public class Controller {
                 tCredentials credentials = (tCredentials)data;
                 AuthResult result = saAuth.authenticate(credentials.name(), credentials.password());
                 
-                if(result.getOutcome() != AuthResult.Outcome.FAILURE) currUser = (String)result.getPayload();
+                if(result.getOutcome() != AuthResult.Outcome.FAILURE) username = (String)result.getPayload();
                 int loginEvent = switch(result.getOutcome()) {
                     case STAFF_OK -> Event.RES_LOGIN_STAFF_SUCCESS;
                     case PLAYER_OK -> Event.RES_LOGIN_SUCCESS;
@@ -108,7 +108,7 @@ public class Controller {
                 break;
             }
             case Event.LOGOUT: {
-            	currUser = null;
+            	username = null;
                 LoginView.open();
                 break;
             }
@@ -125,13 +125,13 @@ public class Controller {
                 break;
             }
             case Event.OPEN_STORE: {            	
-                new StoreView(currUser);
+                new StoreView(username);
                 break;
             }
             case Event.BUY_PACKAGE: {
                 tGamesPackage pack = (tGamesPackage)data;
                 
-                if(ServiceLocator.get(SAStore.class).buyPackage(currUser, pack)) 
+                if(ServiceLocator.get(SAStore.class).buyPackage(username, pack)) 
                 	JOptionPane.showMessageDialog(null, "¡" + pack.getName() + " comprado con éxito!", "Compra exitosa", JOptionPane.INFORMATION_MESSAGE);
                 else JOptionPane.showMessageDialog(null, "No se pudo completar la compra.", "Error", JOptionPane.ERROR_MESSAGE);
                 break;
@@ -139,22 +139,22 @@ public class Controller {
             case Event.BUY_PRODUCT: {
                 tProduct prod = (tProduct)data;
                 
-                if(ServiceLocator.get(SAStore.class).buyProduct(currUser, prod))
+                if(ServiceLocator.get(SAStore.class).buyProduct(username, prod))
                 	JOptionPane.showMessageDialog(null, "¡" + prod.getName() + " canjead@ con éxito!", "Canje exitoso", JOptionPane.INFORMATION_MESSAGE);
                 else JOptionPane.showMessageDialog(null, "No tienes suficientes puntos para canjear este producto.", "Puntos insuficientes", JOptionPane.ERROR_MESSAGE);
                 break;
             }
             case Event.OPEN_INVENTORY: {
-                new InventoryView(currUser);
+                new InventoryView(username);
                 break;
             }
             case Event.GAMES_PANEL: {
-                new GamesPanelView(currUser);
+                new GamesPanelView(username);
                 break;
             }
             case Event.BLACKJACK_PLAY: {
                 basePoints = (Integer)data;
-                ServiceLocator.get(SAInventory.class).consumeGame(currUser, new tGame(tGame.BLACKJACK, basePoints));
+                ServiceLocator.get(SAInventory.class).consumeGame(username, new tGame(tGame.BLACKJACK, basePoints));
                 blackjack = new Blackjack(basePoints);
                 int croupierVisiblePoints = blackjack.play();
                 blackJackGUI = new BlackjackGUI(blackjack.getCroupierVisibleCard(), blackjack.getPlayerCards(), croupierVisiblePoints, blackjack.getPlayerPoints());
@@ -169,7 +169,7 @@ public class Controller {
                 blackJackGUI.update(blackjack.getCroupierCards(), blackjack.getPlayerCards(), blackjack.getCroupierPoints(), blackjack.getPlayerPoints(), false);
                 if(res != Blackjack.CONTINUE) {
                     if(res == Blackjack.WON) {
-                        ServiceLocator.get(SAPlayer.class).addPoints(currUser, blackjack.getPointsWon());
+                        ServiceLocator.get(SAPlayer.class).addPoints(username, blackjack.getPointsWon());
                         blackJackGUI.end("¡Victoria, has ganado " + blackjack.getPointsWon() + " puntos!");
                     } 
                     else blackJackGUI.end("Te has pasado de 21...");
@@ -187,7 +187,7 @@ public class Controller {
 	                case Blackjack.LOST: blackJackGUI.end("Lo siento, gana el croupier..."); break;
 	                case Blackjack.CONTINUE: blackJackGUI.end("Empate"); break;
 	                case Blackjack.WON: 
-	                	ServiceLocator.get(SAPlayer.class).addPoints(currUser, blackjack.getPointsWon());
+	                	ServiceLocator.get(SAPlayer.class).addPoints(username, blackjack.getPointsWon());
 	                    blackJackGUI.end("¡Felicidades, has ganado " + blackjack.getPointsWon() + " puntos!");
 	                    break;
                 }
@@ -195,14 +195,14 @@ public class Controller {
             }
             case Event.ROULETTE_PLAY: {
                 basePoints = (Integer)data;
-                ServiceLocator.get(SAInventory.class).consumeGame(currUser, new tGame(tGame.ROULETTE, basePoints));
+                ServiceLocator.get(SAInventory.class).consumeGame(username, new tGame(tGame.ROULETTE, basePoints));
                 rouletteGUI = new RouletteGUI();
                 break;
             }
             case Event.ROULETTE_ROLL: {
                 roulette = new Roulette(basePoints, (tBet)data);
                 int points = roulette.play();
-                if(points > 0) ServiceLocator.get(SAPlayer.class).addPoints(currUser, points);
+                if(points > 0) ServiceLocator.get(SAPlayer.class).addPoints(username, points);
                 rouletteGUI.showResult(points, roulette.getWinningNumber());
                 break;
             }

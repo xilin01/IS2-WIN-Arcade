@@ -32,7 +32,8 @@ import presentation.Event;
 @SuppressWarnings("serial")
 public class RouletteGUI extends JFrame {
     private class RotatedRoulette extends JPanel {
-    	private static int SIZE = 450;
+    	private static final int SIZE = 450;
+    	
         private Image image;
         private double angle;
 
@@ -84,8 +85,9 @@ public class RouletteGUI extends JFrame {
         }
     }
     private class ImputDialog extends JDialog {
-    	private static final int betsHeight = 200;
-        private static final int betsWidth = betsHeight * 2;
+    	private static final int BETS_HEIGHT = 200;
+        private static final int BETS_WIDTH = BETS_HEIGHT * 2;
+        
     	private Bets betName;
     	private DefaultComboBoxModel <String> select;
     	private JLabel text;
@@ -121,7 +123,7 @@ public class RouletteGUI extends JFrame {
     		setContentPane(mainPanel);
     		
     		ImageIcon icon = new ImageIcon("resources/icons/apuestas_ruleta.png");
-            Image img = icon.getImage().getScaledInstance(betsWidth, betsHeight, Image.SCALE_SMOOTH);
+            Image img = icon.getImage().getScaledInstance(BETS_WIDTH, BETS_HEIGHT, Image.SCALE_SMOOTH);
             ImageIcon scaledIcon = new ImageIcon(img);
             mainPanel.add(new JLabel(scaledIcon));
     		
@@ -155,7 +157,7 @@ public class RouletteGUI extends JFrame {
     	}
     }
     
-    private static final Bets[] bets = Bets.values();
+    private static final Bets[] BETS = Bets.values();
     
     private Map<Integer, Integer> numberToSteps;
     private RotatedRoulette roulette;
@@ -185,7 +187,7 @@ public class RouletteGUI extends JFrame {
         betsPanel.setOpaque(false);
         betsPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 20));
         mainPanel.add(betsPanel, BorderLayout.EAST);
-        for(Bets b: bets) {
+        for(Bets b: BETS) {
             JButton betButton = new JButton(""+b);
             betButton.addActionListener(a -> setBet(b));
             betsPanel.add(betButton);

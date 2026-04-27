@@ -20,14 +20,14 @@ import presentation.Event;
 
 @SuppressWarnings("serial")
 public class BlackjackGUI extends JFrame {
-    private static final int cardHeight = 200;
-    private static final int cardWidth = (int)(cardHeight / 1.4);
+    private static final int CARD_HEIGHT = 200;
+    private static final int CARD_WIDTH = (int)(CARD_HEIGHT / 1.4);
+    private static final Font FONT = new Font("", Font.PLAIN, 15);
 
     private JPanel croupierDeckPanel;
     private JPanel playerDeckPanel;
     private JLabel playerScore;
     private JLabel croupierScore;
-    private Font font = new Font("", Font.PLAIN, 15);
 
     public BlackjackGUI(Cards croupierCard, List<Cards> playerDeck, int croupierPoints, int playerPoints) {
         super("Blackjack");
@@ -78,12 +78,12 @@ public class BlackjackGUI extends JFrame {
         mainPanel.add(scoresPanel, BorderLayout.EAST);
 
         croupierScore = new JLabel();
-        croupierScore.setFont(font);
+        croupierScore.setFont(FONT);
         croupierScore.setForeground(Color.WHITE);
         scoresPanel.add(croupierScore);
 
         playerScore = new JLabel();
-        playerScore.setFont(font);
+        playerScore.setFont(FONT);
         playerScore.setForeground(Color.WHITE);
         scoresPanel.add(playerScore);
 
@@ -132,7 +132,7 @@ public class BlackjackGUI extends JFrame {
     private void showCard(JPanel deckPanel, Cards card) {
         String cardName = (card == null ? "J" : ""+card);
         ImageIcon icon = new ImageIcon("resources/cards/"+cardName+".png");
-        Image img = icon.getImage().getScaledInstance(cardWidth, cardHeight, Image.SCALE_SMOOTH);
+        Image img = icon.getImage().getScaledInstance(CARD_WIDTH, CARD_HEIGHT, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(img);
         
         deckPanel.add(new JLabel(scaledIcon));
