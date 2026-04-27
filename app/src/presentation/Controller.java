@@ -153,7 +153,7 @@ public class Controller {
             }
             case Event.BLACKJACK_PLAY: {
                 basePoints = (Integer)data;
-                ServiceLocator.get(SAInventory.class).consumeGame(currUser, new tGame("Blackjack", basePoints));
+                ServiceLocator.get(SAInventory.class).consumeGame(currUser, new tGame(tGame.BLACKJACK, basePoints));
                 blackjack = new Blackjack(basePoints);
                 int croupierVisiblePoints = blackjack.play();
                 blackJackGUI = new BlackjackGUI(blackjack.getCroupierVisibleCard(), blackjack.getPlayerCards(), croupierVisiblePoints, blackjack.getPlayerPoints());
@@ -165,7 +165,7 @@ public class Controller {
                 blackJackGUI.update(blackjack.getCroupierCards(), blackjack.getPlayerCards(), blackjack.getCroupierPoints(), blackjack.getPlayerPoints(), false);
                 if(res != Blackjack.CONTINUE) {
                     if(res == Blackjack.WON) {
-                        addPoints(blackjack.getPointsWon());
+                        ServiceLocator.get(SAPlayer.class).addPoints(currUser, blackjack.getPointsWon());
                         blackJackGUI.end("¡Victoria, has ganado " + blackjack.getPointsWon() + " puntos!");
                     } 
                     else blackJackGUI.end("Te has pasado de 21...");
@@ -180,7 +180,7 @@ public class Controller {
 	                case Blackjack.LOST: blackJackGUI.end("Lo siento, gana el croupier..."); break;
 	                case Blackjack.CONTINUE: blackJackGUI.end("Empate"); break;
 	                case Blackjack.WON: 
-	                	addPoints(blackjack.getPointsWon());
+	                	ServiceLocator.get(SAPlayer.class).addPoints(currUser, blackjack.getPointsWon());
 	                    blackJackGUI.end("¡Felicidades, has ganado " + blackjack.getPointsWon() + " puntos!");
 	                    break;
                 }
@@ -188,14 +188,14 @@ public class Controller {
             }
             case Event.ROULETTE_PLAY: {
                 basePoints = (Integer)data;
-                ServiceLocator.get(SAInventory.class).consumeGame(currUser, new tGame("Ruleta", basePoints));
+                ServiceLocator.get(SAInventory.class).consumeGame(currUser, new tGame(tGame.ROULETTE, basePoints));
                 rouletteGUI = new RouletteGUI();
                 break;
             }
             case Event.ROULETTE_ROLL: {
                 roulette = new Roulette(basePoints, (tBet)data);
                 int points = roulette.play();
-                if(points > 0) addPoints(points);
+                if(points > 0) ServiceLocator.get(SAPlayer.class).addPoints(currUser, points);
                 rouletteGUI.showResult(points, roulette.getWinningNumber());
                 break;
             }
@@ -238,13 +238,4 @@ public class Controller {
         else view.update(failEvent, null);
     }
     
-    private void addPoints(int points) {
-        SAPlayer saPlayer = ServiceLocator.get(SAPlayer.class);
-        tPlayer player = saPlayer.readPlayer(currUser);
-        
-        if(player != null) {
-            player.setPoints(player.getPoints() + points);
-            saPlayer.updatePlayer(player);
-        }
-    }
 }
