@@ -9,7 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import presentation.Controller;
-import presentation.Event;
+import presentation.auth.LoginView;
+import presentation.games.GamesPanelView;
 
 @SuppressWarnings("serial")
 public class PlayerView extends JFrame {
@@ -39,7 +40,7 @@ public class PlayerView extends JFrame {
         playButton.setPreferredSize(new Dimension(200, 100));
         playButton.setFont(playButton.getFont().deriveFont(Font.BOLD, 28f));
         playButton.addActionListener(e -> {
-        	Controller.getInstance().action(Event.GAMES_PANEL, userName);
+        	new GamesPanelView(Controller.getInstance().getUsername());
         	dispose();
         });
         centerPanel.add(playButton);
@@ -52,11 +53,11 @@ public class PlayerView extends JFrame {
         storeButton.setPreferredSize(buttonSize);
         inventoryButton.setPreferredSize(buttonSize);
         storeButton.addActionListener(e -> {
-        	Controller.getInstance().action(Event.OPEN_STORE, null);
+        	new StoreView(Controller.getInstance().getUsername());
         	dispose();
         });
         inventoryButton.addActionListener(e -> {
-        	Controller.getInstance().action(Event.OPEN_INVENTORY, null);
+        	new InventoryView(Controller.getInstance().getUsername());
         	dispose();
         });
         bottomPanel.add(storeButton);
@@ -64,7 +65,7 @@ public class PlayerView extends JFrame {
         add(bottomPanel, BorderLayout.SOUTH);
 
         logOutButton.addActionListener(e -> {
-            Controller.getInstance().action(Event.LOGOUT, null);
+            LoginView.open();
             dispose();
         });
 
