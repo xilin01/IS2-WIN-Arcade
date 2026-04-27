@@ -85,10 +85,10 @@ public class ProductManagerView extends JFrame {
             new ProductEditor(this, product);
             updateList();
         });
-        JButton deleteButton = new JButton("X");
+        JButton deleteButton = new JButton("Eliminar");
         deleteButton.setForeground(Color.RED);
         deleteButton.addActionListener(e -> {
-            int confirm = JOptionPane.showConfirmDialog(this, "¿Eliminar definitivamente el producto '" + product.getName() + "'? Esta acción no se puede deshacer.", "Confirmar", JOptionPane.YES_NO_OPTION);
+            int confirm = JOptionPane.showConfirmDialog(this, "¿Eliminar definitivamente el producto '" + product.getName() + "'?", "Confirmar", JOptionPane.YES_NO_OPTION);
 
             if (confirm == JOptionPane.YES_OPTION) {
                 Controller.getInstance().action(Event.DELETE_PRODUCT, product.getName());

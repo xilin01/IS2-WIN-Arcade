@@ -56,9 +56,9 @@ public class UsersManagerView extends JFrame {
         
         this.add(listWrapper, BorderLayout.CENTER);
 
-        // Boton back
+        // Boton de volver
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JButton backButton = new JButton("Back");
+        JButton backButton = new JButton("<- Volver");
         bottomPanel.add(backButton);
         this.add(bottomPanel, BorderLayout.SOUTH);
 
@@ -94,11 +94,11 @@ public class UsersManagerView extends JFrame {
             updateList();
         });
 
-        JButton deleteButton = new JButton("X");
+        JButton deleteButton = new JButton("Desactivar");
         deleteButton.setForeground(Color.RED);
 
         deleteButton.addActionListener(e -> {
-            int confirm = JOptionPane.showConfirmDialog(this, "¿Desactivar al usuario '" + user.getName() + "'? El usuario quedará inactivo pero no se eliminará.", "Confirmar", JOptionPane.YES_NO_OPTION);
+            int confirm = JOptionPane.showConfirmDialog(this, "¿Desactivar al usuario '" + user.getName() + "'?", "Confirmar", JOptionPane.YES_NO_OPTION);
 
             if (confirm == JOptionPane.YES_OPTION) {
                 Controller.getInstance().action(Event.DELETE_USER, user.getName());
