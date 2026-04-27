@@ -10,4 +10,5 @@ public interface SAPlayer {
     int updatePlayer(tPlayer player);
     int deletePlayer(String name);
     Collection<tPlayer> readAllPlayers();
+    void addPoints(String username, int points);
 }

@@ -40,4 +40,13 @@ public class SAPlayerImp implements SAPlayer {
     public Collection<tPlayer> readAllPlayers() {
         return daoPlayer.readAllPlayers();
     }
+
+    @Override
+    public void addPoints(String username, int points) {
+        tPlayer player = readPlayer(username);
+        if (player != null) {
+            player.setPoints(player.getPoints() + points);
+            updatePlayer(player);
+        }
+    }
 }
