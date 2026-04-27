@@ -114,7 +114,7 @@ public class GamesPanelView extends JFrame {
 
         JButton playButton = new JButton("Jugar");
         playButton.addActionListener(e -> {
-            if(game.getName().equals("Blackjack")) Controller.getInstance().action(Event.BLACKJACK_PLAY, game.getBasePoints());
+            if(game.getName().equals(tGame.BLACKJACK)) Controller.getInstance().action(Event.BLACKJACK_PLAY, game.getBasePoints());
             else Controller.getInstance().action(Event.ROULETTE_PLAY, game.getBasePoints());
             dispose();
         });
