@@ -96,28 +96,28 @@ INSERT INTO staff (name) VALUES
 ('Luis'),
 ('Adrian');
 INSERT INTO player (name, points) VALUES
-('Jug1', 0),
-('Jug2', 1000);
+('Jug1', 1000),
+('Jug2', 0);
 INSERT INTO game (name, basePoints) VALUES
 ('Ruleta', 10),
 ('Ruleta', 20),
 ('Blackjack', 10),
 ('Blackjack', 20);
 INSERT INTO gamesPackage (name, price) VALUES
-('Paq0', 9.99),
-('Paq1', 29.99),
-('Paq2', 49.99);
+('Paquete 1', 9.99),
+('Paquete 2', 29.99),
+('Paquete 3', 49.99);
 INSERT INTO packageDetail (packageName, gameName, gameBasePoints, amount) VALUES
-('Paq0', 'Ruleta', 10, 1),
-('Paq0', 'Blackjack', 10, 1),
-('Paq1', 'Ruleta', 10, 2),
-('Paq1', 'Ruleta', 20, 1),
-('Paq1', 'Blackjack', 10, 2),
-('Paq1', 'Blackjack', 20, 1),
-('Paq2', 'Ruleta', 10, 3),
-('Paq2', 'Ruleta', 20, 3),
-('Paq2', 'Blackjack', 10, 3),
-('Paq2', 'Blackjack', 20, 3);
+('Paquete 1', 'Ruleta', 10, 1),
+('Paquete 1', 'Blackjack', 10, 1),
+('Paquete 2', 'Ruleta', 10, 2),
+('Paquete 2', 'Ruleta', 20, 1),
+('Paquete 2', 'Blackjack', 10, 2),
+('Paquete 2', 'Blackjack', 20, 1),
+('Paquete 3', 'Ruleta', 10, 3),
+('Paquete 3', 'Ruleta', 20, 3),
+('Paquete 3', 'Blackjack', 10, 3),
+('Paquete 3', 'Blackjack', 20, 3);
 INSERT INTO product (name, price) VALUES
 ('Camiseta', 100),
 ('Taza', 50),
@@ -128,8 +128,8 @@ INSERT INTO gamesInventory (playerName, gameName, gameBasePoints, amount) VALUES
 ('Jug1', 'Blackjack', 10, 10),
 ('Jug1', 'Blackjack', 20, 10);
 INSERT INTO productsInventory (playerName, productName, amount) VALUES
-('Jug1', 'Camiseta', 2),
-('Jug1', 'Taza', 1);
+('Jug1', 'Camiseta', 1),
+('Jug1', 'Taza', 2);
 
 -- Visualización
 SELECT * FROM user;
