@@ -209,7 +209,7 @@ public class RouletteGUI extends JFrame {
         optionsPanel.add(backButton);
         
         this.setVisible(true);
-        this.setResizable(false);
+        this.setResizable(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(800, 600);
     }
