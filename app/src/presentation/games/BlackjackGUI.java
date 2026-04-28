@@ -93,7 +93,7 @@ public class BlackjackGUI extends JFrame {
         this.setVisible(true);
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(800, 600);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     private void showInitDecks(Cards croupierCard, List<Cards> playerDeck) {

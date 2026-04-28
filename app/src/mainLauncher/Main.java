@@ -34,6 +34,6 @@ public class Main {
 //        ServiceLocator.register(SAProduct.class, new SAProductImp());
 //        ServiceLocator.register(SAStore.class, new SAStoreImp(ServiceLocator.get(SAPlayer.class), ServiceLocator.get(SAInventory.class)));
 //        SwingUtilities.invokeLater(LoginView::open);
-    	Controller.getInstance().action(Event.ROULETTE_PLAY, 20);
+    	Controller.getInstance().action(Event.BLACKJACK_PLAY, 20);
     }
 }

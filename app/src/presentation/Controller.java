@@ -161,14 +161,14 @@ public class Controller {
             }
             case Event.ROULETTE_PLAY: {
                 basePoints = (Integer)data;
-                //ServiceLocator.get(SAInventory.class).consumeGame(username, new tGame(tGame.ROULETTE, basePoints));
+                ServiceLocator.get(SAInventory.class).consumeGame(username, new tGame(tGame.ROULETTE, basePoints));
                 rouletteGUI = new RouletteGUI();
                 break;
             }
             case Event.ROULETTE_ROLL: {
                 roulette = new Roulette(basePoints, (tBet)data);
                 int points = roulette.play();
-                //if(points > 0) ServiceLocator.get(SAPlayer.class).addPoints(username, points);
+                if(points > 0) ServiceLocator.get(SAPlayer.class).addPoints(username, points);
                 rouletteGUI.showResult(points, roulette.getWinningNumber());
                 break;
             }
