@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-class BackgroundPanel extends JPanel {
+public class BackgroundPanel extends JPanel {
     private Image background;
 
     public BackgroundPanel(String path) {
