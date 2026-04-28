@@ -58,7 +58,7 @@ public class GamesPackageEditor extends JDialog {
         JPanel topPanel = new JPanel(new GridLayout(2, 1, 5, 5));
         topPanel.setBorder(new EmptyBorder(10, 10, 0, 10));
 
-        // --- INFO DEL PAQUETE (Nombre y Precio) ---
+        // Nombre y precio
         JPanel infoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
         
         infoPanel.add(new JLabel("Nombre:"));
@@ -74,20 +74,18 @@ public class GamesPackageEditor extends JDialog {
         topPanel.add(infoPanel);
 
         
-        // --- BARRA PARA AÑADIR JUEGOS ---
+        // Barra crear juego
         JPanel addGamePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         
-        // 1. CARGAMOS LOS DATOS Y CREAMOS EL MAPA (Juego -> Lista de Puntos)
+        // Lista de Juegos posibles para añadir
         Map<String, List<Integer>> availableGamesMap = new HashMap<>();
         Collection<tGame> allGames = Controller.getInstance().getAllGames();
         for (tGame g : allGames) {
-            // Si el juego no está en el mapa, lo metemos con una lista vacía
             availableGamesMap.putIfAbsent(g.getName(), new ArrayList<>());
-            // Añadimos los puntos a la lista de ese juego
             availableGamesMap.get(g.getName()).add(g.getBasePoints());
         }
 
-        // 2. CREAMOS LOS DESPLEGABLES
+        // Opciones añadir juego al paquete
         addGamePanel.add(new JLabel("Juego:"));
         JComboBox<String> gameNameComboBox = new JComboBox<>();
         for (String gameName : availableGamesMap.keySet()) gameNameComboBox.addItem(gameName);
@@ -101,21 +99,17 @@ public class GamesPackageEditor extends JDialog {
         JSpinner qtySpinner = new JSpinner(new SpinnerNumberModel(1, 1, 99, 1));
         addGamePanel.add(qtySpinner);
 
-        // 3. LÓGICA: Cuando cambie el juego seleccionado, actualizamos la lista de puntos
         gameNameComboBox.addActionListener(e -> {
             String selectedGame = (String)gameNameComboBox.getSelectedItem();
             
-            gamePointsComboBox.removeAllItems(); // Vaciamos los puntos anteriores
+            gamePointsComboBox.removeAllItems();
             if (selectedGame != null) {
-                // Llenamos con los puntos válidos para el juego actual
                 for (Integer pts : availableGamesMap.get(selectedGame)) gamePointsComboBox.addItem(pts);
             }
         });
 
-        // Forzamos la selección del primer elemento para que se rellene la lista de puntos al abrir la ventana
         if (gameNameComboBox.getItemCount() > 0) gameNameComboBox.setSelectedIndex(0);
 
-        // 4. BOTÓN AÑADIR
         JButton addGameBtn = new JButton("Añadir");
         addGameBtn.addActionListener(e -> {
             String selectedName = (String) gameNameComboBox.getSelectedItem();
@@ -123,11 +117,8 @@ public class GamesPackageEditor extends JDialog {
             int qty = (int) qtySpinner.getValue();
             
             if(selectedName != null && selectedPoints != null) {
-                // Creamos el objeto del juego exactamente con los datos de la base de datos
                 tGame gameToAdd = new tGame(selectedName, selectedPoints);
                 
-                // Como tu tGame tiene métodos equals() y hashCode() basados en nombre y puntos,
-                // podemos meterlo directamente al mapa. Si ya existía, machacará la cantidad antigua.
                 gamesMap.put(gameToAdd, qty);
                 updateList(); 
             }
@@ -138,7 +129,7 @@ public class GamesPackageEditor extends JDialog {
         this.add(topPanel, BorderLayout.NORTH);
         
 
-        // --- PANEL CENTRAL (Lista de Juegos añadidos) ---
+        // Lista de juegos
         gamesListPanel = new JPanel();
         gamesListPanel.setLayout(new BoxLayout(gamesListPanel, BoxLayout.Y_AXIS));
         JScrollPane scrollPane = new JScrollPane(gamesListPanel);
@@ -150,7 +141,7 @@ public class GamesPackageEditor extends JDialog {
         this.add(centerWrapper, BorderLayout.CENTER);
 
 
-        // --- PANEL INFERIOR (Puntos Totales y Botones) ---
+        // Panel abajo: Puntos totales y botones guardar/cancelar
         JPanel bottomPanel = new JPanel(new BorderLayout());
         bottomPanel.setBorder(new EmptyBorder(5, 10, 10, 10));
         
