@@ -7,6 +7,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
 import java.util.List;
+
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -35,13 +37,13 @@ public class BlackjackGUI extends JFrame {
     }
 
     private void initGUI(Cards croupierCard, List<Cards> playerDeck, int croupierPoints, int playerPoints) {
-        BackgroundPanel mainPanel = new BackgroundPanel("resources/icons/fondo_juegos.png");
+        BackgroundPanel mainPanel = new BackgroundPanel("resources/icons/fondo_blackjack.png");
         mainPanel.setLayout(new BorderLayout());
         setContentPane(mainPanel);
 
         // Mano del croupier
         croupierDeckPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 20));
-        croupierDeckPanel.setPreferredSize(new Dimension(0, 250));
+        croupierDeckPanel.setPreferredSize(new Dimension(0, 400));
         croupierDeckPanel.setOpaque(false);
         mainPanel.add(croupierDeckPanel, BorderLayout.NORTH);
 
@@ -70,12 +72,17 @@ public class BlackjackGUI extends JFrame {
         JButton backButton = new JButton("Abandonar");
         backButton.addActionListener(a -> giveUp());
         backPanel.add(backButton);
-
+        
+        JPanel scoresAuxiliarPanel = new JPanel();
+        scoresAuxiliarPanel.setOpaque(false);
+        mainPanel.add(scoresAuxiliarPanel, BorderLayout.EAST);
+        
         JPanel scoresPanel = new JPanel();
+        scoresPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 2, true));
+        scoresPanel.setBackground(new Color(0, 0, 0, 180));
         scoresPanel.setLayout(new BoxLayout(scoresPanel, BoxLayout.PAGE_AXIS));
-        scoresPanel.setPreferredSize(new Dimension(100, 0));
-        scoresPanel.setOpaque(false);
-        mainPanel.add(scoresPanel, BorderLayout.EAST);
+        scoresPanel.setOpaque(true);
+        scoresAuxiliarPanel.add(scoresPanel);
 
         croupierScore = new JLabel();
         croupierScore.setFont(FONT);
