@@ -30,9 +30,10 @@ public class GamesPanelView extends JFrame {
 
     private void initGUI() {
         setLayout(new BorderLayout());
-        setSize(650, 450);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         BackgroundPanel mainPanel = new BackgroundPanel("resources/icons/menu_juegos.png");
         mainPanel.setLayout(new BorderLayout());

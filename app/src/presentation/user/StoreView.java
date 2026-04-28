@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagLayout;
 import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -19,6 +20,7 @@ import business.packages.tGamesPackage;
 import business.product.tProduct;
 import presentation.Controller;
 import presentation.Event;
+import presentation.games.BackgroundPanel;
 
 @SuppressWarnings("serial")
 public class StoreView extends JFrame {
@@ -30,46 +32,66 @@ public class StoreView extends JFrame {
     }
 
     private void initGUI() {
-        setLayout(new BorderLayout());
-        setSize(500, 500);
+        setResizable(false);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        BackgroundPanel background = new BackgroundPanel("resources/icons/zona_tienda.png");
+        background.setLayout(new GridBagLayout());
+        setContentPane(background);
+        
+        JPanel mainPanel = new JPanel();
+        mainPanel.setPreferredSize(new Dimension(600, 750));
+        mainPanel.setOpaque(false);
+        mainPanel.setLayout(new BorderLayout());
+        background.add(mainPanel);
 
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        topPanel.setOpaque(false);
         pointsLabel = new JLabel(Controller.getInstance().getUsername() + " (" + Controller.getInstance().getPlayerPoints(Controller.getInstance().getUsername()) + "p)");
-        pointsLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        pointsLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        pointsLabel.setForeground(Color.YELLOW);
+        pointsLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         topPanel.add(pointsLabel);
-        add(topPanel, BorderLayout.NORTH);
+        mainPanel.add(topPanel, BorderLayout.NORTH);
 
         JTabbedPane tabbedPane = new JTabbedPane();
         JPanel packagesPanel = new JPanel();
         packagesPanel.setLayout(new BoxLayout(packagesPanel, BoxLayout.Y_AXIS));
+        packagesPanel.setOpaque(false);
         for(tGamesPackage pack: Controller.getInstance().getAllPackages()) packagesPanel.add(createPackagePanel(pack));
         tabbedPane.addTab("Paquetes de juegos", new JScrollPane(packagesPanel));
         JPanel productsPanel = new JPanel();
         productsPanel.setLayout(new BoxLayout(productsPanel, BoxLayout.Y_AXIS));
+        productsPanel.setOpaque(false);
         for(tProduct prod: Controller.getInstance().getAllProducts()) productsPanel.add(createProductPanel(prod));
         tabbedPane.addTab("Productos", new JScrollPane(productsPanel));
-        add(tabbedPane, BorderLayout.CENTER);
+        mainPanel.add(tabbedPane, BorderLayout.CENTER);
 
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        bottomPanel.setOpaque(false);
         JButton backButton = new JButton("<- Volver");
+        backButton.setPreferredSize(new Dimension(150, 40));
+        backButton.setFont(new Font("Arial", Font.BOLD, 14));
         backButton.addActionListener(e -> {
             new PlayerView();
             dispose();
         });
         bottomPanel.add(backButton);
-        add(bottomPanel, BorderLayout.SOUTH);
+        mainPanel.add(bottomPanel, BorderLayout.SOUTH);
 
         setVisible(true);
     }
 
     private JPanel createPackagePanel(tGamesPackage pack) {
         JPanel panel = new JPanel(new BorderLayout());
+        panel.setBackground(new Color(255, 255, 255, 180));
         panel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5), BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1)));
         panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 60 + pack.getGames().size() * 20));
 
         JPanel infoPanel = new JPanel();
+        infoPanel.setOpaque(false);
         infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
         infoPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
         JLabel titleLabel = new JLabel(pack.getName() + " (" + pack.getPrice() + "€)");
@@ -86,6 +108,7 @@ public class StoreView extends JFrame {
         panel.add(infoPanel, BorderLayout.CENTER);
 
         JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        btnPanel.setOpaque(false);
         JButton buyButton = new JButton("Comprar");
         buyButton.addActionListener(e -> Controller.getInstance().action(Event.BUY_PACKAGE, pack));
         btnPanel.add(buyButton);
@@ -95,14 +118,17 @@ public class StoreView extends JFrame {
 
     private JPanel createProductPanel(tProduct prod) {
         JPanel panel = new JPanel(new BorderLayout());
+        panel.setBackground(new Color(255, 255, 255, 180));
         panel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5), BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1)));
         panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 60));
 
         JPanel infoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        infoPanel.setOpaque(false);
         infoPanel.add(new JLabel(prod.getName() + " (" + prod.getPrice() + "p)"));
         panel.add(infoPanel, BorderLayout.CENTER);
 
         JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        btnPanel.setOpaque(false);
         JButton buyButton = new JButton("Canjear");
         buyButton.addActionListener(e -> {
         	Controller.getInstance().action(Event.BUY_PRODUCT, prod);

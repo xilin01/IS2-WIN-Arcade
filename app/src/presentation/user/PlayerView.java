@@ -47,10 +47,16 @@ public class PlayerView extends JFrame {
         
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         topPanel.setOpaque(false);
+        
+        //Panel de transparencia para el texto
+        JPanel auxUserLabel = new JPanel();
+        auxUserLabel.setBackground(new Color(0, 0, 0, 175));
         JLabel userLabel = new JLabel(Controller.getInstance().getUsername() + " (" + Controller.getInstance().getPlayerPoints(Controller.getInstance().getUsername()) + "p) | ");
         userLabel.setForeground(Color.WHITE);
+        auxUserLabel.add(userLabel);
+        
         JButton logOutButton = new JButton("Cerrar Sesión");
-        topPanel.add(userLabel);
+        topPanel.add(auxUserLabel);
         topPanel.add(logOutButton);
         mainPanel.add(topPanel, BorderLayout.NORTH);
 
