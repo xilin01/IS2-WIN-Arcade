@@ -32,7 +32,7 @@ import presentation.Event;
 @SuppressWarnings("serial")
 public class RouletteGUI extends JFrame {
     private class RotatedRoulette extends JPanel {
-    	private static final int SIZE = 450;
+    	private static final int SIZE = 500;
     	
         private Image image;
         private double angle;
@@ -71,8 +71,8 @@ public class RouletteGUI extends JFrame {
         private void drawPointer(Graphics g) {
         	Graphics2D gPointer = (Graphics2D)g.create();
         	int centerX = SIZE / 2;
-            int[] xPoints = {centerX - 10, centerX + 10, centerX};
-            int[] yPoints = {30, 30, 60};
+            int[] xPoints = {centerX - 15, centerX + 15, centerX};
+            int[] yPoints = {10, 10, 50};
 
             gPointer.setColor(Color.RED);
             gPointer.fillPolygon(xPoints, yPoints, 3);
@@ -85,7 +85,7 @@ public class RouletteGUI extends JFrame {
         }
     }
     private class ImputDialog extends JDialog {
-    	private static final int BETS_HEIGHT = 200;
+    	private static final int BETS_HEIGHT = 300;
         private static final int BETS_WIDTH = BETS_HEIGHT * 2;
         
     	private Bets betName;
@@ -133,9 +133,10 @@ public class RouletteGUI extends JFrame {
     		mainPanel.add(goButton);
     		mainPanel.add(new JComboBox<>(select));
     	
-    		setLocationRelativeTo(RouletteGUI.this);
+    		
+    		this.setLocation(RouletteGUI.this.getWidth() / 2 - BETS_WIDTH / 2, RouletteGUI.this.getHeight() / 2 - BETS_HEIGHT / 2);
     		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-    		setPreferredSize(new Dimension(400, 280));
+    		setPreferredSize(new Dimension(BETS_WIDTH, BETS_HEIGHT + 80));
     		pack();
     		setVisible(true);
     	}
@@ -162,7 +163,7 @@ public class RouletteGUI extends JFrame {
     private Map<Integer, Integer> numberToSteps;
     private RotatedRoulette roulette;
     private tBet bet;
-    JButton playButton;
+    private JButton playButton;
     private int animationCount = 0;
 
     public RouletteGUI() {
@@ -172,7 +173,7 @@ public class RouletteGUI extends JFrame {
     }
 
     private void initGUI() {
-        BackgroundPanel mainPanel = new BackgroundPanel("resources/icons/fondo_juegos.png");
+        BackgroundPanel mainPanel = new BackgroundPanel("resources/icons/fondo_ruleta.png");
         mainPanel.setLayout(new BorderLayout());
         setContentPane(mainPanel);
 
@@ -180,12 +181,12 @@ public class RouletteGUI extends JFrame {
         JPanel panelRuleta = new JPanel();
         panelRuleta.setOpaque(false);
         panelRuleta.add(roulette);
-        panelRuleta.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));
+        panelRuleta.setBorder(BorderFactory.createEmptyBorder(200, 100, 0, 0));
         mainPanel.add(panelRuleta, BorderLayout.CENTER);
 
         JPanel betsPanel = new JPanel(new GridLayout(5, 2, 1, 1));
         betsPanel.setOpaque(false);
-        betsPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 20));
+        betsPanel.setBorder(BorderFactory.createEmptyBorder(80, 0, 80, 80));
         mainPanel.add(betsPanel, BorderLayout.EAST);
         for(Bets b: BETS) {
             JButton betButton = new JButton(""+b);
@@ -195,8 +196,8 @@ public class RouletteGUI extends JFrame {
         
         JPanel optionsPanel = new JPanel(new GridLayout(2, 1, 20, 20));
         optionsPanel.setOpaque(false);
-        optionsPanel.setBorder(BorderFactory.createEmptyBorder(200, 20, 200, 0));
-        optionsPanel.setPreferredSize(new Dimension(90, 0));
+        optionsPanel.setBorder(BorderFactory.createEmptyBorder(350, 80, 350, 0));
+        optionsPanel.setPreferredSize(new Dimension(150, 0));
         mainPanel.add(optionsPanel, BorderLayout.WEST);
 
         playButton = new JButton("Tirar");
@@ -209,9 +210,9 @@ public class RouletteGUI extends JFrame {
         optionsPanel.add(backButton);
         
         this.setVisible(true);
-        this.setResizable(true);
+        this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(800, 600);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     private void setBet(Bets betName) {
@@ -232,7 +233,7 @@ public class RouletteGUI extends JFrame {
 
     public void end(String message) {
         JOptionPane.showMessageDialog(this, message);
-        new GamesPanelView();
+        //new GamesPanelView();
         dispose();
     }
     
@@ -240,7 +241,7 @@ public class RouletteGUI extends JFrame {
         int option = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que quieres abandonar?\n La partida se perderá",
                 "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if(option == JOptionPane.OK_OPTION) {
-        	new GamesPanelView(); 
+        	//new GamesPanelView(); 
             dispose();
         }
     }
