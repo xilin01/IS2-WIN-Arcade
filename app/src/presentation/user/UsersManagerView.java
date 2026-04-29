@@ -93,21 +93,29 @@ public class UsersManagerView extends JFrame {
             new UserEditor(this, user);
             updateList();
         });
+        
+        boolean isActive = user.getActive();
+        JButton desactivateButton = new JButton((isActive) ? "Desactivar" : "Activar");
+        desactivateButton.setForeground(isActive ? Color.RED : Color.GREEN);
 
-        JButton deleteButton = new JButton("Desactivar");
-        deleteButton.setForeground(Color.RED);
-
-        deleteButton.addActionListener(e -> {
-            int confirm = JOptionPane.showConfirmDialog(this, "¿Desactivar al usuario '" + user.getName() + "'?", "Confirmar", JOptionPane.YES_NO_OPTION);
+        desactivateButton.addActionListener(e -> {
+        	String action = isActive ? "Desactivar" : "Activar";
+            int confirm = JOptionPane.showConfirmDialog(this, "¿" + action + " al usuario '" + user.getName() + "'?", "Confirmar", JOptionPane.YES_NO_OPTION);
 
             if (confirm == JOptionPane.YES_OPTION) {
-                Controller.getInstance().action(Event.DELETE_USER, user.getName());
+            	if (isActive) {
+            		Controller.getInstance().action(Event.DELETE_USER, user.getName());
+            	}
+            	else {
+            		user.setActive(true);
+            		Controller.getInstance().action(Event.UPDATE_USER, user);
+            	}
                 updateList();
             }
         });
 
         buttonsPanel.add(editButton);
-        buttonsPanel.add(deleteButton);
+        buttonsPanel.add(desactivateButton);
         userPanel.add(buttonsPanel, BorderLayout.EAST);
 
         return userPanel;

@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.util.Map;
+
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -14,6 +16,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.Border;
+
+import business.game.tGame;
 import business.packages.tGamesPackage;
 import presentation.Controller;
 import presentation.Event;
@@ -76,36 +80,86 @@ public class PackageManagerView extends JFrame {
 
     private JPanel packageElement(tGamesPackage gamePack) {
         JPanel packagePanel = new JPanel(new BorderLayout());
+        
+        packagePanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 130));
+        packagePanel.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createEmptyBorder(5, 5, 5, 5),
+            BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1)
+        ));
 
-        packagePanel.setMaximumSize(new Dimension((int)1e6, 100));
-
-        //Informacion general del paquete
+        // Información general del paquete
         JPanel packInfo = new JPanel();
         packInfo.setLayout(new BoxLayout(packInfo, BoxLayout.Y_AXIS));
-        packInfo.add(new JLabel(gamePack.getName()));
+        packInfo.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+
+        // Nombre del paquete
+        JLabel nameLabel = new JLabel(gamePack.getName());
+        nameLabel.setFont(nameLabel.getFont().deriveFont(java.awt.Font.BOLD, 14f));
+        packInfo.add(nameLabel);
+
+        // Total de juegos y precio
+        int totalGames = 0;
+        Map<tGame, Integer> gamesMap = gamePack.getGames();
+        if (gamesMap != null) {
+            for (Integer qty : gamesMap.values()) {
+                totalGames += qty;
+            }
+        }
+        JLabel packInfoLabel = new JLabel("Total juegos: " + totalGames + "  |  Precio: " + gamePack.getPrice() + "€");
+        packInfoLabel.setForeground(Color.DARK_GRAY);
+        packInfo.add(packInfoLabel);
+
+        // Lista de los primeros 3 juegos y ... después
+        if (gamesMap != null && !gamesMap.isEmpty()) {
+            int count = 0;
+            for (Map.Entry<tGame, Integer> entry : gamesMap.entrySet()) {
+                tGame game = entry.getKey();
+                int cant = entry.getValue();
+                JLabel gameLabel = new JLabel("  - " + cant + "x " + game.getName() + " (" + game.getBasePoints() + " pts)");
+                gameLabel.setFont(gameLabel.getFont().deriveFont(11));
+                packInfo.add(gameLabel);
+                
+                count++;
+                
+                if (count >= 3) {
+                    JLabel dotsLabel = new JLabel("  ...");
+                    dotsLabel.setForeground(Color.GRAY);
+                    packInfo.add(dotsLabel);
+                    break;
+                }
+            }
+        } else {
+            JLabel emptyLabel = new JLabel("  (Paquete vacío)");
+            emptyLabel.setForeground(Color.GRAY);
+            packInfo.add(emptyLabel);
+        }
 
         packagePanel.add(packInfo, BorderLayout.CENTER);
 
-        Border packageBorder = BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1);
-        packagePanel.setBorder(packageBorder);
-
+        // Botones editar y borrar paquete
         JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
-        JButton editButton = new JButton(new ImageIcon("resources/icons/edit.png"));
+        JButton editButton = new JButton(new javax.swing.ImageIcon("resources/icons/edit.png"));
         editButton.setPreferredSize(new Dimension(35, 35));
         editButton.addActionListener(e -> {
-        	new GamesPackageEditor(this, gamePack);
-        	updateList();
+            new GamesPackageEditor(this, gamePack);
+            updateList();
         });
-        JButton deleteButton = new JButton(new ImageIcon("resources/icons/delete.png"));
+        
+        JButton deleteButton = new JButton(new javax.swing.ImageIcon("resources/icons/delete.png"));
         deleteButton.setPreferredSize(new Dimension(35, 35));
         deleteButton.addActionListener(e -> {
-        	int confirm = JOptionPane.showConfirmDialog(this, "¿Eliminar definitivamente el paquete '" + gamePack.getName() + "'?", "Confirmar", JOptionPane.YES_NO_OPTION);
+            int confirm = javax.swing.JOptionPane.showConfirmDialog(
+                this, 
+                "¿Eliminar definitivamente el paquete '" + gamePack.getName() + "'?", 
+                "Confirmar", 
+                javax.swing.JOptionPane.YES_NO_OPTION
+            );
 
-    	   	if (confirm == JOptionPane.YES_OPTION) {
-    	        Controller.getInstance().action(Event.DELETE_PACKAGE, gamePack.getName());
-    	        updateList();
-    	    }
+            if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+                Controller.getInstance().action(Event.DELETE_PACKAGE, gamePack.getName());
+                updateList();
+            }
         });
 
         buttonsPanel.add(editButton);
