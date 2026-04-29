@@ -43,6 +43,7 @@ public class StoreView extends JFrame {
         
         JPanel mainPanel = new JPanel();
         mainPanel.setPreferredSize(new Dimension(600, 750));
+        mainPanel.setMinimumSize(new Dimension(500, 750));
         mainPanel.setOpaque(false);
         mainPanel.setLayout(new BorderLayout());
         background.add(mainPanel);

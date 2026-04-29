@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.Map;
 import javax.swing.BorderFactory;
@@ -41,9 +42,10 @@ public class InventoryView extends JFrame {
     	
         JPanel mainPanel = new JPanel();
         mainPanel.setPreferredSize(new Dimension(600, 750));
+        mainPanel.setMinimumSize(new Dimension(500, 750));
         mainPanel.setOpaque(false);
         mainPanel.setLayout(new BorderLayout());
-        background.add(mainPanel);
+        background.add(mainPanel, new GridBagConstraints());
        
         
         tPlayer player = Controller.getInstance().getPlayer(Controller.getInstance().getUsername());
