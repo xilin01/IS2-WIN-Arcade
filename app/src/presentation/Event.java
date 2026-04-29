@@ -42,14 +42,17 @@ public class Event {
 	// Store
 	public static final int BUY_PACKAGE = 27;
 	public static final int BUY_PRODUCT = 28;
+	
+	//Game
+	public static final int CREATE_GAME = 29;
 
 	// Package
-	public static final int CREATE_PACKAGE = 29;
-	public static final int UPDATE_PACKAGE = 30;
-	public static final int DELETE_PACKAGE = 31;
+	public static final int CREATE_PACKAGE = 30;
+	public static final int UPDATE_PACKAGE = 31;
+	public static final int DELETE_PACKAGE = 32;
 
 	// Product
-	public static final int CREATE_PRODUCT = 32;
-	public static final int UPDATE_PRODUCT = 33;
-	public static final int DELETE_PRODUCT = 34;
+	public static final int CREATE_PRODUCT = 33;
+	public static final int UPDATE_PRODUCT = 34;
+	public static final int DELETE_PRODUCT = 35;
 }

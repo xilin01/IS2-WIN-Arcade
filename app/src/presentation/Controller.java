@@ -172,6 +172,7 @@ public class Controller {
                 rouletteGUI.showResult(points, roulette.getWinningNumber());
                 break;
             }
+            case Event.CREATE_GAME: ServiceLocator.get(SAGame.class).createGame((tGame)data); break;
             case Event.CREATE_PACKAGE: ServiceLocator.get(SAGamesPackage.class).createGamesPackage((tGamesPackage)data); break;
             case Event.UPDATE_PACKAGE: ServiceLocator.get(SAGamesPackage.class).updateGamesPackage((tGamesPackage)data); break;
             case Event.DELETE_PACKAGE: ServiceLocator.get(SAGamesPackage.class).deleteGamesPackage((String)data); break;

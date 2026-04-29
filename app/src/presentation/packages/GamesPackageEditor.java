@@ -92,31 +92,29 @@ public class GamesPackageEditor extends JDialog {
         addGamePanel.add(gameNameComboBox);
 
         addGamePanel.add(new JLabel("Puntos:"));
-        JComboBox<Integer> gamePointsComboBox = new JComboBox<>();
-        addGamePanel.add(gamePointsComboBox);
+        JSpinner gamePointsSpinner = new JSpinner(new SpinnerNumberModel(10, 0, 1000, 10));
+        addGamePanel.add(gamePointsSpinner);
 
         addGamePanel.add(new JLabel("Cant:"));
         JSpinner qtySpinner = new JSpinner(new SpinnerNumberModel(1, 1, 99, 1));
         addGamePanel.add(qtySpinner);
-
-        gameNameComboBox.addActionListener(e -> {
-            String selectedGame = (String)gameNameComboBox.getSelectedItem();
-            
-            gamePointsComboBox.removeAllItems();
-            if (selectedGame != null) {
-                for (Integer pts : availableGamesMap.get(selectedGame)) gamePointsComboBox.addItem(pts);
-            }
-        });
 
         if (gameNameComboBox.getItemCount() > 0) gameNameComboBox.setSelectedIndex(0);
 
         JButton addGameBtn = new JButton("Añadir");
         addGameBtn.addActionListener(e -> {
             String selectedName = (String) gameNameComboBox.getSelectedItem();
-            Integer selectedPoints = (Integer) gamePointsComboBox.getSelectedItem();
+            Integer selectedPoints = (Integer) gamePointsSpinner.getValue();
             int qty = (int) qtySpinner.getValue();
             
             if(selectedName != null && selectedPoints != null) {
+            	if (!availableGamesMap.get(selectedName).contains(selectedPoints)) {
+            		tGame newGame = new tGame(selectedName, selectedPoints);
+            		
+            		Controller.getInstance().action(Event.CREATE_GAME, newGame);
+            		
+            		availableGamesMap.get(selectedName).add(selectedPoints);
+            	}
                 tGame gameToAdd = new tGame(selectedName, selectedPoints);
                 
                 gamesMap.put(gameToAdd, qty);
