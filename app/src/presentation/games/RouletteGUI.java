@@ -181,7 +181,7 @@ public class RouletteGUI extends JFrame {
         JPanel panelRuleta = new JPanel();
         panelRuleta.setOpaque(false);
         panelRuleta.add(roulette);
-        panelRuleta.setBorder(BorderFactory.createEmptyBorder(200, 100, 0, 0));
+        panelRuleta.setBorder(BorderFactory.createEmptyBorder(180, 100, 0, 0));
         mainPanel.add(panelRuleta, BorderLayout.CENTER);
 
         JPanel betsPanel = new JPanel(new GridLayout(5, 2, 1, 1));
