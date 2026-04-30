@@ -87,8 +87,8 @@ public class PlayerView extends JFrame {
         	new InventoryView();
         	dispose();
         });
-        bottomPanel.add(storeButton);
         bottomPanel.add(inventoryButton);
+        bottomPanel.add(storeButton);
         mainPanel.add(bottomPanel, BorderLayout.SOUTH);
 
         logOutButton.addActionListener(e -> {
