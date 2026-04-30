@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="WIN" version="4">
+  <OBJECT>
+    <ID name="WIN" mc="Infrastructure.DiagramSet" uid="1f60332d-dbf2-44bf-b843-bc7e0a285c33"/>
+    <PID name="WIN" mc="Standard.Project" uid="7851b0c7-cdd3-4057-a579-335ba117bf03"/>
+    <ATTRIBUTES>
+      <ATT name="Name"><![CDATA[WIN]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES></DEPENDENCIES>
+  </OBJECT>
+</EXT>
