@@ -46,13 +46,12 @@ public class RouletteGUI extends JFrame {
                 g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
                 g2d.drawImage(original, 0, 0, SIZE, SIZE, null);
                 g2d.dispose();
-                this.image = compatible;
-
+                image = compatible;
             } 
         	catch (Exception e) {
                 e.printStackTrace();
             }
-        	this.angle = 0;
+        	angle = 0;
             setPreferredSize(new Dimension(SIZE, SIZE));
             setOpaque(false);
         }
@@ -80,7 +79,7 @@ public class RouletteGUI extends JFrame {
         }
 
         public void advance() {
-            this.angle = (this.angle - ((2 * Math.PI) / 37)) % (2 * Math.PI);
+            angle = (angle - ((2 * Math.PI) / 37)) % (2 * Math.PI);
             repaint();
         }
     }
@@ -133,7 +132,6 @@ public class RouletteGUI extends JFrame {
     		mainPanel.add(goButton);
     		mainPanel.add(new JComboBox<>(select));
     	
-    		
     		this.setLocation(RouletteGUI.this.getWidth() / 2 - BETS_WIDTH / 2, RouletteGUI.this.getHeight() / 2 - BETS_HEIGHT / 2);
     		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     		setPreferredSize(new Dimension(BETS_WIDTH, BETS_HEIGHT + 80));
@@ -167,7 +165,7 @@ public class RouletteGUI extends JFrame {
     private int animationCount = 0;
 
     public RouletteGUI() {
-        super("Roulette");
+        super("Ruleta");
         initNumberToSteps();
         initGUI();
     }
@@ -190,6 +188,7 @@ public class RouletteGUI extends JFrame {
         mainPanel.add(betsPanel, BorderLayout.EAST);
         for(Bets b: BETS) {
             JButton betButton = new JButton(""+b);
+            
             betButton.addActionListener(a -> setBet(b));
             betsPanel.add(betButton);
         }
@@ -209,14 +208,14 @@ public class RouletteGUI extends JFrame {
         backButton.addActionListener(a -> giveUp());
         optionsPanel.add(backButton);
         
-        this.setVisible(true);
-        this.setResizable(false);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setVisible(true);
+        setResizable(false);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     private void setBet(Bets betName) {
-        switch (betName) {
+        switch(betName) {
             case Sencillo:
             case Calle: 
             case Columna: 

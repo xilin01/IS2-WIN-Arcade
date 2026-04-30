@@ -8,7 +8,6 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -35,28 +34,29 @@ public class PlayerView extends JFrame {
         BackgroundPanel background = new BackgroundPanel("resources/icons/zona_seleccion.png");
         background.setLayout(new GridBagLayout());
         setContentPane(background);
+        
         GridBagConstraints gbcCentrado = new GridBagConstraints();
         
         JPanel mainPanel = new JPanel();
         mainPanel.setPreferredSize(new Dimension(600, 400));
         mainPanel.setOpaque(false);
         mainPanel.setLayout(new BorderLayout());
-        
         gbcCentrado.insets = new Insets(100, 0, 0, 0); 
         background.add(mainPanel, gbcCentrado);
         
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         topPanel.setOpaque(false);
-        
-        //Panel de transparencia para el texto
-        JPanel auxUserLabel = new JPanel();
-        auxUserLabel.setBackground(new Color(0, 0, 0, 175));
+        JPanel userPanel = new JPanel(); // Panel de transparencia para el texto
+        userPanel.setBackground(new Color(0, 0, 0, 175));
         JLabel userLabel = new JLabel(Controller.getInstance().getUsername() + " (" + Controller.getInstance().getPlayerPoints(Controller.getInstance().getUsername()) + "p) | ");
         userLabel.setForeground(Color.WHITE);
-        auxUserLabel.add(userLabel);
-        
+        userPanel.add(userLabel);
+        topPanel.add(userPanel);
         JButton logOutButton = new JButton("Cerrar Sesión");
-        topPanel.add(auxUserLabel);
+        logOutButton.addActionListener(e -> {
+            LoginView.open();
+            dispose();
+        });
         topPanel.add(logOutButton);
         mainPanel.add(topPanel, BorderLayout.NORTH);
 
@@ -75,26 +75,21 @@ public class PlayerView extends JFrame {
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 15));
         bottomPanel.setOpaque(false);
         JButton storeButton = new JButton("Tienda");
-        JButton inventoryButton = new JButton("Inventario");
-        Dimension buttonSize = new Dimension(120, 120);
-        storeButton.setPreferredSize(buttonSize);
-        inventoryButton.setPreferredSize(buttonSize);
         storeButton.addActionListener(e -> {
         	new StoreView();
         	dispose();
         });
+        JButton inventoryButton = new JButton("Inventario");
         inventoryButton.addActionListener(e -> {
         	new InventoryView();
         	dispose();
         });
+        Dimension buttonSize = new Dimension(120, 120);
+        storeButton.setPreferredSize(buttonSize);
+        inventoryButton.setPreferredSize(buttonSize);
         bottomPanel.add(inventoryButton);
         bottomPanel.add(storeButton);
         mainPanel.add(bottomPanel, BorderLayout.SOUTH);
-
-        logOutButton.addActionListener(e -> {
-            LoginView.open();
-            dispose();
-        });
 
         setVisible(true);
     }

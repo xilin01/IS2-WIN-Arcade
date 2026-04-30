@@ -24,7 +24,7 @@ import presentation.user.PlayerView;
 public class GamesPanelView extends JFrame {
 
     public GamesPanelView() {
-        super("Panel de juegos");
+        super("Menú de juegos");
         initGUI();
     }
 
@@ -66,10 +66,10 @@ public class GamesPanelView extends JFrame {
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         bottomPanel.setOpaque(false);
         bottomPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
-        JButton backButton = new JButton("<- Volver");
+        JButton backButton = new JButton("Atrás");
         backButton.addActionListener(e -> {
         	new PlayerView();
-            dispose();
+        	dispose();
         });
         bottomPanel.add(backButton);
         mainPanel.add(bottomPanel, BorderLayout.SOUTH);
@@ -103,18 +103,18 @@ public class GamesPanelView extends JFrame {
         JLabel nameLabel = new JLabel(game.getName() + " (" + game.getBasePoints() + " p)");
         nameLabel.setFont(new Font("Arial", Font.BOLD, 18));
         nameLabel.setForeground(Color.WHITE);
+        infoPanel.add(nameLabel);
+        infoPanel.add(Box.createRigidArea(new Dimension(0, 5)));
         JLabel amountLabel = new JLabel("x" + amount);
         amountLabel.setFont(new Font("Arial", Font.PLAIN, 14));
         amountLabel.setForeground(Color.LIGHT_GRAY);
-        infoPanel.add(nameLabel);
-        infoPanel.add(Box.createRigidArea(new Dimension(0, 5)));
         infoPanel.add(amountLabel);
         card.add(infoPanel, BorderLayout.CENTER);
 
         JButton playButton = new JButton("Jugar");
         playButton.addActionListener(e -> {
-            if(game.getName().equals(tGame.BLACKJACK)) Controller.getInstance().action(Event.BLACKJACK_PLAY, game.getBasePoints());
-            else Controller.getInstance().action(Event.ROULETTE_PLAY, game.getBasePoints());
+            if(game.getName().equals(tGame.ROULETTE)) Controller.getInstance().action(Event.ROULETTE_PLAY, game.getBasePoints());
+            else Controller.getInstance().action(Event.BLACKJACK_PLAY, game.getBasePoints());
             dispose();
         });
         card.add(playButton, BorderLayout.EAST);
