@@ -72,7 +72,7 @@ public class StoreView extends JFrame {
 
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         bottomPanel.setOpaque(false);
-        JButton backButton = new JButton("<- Volver");
+        JButton backButton = new JButton("Atrás");
         backButton.setPreferredSize(new Dimension(150, 40));
         backButton.setFont(new Font("Arial", Font.BOLD, 14));
         backButton.addActionListener(e -> {

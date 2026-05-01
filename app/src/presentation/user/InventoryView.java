@@ -47,7 +47,6 @@ public class InventoryView extends JFrame {
         mainPanel.setLayout(new BorderLayout());
         background.add(mainPanel, new GridBagConstraints());
        
-        
         tPlayer player = Controller.getInstance().getPlayer(Controller.getInstance().getUsername());
         tPlayer.tInventory inventory = player.getInventory();
 
@@ -65,9 +64,8 @@ public class InventoryView extends JFrame {
         gamesPanel.setLayout(new BoxLayout(gamesPanel, BoxLayout.Y_AXIS));
         gamesPanel.setOpaque(false);
         if(!inventory.getGames().isEmpty()) {
-            for(Map.Entry<tGame, Integer> entry: inventory.getGames().entrySet()) 
-            	gamesPanel.add(createGamePanel(entry.getKey(), entry.getValue()));
-        } 
+            for(Map.Entry<tGame, Integer> entry: inventory.getGames().entrySet()) gamesPanel.add(createGamePanel(entry.getKey(), entry.getValue()));
+        }
         else {
             JPanel emptyPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
             emptyPanel.setOpaque(false);
@@ -81,9 +79,8 @@ public class InventoryView extends JFrame {
         productsPanel.setLayout(new BoxLayout(productsPanel, BoxLayout.Y_AXIS));
         productsPanel.setOpaque(false);
         if(!inventory.getProducts().isEmpty()) {
-            for(Map.Entry<tProduct, Integer> entry: inventory.getProducts().entrySet()) 
-            	productsPanel.add(createProductPanel(entry.getKey(), entry.getValue()));
-        } 
+            for(Map.Entry<tProduct, Integer> entry: inventory.getProducts().entrySet()) productsPanel.add(createProductPanel(entry.getKey(), entry.getValue()));
+        }
         else {
             JPanel emptyPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
             emptyPanel.setOpaque(false);
@@ -97,7 +94,7 @@ public class InventoryView extends JFrame {
 
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         bottomPanel.setOpaque(false);
-        JButton backButton = new JButton("<- Volver");
+        JButton backButton = new JButton("Atrás");
         backButton.setPreferredSize(new Dimension(150, 40)); 
         backButton.setFont(new Font("Arial", Font.BOLD, 14));
         backButton.addActionListener(e -> {

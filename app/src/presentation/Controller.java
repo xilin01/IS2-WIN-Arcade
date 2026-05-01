@@ -32,11 +32,11 @@ public class Controller {
 	private static final Controller INSTANCE = new Controller();
 	 
 	private String username;
-	private BlackjackGUI blackJackGUI;
-	private Blackjack blackjack;
 	private RouletteGUI rouletteGUI;
 	private Roulette roulette;
 	private int basePoints;
+	private BlackjackGUI blackjackGUI;
+	private Blackjack blackjack;
 	
 	private Controller() {
 	}
@@ -123,38 +123,31 @@ public class Controller {
                 ServiceLocator.get(SAInventory.class).consumeGame(username, new tGame(tGame.BLACKJACK, basePoints));
                 blackjack = new Blackjack(basePoints);
                 int croupierVisiblePoints = blackjack.play();
-                blackJackGUI = new BlackjackGUI(blackjack.getCroupierVisibleCard(), blackjack.getPlayerCards(), croupierVisiblePoints, blackjack.getPlayerPoints());
+                blackjackGUI = new BlackjackGUI(blackjack.getCroupierVisibleCard(), blackjack.getPlayerCards(), croupierVisiblePoints, blackjack.getPlayerPoints());
                 break;
             }
             case Event.BLACKJACK_HIT: {
-                if(blackjack == null || blackJackGUI == null) {
-                	System.err.println("BLACKJACK_HIT sin partida activa");
-                	break;
-                }
                 int res = blackjack.playerHit();
-                blackJackGUI.update(blackjack.getCroupierCards(), blackjack.getPlayerCards(), blackjack.getCroupierPoints(), blackjack.getPlayerPoints(), false);
+                
+                blackjackGUI.update(blackjack.getCroupierCards(), blackjack.getPlayerCards(), blackjack.getCroupierPoints(), blackjack.getPlayerPoints(), false);
                 if(res != Blackjack.CONTINUE) {
                     if(res == Blackjack.WON) {
                         ServiceLocator.get(SAPlayer.class).addPoints(username, blackjack.getPointsWon());
-                        blackJackGUI.end("¡Victoria, has ganado " + blackjack.getPointsWon() + " puntos!");
+                        blackjackGUI.end("¡Victoria, has ganado " + blackjack.getPointsWon() + " puntos!");
                     } 
-                    else blackJackGUI.end("Te has pasado de 21...");
+                    else blackjackGUI.end("Te has pasado de 21...");
                 }
                 break;
             }
             case Event.BLACKJACK_STAND: {
-                if(blackjack == null || blackJackGUI == null) {
-                	System.err.println("BLACKJACK_STAND sin partida activa");
-                	break;
-                }
                 if(blackjack.getCroupierPoints() < blackjack.getPlayerPoints()) blackjack.croupierPlay();
-                blackJackGUI.update(blackjack.getCroupierCards(), blackjack.getPlayerCards(), blackjack.getCroupierPoints(), blackjack.getPlayerPoints(), true);
+                blackjackGUI.update(blackjack.getCroupierCards(), blackjack.getPlayerCards(), blackjack.getCroupierPoints(), blackjack.getPlayerPoints(), true);
                 switch(blackjack.getResult()) {
-	                case Blackjack.LOST: blackJackGUI.end("Lo siento, gana el croupier..."); break;
-	                case Blackjack.CONTINUE: blackJackGUI.end("Empate"); break;
+	                case Blackjack.LOST: blackjackGUI.end("Lo siento, gana el croupier..."); break;
+	                case Blackjack.CONTINUE: blackjackGUI.end("Empate"); break;
 	                case Blackjack.WON: 
 	                	ServiceLocator.get(SAPlayer.class).addPoints(username, blackjack.getPointsWon());
-	                    blackJackGUI.end("¡Felicidades, has ganado " + blackjack.getPointsWon() + " puntos!");
+	                    blackjackGUI.end("¡Felicidades, has ganado " + blackjack.getPointsWon() + " puntos!");
 	                    break;
                 }
                 break;
@@ -208,7 +201,7 @@ public class Controller {
     }
 
     private static void viewResult(boolean ok, ViewUpdater view, int okEvent, Object okPayload, int failEvent) {
-        if(ok)view.update(okEvent, okPayload);
+        if(ok) view.update(okEvent, okPayload);
         else view.update(failEvent, null);
     }
 }

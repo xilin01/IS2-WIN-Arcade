@@ -7,7 +7,6 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
 import java.util.List;
-
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -41,7 +40,6 @@ public class BlackjackGUI extends JFrame {
         mainPanel.setLayout(new BorderLayout());
         setContentPane(mainPanel);
 
-        // Mano del croupier
         croupierDeckPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 20));
         croupierDeckPanel.setPreferredSize(new Dimension(0, 400));
         croupierDeckPanel.setOpaque(false);
@@ -55,11 +53,9 @@ public class BlackjackGUI extends JFrame {
         JPanel choiceButtonsPanel = new JPanel(new FlowLayout());
         choiceButtonsPanel.setOpaque(false);
         mainPanel.add(choiceButtonsPanel, BorderLayout.CENTER);
-
         JButton hitButton = new JButton("Pedir carta");
         hitButton.addActionListener(a -> Controller.getInstance().action(Event.BLACKJACK_HIT, null));
         choiceButtonsPanel.add(hitButton);
-
         JButton standButton = new JButton("Plantarse");
         standButton.addActionListener(a -> Controller.getInstance().action(Event.BLACKJACK_STAND, null));
         choiceButtonsPanel.add(standButton);
@@ -68,11 +64,10 @@ public class BlackjackGUI extends JFrame {
         backPanel.setPreferredSize(new Dimension(100, 0));
         backPanel.setOpaque(false);
         mainPanel.add(backPanel, BorderLayout.WEST);
-
-        JButton backButton = new JButton("Abandonar");
+        JButton backButton = new JButton("Atrás");
         backButton.addActionListener(a -> giveUp());
         backPanel.add(backButton);
-        
+  
         JPanel scoresAuxiliarPanel = new JPanel();
         scoresAuxiliarPanel.setOpaque(false);
         mainPanel.add(scoresAuxiliarPanel, BorderLayout.EAST);
@@ -82,17 +77,15 @@ public class BlackjackGUI extends JFrame {
         scoresPanel.setBackground(new Color(0, 0, 0, 180));
         scoresPanel.setLayout(new BoxLayout(scoresPanel, BoxLayout.PAGE_AXIS));
         scoresPanel.setOpaque(true);
-        scoresAuxiliarPanel.add(scoresPanel);
-
         croupierScore = new JLabel();
         croupierScore.setFont(FONT);
         croupierScore.setForeground(Color.WHITE);
         scoresPanel.add(croupierScore);
-
         playerScore = new JLabel();
         playerScore.setFont(FONT);
         playerScore.setForeground(Color.WHITE);
         scoresPanel.add(playerScore);
+        scoresAuxiliarPanel.add(scoresPanel);
 
         showInitDecks(croupierCard, playerDeck);
         setScores(croupierPoints, playerPoints, true);
@@ -156,7 +149,7 @@ public class BlackjackGUI extends JFrame {
                 "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if(option == JOptionPane.OK_OPTION) {
         	new GamesPanelView();
-            dispose();
+        	dispose();
         }
     }
 }
