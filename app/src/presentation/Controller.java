@@ -16,6 +16,8 @@ import business.player.SAPlayer;
 import business.player.tPlayer;
 import business.product.SAProduct;
 import business.product.tProduct;
+import business.staff.SAStaff;
+import business.staff.tStaff;
 import business.ServiceLocator;
 import business.user.SAUser;
 import business.user.tUser;
@@ -52,7 +54,12 @@ public class Controller {
     public void action(final int event, final Object data) {
         switch(event) {
             case Event.CREATE_USER: {
-                int res = ServiceLocator.get(SAUser.class).createUser((tUser)data);
+            	tUser user = (tUser)data;
+                int res;
+                
+                if (user instanceof tPlayer) res = ServiceLocator.get(SAPlayer.class).createPlayer((tPlayer)user);
+                else if (user instanceof tStaff) res = ServiceLocator.get(SAStaff.class).createStaff((tStaff)user);
+                else res = ServiceLocator.get(SAUser.class).createUser(user);
                 
                 viewResult(res > 0, UserView::update, Event.RES_CREATE_USER_SUCCESS, res, Event.RES_CREATE_USER_FAILURE);
                 break;
@@ -76,7 +83,12 @@ public class Controller {
                 break;
             }
             case Event.UPDATE_USER: {
-                int res = ServiceLocator.get(SAUser.class).updateUser((tUser)data);
+            	tUser user = (tUser)data;
+                int res;
+                
+                if (user instanceof tPlayer) res = ServiceLocator.get(SAPlayer.class).updatePlayer((tPlayer)user);
+                else if (user instanceof tStaff) res = ServiceLocator.get(SAStaff.class).updateStaff((tStaff)user);
+                else res = ServiceLocator.get(SAUser.class).updateUser(user);
                 
                 viewResult(res > 0, UserView::update, Event.RES_UPDATE_USER_SUCCESS, data, Event.RES_UPDATE_USER_FAILURE);
                 break;

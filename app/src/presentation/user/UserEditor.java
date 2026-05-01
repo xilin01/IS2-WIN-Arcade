@@ -36,31 +36,40 @@ public class UserEditor extends JDialog {
         this.setLocationRelativeTo(getOwner());
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
-        JPanel formPanel = new JPanel(new GridLayout(3, 2, 10, 15));
-        formPanel.setBorder(new EmptyBorder(20, 20, 10, 20));
+        JPanel userInfoPanel = new JPanel(new GridLayout(4, 2, 10, 15));
+        userInfoPanel.setBorder(new EmptyBorder(20, 20, 10, 20));
 
         // Nombre
-        formPanel.add(new JLabel("Nombre del Jugador:"));
+        userInfoPanel.add(new JLabel("Nombre del Jugador:"));
         nameField = new JTextField();
         if (currentUser != null) {
             nameField.setText(currentUser.getName());
             nameField.setEditable(false);
         }
-        formPanel.add(nameField);
+        userInfoPanel.add(nameField);
 
         // Contraseña
-        formPanel.add(new JLabel("Contraseña:"));
+        userInfoPanel.add(new JLabel("Contraseña:"));
         passwordField = new JTextField();
         if (currentUser != null) passwordField.setText(currentUser.getPassword());
-        formPanel.add(passwordField);
+        userInfoPanel.add(passwordField);
 
         // Activo
-        formPanel.add(new JLabel("Estado de la cuenta:"));
+        userInfoPanel.add(new JLabel("Estado de la cuenta:"));
         activeCheckBox = new JCheckBox("Activa");
         activeCheckBox.setSelected(currentUser == null ? true : currentUser.getActive());
-        formPanel.add(activeCheckBox);
+        userInfoPanel.add(activeCheckBox);
 
-        this.add(formPanel, BorderLayout.CENTER);
+        this.add(userInfoPanel, BorderLayout.CENTER);
+        
+        // Editar inventario
+        userInfoPanel.add(new JLabel("Modificar inventario: "));
+        JButton editInventoryButton = new JButton("Editar inventario");
+        editInventoryButton.setEnabled(currentUser != null && currentUser instanceof tPlayer);
+        editInventoryButton.addActionListener((e) -> {
+        	new InventoryEditorView(this, (tPlayer)currentUser);
+        });
+        userInfoPanel.add(editInventoryButton);
 
         // Botones guardar cancelar
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));

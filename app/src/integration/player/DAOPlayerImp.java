@@ -99,40 +99,45 @@ public class DAOPlayerImp implements DAOPlayer {
 
         if(connection != null) {
             try {
-                connection.setAutoCommit(false);
-                if(daoUser.updateUser(player) == 1) {
-                    String query = "UPDATE player "
-                                    + "SET points = ? "
-                                    + "WHERE name = ?";
-                    PreparedStatement pst = connection.prepareStatement(query);
+//                connection.setAutoCommit(false);
+                daoUser.updateUser(player); 
+                
+                String query = "UPDATE player "
+                                + "SET points = ? "
+                                + "WHERE name = ?";
+                PreparedStatement pst = connection.prepareStatement(query);
 
-                    pst.setInt(1, player.getPoints());
-                    pst.setString(2, player.getName());
-                    rowCount = pst.executeUpdate();
-                    pst.close();
-                    connection.commit();
-                }
-                else connection.rollback();
+                pst.setInt(1, player.getPoints());
+                pst.setString(2, player.getName());
+                
+                pst.executeUpdate();
+                
+                pst.close();
+                
+                daoInventory.updateInventory(player.getInventory());
+                
+//                connection.commit();
+                
+                rowCount = 1;
             }
             catch(SQLException e) {
                 rowCount = 0;
-                try {
-                    connection.rollback();
-                }
-                catch(SQLException ex) {
-                    ex.printStackTrace();
-                }
+//                try {
+//                    connection.rollback();
+//                }
+//                catch(SQLException ex) {
+//                    ex.printStackTrace();
+//                }
                 e.printStackTrace();
             }
-            finally {
-                try {
-                    connection.setAutoCommit(true);
-                }
-                catch(SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if(rowCount == 1) daoInventory.updateInventory(player.getInventory());
+//            finally {
+//                try {
+//                    connection.setAutoCommit(true);
+//                }
+//                catch(SQLException e) {
+//                    e.printStackTrace();
+//                }
+//            }
         }
         return rowCount;
     }

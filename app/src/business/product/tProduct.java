@@ -39,4 +39,9 @@ public class tProduct {
     public int hashCode() {
         return Objects.hash(name, price);
     }
+    
+    @Override
+    public String toString() {
+    	return this.name;
+    }
 }
