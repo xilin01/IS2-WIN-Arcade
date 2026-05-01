@@ -1,9 +1,9 @@
 package presentation.user;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.util.Collection;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -12,12 +12,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
-import java.util.Collection;
 import business.player.tPlayer;
 import business.user.tUser;
 import presentation.Controller;
 import presentation.Event;
+import presentation.Theme;
 
 @SuppressWarnings("serial")
 public class UsersManagerView extends JFrame {
@@ -30,92 +29,100 @@ public class UsersManagerView extends JFrame {
 
     private void initGUI() {
         this.setLayout(new BorderLayout());
-        this.setBounds(100, 100, 550, 600);
-        this.setLocationRelativeTo(null);
+        this.setSize(550, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.getContentPane().setBackground(Theme.BG);
 
-        // Boton crear nuevo player
-        JPanel createUserPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JButton createUserButton = new JButton("CREAR NUEVO USUARIO");
-        createUserButton.setPreferredSize(new Dimension(200, 35));
-        createUserButton.addActionListener(e -> {
-            new UserEditor(this, null);
-            updateList(); 
-        });
-        createUserPanel.add(createUserButton);
-        this.add(createUserPanel, BorderLayout.NORTH);
+        JPanel header = Theme.header("Gestión de Usuarios");
+        JPanel headerRight = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
+        headerRight.setBackground(Theme.BG_CARD);
+        JButton createUserButton = Theme.primaryBtn("Crear Usuario");
+        JButton backButton = Theme.secondaryBtn("Volver");
+        headerRight.add(createUserButton);
+        headerRight.add(backButton);
+        header.add(headerRight, BorderLayout.EAST);
+        this.add(header, BorderLayout.NORTH);
 
-        // Lista de usuarios(jugadores)
         userListPanel = new JPanel();
         userListPanel.setLayout(new BoxLayout(userListPanel, BoxLayout.Y_AXIS));
-        
-        JPanel listWrapper = new JPanel(new BorderLayout());
-        listWrapper.setBorder(new EmptyBorder(10, 10, 10, 10));
-        JScrollPane userScrollPane = new JScrollPane(userListPanel);
-        listWrapper.add(userScrollPane, BorderLayout.CENTER);
-        
-        this.add(listWrapper, BorderLayout.CENTER);
+        userListPanel.setBackground(Theme.BG);
+        userListPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
-        // Boton de volver
-        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JButton backButton = new JButton("<- Volver");
-        bottomPanel.add(backButton);
-        this.add(bottomPanel, BorderLayout.SOUTH);
+        JScrollPane scrollPane = new JScrollPane(userListPanel);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
+        scrollPane.getViewport().setBackground(Theme.BG);
+        this.add(scrollPane, BorderLayout.CENTER);
 
+        createUserButton.addActionListener(e -> {
+            new UserEditor(this, null);
+            updateList();
+        });
         backButton.addActionListener(e -> {
-            new StaffView(); 
-            dispose(); 
+            new StaffView();
+            dispose();
         });
 
         updateList();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setVisible(true);
     }
 
-    // Fila de la lista / Informacion de un usuario
     private JPanel userElement(tUser user) {
         JPanel userPanel = new JPanel(new BorderLayout());
-        userPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
-        userPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5), BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1)));
+        userPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 62));
+        userPanel.setBackground(Theme.BG_ITEM);
+        userPanel.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createEmptyBorder(4, 0, 4, 0),
+            BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Theme.BORDER, 1),
+                BorderFactory.createEmptyBorder(10, 16, 10, 16)
+            )
+        ));
 
-        JPanel userInfo = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        String statusText = user.getActive() ? "(Activo)" : "(Inactivo)";
-        JLabel nameLabel = new JLabel("  " + user.getName() + "  " + statusText);
-        
-        if (!user.getActive()) nameLabel.setForeground(Color.GRAY);
+        JPanel userInfo = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 0));
+        userInfo.setBackground(Theme.BG_ITEM);
+
+        JLabel nameLabel = new JLabel(user.getName());
+        nameLabel.setFont(Theme.BODY);
+        nameLabel.setForeground(user.getActive() ? Theme.TEXT : Theme.TEXT_MUTED);
+
+        JLabel statusLabel = new JLabel(user.getActive() ? "Activo" : "Inactivo");
+        statusLabel.setFont(Theme.BODY);
+        statusLabel.setForeground(user.getActive() ? Theme.SUCCESS : Theme.TEXT_MUTED);
+
         userInfo.add(nameLabel);
+        userInfo.add(statusLabel);
         userPanel.add(userInfo, BorderLayout.CENTER);
 
-        // Botones
-        JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 0));
+        buttonsPanel.setBackground(Theme.BG_ITEM);
 
-        JButton editButton = new JButton("Editar"); 
+        JButton editButton = Theme.secondaryBtn("Editar");
         editButton.addActionListener(e -> {
             new UserEditor(this, user);
             updateList();
         });
-        
+
         boolean isActive = user.getActive();
-        JButton desactivateButton = new JButton((isActive) ? "Desactivar" : "Activar");
-        desactivateButton.setForeground(isActive ? Color.RED : Color.GREEN);
-
-        desactivateButton.addActionListener(e -> {
-        	String action = isActive ? "Desactivar" : "Activar";
-            int confirm = JOptionPane.showConfirmDialog(this, "¿" + action + " al usuario '" + user.getName() + "'?", "Confirmar", JOptionPane.YES_NO_OPTION);
-
+        JButton toggleButton = isActive ? Theme.dangerBtn("Desactivar") : Theme.successBtn("Activar");
+        toggleButton.addActionListener(e -> {
+            String action = isActive ? "Desactivar" : "Activar";
+            int confirm = JOptionPane.showConfirmDialog(this,
+                "¿" + action + " al usuario '" + user.getName() + "'?",
+                "Confirmar", JOptionPane.YES_NO_OPTION);
             if (confirm == JOptionPane.YES_OPTION) {
-            	if (isActive) {
-            		Controller.getInstance().action(Event.DELETE_USER, user.getName());
-            	}
-            	else {
-            		user.setActive(true);
-            		Controller.getInstance().action(Event.UPDATE_USER, user);
-            	}
+                if (isActive) {
+                    Controller.getInstance().action(Event.DELETE_USER, user.getName());
+                } else {
+                    user.setActive(true);
+                    Controller.getInstance().action(Event.UPDATE_USER, user);
+                }
                 updateList();
             }
         });
 
         buttonsPanel.add(editButton);
-        buttonsPanel.add(desactivateButton);
+        buttonsPanel.add(toggleButton);
         userPanel.add(buttonsPanel, BorderLayout.EAST);
 
         return userPanel;
@@ -124,7 +131,7 @@ public class UsersManagerView extends JFrame {
     private void updateList() {
         userListPanel.removeAll();
         Collection<tPlayer> players = Controller.getInstance().getAllPlayers();
-        for (tPlayer p: players) userListPanel.add(userElement(p));
+        for (tPlayer p : players) userListPanel.add(userElement(p));
         userListPanel.revalidate();
         userListPanel.repaint();
     }

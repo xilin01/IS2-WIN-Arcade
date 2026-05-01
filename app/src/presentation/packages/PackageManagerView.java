@@ -1,26 +1,22 @@
 package presentation.packages;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.Map;
-
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.Border;
-
 import business.game.tGame;
 import business.packages.tGamesPackage;
 import presentation.Controller;
 import presentation.Event;
+import presentation.Theme;
 
 @SuppressWarnings("serial")
 public class PackageManagerView extends JFrame {
@@ -34,128 +30,114 @@ public class PackageManagerView extends JFrame {
     private void initGUI() {
         this.setLayout(new BorderLayout());
         this.setSize(500, 600);
-        this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.getContentPane().setBackground(Theme.BG);
 
-        //Boton Crear paquete de juegos
-        JPanel createPackPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JButton createPackButton = new JButton("CREAR NUEVO PAQUETE");
-        createPackButton.setPreferredSize(new Dimension(150, 35));
-        createPackButton.addActionListener(e -> {
-        	new GamesPackageEditor(this, null);
-        	updateList();
-        });
+        JPanel header = Theme.header("Gestión de Paquetes");
+        JPanel headerRight = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
+        headerRight.setBackground(Theme.BG_CARD);
+        JButton createPackButton = Theme.primaryBtn("Crear Paquete");
+        JButton backButton = Theme.secondaryBtn("Volver");
+        headerRight.add(createPackButton);
+        headerRight.add(backButton);
+        header.add(headerRight, BorderLayout.EAST);
+        this.add(header, BorderLayout.NORTH);
 
-        createPackPanel.add(createPackButton);
-
-        this.add(createPackPanel, BorderLayout.NORTH);
-
-        //Lista de paquetes
         packListPanel = new JPanel();
         packListPanel.setLayout(new BoxLayout(packListPanel, BoxLayout.Y_AXIS));
+        packListPanel.setBackground(Theme.BG);
+        packListPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
-        packListPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        JScrollPane scrollPane = new JScrollPane(packListPanel);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
+        scrollPane.getViewport().setBackground(Theme.BG);
+        this.add(scrollPane, BorderLayout.CENTER);
 
-        for (tGamesPackage pack : Controller.getInstance().getAllPackages()) packListPanel.add(packageElement(pack));
-        JScrollPane packScrollPane = new JScrollPane(packListPanel);
-
-        this.add(packScrollPane, BorderLayout.CENTER);
-
-        //Boton back para volver al panel de staff
-        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JButton backButton = new JButton("Back");
-
-        bottomPanel.add(backButton);
-
-        this.add(bottomPanel, BorderLayout.SOUTH);
-
+        createPackButton.addActionListener(e -> {
+            new GamesPackageEditor(this, null);
+            updateList();
+        });
         backButton.addActionListener(e -> {
             Controller.getInstance().action(Event.CLOSE_PACKAGE_MANAGER, null);
             dispose();
         });
 
+        updateList();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setVisible(true);
     }
 
     private JPanel packageElement(tGamesPackage gamePack) {
         JPanel packagePanel = new JPanel(new BorderLayout());
-        
-        packagePanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 130));
+        packagePanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 155));
+        packagePanel.setBackground(Theme.BG_ITEM);
         packagePanel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createEmptyBorder(5, 5, 5, 5),
-            BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1)
+            BorderFactory.createEmptyBorder(4, 0, 4, 0),
+            BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Theme.BORDER, 1),
+                BorderFactory.createEmptyBorder(12, 16, 12, 16)
+            )
         ));
 
-        // Información general del paquete
         JPanel packInfo = new JPanel();
         packInfo.setLayout(new BoxLayout(packInfo, BoxLayout.Y_AXIS));
-        packInfo.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        packInfo.setBackground(Theme.BG_ITEM);
 
-        // Nombre del paquete
         JLabel nameLabel = new JLabel(gamePack.getName());
-        nameLabel.setFont(nameLabel.getFont().deriveFont(java.awt.Font.BOLD, 14f));
+        nameLabel.setFont(Theme.HEADING);
+        nameLabel.setForeground(Theme.TEXT);
         packInfo.add(nameLabel);
 
-        // Total de juegos y precio
         int totalGames = 0;
         Map<tGame, Integer> gamesMap = gamePack.getGames();
         if (gamesMap != null) {
-            for (Integer qty : gamesMap.values()) {
-                totalGames += qty;
-            }
+            for (Integer qty : gamesMap.values()) totalGames += qty;
         }
-        JLabel packInfoLabel = new JLabel("Total juegos: " + totalGames + "  |  Precio: " + gamePack.getPrice() + "€");
-        packInfoLabel.setForeground(Color.DARK_GRAY);
-        packInfo.add(packInfoLabel);
+        JLabel infoLabel = new JLabel("Total: " + totalGames + " juegos, Precio: " + gamePack.getPrice() + " EUR");
+        infoLabel.setFont(Theme.BODY);
+        infoLabel.setForeground(Theme.TEXT_MUTED);
+        packInfo.add(infoLabel);
 
-        // Lista de los primeros 3 juegos y ... después
         if (gamesMap != null && !gamesMap.isEmpty()) {
             int count = 0;
             for (Map.Entry<tGame, Integer> entry : gamesMap.entrySet()) {
-                tGame game = entry.getKey();
-                int cant = entry.getValue();
-                JLabel gameLabel = new JLabel("  - " + cant + "x " + game.getName() + " (" + game.getBasePoints() + " pts)");
-                gameLabel.setFont(gameLabel.getFont().deriveFont(11));
+                JLabel gameLabel = new JLabel(entry.getValue() + "x " + entry.getKey().getName());
+                gameLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+                gameLabel.setFont(Theme.BODY);
+                gameLabel.setForeground(Theme.TEXT_MUTED);
                 packInfo.add(gameLabel);
-                
-                count++;
-                
-                if (count >= 3) {
-                    JLabel dotsLabel = new JLabel("  ...");
-                    dotsLabel.setForeground(Color.GRAY);
-                    packInfo.add(dotsLabel);
+                if (++count >= 3) {
+                    JLabel moreLabel = new JLabel("...");
+                    moreLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+                    moreLabel.setForeground(Theme.TEXT_MUTED);
+                    packInfo.add(moreLabel);
                     break;
                 }
             }
         } else {
-            JLabel emptyLabel = new JLabel("  (Paquete vacío)");
-            emptyLabel.setForeground(Color.GRAY);
+            JLabel emptyLabel = new JLabel("Paquete vacio");
+            emptyLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+            emptyLabel.setForeground(Theme.TEXT_MUTED);
             packInfo.add(emptyLabel);
         }
 
         packagePanel.add(packInfo, BorderLayout.CENTER);
 
-        // Botones editar y borrar paquete
-        JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 0));
+        buttonsPanel.setBackground(Theme.BG_ITEM);
 
-        JButton editButton = new JButton(new javax.swing.ImageIcon("resources/icons/edit.png"));
-        editButton.setPreferredSize(new Dimension(35, 35));
+        JButton editButton = Theme.secondaryBtn("Editar");
         editButton.addActionListener(e -> {
             new GamesPackageEditor(this, gamePack);
             updateList();
         });
-        
-        JButton deleteButton = new JButton(new javax.swing.ImageIcon("resources/icons/delete.png"));
-        deleteButton.setPreferredSize(new Dimension(35, 35));
-        deleteButton.addActionListener(e -> {
-            int confirm = javax.swing.JOptionPane.showConfirmDialog(
-                this, 
-                "¿Eliminar definitivamente el paquete '" + gamePack.getName() + "'?", 
-                "Confirmar", 
-                javax.swing.JOptionPane.YES_NO_OPTION
-            );
 
-            if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+        JButton deleteButton = Theme.dangerBtn("Eliminar");
+        deleteButton.addActionListener(e -> {
+            int confirm = JOptionPane.showConfirmDialog(this,
+                "¿Eliminar definitivamente el paquete '" + gamePack.getName() + "'?",
+                "Confirmar", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
                 Controller.getInstance().action(Event.DELETE_PACKAGE, gamePack.getName());
                 updateList();
             }
@@ -163,12 +145,11 @@ public class PackageManagerView extends JFrame {
 
         buttonsPanel.add(editButton);
         buttonsPanel.add(deleteButton);
-
         packagePanel.add(buttonsPanel, BorderLayout.EAST);
 
         return packagePanel;
     }
-    
+
     private void updateList() {
         packListPanel.removeAll();
         for (tGamesPackage pack : Controller.getInstance().getAllPackages()) packListPanel.add(packageElement(pack));
