@@ -21,7 +21,6 @@ import business.game.tGame;
 import business.packages.tGamesPackage;
 import presentation.Controller;
 import presentation.Event;
-import presentation.user.StaffView;
 
 @SuppressWarnings("serial")
 public class PackageManagerView extends JFrame {
@@ -71,7 +70,7 @@ public class PackageManagerView extends JFrame {
         this.add(bottomPanel, BorderLayout.SOUTH);
 
         backButton.addActionListener(e -> {
-            new StaffView();
+            Controller.getInstance().action(Event.CLOSE_PACKAGE_MANAGER, null);
             dispose();
         });
 

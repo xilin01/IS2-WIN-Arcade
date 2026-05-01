@@ -13,9 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import presentation.Controller;
-import presentation.auth.LoginView;
+import presentation.Event;
 import presentation.games.BackgroundPanel;
-import presentation.games.GamesPanelView;
 
 @SuppressWarnings("serial")
 public class PlayerView extends JFrame {
@@ -54,7 +53,7 @@ public class PlayerView extends JFrame {
         topPanel.add(userPanel);
         JButton logOutButton = new JButton("Cerrar Sesión");
         logOutButton.addActionListener(e -> {
-            LoginView.open();
+            Controller.getInstance().action(Event.LOGOUT, null);
             dispose();
         });
         topPanel.add(logOutButton);
@@ -66,7 +65,7 @@ public class PlayerView extends JFrame {
         playButton.setPreferredSize(new Dimension(260, 100));
         playButton.setFont(playButton.getFont().deriveFont(Font.BOLD, 28f));
         playButton.addActionListener(e -> {
-        	new GamesPanelView();
+        	Controller.getInstance().action(Event.GAMES_PANEL, null);
         	dispose();
         });
         centerPanel.add(playButton);
@@ -76,12 +75,12 @@ public class PlayerView extends JFrame {
         bottomPanel.setOpaque(false);
         JButton storeButton = new JButton("Tienda");
         storeButton.addActionListener(e -> {
-        	new StoreView();
+        	Controller.getInstance().action(Event.OPEN_STORE, null);
         	dispose();
         });
         JButton inventoryButton = new JButton("Inventario");
         inventoryButton.addActionListener(e -> {
-        	new InventoryView();
+        	Controller.getInstance().action(Event.OPEN_INVENTORY, null);
         	dispose();
         });
         Dimension buttonSize = new Dimension(120, 120);

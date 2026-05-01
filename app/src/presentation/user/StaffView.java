@@ -7,8 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import presentation.Controller;
-import presentation.auth.LoginView;
-import presentation.packages.PackageManagerView;
+import presentation.Event;
 import presentation.product.ProductManagerView;
 
 @SuppressWarnings("serial")
@@ -41,7 +40,7 @@ public class StaffView extends JFrame {
 
         JButton managePackagesButton = new JButton("GESTIONAR PAQUETES");
         managePackagesButton.addActionListener(e -> {
-            new PackageManagerView();
+            Controller.getInstance().action(Event.OPEN_PACKAGE_MANAGER, null);
             dispose();
         });
         JButton manageProductsButton = new JButton("GESTIONAR PRODUCTOS");
@@ -68,7 +67,7 @@ public class StaffView extends JFrame {
         this.add(mainPanel, BorderLayout.CENTER);
 
         logOutButton.addActionListener(e -> {
-            LoginView.open();
+            Controller.getInstance().action(Event.LOGOUT, null);
             dispose();
         });
 

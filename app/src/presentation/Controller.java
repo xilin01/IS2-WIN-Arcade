@@ -26,7 +26,12 @@ import business.store.SAStore;
 import presentation.auth.LoginView;
 import presentation.auth.SignUpView;
 import presentation.games.BlackjackGUI;
+import presentation.games.GamesPanelView;
 import presentation.games.RouletteGUI;
+import presentation.packages.PackageManagerView;
+import presentation.user.InventoryView;
+import presentation.user.StaffView;
+import presentation.user.StoreView;
 import presentation.user.UserView;
 
 // Patrón Singleton
@@ -114,6 +119,23 @@ public class Controller {
                 viewResult(res > 0, SignUpView::update, Event.RES_SIGN_UP_SUCCESS, null, Event.RES_SIGN_UP_FAILURE);
                 break;
             }
+            case Event.LOGOUT: {
+            	username = null;
+                LoginView.open();
+                break;
+            }
+            case Event.OPEN_PACKAGE_MANAGER: {
+                new PackageManagerView();
+                break;
+            }
+            case Event.CLOSE_PACKAGE_MANAGER: {
+                new StaffView();
+                break;
+            }
+            case Event.OPEN_STORE: {
+                new StoreView();
+                break;
+            }
             case Event.BUY_PACKAGE: {
                 tGamesPackage pack = (tGamesPackage)data;
                 
@@ -128,6 +150,14 @@ public class Controller {
                 if(ServiceLocator.get(SAStore.class).buyProduct(username, prod))
                 	JOptionPane.showMessageDialog(null, "¡" + prod.getName() + " canjead@ con éxito!", "Canje exitoso", JOptionPane.INFORMATION_MESSAGE);
                 else JOptionPane.showMessageDialog(null, "No tienes suficientes puntos para canjear este producto.", "Puntos insuficientes", JOptionPane.ERROR_MESSAGE);
+                break;
+            }
+            case Event.OPEN_INVENTORY: {
+                new InventoryView();
+                break;
+            }
+            case Event.GAMES_PANEL: {
+                new GamesPanelView();
                 break;
             }
             case Event.BLACKJACK_PLAY: {
