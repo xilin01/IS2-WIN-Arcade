@@ -9,11 +9,9 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import business.player.tPlayer;
-import business.user.tUser;
 import presentation.Controller;
 import presentation.Event;
 import presentation.Theme;
@@ -67,7 +65,7 @@ public class UsersManagerView extends JFrame {
         this.setVisible(true);
     }
 
-    private JPanel userElement(tUser user) {
+    private JPanel userElement(tPlayer user) {
         JPanel userPanel = new JPanel(new BorderLayout());
         userPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 62));
         userPanel.setBackground(Theme.BG_ITEM);
@@ -107,10 +105,7 @@ public class UsersManagerView extends JFrame {
         JButton toggleButton = isActive ? Theme.dangerBtn("Desactivar") : Theme.successBtn("Activar");
         toggleButton.addActionListener(e -> {
             String action = isActive ? "Desactivar" : "Activar";
-            int confirm = JOptionPane.showConfirmDialog(this,
-                "¿" + action + " al usuario '" + user.getName() + "'?",
-                "Confirmar", JOptionPane.YES_NO_OPTION);
-            if (confirm == JOptionPane.YES_OPTION) {
+            if (Theme.confirm(this, action + " al usuario " + user.getName())) {
                 if (isActive) {
                     Controller.getInstance().action(Event.DELETE_USER, user.getName());
                 } else {

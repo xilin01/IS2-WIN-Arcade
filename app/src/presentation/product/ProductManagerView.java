@@ -9,7 +9,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import business.product.tProduct;
@@ -105,10 +104,7 @@ public class ProductManagerView extends JFrame {
 
         JButton deleteButton = Theme.dangerBtn("Eliminar");
         deleteButton.addActionListener(e -> {
-            int confirm = JOptionPane.showConfirmDialog(this,
-                "¿Eliminar definitivamente el producto '" + product.getName() + "'?",
-                "Confirmar", JOptionPane.YES_NO_OPTION);
-            if (confirm == JOptionPane.YES_OPTION) {
+            if (Theme.confirm(this, "Eliminar definitivamente el producto " + product.getName())) {
                 Controller.getInstance().action(Event.DELETE_PRODUCT, product.getName());
                 updateList();
             }

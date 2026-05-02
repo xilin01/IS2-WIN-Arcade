@@ -2,11 +2,17 @@ package presentation;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dialog;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Window;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 public class Theme {
 
@@ -84,5 +90,40 @@ public class Theme {
         b.setBorder(BorderFactory.createEmptyBorder(6, 14, 6, 14));
         b.setOpaque(true);
         return b;
+    }
+
+    public static boolean confirm(Component parent, String message) {
+        boolean[] result = {false};
+        Window owner = SwingUtilities.getWindowAncestor(parent);
+        JDialog dialog = new JDialog(owner, "Confirmar", Dialog.ModalityType.APPLICATION_MODAL);
+        dialog.setLayout(new BorderLayout());
+        dialog.getContentPane().setBackground(BG);
+        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+
+        JLabel msgLabel = new JLabel(message);
+        msgLabel.setForeground(TEXT);
+        msgLabel.setFont(BODY);
+        msgLabel.setBorder(BorderFactory.createEmptyBorder(20, 24, 12, 24));
+        dialog.add(msgLabel, BorderLayout.CENTER);
+
+        JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+        btnPanel.setBackground(BG_CARD);
+        btnPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, BORDER));
+
+        JButton noBtn = secondaryBtn("No");
+        JButton yesBtn = dangerBtn("Confirmar");
+
+        noBtn.addActionListener(e -> dialog.dispose());
+        yesBtn.addActionListener(e -> { result[0] = true; dialog.dispose(); });
+
+        btnPanel.add(noBtn);
+        btnPanel.add(yesBtn);
+        dialog.add(btnPanel, BorderLayout.SOUTH);
+
+        dialog.setSize(340, 150);
+        dialog.setLocationRelativeTo(parent);
+        dialog.setVisible(true);
+
+        return result[0];
     }
 }
