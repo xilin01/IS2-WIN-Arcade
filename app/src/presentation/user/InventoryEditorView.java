@@ -1,9 +1,11 @@
 package presentation.user;
 
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Window;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -11,11 +13,9 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
@@ -30,12 +30,13 @@ import presentation.Theme;
 
 public class InventoryEditorView extends JDialog {
 
+    private static final Theme theme = Theme.getInstance();
     private tPlayer player;
     private JPanel objectsListPanel;
     private JPanel gamesListPanel;
 
-    public InventoryEditorView(JDialog parent, tPlayer player) {
-        super(parent, "Inventario de " + player.getName(), true);
+    public InventoryEditorView(Window parent, tPlayer player) {
+        super(parent, "Inventario de " + player.getName(), Dialog.ModalityType.APPLICATION_MODAL);
         this.player = player;
         initGUI();
     }
@@ -45,22 +46,20 @@ public class InventoryEditorView extends JDialog {
         this.setSize(500, 450);
         this.setLocationRelativeTo(getOwner());
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        this.getContentPane().setBackground(Theme.BG);
+        this.getContentPane().setBackground(theme.BG);
 
         JTabbedPane tabsPanel = new JTabbedPane();
-        tabsPanel.setBackground(Theme.BG_CARD);
-        tabsPanel.setForeground(Theme.TEXT);
-        tabsPanel.setFont(Theme.BODY);
+        tabsPanel.setBackground(theme.BG_CARD);
+        tabsPanel.setForeground(theme.TEXT);
+        tabsPanel.setFont(theme.BODY);
         tabsPanel.addTab("Objetos", createObjectsPanel());
         tabsPanel.addTab("Juegos", createGamesPanel());
         this.add(tabsPanel, BorderLayout.CENTER);
 
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
-        bottomPanel.setBackground(Theme.BG_CARD);
-        bottomPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Theme.BORDER));
-        JButton backButton = Theme.secondaryBtn("Volver");
-        backButton.addActionListener(e -> dispose());
-        bottomPanel.add(backButton);
+        bottomPanel.setBackground(theme.BG_CARD);
+        bottomPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, theme.BORDER));
+        bottomPanel.add(theme.secondaryBtn("Volver", this::dispose));
         this.add(bottomPanel, BorderLayout.SOUTH);
 
         this.setVisible(true);
@@ -68,24 +67,36 @@ public class InventoryEditorView extends JDialog {
 
     private JPanel createObjectsPanel() {
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(Theme.BG);
+        panel.setBackground(theme.BG);
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        topPanel.setBackground(Theme.BG);
-        JButton addObjectBtn = Theme.primaryBtn("Añadir Objeto");
-        addObjectBtn.addActionListener(e -> {
+        topPanel.setBackground(theme.BG);
+        topPanel.add(theme.primaryBtn("Añadir Objeto", () -> {
             Collection<tProduct> allProducts = Controller.getInstance().getAllProducts();
-            JPanel inputPanel = new JPanel(new GridLayout(2, 2, 5, 5));
-            JComboBox<tProduct> productCombo = new JComboBox<>(allProducts.toArray(new tProduct[0]));
-            JSpinner qtySpinner = new JSpinner(new SpinnerNumberModel(1, 1, 99, 1));
-            inputPanel.add(new JLabel("Selecciona objeto:"));
-            inputPanel.add(productCombo);
-            inputPanel.add(new JLabel("Cantidad:"));
-            inputPanel.add(qtySpinner);
 
-            int result = JOptionPane.showConfirmDialog(this, inputPanel, "Añadir Objeto", JOptionPane.OK_CANCEL_OPTION);
-            if (result == JOptionPane.OK_OPTION) {
+            JPanel formPanel = new JPanel(new GridLayout(2, 2, 8, 10));
+            formPanel.setBorder(BorderFactory.createEmptyBorder(16, 16, 8, 16));
+
+            JLabel productLabel = new JLabel("Objeto:");
+            productLabel.setForeground(theme.TEXT);
+            JComboBox<tProduct> productCombo = new JComboBox<>(allProducts.toArray(new tProduct[0]));
+            productCombo.setBackground(theme.BG_ITEM);
+            productCombo.setForeground(theme.TEXT);
+
+            JLabel qtyLabel = new JLabel("Cantidad:");
+            qtyLabel.setForeground(theme.TEXT);
+            JSpinner qtySpinner = new JSpinner(new SpinnerNumberModel(1, 1, 99, 1));
+            ((JSpinner.DefaultEditor) qtySpinner.getEditor()).getTextField().setBackground(theme.BG_ITEM);
+            ((JSpinner.DefaultEditor) qtySpinner.getEditor()).getTextField().setForeground(theme.TEXT);
+            ((JSpinner.DefaultEditor) qtySpinner.getEditor()).getTextField().setCaretColor(theme.TEXT);
+
+            formPanel.add(productLabel);
+            formPanel.add(productCombo);
+            formPanel.add(qtyLabel);
+            formPanel.add(qtySpinner);
+
+            theme.formDialog(this, "Añadir Objeto", formPanel, "Añadir", () -> {
                 tProduct selectedProduct = (tProduct) productCombo.getSelectedItem();
                 int qty = (int) qtySpinner.getValue();
                 if (selectedProduct != null) {
@@ -98,18 +109,18 @@ public class InventoryEditorView extends JDialog {
                     Controller.getInstance().action(Event.UPDATE_USER, player);
                     updateObjectsList();
                 }
-            }
-        });
-        topPanel.add(addObjectBtn);
+                return true;
+            });
+        }));
         panel.add(topPanel, BorderLayout.NORTH);
 
         objectsListPanel = new JPanel();
         objectsListPanel.setLayout(new BoxLayout(objectsListPanel, BoxLayout.Y_AXIS));
-        objectsListPanel.setBackground(Theme.BG);
+        objectsListPanel.setBackground(theme.BG);
 
         JScrollPane scrollPane = new JScrollPane(objectsListPanel);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
-        scrollPane.getViewport().setBackground(Theme.BG);
+        scrollPane.getViewport().setBackground(theme.BG);
         panel.add(scrollPane, BorderLayout.CENTER);
 
         updateObjectsList();
@@ -125,7 +136,7 @@ public class InventoryEditorView extends JDialog {
                 int cant = productsMap.get(product);
                 objectsListPanel.add(buildRow(
                     cant + "x " + product.getName(),
-                    e -> {
+                    () -> {
                         productsMap.remove(product);
                         Controller.getInstance().action(Event.UPDATE_USER, player);
                         updateObjectsList();
@@ -134,7 +145,7 @@ public class InventoryEditorView extends JDialog {
             }
         } else {
             JLabel emptyLabel = new JLabel("El inventario no tiene objetos.");
-            emptyLabel.setForeground(Theme.TEXT_MUTED);
+            emptyLabel.setForeground(theme.TEXT_MUTED);
             objectsListPanel.add(emptyLabel);
         }
 
@@ -144,7 +155,7 @@ public class InventoryEditorView extends JDialog {
 
     private JPanel createGamesPanel() {
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(Theme.BG);
+        panel.setBackground(theme.BG);
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         Map<String, List<Integer>> availableGamesMap = new HashMap<>();
@@ -155,35 +166,34 @@ public class InventoryEditorView extends JDialog {
         }
 
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 0));
-        topPanel.setBackground(Theme.BG);
+        topPanel.setBackground(theme.BG);
 
         JLabel gameNameLabel = new JLabel("Juego:");
-        gameNameLabel.setForeground(Theme.TEXT);
+        gameNameLabel.setForeground(theme.TEXT);
         topPanel.add(gameNameLabel);
 
         JComboBox<String> gameNameComboBox = new JComboBox<>();
-        gameNameComboBox.setBackground(Theme.BG_ITEM);
-        gameNameComboBox.setForeground(Theme.TEXT);
+        gameNameComboBox.setBackground(theme.BG_ITEM);
+        gameNameComboBox.setForeground(theme.TEXT);
         for (String gameName : availableGamesMap.keySet()) gameNameComboBox.addItem(gameName);
         if (gameNameComboBox.getItemCount() > 0) gameNameComboBox.setSelectedIndex(0);
         topPanel.add(gameNameComboBox);
 
         JLabel pointsLabel = new JLabel("Puntos:");
-        pointsLabel.setForeground(Theme.TEXT);
+        pointsLabel.setForeground(theme.TEXT);
         topPanel.add(pointsLabel);
 
         JSpinner gamePointsSpinner = new JSpinner(new SpinnerNumberModel(10, 0, 1000, 10));
         topPanel.add(gamePointsSpinner);
 
         JLabel cantLabel = new JLabel("Cant:");
-        cantLabel.setForeground(Theme.TEXT);
+        cantLabel.setForeground(theme.TEXT);
         topPanel.add(cantLabel);
 
         JSpinner qtySpinner = new JSpinner(new SpinnerNumberModel(1, 1, 99, 1));
         topPanel.add(qtySpinner);
 
-        JButton addGameBtn = Theme.primaryBtn("Añadir");
-        addGameBtn.addActionListener(e -> {
+        topPanel.add(theme.primaryBtn("Añadir", () -> {
             String selectedName = (String) gameNameComboBox.getSelectedItem();
             Integer selectedPoints = (Integer) gamePointsSpinner.getValue();
             int qty = (int) qtySpinner.getValue();
@@ -201,17 +211,16 @@ public class InventoryEditorView extends JDialog {
                 gamesMap.put(gameToAdd, gamesMap.getOrDefault(gameToAdd, 0) + qty);
                 updateGamesList();
             }
-        });
-        topPanel.add(addGameBtn);
+        }));
         panel.add(topPanel, BorderLayout.NORTH);
 
         gamesListPanel = new JPanel();
         gamesListPanel.setLayout(new BoxLayout(gamesListPanel, BoxLayout.Y_AXIS));
-        gamesListPanel.setBackground(Theme.BG);
+        gamesListPanel.setBackground(theme.BG);
 
         JScrollPane scrollPane = new JScrollPane(gamesListPanel);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
-        scrollPane.getViewport().setBackground(Theme.BG);
+        scrollPane.getViewport().setBackground(theme.BG);
         panel.add(scrollPane, BorderLayout.CENTER);
 
         updateGamesList();
@@ -227,7 +236,7 @@ public class InventoryEditorView extends JDialog {
                 int cant = gamesMap.get(game);
                 gamesListPanel.add(buildRow(
                     cant + "x " + game.getName() + " (" + game.getBasePoints() + "p)",
-                    e -> {
+                    () -> {
                         gamesMap.remove(game);
                         updateGamesList();
                     }
@@ -235,7 +244,7 @@ public class InventoryEditorView extends JDialog {
             }
         } else {
             JLabel emptyLabel = new JLabel("El inventario no tiene juegos.");
-            emptyLabel.setForeground(Theme.TEXT_MUTED);
+            emptyLabel.setForeground(theme.TEXT_MUTED);
             gamesListPanel.add(emptyLabel);
         }
 
@@ -243,24 +252,22 @@ public class InventoryEditorView extends JDialog {
         gamesListPanel.repaint();
     }
 
-    private JPanel buildRow(String text, java.awt.event.ActionListener onRemove) {
+    private JPanel buildRow(String text, Runnable onRemove) {
         JPanel row = new JPanel(new BorderLayout());
-        row.setBackground(Theme.BG_ITEM);
+        row.setBackground(theme.BG_ITEM);
         row.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
         row.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createEmptyBorder(2, 0, 2, 0),
-            BorderFactory.createLineBorder(Theme.BORDER, 1)
+            BorderFactory.createLineBorder(theme.BORDER, 1)
         ));
 
         JLabel infoLabel = new JLabel(text);
-        infoLabel.setForeground(Theme.TEXT);
-        infoLabel.setFont(Theme.BODY);
+        infoLabel.setForeground(theme.TEXT);
+        infoLabel.setFont(theme.BODY);
         infoLabel.setBorder(BorderFactory.createEmptyBorder(0, 12, 0, 0));
         row.add(infoLabel, BorderLayout.CENTER);
 
-        JButton removeBtn = Theme.dangerBtn("Quitar");
-        removeBtn.addActionListener(onRemove);
-        row.add(removeBtn, BorderLayout.EAST);
+        row.add(theme.dangerBtn("Quitar", onRemove), BorderLayout.EAST);
 
         return row;
     }

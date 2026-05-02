@@ -6,7 +6,6 @@ import java.awt.FlowLayout;
 import java.util.Collection;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,6 +18,8 @@ import presentation.user.StaffView;
 
 @SuppressWarnings("serial")
 public class ProductManagerView extends JFrame {
+
+    private static final Theme theme = Theme.getInstance();
     private JPanel productListPanel;
 
     public ProductManagerView() {
@@ -30,36 +31,31 @@ public class ProductManagerView extends JFrame {
         this.setLayout(new BorderLayout());
         this.setSize(500, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.getContentPane().setBackground(Theme.BG);
+        this.getContentPane().setBackground(theme.BG);
 
-        JPanel header = Theme.header("Gestión de Productos");
+        JPanel header = theme.header("Gestion de Productos");
         JPanel headerRight = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
-        headerRight.setBackground(Theme.BG_CARD);
-        JButton createProdButton = Theme.primaryBtn("Crear Producto");
-        JButton backButton = Theme.secondaryBtn("Volver");
-        headerRight.add(createProdButton);
-        headerRight.add(backButton);
+        headerRight.setBackground(theme.BG_CARD);
+        headerRight.add(theme.primaryBtn("Crear Producto", () -> {
+            ProductEditor.show(this, null);
+            updateList();
+        }));
+        headerRight.add(theme.secondaryBtn("Volver", () -> {
+            new StaffView();
+            dispose();
+        }));
         header.add(headerRight, BorderLayout.EAST);
         this.add(header, BorderLayout.NORTH);
 
         productListPanel = new JPanel();
         productListPanel.setLayout(new BoxLayout(productListPanel, BoxLayout.Y_AXIS));
-        productListPanel.setBackground(Theme.BG);
+        productListPanel.setBackground(theme.BG);
         productListPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
         JScrollPane scrollPane = new JScrollPane(productListPanel);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
-        scrollPane.getViewport().setBackground(Theme.BG);
+        scrollPane.getViewport().setBackground(theme.BG);
         this.add(scrollPane, BorderLayout.CENTER);
-
-        createProdButton.addActionListener(e -> {
-            new ProductEditor(this, null);
-            updateList();
-        });
-        backButton.addActionListener(e -> {
-            new StaffView();
-            dispose();
-        });
 
         updateList();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -69,49 +65,42 @@ public class ProductManagerView extends JFrame {
     private JPanel productElement(tProduct product) {
         JPanel productPanel = new JPanel(new BorderLayout());
         productPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 62));
-        productPanel.setBackground(Theme.BG_ITEM);
+        productPanel.setBackground(theme.BG_ITEM);
         productPanel.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createEmptyBorder(4, 0, 4, 0),
             BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(Theme.BORDER, 1),
+                BorderFactory.createLineBorder(theme.BORDER, 1),
                 BorderFactory.createEmptyBorder(10, 16, 10, 16)
             )
         ));
 
         JPanel prodInfo = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 0));
-        prodInfo.setBackground(Theme.BG_ITEM);
+        prodInfo.setBackground(theme.BG_ITEM);
 
         JLabel nameLabel = new JLabel(product.getName());
-        nameLabel.setFont(Theme.BODY);
-        nameLabel.setForeground(Theme.TEXT);
+        nameLabel.setFont(theme.BODY);
+        nameLabel.setForeground(theme.TEXT);
 
         JLabel priceLabel = new JLabel(product.getPrice() + " pts");
-        priceLabel.setFont(Theme.BODY);
-        priceLabel.setForeground(Theme.GOLD);
+        priceLabel.setFont(theme.BODY);
+        priceLabel.setForeground(theme.GOLD);
 
         prodInfo.add(nameLabel);
         prodInfo.add(priceLabel);
         productPanel.add(prodInfo, BorderLayout.CENTER);
 
         JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 0));
-        buttonsPanel.setBackground(Theme.BG_ITEM);
-
-        JButton editButton = Theme.secondaryBtn("Editar");
-        editButton.addActionListener(e -> {
-            new ProductEditor(this, product);
+        buttonsPanel.setBackground(theme.BG_ITEM);
+        buttonsPanel.add(theme.secondaryBtn("Editar", () -> {
+            ProductEditor.show(this, product);
             updateList();
-        });
-
-        JButton deleteButton = Theme.dangerBtn("Eliminar");
-        deleteButton.addActionListener(e -> {
-            if (Theme.confirm(this, "Eliminar definitivamente el producto " + product.getName())) {
+        }));
+        buttonsPanel.add(theme.dangerBtn("Eliminar", () -> {
+            if (theme.confirm(this, "Eliminar definitivamente el producto " + product.getName())) {
                 Controller.getInstance().action(Event.DELETE_PRODUCT, product.getName());
                 updateList();
             }
-        });
-
-        buttonsPanel.add(editButton);
-        buttonsPanel.add(deleteButton);
+        }));
         productPanel.add(buttonsPanel, BorderLayout.EAST);
 
         return productPanel;

@@ -20,6 +20,8 @@ import presentation.product.ProductManagerView;
 @SuppressWarnings("serial")
 public class StaffView extends JFrame {
 
+    private static final Theme theme = Theme.getInstance();
+
     public StaffView() {
         super();
         initGUI();
@@ -30,34 +32,36 @@ public class StaffView extends JFrame {
         this.setTitle("Panel de Personal");
         this.setSize(650, 400);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.getContentPane().setBackground(Theme.BG);
+        this.getContentPane().setBackground(theme.BG);
 
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 12));
-        topPanel.setBackground(Theme.BG_CARD);
-        topPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Theme.GOLD));
+        topPanel.setBackground(theme.BG_CARD);
+        topPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, theme.GOLD));
 
         JLabel userLabel = new JLabel(Controller.getInstance().getUsername());
-        userLabel.setForeground(Theme.TEXT_MUTED);
-        userLabel.setFont(Theme.BODY);
-        JButton logOutButton = Theme.secondaryBtn("Cerrar Sesión");
+        userLabel.setForeground(theme.TEXT_MUTED);
+        userLabel.setFont(theme.BODY);
 
         topPanel.add(userLabel);
-        topPanel.add(logOutButton);
+        topPanel.add(theme.secondaryBtn("Cerrar Sesión", () -> {
+            Controller.getInstance().action(Event.LOGOUT, null);
+            dispose();
+        }));
         this.add(topPanel, BorderLayout.NORTH);
 
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
-        centerPanel.setBackground(Theme.BG);
+        centerPanel.setBackground(theme.BG);
         centerPanel.setBorder(BorderFactory.createEmptyBorder(80, 0, 80, 0));
 
         JLabel titleLabel = new JLabel("Panel de Personal", SwingConstants.CENTER);
-        titleLabel.setFont(Theme.TITLE);
-        titleLabel.setForeground(Theme.GOLD);
+        titleLabel.setFont(theme.TITLE);
+        titleLabel.setForeground(theme.GOLD);
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel subtitleLabel = new JLabel("Sistema de Gestión del Casino", SwingConstants.CENTER);
-        subtitleLabel.setFont(Theme.BODY);
-        subtitleLabel.setForeground(Theme.TEXT_MUTED);
+        JLabel subtitleLabel = new JLabel("Sistema de Gestion del Casino", SwingConstants.CENTER);
+        subtitleLabel.setFont(theme.BODY);
+        subtitleLabel.setForeground(theme.TEXT_MUTED);
         subtitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         centerPanel.add(titleLabel);
@@ -67,17 +71,26 @@ public class StaffView extends JFrame {
 
         Dimension btnSize = new Dimension(300, 52);
 
-        JButton packagesBtn = Theme.primaryBtn("GESTIONAR PAQUETES");
+        JButton packagesBtn = theme.primaryBtn("GESTIONAR PAQUETES", () -> {
+            Controller.getInstance().action(Event.OPEN_PACKAGE_MANAGER, null);
+            dispose();
+        });
         packagesBtn.setPreferredSize(btnSize);
         packagesBtn.setMaximumSize(btnSize);
         packagesBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JButton productsBtn = Theme.primaryBtn("GESTIONAR PRODUCTOS");
+        JButton productsBtn = theme.primaryBtn("GESTIONAR PRODUCTOS", () -> {
+            new ProductManagerView();
+            dispose();
+        });
         productsBtn.setPreferredSize(btnSize);
         productsBtn.setMaximumSize(btnSize);
         productsBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JButton usersBtn = Theme.primaryBtn("GESTIONAR USUARIOS");
+        JButton usersBtn = theme.primaryBtn("GESTIONAR USUARIOS", () -> {
+            new UsersManagerView();
+            dispose();
+        });
         usersBtn.setPreferredSize(btnSize);
         usersBtn.setMaximumSize(btnSize);
         usersBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -89,23 +102,6 @@ public class StaffView extends JFrame {
         centerPanel.add(usersBtn);
 
         this.add(centerPanel, BorderLayout.CENTER);
-
-        packagesBtn.addActionListener(e -> {
-            Controller.getInstance().action(Event.OPEN_PACKAGE_MANAGER, null);
-            dispose();
-        });
-        productsBtn.addActionListener(e -> {
-            new ProductManagerView();
-            dispose();
-        });
-        usersBtn.addActionListener(e -> {
-            new UsersManagerView();
-            dispose();
-        });
-        logOutButton.addActionListener(e -> {
-            Controller.getInstance().action(Event.LOGOUT, null);
-            dispose();
-        });
 
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setVisible(true);

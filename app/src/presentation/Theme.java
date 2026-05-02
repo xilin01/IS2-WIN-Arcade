@@ -7,6 +7,7 @@ import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Window;
+import java.util.function.Supplier;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -14,116 +15,206 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+// Patron Facade
 public class Theme {
 
-    public static final Color BG = new Color(15, 15, 25);
-    public static final Color BG_CARD = new Color(22, 22, 38);
-    public static final Color BG_ITEM = new Color(32, 32, 52);
-    public static final Color GOLD = new Color(212, 175, 55);
-    public static final Color TEXT = Color.WHITE;
-    public static final Color TEXT_MUTED = new Color(155, 155, 175);
-    public static final Color DANGER = new Color(180, 50, 50);
-    public static final Color SUCCESS = new Color(46, 148, 82);
-    public static final Color BORDER = new Color(55, 55, 80);
+    private static final Theme INSTANCE = new Theme();
 
-    public static final Font TITLE = new Font("SansSerif", Font.BOLD, 32);
-    public static final Font HEADING = new Font("SansSerif", Font.BOLD, 16);
-    public static final Font BODY = new Font("SansSerif", Font.PLAIN, 13);
-    public static final Font BTN = new Font("SansSerif", Font.BOLD, 13);
+    public static Theme getInstance() { return INSTANCE; }
 
-    public static JPanel header(String title) {
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(BG_CARD);
-        panel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createMatteBorder(0, 0, 1, 0, GOLD),
-            BorderFactory.createEmptyBorder(12, 20, 12, 20)
-        ));
-        JLabel label = new JLabel(title);
-        label.setFont(HEADING);
-        label.setForeground(GOLD);
-        panel.add(label, BorderLayout.WEST);
-        return panel;
+    private final ColorPalette palette;
+    private final Typography typography;
+    private final ComponentFactory factory;
+
+    public final Color BG;
+    public final Color BG_CARD;
+    public final Color BG_ITEM;
+    public final Color GOLD;
+    public final Color TEXT;
+    public final Color TEXT_MUTED;
+    public final Color DANGER;
+    public final Color SUCCESS;
+    public final Color BORDER;
+
+    public final Font HEADING;
+    public final Font BODY;
+    public final Font BTN;
+    public final Font TITLE;
+
+    private Theme() {
+        this.palette = new ColorPalette();
+        this.typography = new Typography();
+        this.factory = new ComponentFactory(palette, typography);
+
+        BG = palette.BG;
+        BG_CARD = palette.BG_CARD;
+        BG_ITEM = palette.BG_ITEM;
+        GOLD = palette.GOLD;
+        TEXT = palette.TEXT;
+        TEXT_MUTED = palette.TEXT_MUTED;
+        DANGER = palette.DANGER;
+        SUCCESS = palette.SUCCESS;
+        BORDER = palette.BORDER;
+
+        TITLE = typography.TITLE;
+        HEADING = typography.HEADING;
+        BODY = typography.BODY;
+        BTN = typography.BTN;
     }
 
-    public static JButton primaryBtn(String text) {
-        JButton b = new JButton(text);
-        b.setBackground(GOLD);
-        b.setForeground(BG);
-        b.setFont(BTN);
-        b.setFocusPainted(false);
-        b.setBorder(BorderFactory.createEmptyBorder(8, 20, 8, 20));
-        b.setOpaque(true);
-        return b;
+    public JPanel header(String title) { return factory.header(title); }
+    public JButton primaryBtn(String text, Runnable onClick) { return factory.primaryBtn(text, onClick); }
+    public JButton secondaryBtn(String text, Runnable onClick) { return factory.secondaryBtn(text, onClick); }
+    public JButton dangerBtn(String text, Runnable onClick) { return factory.dangerBtn(text, onClick); }
+    public JButton successBtn(String text, Runnable onClick) { return factory.successBtn(text, onClick); }
+    public boolean confirm(Component parent, String message) { return factory.confirm(parent, message); }
+    public void formDialog(Component parent, String title, JPanel content, String confirmLabel, Supplier<Boolean> onConfirm) {
+        factory.formDialog(parent, title, content, confirmLabel, onConfirm);
     }
 
-    public static JButton secondaryBtn(String text) {
-        JButton b = new JButton(text);
-        b.setBackground(BG_ITEM);
-        b.setForeground(TEXT);
-        b.setFont(BTN);
-        b.setFocusPainted(false);
-        b.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(BORDER, 1),
-            BorderFactory.createEmptyBorder(6, 14, 6, 14)
-        ));
-        b.setOpaque(true);
-        return b;
+
+    private static class ColorPalette {
+        final Color BG = new Color(15, 15, 25);
+        final Color BG_CARD = new Color(22, 22, 38);
+        final Color BG_ITEM = new Color(32, 32, 52);
+        final Color GOLD = new Color(212, 175, 55);
+        final Color TEXT = Color.WHITE;
+        final Color TEXT_MUTED = new Color(155, 155, 175);
+        final Color DANGER = new Color(180, 50, 50);
+        final Color SUCCESS = new Color(46, 148, 82);
+        final Color BORDER = new Color(55, 55, 80);
     }
 
-    public static JButton dangerBtn(String text) {
-        JButton b = new JButton(text);
-        b.setBackground(DANGER);
-        b.setForeground(TEXT);
-        b.setFont(BTN);
-        b.setFocusPainted(false);
-        b.setBorder(BorderFactory.createEmptyBorder(6, 14, 6, 14));
-        b.setOpaque(true);
-        return b;
+    private static class Typography {
+        final Font TITLE = new Font("SansSerif", Font.BOLD, 32);
+        final Font HEADING = new Font("SansSerif", Font.BOLD, 16);
+        final Font BODY = new Font("SansSerif", Font.PLAIN, 13);
+        final Font BTN = new Font("SansSerif", Font.BOLD, 13);
     }
 
-    public static JButton successBtn(String text) {
-        JButton b = new JButton(text);
-        b.setBackground(SUCCESS);
-        b.setForeground(TEXT);
-        b.setFont(BTN);
-        b.setFocusPainted(false);
-        b.setBorder(BorderFactory.createEmptyBorder(6, 14, 6, 14));
-        b.setOpaque(true);
-        return b;
-    }
+    private static class ComponentFactory {
+        private final ColorPalette c;
+        private final Typography t;
 
-    public static boolean confirm(Component parent, String message) {
-        boolean[] result = {false};
-        Window owner = SwingUtilities.getWindowAncestor(parent);
-        JDialog dialog = new JDialog(owner, "Confirmar", Dialog.ModalityType.APPLICATION_MODAL);
-        dialog.setLayout(new BorderLayout());
-        dialog.getContentPane().setBackground(BG);
-        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        ComponentFactory(ColorPalette c, Typography t) {
+            this.c = c;
+            this.t = t;
+        }
 
-        JLabel msgLabel = new JLabel(message);
-        msgLabel.setForeground(TEXT);
-        msgLabel.setFont(BODY);
-        msgLabel.setBorder(BorderFactory.createEmptyBorder(20, 24, 12, 24));
-        dialog.add(msgLabel, BorderLayout.CENTER);
+        JPanel header(String title) {
+            JPanel panel = new JPanel(new BorderLayout());
+            panel.setBackground(c.BG_CARD);
+            panel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createMatteBorder(0, 0, 1, 0, c.GOLD),
+                BorderFactory.createEmptyBorder(12, 20, 12, 20)
+            ));
+            JLabel label = new JLabel(title);
+            label.setFont(t.HEADING);
+            label.setForeground(c.GOLD);
+            panel.add(label, BorderLayout.WEST);
+            return panel;
+        }
 
-        JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
-        btnPanel.setBackground(BG_CARD);
-        btnPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, BORDER));
+        JButton primaryBtn(String text, Runnable onClick) {
+            JButton b = new JButton(text);
+            b.setBackground(c.GOLD);
+            b.setForeground(c.BG);
+            b.setFont(t.BTN);
+            b.setFocusPainted(false);
+            b.setBorder(BorderFactory.createEmptyBorder(8, 20, 8, 20));
+            b.setOpaque(true);
+            b.addActionListener(e -> onClick.run());
+            return b;
+        }
 
-        JButton noBtn = secondaryBtn("No");
-        JButton yesBtn = dangerBtn("Confirmar");
+        JButton secondaryBtn(String text, Runnable onClick) {
+            JButton b = new JButton(text);
+            b.setBackground(c.BG_ITEM);
+            b.setForeground(c.TEXT);
+            b.setFont(t.BTN);
+            b.setFocusPainted(false);
+            b.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(c.BORDER, 1),
+                BorderFactory.createEmptyBorder(6, 14, 6, 14)
+            ));
+            b.setOpaque(true);
+            b.addActionListener(e -> onClick.run());
+            return b;
+        }
 
-        noBtn.addActionListener(e -> dialog.dispose());
-        yesBtn.addActionListener(e -> { result[0] = true; dialog.dispose(); });
+        JButton dangerBtn(String text, Runnable onClick) {
+            JButton b = new JButton(text);
+            b.setBackground(c.DANGER);
+            b.setForeground(c.TEXT);
+            b.setFont(t.BTN);
+            b.setFocusPainted(false);
+            b.setBorder(BorderFactory.createEmptyBorder(6, 14, 6, 14));
+            b.setOpaque(true);
+            b.addActionListener(e -> onClick.run());
+            return b;
+        }
 
-        btnPanel.add(noBtn);
-        btnPanel.add(yesBtn);
-        dialog.add(btnPanel, BorderLayout.SOUTH);
+        JButton successBtn(String text, Runnable onClick) {
+            JButton b = new JButton(text);
+            b.setBackground(c.SUCCESS);
+            b.setForeground(c.TEXT);
+            b.setFont(t.BTN);
+            b.setFocusPainted(false);
+            b.setBorder(BorderFactory.createEmptyBorder(6, 14, 6, 14));
+            b.setOpaque(true);
+            b.addActionListener(e -> onClick.run());
+            return b;
+        }
 
-        dialog.setSize(340, 150);
-        dialog.setLocationRelativeTo(parent);
-        dialog.setVisible(true);
+        void formDialog(Component parent, String title, JPanel content, String confirmLabel, Supplier<Boolean> onConfirm) {
+            Window owner = SwingUtilities.getWindowAncestor(parent);
+            JDialog dialog = new JDialog(owner, title, Dialog.ModalityType.APPLICATION_MODAL);
+            dialog.setLayout(new BorderLayout());
+            dialog.getContentPane().setBackground(c.BG);
+            dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
-        return result[0];
+            content.setBackground(c.BG);
+            dialog.add(content, BorderLayout.CENTER);
+
+            JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+            btnPanel.setBackground(c.BG_CARD);
+            btnPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, c.BORDER));
+            btnPanel.add(secondaryBtn("Cancelar", dialog::dispose));
+            btnPanel.add(primaryBtn(confirmLabel, () -> { if (onConfirm.get()) dialog.dispose(); }));
+            dialog.add(btnPanel, BorderLayout.SOUTH);
+
+            dialog.pack();
+            dialog.setLocationRelativeTo(parent);
+            dialog.setVisible(true);
+        }
+
+        boolean confirm(Component parent, String message) {
+            boolean[] result = {false};
+            Window owner = SwingUtilities.getWindowAncestor(parent);
+            JDialog dialog = new JDialog(owner, "Confirmar", Dialog.ModalityType.APPLICATION_MODAL);
+            dialog.setLayout(new BorderLayout());
+            dialog.getContentPane().setBackground(c.BG);
+            dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+
+            JLabel msgLabel = new JLabel(message);
+            msgLabel.setForeground(c.TEXT);
+            msgLabel.setFont(t.BODY);
+            msgLabel.setBorder(BorderFactory.createEmptyBorder(20, 24, 12, 24));
+            dialog.add(msgLabel, BorderLayout.CENTER);
+
+            JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+            btnPanel.setBackground(c.BG_CARD);
+            btnPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, c.BORDER));
+
+            btnPanel.add(secondaryBtn("No", dialog::dispose));
+            btnPanel.add(dangerBtn("Confirmar", () -> { result[0] = true; dialog.dispose(); }));
+
+            dialog.add(btnPanel, BorderLayout.SOUTH);
+            dialog.setSize(340, 150);
+            dialog.setLocationRelativeTo(parent);
+            dialog.setVisible(true);
+
+            return result[0];
+        }
     }
 }
