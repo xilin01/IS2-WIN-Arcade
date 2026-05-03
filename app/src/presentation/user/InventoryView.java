@@ -1,16 +1,13 @@
 package presentation.user;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -21,10 +18,12 @@ import business.player.tPlayer;
 import business.product.tProduct;
 import presentation.Controller;
 import presentation.Event;
+import presentation.Theme;
 import presentation.games.BackgroundPanel;
 
 @SuppressWarnings("serial")
 public class InventoryView extends JFrame {
+    private static final Theme theme = Theme.getInstance();
 
     public InventoryView() {
         super("Inventario");
@@ -32,109 +31,104 @@ public class InventoryView extends JFrame {
     }
 
     private void initGUI() {
-    	setResizable(false);
+        setResizable(false);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    	
+
         BackgroundPanel background = new BackgroundPanel("resources/icons/menu_inventario.png");
         background.setLayout(new GridBagLayout());
         setContentPane(background);
-    	
+
         JPanel mainPanel = new JPanel();
         mainPanel.setPreferredSize(new Dimension(600, 750));
         mainPanel.setMinimumSize(new Dimension(500, 750));
         mainPanel.setOpaque(false);
         mainPanel.setLayout(new BorderLayout());
         background.add(mainPanel, new GridBagConstraints());
-       
+
         tPlayer player = Controller.getInstance().getPlayer(Controller.getInstance().getUsername());
         tPlayer.tInventory inventory = player.getInventory();
 
-        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 8));
         topPanel.setOpaque(false);
         JLabel pointsLabel = new JLabel(Controller.getInstance().getUsername() + " (" + player.getPoints() + "pts)");
-        pointsLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        pointsLabel.setForeground(Color.YELLOW);
-        pointsLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        pointsLabel.setFont(theme.HEADING);
+        pointsLabel.setForeground(theme.GOLD);
+        pointsLabel.setBorder(BorderFactory.createEmptyBorder(6, 10, 6, 10));
         topPanel.add(pointsLabel);
         mainPanel.add(topPanel, BorderLayout.NORTH);
-        
+
         JTabbedPane tabbedPane = new JTabbedPane();
+        tabbedPane.setFont(theme.BODY);
+        tabbedPane.setBackground(theme.BG_CARD);
+        tabbedPane.setForeground(theme.TEXT);
+
         JPanel gamesPanel = new JPanel();
         gamesPanel.setLayout(new BoxLayout(gamesPanel, BoxLayout.Y_AXIS));
-        gamesPanel.setOpaque(false);
+        gamesPanel.setBackground(theme.BG);
+        gamesPanel.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
         if(!inventory.getGames().isEmpty()) {
-            for(Map.Entry<tGame, Integer> entry: inventory.getGames().entrySet()) gamesPanel.add(createGamePanel(entry.getKey(), entry.getValue()));
+            for(Map.Entry<tGame, Integer> entry: inventory.getGames().entrySet()) gamesPanel.add(createItemPanel(entry.getValue() + "x " + entry.getKey().getName() + " (" + entry.getKey().getBasePoints() + "pts)"));
         }
         else {
-            JPanel emptyPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-            emptyPanel.setOpaque(false);
-            JLabel label = new JLabel("No tienes juegos en tu inventario");
-            label.setForeground(Color.WHITE);
-            emptyPanel.add(label);
-            gamesPanel.add(emptyPanel);
+            gamesPanel.add(emptyLabel("No tienes juegos en tu inventario"));
         }
-        tabbedPane.addTab("Juegos", new JScrollPane(gamesPanel));
+        JScrollPane gamesScroll = new JScrollPane(gamesPanel);
+        gamesScroll.setBorder(BorderFactory.createEmptyBorder());
+        gamesScroll.getViewport().setBackground(theme.BG);
+        tabbedPane.addTab("Juegos", gamesScroll);
+
         JPanel productsPanel = new JPanel();
         productsPanel.setLayout(new BoxLayout(productsPanel, BoxLayout.Y_AXIS));
-        productsPanel.setOpaque(false);
+        productsPanel.setBackground(theme.BG);
+        productsPanel.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
         if(!inventory.getProducts().isEmpty()) {
-            for(Map.Entry<tProduct, Integer> entry: inventory.getProducts().entrySet()) productsPanel.add(createProductPanel(entry.getKey(), entry.getValue()));
+            for(Map.Entry<tProduct, Integer> entry: inventory.getProducts().entrySet()) productsPanel.add(createItemPanel(entry.getValue() + "x " + entry.getKey().getName()));
         }
         else {
-            JPanel emptyPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-            emptyPanel.setOpaque(false);
-            JLabel label = new JLabel("No has canjeado productos todavía");
-            label.setForeground(Color.WHITE);
-            emptyPanel.add(label);
-            productsPanel.add(emptyPanel);
+            productsPanel.add(emptyLabel("No has canjeado productos todavía"));
         }
-        tabbedPane.addTab("Productos", new JScrollPane(productsPanel));
+        JScrollPane productsScroll = new JScrollPane(productsPanel);
+        productsScroll.setBorder(BorderFactory.createEmptyBorder());
+        productsScroll.getViewport().setBackground(theme.BG);
+        tabbedPane.addTab("Productos", productsScroll);
+
         mainPanel.add(tabbedPane, BorderLayout.CENTER);
 
-        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
         bottomPanel.setOpaque(false);
-        JButton backButton = new JButton("Atrás");
-        backButton.setPreferredSize(new Dimension(150, 40)); 
-        backButton.setFont(new Font("Arial", Font.BOLD, 14));
-        backButton.addActionListener(e -> {
-        	Controller.getInstance().action(Event.OPEN_PLAYER_VIEW, null);
+        bottomPanel.add(theme.secondaryBtn("Atrás", () -> {
+            Controller.getInstance().action(Event.OPEN_PLAYER_VIEW, null);
             dispose();
-        });
-        bottomPanel.add(backButton);
+        }));
         mainPanel.add(bottomPanel, BorderLayout.SOUTH);
 
         setVisible(true);
     }
 
-    private JPanel createGamePanel(tGame game, int amount) {
+    private JPanel createItemPanel(String text) {
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(new Color(255, 255, 255, 180));
-        panel.setBorder(BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder(5, 5, 5, 5), BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1)));
-        panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 60));
-
-        JPanel infoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        infoPanel.setOpaque(false);
-        JLabel titleLabel = new JLabel("   " + amount + "x " + game.getName() + " (" + game.getBasePoints() + "pts)");
-        titleLabel.setFont(titleLabel.getFont().deriveFont(Font.BOLD, 14f));
-        infoPanel.add(titleLabel);
-        panel.add(infoPanel, BorderLayout.CENTER);
+        panel.setBackground(theme.BG_ITEM);
+        panel.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createEmptyBorder(4, 4, 4, 4),
+            BorderFactory.createLineBorder(theme.BORDER, 1)
+        ));
+        panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 52));
+        JLabel label = new JLabel("  " + text);
+        label.setFont(theme.BODY);
+        label.setForeground(theme.TEXT);
+        panel.add(label, BorderLayout.CENTER);
         return panel;
     }
 
-    private JPanel createProductPanel(tProduct prod, int amount) {
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(new Color(255, 255, 255, 180));
-        panel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5), BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1)));
-        panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 60));
-
-        JPanel infoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        infoPanel.setOpaque(false);
-        JLabel titleLabel = new JLabel("   " + amount + "x " + prod.getName());
-        titleLabel.setFont(titleLabel.getFont().deriveFont(Font.BOLD, 14f));
-        infoPanel.add(titleLabel);
-        panel.add(infoPanel, BorderLayout.CENTER);
+    private JPanel emptyLabel(String text) {
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        panel.setOpaque(false);
+        JLabel label = new JLabel(text);
+        label.setForeground(theme.TEXT_MUTED);
+        label.setFont(theme.BODY);
+        panel.add(label);
         return panel;
     }
 }
