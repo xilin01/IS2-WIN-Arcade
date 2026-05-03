@@ -13,10 +13,24 @@ import integration.DB;
 
 public class DAOUserImp implements DAOUser {
 
+    private final Connection testConnection;
+
+    public DAOUserImp() {
+        this.testConnection = null;
+    }
+
+    DAOUserImp(Connection testConnection) {
+        this.testConnection = testConnection;
+    }
+
+    private Connection getConn() {
+        return testConnection != null ? testConnection : DB.getConnection();
+    }
+
     public int createUser(tUser user) {
-    	if(user == null) new IllegalArgumentException("Invalid arg for createUser in DAOUserImp");	
+    	if(user == null) new IllegalArgumentException("Invalid arg for createUser in DAOUserImp");
         int rowCount = 0;
-        Connection connection = DB.getConnection();
+        Connection connection = getConn();
         if(connection != null) {
             try {
                 String query = "INSERT INTO user (name, password, active) VALUES (?, ?, ?)";
@@ -38,7 +52,7 @@ public class DAOUserImp implements DAOUser {
     public tUser readUser(String name) {
     	if(name == null || name.trim().isEmpty()) new IllegalArgumentException("Invalid arg for readUser in DAOUserImp");
         tUser user = null;
-        Connection connection = DB.getConnection();
+        Connection connection = getConn();
         if(connection != null) {
             try {
                 String query = "SELECT u.password, u.active, s.name AS staffName "
@@ -66,9 +80,9 @@ public class DAOUserImp implements DAOUser {
     }
 
     public int updateUser(tUser user) {
-    	if(user == null) new IllegalArgumentException("Invalid arg for updateUser in DAOUserImp");	
+    	if(user == null) new IllegalArgumentException("Invalid arg for updateUser in DAOUserImp");
         int rowCount = 0;
-        Connection connection = DB.getConnection();
+        Connection connection = getConn();
         if(connection != null) {
             try {
                 String query = "UPDATE user "
@@ -92,7 +106,7 @@ public class DAOUserImp implements DAOUser {
     public int deleteUser(String name) { // Borrado lógico
     	if(name == null || name.trim().isEmpty()) new IllegalArgumentException("Invalid arg for deleteUser in DAOUserImp");
         int rowCount = 0;
-        Connection connection = DB.getConnection();
+        Connection connection = getConn();
         if(connection != null) {
             try {
                 String query = "UPDATE user "
@@ -114,7 +128,7 @@ public class DAOUserImp implements DAOUser {
     @Override
     public Collection<tUser> readAllUsers() { // Leer usuarios activos y no activos
         Collection<tUser> users = new ArrayList<>();
-        Connection connection = DB.getConnection();
+        Connection connection = getConn();
 
         if(connection != null) {
             try {
