@@ -115,8 +115,11 @@ public class DAOInventoryImp implements DAOInventory {
         Connection connection = DB.getConnection();
 
         if(connection != null) {
+        	boolean originalAutoCommit = true;
+        	
             try {
-                connection.setAutoCommit(false);
+            	originalAutoCommit = connection.getAutoCommit();
+            	if(originalAutoCommit) connection.setAutoCommit(false);
                 String query = "DELETE FROM gamesInventory WHERE playerName = ?";
                 PreparedStatement pst = connection.prepareStatement(query);
 
@@ -151,13 +154,14 @@ public class DAOInventoryImp implements DAOInventory {
                     }
                     pst.close();
                 }
-                connection.commit();
+                if(originalAutoCommit) connection.commit(); // Solo hacemos commit si DAOInventory inicia la transacción
                 if(rowCount == 0) rowCount = 1; // Si el inventario está vacío, el update sigue siendo exitoso
             }
             catch(SQLException e) {
                 rowCount = 0;
                 try {
-                    connection.rollback();
+                    if(originalAutoCommit) connection.rollback();
+                    else throw e; // Si estamos anidados, lanzamos la excepción para que DAOPlayerImp haga el rollback
                 }
                 catch(SQLException ex) {
                     ex.printStackTrace();
@@ -166,7 +170,7 @@ public class DAOInventoryImp implements DAOInventory {
             }
             finally {
                 try {
-                    connection.setAutoCommit(true);
+                	if(originalAutoCommit) connection.setAutoCommit(true);
                 }
                 catch(SQLException e) {
                     e.printStackTrace();

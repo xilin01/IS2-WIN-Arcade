@@ -99,45 +99,38 @@ public class DAOPlayerImp implements DAOPlayer {
 
         if(connection != null) {
             try {
-//                connection.setAutoCommit(false);
+                connection.setAutoCommit(false);
                 daoUser.updateUser(player); 
-                
                 String query = "UPDATE player "
                                 + "SET points = ? "
                                 + "WHERE name = ?";
                 PreparedStatement pst = connection.prepareStatement(query);
-
                 pst.setInt(1, player.getPoints());
                 pst.setString(2, player.getName());
-                
                 pst.executeUpdate();
-                
                 pst.close();
-                
                 daoInventory.updateInventory(player.getInventory());
-                
-//                connection.commit();
-                
+                connection.commit();
                 rowCount = 1;
             }
             catch(SQLException e) {
                 rowCount = 0;
-//                try {
-//                    connection.rollback();
-//                }
-//                catch(SQLException ex) {
-//                    ex.printStackTrace();
-//                }
+                try {
+                    connection.rollback(); // Deshacemos toda la transacción (DAOUser, DAOPlayer y DAOInventory) a la vez
+                }
+                catch(SQLException ex) {
+                    ex.printStackTrace();
+                }
                 e.printStackTrace();
             }
-//            finally {
-//                try {
-//                    connection.setAutoCommit(true);
-//                }
-//                catch(SQLException e) {
-//                    e.printStackTrace();
-//                }
-//            }
+            finally {
+                try {
+                    connection.setAutoCommit(true);
+                }
+                catch(SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return rowCount;
     }
