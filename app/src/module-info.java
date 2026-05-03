@@ -9,4 +9,5 @@ module app {
 	opens business.store;
 	opens business.game;
 	opens integration.user;
+	opens presentation;
 }
