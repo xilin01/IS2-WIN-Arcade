@@ -72,11 +72,11 @@ public class UserEditor {
             String password = passwordField.getText().trim();
             boolean isActive = activeCheckBox.isSelected();
             if (!name.isEmpty() && !password.isEmpty()) {
-                if (player == null) Controller.getInstance().action(Event.CREATE_USER, new tPlayer(name, password, isActive, new tPlayer.tInventory(name), 0));
+                if (player == null) Controller.getInstance().action(Event.CREATE_PLAYER, new tPlayer(name, password, isActive, new tPlayer.tInventory(name), 0));
                 else {
                     player.setPassword(password);
                     player.setActive(isActive);
-                    Controller.getInstance().action(Event.UPDATE_USER, player);
+                    Controller.getInstance().action(Event.UPDATE_PLAYER, player);
                 }
                 return true;
             }

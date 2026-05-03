@@ -27,11 +27,10 @@ public class DAOPlayerImp implements DAOPlayer {
             try {
                 connection.setAutoCommit(false);
                 if(daoUser.createUser(player) == 1) {
-                    String query = "INSERT INTO player (name, points) VALUES (?, ?)";
+                    String query = "INSERT INTO player (name, points) VALUES (?, 0)";
                     PreparedStatement pst = connection.prepareStatement(query);
 
                     pst.setString(1, player.getName());
-                    pst.setInt(2, player.getPoints());
                     rowCount = pst.executeUpdate();
                     pst.close();
                     connection.commit();

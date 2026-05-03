@@ -101,14 +101,14 @@ public class UsersManagerView extends JFrame {
         JButton toggleButton = isActive
             ? theme.dangerBtn("Desactivar", () -> {
                 if (theme.confirm(this, "Desactivar al usuario " + user.getName())) {
-                    Controller.getInstance().action(Event.DELETE_USER, user.getName());
+                    Controller.getInstance().action(Event.DELETE_PLAYER, user.getName());
                     updateList();
                 }
               })
             : theme.successBtn("Activar", () -> {
                 if (theme.confirm(this, "Activar al usuario " + user.getName())) {
                     user.setActive(true);
-                    Controller.getInstance().action(Event.UPDATE_USER, user);
+                    Controller.getInstance().action(Event.UPDATE_PLAYER, user);
                     updateList();
                 }
               });

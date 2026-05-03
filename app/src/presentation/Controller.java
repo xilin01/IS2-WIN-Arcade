@@ -16,8 +16,6 @@ import business.player.SAPlayer;
 import business.player.tPlayer;
 import business.product.SAProduct;
 import business.product.tProduct;
-import business.staff.SAStaff;
-import business.staff.tStaff;
 import business.ServiceLocator;
 import business.user.SAUser;
 import business.user.tUser;
@@ -39,11 +37,11 @@ public class Controller {
 	private static final Controller INSTANCE = new Controller();
 	 
 	private String username;
-	private BlackjackGUI blackJackGUI;
-	private Blackjack blackjack;
 	private RouletteGUI rouletteGUI;
 	private Roulette roulette;
 	private int basePoints;
+	private BlackjackGUI blackJackGUI;
+	private Blackjack blackjack;
 	
 	private Controller() {
 	}
@@ -58,44 +56,29 @@ public class Controller {
 
     public void action(final int event, final Object data) {
         switch(event) {
-            case Event.CREATE_USER: {
-            	tUser user = (tUser)data;
-                int res;
+            case Event.CREATE_PLAYER: {
+            	int res = ServiceLocator.get(SAPlayer.class).createPlayer((tPlayer)data);
                 
-                if (user instanceof tPlayer) res = ServiceLocator.get(SAPlayer.class).createPlayer((tPlayer)user);
-                else if (user instanceof tStaff) res = ServiceLocator.get(SAStaff.class).createStaff((tStaff)user);
-                else res = ServiceLocator.get(SAUser.class).createUser(user);
-                
-                viewResult(res > 0, UserView::update, Event.RES_CREATE_USER_SUCCESS, res, Event.RES_CREATE_USER_FAILURE);
+                viewResult(res > 0, UserView::update, Event.RES_CREATE_PLAYER_SUCCESS, res, Event.RES_CREATE_PLAYER_FAILURE);
                 break;
             }
-            case Event.LIST_USERS: {
-                Collection<tUser> res = ServiceLocator.get(SAUser.class).readAllUsers();
+            case Event.UPDATE_PLAYER: {
+            	int res = ServiceLocator.get(SAPlayer.class).updatePlayer((tPlayer)data);
+               
+                viewResult(res > 0, UserView::update, Event.RES_UPDATE_PLAYER_SUCCESS, data, Event.RES_UPDATE_PLAYER_FAILURE);
+                break;
+           }
+            case Event.DELETE_PLAYER: {
+                int res = ServiceLocator.get(SAPlayer.class).deletePlayer((String)data);
                 
-                viewResult(!res.isEmpty(), UserView::update, Event.RES_LIST_USERS_SUCCESS, res, Event.RES_LIST_USERS_FAILURE);
+                viewResult(res > 0, UserView::update, Event.RES_DELETE_PLAYER_SUCCESS, data, Event.RES_DELETE_PLAYER_FAILURE);
                 break;
             }
-            case Event.FIND_USER: {
-                tUser user = ServiceLocator.get(SAUser.class).readUser((String)data);
+            case Event.SIGN_UP: {
+                tCredentials creds = (tCredentials)data;
+                int res = ServiceLocator.get(SAPlayer.class).createPlayer(creds.name(), creds.password());
                 
-                viewResult(user != null, UserView::update, Event.RES_FIND_USER_SUCCESS, user, Event.RES_FIND_USER_FAILURE);
-                break;
-            }
-            case Event.DELETE_USER: {
-                int res = ServiceLocator.get(SAUser.class).deleteUser((String)data);
-                
-                viewResult(res > 0, UserView::update, Event.RES_DELETE_USER_SUCCESS, data, Event.RES_DELETE_USER_FAILURE);
-                break;
-            }
-            case Event.UPDATE_USER: {
-            	tUser user = (tUser)data;
-                int res;
-                
-                if (user instanceof tPlayer) res = ServiceLocator.get(SAPlayer.class).updatePlayer((tPlayer)user);
-                else if (user instanceof tStaff) res = ServiceLocator.get(SAStaff.class).updateStaff((tStaff)user);
-                else res = ServiceLocator.get(SAUser.class).updateUser(user);
-                
-                viewResult(res > 0, UserView::update, Event.RES_UPDATE_USER_SUCCESS, data, Event.RES_UPDATE_USER_FAILURE);
+                viewResult(res > 0, SignUpView::update, Event.RES_SIGN_UP_SUCCESS, null, Event.RES_SIGN_UP_FAILURE);
                 break;
             }
             case Event.LOGIN: {
@@ -112,11 +95,16 @@ public class Controller {
                 LoginView.update(loginEvent, result.getPayload());
                 break;
             }
-            case Event.SIGN_UP: {
-                tCredentials creds = (tCredentials)data;
-                int res = ServiceLocator.get(SAPlayer.class).createPlayer(creds.name(), creds.password());
-                
-                viewResult(res > 0, SignUpView::update, Event.RES_SIGN_UP_SUCCESS, null, Event.RES_SIGN_UP_FAILURE);
+            case Event.OPEN_GAMES_PANEL: {
+                new GamesPanelView();
+                break;
+            }
+            case Event.OPEN_INVENTORY: {
+                new InventoryView();
+                break;
+            }
+            case Event.OPEN_STORE: {
+                new StoreView();
                 break;
             }
             case Event.LOGOUT: {
@@ -130,34 +118,6 @@ public class Controller {
             }
             case Event.CLOSE_PACKAGE_MANAGER: {
                 new StaffView();
-                break;
-            }
-            case Event.OPEN_STORE: {
-                new StoreView();
-                break;
-            }
-            case Event.BUY_PACKAGE: {
-                tGamesPackage pack = (tGamesPackage)data;
-                
-                if(ServiceLocator.get(SAStore.class).buyPackage(username, pack)) 
-                	JOptionPane.showMessageDialog(null, "¡" + pack.getName() + " comprado con éxito!", "Compra exitosa", JOptionPane.INFORMATION_MESSAGE);
-                else JOptionPane.showMessageDialog(null, "No se pudo completar la compra.", "Error", JOptionPane.ERROR_MESSAGE);
-                break;
-            }
-            case Event.BUY_PRODUCT: {
-                tProduct prod = (tProduct)data;
-                
-                if(ServiceLocator.get(SAStore.class).buyProduct(username, prod))
-                	JOptionPane.showMessageDialog(null, "¡" + prod.getName() + " canjead@ con éxito!", "Canje exitoso", JOptionPane.INFORMATION_MESSAGE);
-                else JOptionPane.showMessageDialog(null, "No tienes suficientes puntos para canjear este producto.", "Puntos insuficientes", JOptionPane.ERROR_MESSAGE);
-                break;
-            }
-            case Event.OPEN_INVENTORY: {
-                new InventoryView();
-                break;
-            }
-            case Event.GAMES_PANEL: {
-                new GamesPanelView();
                 break;
             }
             case Event.BLACKJACK_PLAY: {
@@ -214,6 +174,22 @@ public class Controller {
                 rouletteGUI.showResult(points, roulette.getWinningNumber());
                 break;
             }
+            case Event.BUY_PACKAGE: {
+                tGamesPackage pack = (tGamesPackage)data;
+                
+                if(ServiceLocator.get(SAStore.class).buyPackage(username, pack)) 
+                	JOptionPane.showMessageDialog(null, "¡" + pack.getName() + " comprado con éxito!", "Compra exitosa", JOptionPane.INFORMATION_MESSAGE);
+                else JOptionPane.showMessageDialog(null, "No se pudo completar la compra", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+            }
+            case Event.BUY_PRODUCT: {
+                tProduct prod = (tProduct)data;
+                
+                if(ServiceLocator.get(SAStore.class).buyProduct(username, prod))
+                	JOptionPane.showMessageDialog(null, "¡" + prod.getName() + " canjead@ con éxito!", "Canje exitoso", JOptionPane.INFORMATION_MESSAGE);
+                else JOptionPane.showMessageDialog(null, "No tienes suficientes puntos para canjear este producto", "Puntos insuficientes", JOptionPane.ERROR_MESSAGE);
+                break;
+            }
             case Event.CREATE_GAME: ServiceLocator.get(SAGame.class).createGame((tGame)data); break;
             case Event.CREATE_PACKAGE: ServiceLocator.get(SAGamesPackage.class).createGamesPackage((tGamesPackage)data); break;
             case Event.UPDATE_PACKAGE: ServiceLocator.get(SAGamesPackage.class).updateGamesPackage((tGamesPackage)data); break;
@@ -250,7 +226,7 @@ public class Controller {
     }
 
     private static void viewResult(boolean ok, ViewUpdater view, int okEvent, Object okPayload, int failEvent) {
-        if(ok)view.update(okEvent, okPayload);
+        if(ok) view.update(okEvent, okPayload);
         else view.update(failEvent, null);
     }
 }

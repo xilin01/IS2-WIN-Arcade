@@ -106,7 +106,7 @@ public class InventoryEditorView extends JDialog {
                         player.getInventory().setProducts(productsMap);
                     }
                     productsMap.put(selectedProduct, productsMap.getOrDefault(selectedProduct, 0) + qty);
-                    Controller.getInstance().action(Event.UPDATE_USER, player);
+                    Controller.getInstance().action(Event.UPDATE_PLAYER, player);
                     updateObjectsList();
                 }
                 return true;
@@ -138,7 +138,7 @@ public class InventoryEditorView extends JDialog {
                     cant + "x " + product.getName(),
                     () -> {
                         productsMap.remove(product);
-                        Controller.getInstance().action(Event.UPDATE_USER, player);
+                        Controller.getInstance().action(Event.UPDATE_PLAYER, player);
                         updateObjectsList();
                     }
                 ));

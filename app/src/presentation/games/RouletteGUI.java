@@ -232,7 +232,7 @@ public class RouletteGUI extends JFrame {
 
     public void end(String message) {
         JOptionPane.showMessageDialog(this, message);
-        Controller.getInstance().action(Event.GAMES_PANEL, null);
+        Controller.getInstance().action(Event.OPEN_GAMES_PANEL, null);
         dispose();
     }
 
@@ -240,7 +240,7 @@ public class RouletteGUI extends JFrame {
         int option = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que quieres abandonar?\n La partida se perderá",
                 "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if(option == JOptionPane.OK_OPTION) {
-            Controller.getInstance().action(Event.GAMES_PANEL, null);
+            Controller.getInstance().action(Event.OPEN_GAMES_PANEL, null);
             dispose();
         }
     }
