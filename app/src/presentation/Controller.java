@@ -1,7 +1,6 @@
 package presentation;
 
 import java.util.Collection;
-import javax.swing.JOptionPane;
 import business.auth.AuthResult;
 import business.auth.SAAuth;
 import business.game.Blackjack;
@@ -189,18 +188,16 @@ public class Controller {
             }
             case Event.BUY_PACKAGE: {
                 tGamesPackage pack = (tGamesPackage)data;
-                
-                if(ServiceLocator.get(SAStore.class).buyPackage(username, pack)) 
-                	JOptionPane.showMessageDialog(null, "¡" + pack.getName() + " comprado con éxito!", "Compra exitosa", JOptionPane.INFORMATION_MESSAGE);
-                else JOptionPane.showMessageDialog(null, "No se pudo completar la compra", "Error", JOptionPane.ERROR_MESSAGE);
+                if(ServiceLocator.get(SAStore.class).buyPackage(username, pack))
+                    Theme.getInstance().showInfo(null, "¡" + pack.getName() + " comprado con éxito!");
+                else Theme.getInstance().showError(null, "No se pudo completar la compra");
                 break;
             }
             case Event.BUY_PRODUCT: {
                 tProduct prod = (tProduct)data;
-                
                 if(ServiceLocator.get(SAStore.class).buyProduct(username, prod))
-                	JOptionPane.showMessageDialog(null, "¡" + prod.getName() + " canjead@ con éxito!", "Canje exitoso", JOptionPane.INFORMATION_MESSAGE);
-                else JOptionPane.showMessageDialog(null, "No tienes suficientes puntos para canjear este producto", "Puntos insuficientes", JOptionPane.ERROR_MESSAGE);
+                    Theme.getInstance().showInfo(null, "¡" + prod.getName() + " canjeado con éxito!");
+                else Theme.getInstance().showError(null, "No tienes suficientes puntos para canjear este producto");
                 break;
             }
             case Event.CREATE_GAME: ServiceLocator.get(SAGame.class).createGame((tGame)data); break;
