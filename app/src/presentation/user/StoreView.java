@@ -50,7 +50,7 @@ public class StoreView extends JFrame {
 
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         topPanel.setOpaque(false);
-        pointsLabel = new JLabel(Controller.getInstance().getUsername() + " (" + Controller.getInstance().getPlayerPoints(Controller.getInstance().getUsername()) + "p)");
+        pointsLabel = new JLabel(Controller.getInstance().getUsername() + " (" + Controller.getInstance().getPlayerPoints(Controller.getInstance().getUsername()) + "pts)");
         pointsLabel.setFont(new Font("Arial", Font.BOLD, 18));
         pointsLabel.setForeground(Color.YELLOW);
         pointsLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -76,7 +76,7 @@ public class StoreView extends JFrame {
         backButton.setPreferredSize(new Dimension(150, 40));
         backButton.setFont(new Font("Arial", Font.BOLD, 14));
         backButton.addActionListener(e -> {
-            new PlayerView();
+        	Controller.getInstance().action(Event.OPEN_PLAYER_VIEW, null);
             dispose();
         });
         bottomPanel.add(backButton);
@@ -100,7 +100,7 @@ public class StoreView extends JFrame {
         infoPanel.add(titleLabel);
         for(Map.Entry<tGame, Integer> entry: pack.getGames().entrySet()) {
             tGame game = entry.getKey();
-            JLabel gameLabel = new JLabel("   • " + entry.getValue() + "x " + game.getName() + " (" + game.getBasePoints() + "p)");
+            JLabel gameLabel = new JLabel("   • " + entry.getValue() + "x " + game.getName() + " (" + game.getBasePoints() + "pts)");
             
             gameLabel.setForeground(Color.DARK_GRAY);
             gameLabel.setFont(gameLabel.getFont().deriveFont(Font.ITALIC, 12f));
@@ -125,7 +125,7 @@ public class StoreView extends JFrame {
 
         JPanel infoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         infoPanel.setOpaque(false);
-        infoPanel.add(new JLabel(prod.getName() + " (" + prod.getPrice() + "p)"));
+        infoPanel.add(new JLabel(prod.getName() + " (" + prod.getPrice() + "pts)"));
         panel.add(infoPanel, BorderLayout.CENTER);
 
         JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -133,7 +133,7 @@ public class StoreView extends JFrame {
         JButton buyButton = new JButton("Canjear");
         buyButton.addActionListener(e -> {
         	Controller.getInstance().action(Event.BUY_PRODUCT, prod);
-        	pointsLabel.setText(Controller.getInstance().getUsername() + " (" + Controller.getInstance().getPlayerPoints(Controller.getInstance().getUsername()) + "p)");
+        	pointsLabel.setText(Controller.getInstance().getUsername() + " (" + Controller.getInstance().getPlayerPoints(Controller.getInstance().getUsername()) + "pts)");
         });
         btnPanel.add(buyButton);
         panel.add(btnPanel, BorderLayout.EAST);

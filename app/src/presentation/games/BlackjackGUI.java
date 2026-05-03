@@ -145,7 +145,7 @@ public class BlackjackGUI extends JFrame {
     }
 
     private void giveUp() {
-        int option = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que quieres abandonar?\n La partida se perderá",
+        int option = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que quieres abandonar?\nLa partida se perderá",
                 "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if(option == JOptionPane.OK_OPTION) {
             Controller.getInstance().action(Event.OPEN_GAMES_PANEL, null);

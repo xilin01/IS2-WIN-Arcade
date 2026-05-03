@@ -19,6 +19,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.border.TitledBorder;
+
 import business.game.tGame;
 import business.packages.tGamesPackage;
 import presentation.Controller;
@@ -26,25 +28,20 @@ import presentation.Event;
 import presentation.Theme;
 
 public class GamesPackageEditor {
-
     private static final Theme theme = Theme.getInstance();
 
-    private GamesPackageEditor() {}
+    private GamesPackageEditor() {
+    }
 
     public static void show(JFrame parent, tGamesPackage pack) {
-        Map<tGame, Integer> gamesMap = (pack != null && pack.getGames() != null)
-            ? new HashMap<>(pack.getGames())
-            : new HashMap<>();
+        Map<tGame, Integer> gamesMap = (pack != null && pack.getGames() != null) ? pack.getGames() : new HashMap<>();
 
         JPanel content = new JPanel(new BorderLayout());
 
         // Top: name/price + add-game row
         JPanel topPanel = new JPanel(new GridLayout(2, 1, 5, 5));
         topPanel.setBackground(theme.BG_CARD);
-        topPanel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createMatteBorder(0, 0, 1, 0, theme.GOLD),
-            BorderFactory.createEmptyBorder(10, 14, 10, 14)
-        ));
+        topPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, theme.GOLD), BorderFactory.createEmptyBorder(10, 14, 10, 14)));
 
         JPanel infoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
         infoPanel.setBackground(theme.BG_CARD);
@@ -57,11 +54,8 @@ public class GamesPackageEditor {
         nameField.setBackground(theme.BG_ITEM);
         nameField.setForeground(theme.TEXT);
         nameField.setCaretColor(theme.TEXT);
-        nameField.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(theme.BORDER, 1),
-            BorderFactory.createEmptyBorder(4, 8, 4, 8)
-        ));
-        if (pack != null) nameField.setText(pack.getName());
+        nameField.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(theme.BORDER, 1), BorderFactory.createEmptyBorder(4, 8, 4, 8)));
+        if(pack != null) nameField.setText(pack.getName());
         infoPanel.add(nameField);
 
         JLabel priceLabel = new JLabel("Precio:");
@@ -70,7 +64,7 @@ public class GamesPackageEditor {
 
         JSpinner priceSpinner = new JSpinner(new SpinnerNumberModel(0.0, 0.0, 9999.99, 0.5));
         styleSpinner(priceSpinner);
-        if (pack != null) priceSpinner.setValue(pack.getPrice());
+        if(pack != null) priceSpinner.setValue(pack.getPrice());
         infoPanel.add(priceSpinner);
         topPanel.add(infoPanel);
 
@@ -79,7 +73,7 @@ public class GamesPackageEditor {
 
         Map<String, List<Integer>> availableGamesMap = new HashMap<>();
         Collection<tGame> allGames = Controller.getInstance().getAllGames();
-        for (tGame g : allGames) {
+        for(tGame g: allGames) {
             availableGamesMap.putIfAbsent(g.getName(), new ArrayList<>());
             availableGamesMap.get(g.getName()).add(g.getBasePoints());
         }
@@ -91,8 +85,8 @@ public class GamesPackageEditor {
         JComboBox<String> gameNameComboBox = new JComboBox<>();
         gameNameComboBox.setBackground(theme.BG_ITEM);
         gameNameComboBox.setForeground(theme.TEXT);
-        for (String gameName : availableGamesMap.keySet()) gameNameComboBox.addItem(gameName);
-        if (gameNameComboBox.getItemCount() > 0) gameNameComboBox.setSelectedIndex(0);
+        for(String gameName : availableGamesMap.keySet()) gameNameComboBox.addItem(gameName);
+        if(gameNameComboBox.getItemCount() > 0) gameNameComboBox.setSelectedIndex(0);
         addGamePanel.add(gameNameComboBox);
 
         JLabel pointsLabel = new JLabel("Puntos:");
@@ -123,9 +117,7 @@ public class GamesPackageEditor {
         JScrollPane scrollPane = new JScrollPane(gamesListPanel);
         scrollPane.setPreferredSize(new Dimension(610, 240));
         scrollPane.getViewport().setBackground(theme.BG);
-        javax.swing.border.TitledBorder titledBorder = BorderFactory.createTitledBorder(
-            BorderFactory.createLineBorder(theme.BORDER, 1), "Juegos incluidos en el paquete"
-        );
+        TitledBorder titledBorder = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(theme.BORDER, 1), "Juegos incluidos en el paquete");
         titledBorder.setTitleColor(theme.TEXT_MUTED);
         scrollPane.setBorder(titledBorder);
 
@@ -151,7 +143,7 @@ public class GamesPackageEditor {
         updateRef[0] = () -> {
             gamesListPanel.removeAll();
             totalPts[0] = 0.0;
-            for (Map.Entry<tGame, Integer> entry : gamesMap.entrySet()) {
+            for(Map.Entry<tGame, Integer> entry: gamesMap.entrySet()) {
                 tGame juego = entry.getKey();
                 Integer cantidad = entry.getValue();
                 int subtotal = juego.getBasePoints() * cantidad;
@@ -160,35 +152,31 @@ public class GamesPackageEditor {
                 JPanel row = new JPanel(new BorderLayout());
                 row.setBackground(theme.BG_ITEM);
                 row.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
-                row.setBorder(BorderFactory.createCompoundBorder(
-                    BorderFactory.createEmptyBorder(2, 0, 2, 0),
-                    BorderFactory.createLineBorder(theme.BORDER, 1)
-                ));
+                row.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2, 0, 2, 0),BorderFactory.createLineBorder(theme.BORDER, 1)));
 
                 JLabel infoLabel = new JLabel(cantidad + "x " + juego.getName() + " (" + juego.getBasePoints() + " pts/u) = " + subtotal + " pts");
                 infoLabel.setForeground(theme.TEXT);
                 infoLabel.setFont(theme.BODY);
                 infoLabel.setBorder(BorderFactory.createEmptyBorder(0, 12, 0, 0));
                 row.add(infoLabel, BorderLayout.CENTER);
-
                 row.add(theme.dangerBtn("Quitar", () -> {
-                    gamesMap.remove(juego);
-                    updateRef[0].run();
-                }), BorderLayout.EAST);
-
+								                	gamesMap.remove(juego); 
+								                	updateRef[0].run();
+								                	}), BorderLayout.EAST);
                 gamesListPanel.add(row);
             }
-            totalPointsLabel.setText("Valor en puntos: " + (int) totalPts[0]);
+            totalPointsLabel.setText("Valor en puntos: " + (int)totalPts[0]);
             gamesListPanel.revalidate();
             gamesListPanel.repaint();
         };
 
         addGamePanel.add(theme.primaryBtn("Añadir", () -> {
-            String selectedName = (String) gameNameComboBox.getSelectedItem();
-            Integer selectedPoints = (Integer) gamePointsSpinner.getValue();
-            int qty = (int) qtySpinner.getValue();
-            if (selectedName != null && selectedPoints != null) {
-                if (!availableGamesMap.get(selectedName).contains(selectedPoints)) {
+            String selectedName = (String)gameNameComboBox.getSelectedItem();
+            Integer selectedPoints = (Integer)gamePointsSpinner.getValue();
+            int qty = (int)qtySpinner.getValue();
+            
+            if(selectedName != null && selectedPoints != null) {
+                if(!availableGamesMap.get(selectedName).contains(selectedPoints)) {
                     Controller.getInstance().action(Event.CREATE_GAME, new tGame(selectedName, selectedPoints));
                     availableGamesMap.get(selectedName).add(selectedPoints);
                 }
@@ -199,11 +187,12 @@ public class GamesPackageEditor {
 
         updateRef[0].run();
 
-        theme.formDialog(parent, pack == null ? "Crear Nuevo Paquete" : "Editar Paquete", content, "Guardar", () -> {
+        theme.formDialog(parent, pack == null ? "Crear nuevo paquete" : "Editar paquete", content, "Guardar", () -> {
             String name = nameField.getText();
             double finalPrice = (double) priceSpinner.getValue();
-            if (!name.isEmpty()) {
-                if (pack == null) Controller.getInstance().action(Event.CREATE_PACKAGE, new tGamesPackage(name, finalPrice, gamesMap));
+            
+            if(!name.isEmpty()) {
+                if(pack == null) Controller.getInstance().action(Event.CREATE_PACKAGE, new tGamesPackage(name, finalPrice, gamesMap));
                 else {
                     pack.setName(name);
                     pack.setPrice(finalPrice);
@@ -218,8 +207,8 @@ public class GamesPackageEditor {
 
     private static void styleSpinner(JSpinner spinner) {
         spinner.setBackground(theme.BG_ITEM);
-        ((JSpinner.DefaultEditor) spinner.getEditor()).getTextField().setBackground(theme.BG_ITEM);
-        ((JSpinner.DefaultEditor) spinner.getEditor()).getTextField().setForeground(theme.TEXT);
-        ((JSpinner.DefaultEditor) spinner.getEditor()).getTextField().setCaretColor(theme.TEXT);
+        ((JSpinner.DefaultEditor)spinner.getEditor()).getTextField().setBackground(theme.BG_ITEM);
+        ((JSpinner.DefaultEditor)spinner.getEditor()).getTextField().setForeground(theme.TEXT);
+        ((JSpinner.DefaultEditor)spinner.getEditor()).getTextField().setCaretColor(theme.TEXT);
     }
 }

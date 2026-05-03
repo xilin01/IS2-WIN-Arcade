@@ -28,11 +28,12 @@ import presentation.Controller;
 import presentation.Event;
 import presentation.Theme;
 
+@SuppressWarnings("serial")
 public class InventoryEditorView extends JDialog {
-
     private static final Theme theme = Theme.getInstance();
+    
     private tPlayer player;
-    private JPanel objectsListPanel;
+    private JPanel productsListPanel;
     private JPanel gamesListPanel;
 
     public InventoryEditorView(Window parent, tPlayer player) {
@@ -52,7 +53,7 @@ public class InventoryEditorView extends JDialog {
         tabsPanel.setBackground(theme.BG_CARD);
         tabsPanel.setForeground(theme.TEXT);
         tabsPanel.setFont(theme.BODY);
-        tabsPanel.addTab("Objetos", createObjectsPanel());
+        tabsPanel.addTab("Productos", createProductsPanel());
         tabsPanel.addTab("Juegos", createGamesPanel());
         this.add(tabsPanel, BorderLayout.CENTER);
 
@@ -65,92 +66,88 @@ public class InventoryEditorView extends JDialog {
         this.setVisible(true);
     }
 
-    private JPanel createObjectsPanel() {
+    private JPanel createProductsPanel() {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBackground(theme.BG);
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         topPanel.setBackground(theme.BG);
-        topPanel.add(theme.primaryBtn("Añadir Objeto", () -> {
+        topPanel.add(theme.primaryBtn("Añadir producto", () -> {
             Collection<tProduct> allProducts = Controller.getInstance().getAllProducts();
 
             JPanel formPanel = new JPanel(new GridLayout(2, 2, 8, 10));
             formPanel.setBorder(BorderFactory.createEmptyBorder(16, 16, 8, 16));
 
-            JLabel productLabel = new JLabel("Objeto:");
+            JLabel productLabel = new JLabel("Producto:");
             productLabel.setForeground(theme.TEXT);
+            formPanel.add(productLabel);
             JComboBox<tProduct> productCombo = new JComboBox<>(allProducts.toArray(new tProduct[0]));
             productCombo.setBackground(theme.BG_ITEM);
             productCombo.setForeground(theme.TEXT);
-
-            JLabel qtyLabel = new JLabel("Cantidad:");
-            qtyLabel.setForeground(theme.TEXT);
-            JSpinner qtySpinner = new JSpinner(new SpinnerNumberModel(1, 1, 99, 1));
-            ((JSpinner.DefaultEditor) qtySpinner.getEditor()).getTextField().setBackground(theme.BG_ITEM);
-            ((JSpinner.DefaultEditor) qtySpinner.getEditor()).getTextField().setForeground(theme.TEXT);
-            ((JSpinner.DefaultEditor) qtySpinner.getEditor()).getTextField().setCaretColor(theme.TEXT);
-
-            formPanel.add(productLabel);
             formPanel.add(productCombo);
+
+            JLabel qtyLabel = new JLabel("Cant:");
+            qtyLabel.setForeground(theme.TEXT);
             formPanel.add(qtyLabel);
+            JSpinner qtySpinner = new JSpinner(new SpinnerNumberModel(1, 1, 99, 1));
+            ((JSpinner.DefaultEditor)qtySpinner.getEditor()).getTextField().setBackground(theme.BG_ITEM);
+            ((JSpinner.DefaultEditor)qtySpinner.getEditor()).getTextField().setForeground(theme.TEXT);
+            ((JSpinner.DefaultEditor)qtySpinner.getEditor()).getTextField().setCaretColor(theme.TEXT);
             formPanel.add(qtySpinner);
 
-            theme.formDialog(this, "Añadir Objeto", formPanel, "Añadir", () -> {
-                tProduct selectedProduct = (tProduct) productCombo.getSelectedItem();
-                int qty = (int) qtySpinner.getValue();
-                if (selectedProduct != null) {
+            theme.formDialog(this, "Añadir producto", formPanel, "Añadir", () -> {
+                tProduct selectedProduct = (tProduct)productCombo.getSelectedItem();
+                int qty = (int)qtySpinner.getValue();
+                
+                if(selectedProduct != null) {
                     Map<tProduct, Integer> productsMap = player.getInventory().getProducts();
-                    if (productsMap == null) {
+                    if(productsMap == null) {
                         productsMap = new HashMap<>();
                         player.getInventory().setProducts(productsMap);
                     }
                     productsMap.put(selectedProduct, productsMap.getOrDefault(selectedProduct, 0) + qty);
                     Controller.getInstance().action(Event.UPDATE_PLAYER, player);
-                    updateObjectsList();
+                    updateProductsList();
                 }
                 return true;
             });
         }));
         panel.add(topPanel, BorderLayout.NORTH);
 
-        objectsListPanel = new JPanel();
-        objectsListPanel.setLayout(new BoxLayout(objectsListPanel, BoxLayout.Y_AXIS));
-        objectsListPanel.setBackground(theme.BG);
+        productsListPanel = new JPanel();
+        productsListPanel.setLayout(new BoxLayout(productsListPanel, BoxLayout.Y_AXIS));
+        productsListPanel.setBackground(theme.BG);
 
-        JScrollPane scrollPane = new JScrollPane(objectsListPanel);
+        JScrollPane scrollPane = new JScrollPane(productsListPanel);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         scrollPane.getViewport().setBackground(theme.BG);
         panel.add(scrollPane, BorderLayout.CENTER);
 
-        updateObjectsList();
+        updateProductsList();
         return panel;
     }
 
-    private void updateObjectsList() {
-        objectsListPanel.removeAll();
+    private void updateProductsList() {
+        productsListPanel.removeAll();
         Map<tProduct, Integer> productsMap = player.getInventory().getProducts();
 
-        if (productsMap != null && !productsMap.isEmpty()) {
-            for (tProduct product : productsMap.keySet()) {
-                int cant = productsMap.get(product);
-                objectsListPanel.add(buildRow(
-                    cant + "x " + product.getName(),
-                    () -> {
-                        productsMap.remove(product);
-                        Controller.getInstance().action(Event.UPDATE_PLAYER, player);
-                        updateObjectsList();
-                    }
-                ));
+        if(productsMap != null && !productsMap.isEmpty()) {
+            for(tProduct product: productsMap.keySet()) {
+            	productsListPanel.add(buildRow(productsMap.get(product) + "x " + product.getName(), () -> {
+					productsMap.remove(product);
+					Controller.getInstance().action(Event.UPDATE_PLAYER, player);
+					updateProductsList();
+				}));
             }
-        } else {
-            JLabel emptyLabel = new JLabel("El inventario no tiene objetos.");
-            emptyLabel.setForeground(theme.TEXT_MUTED);
-            objectsListPanel.add(emptyLabel);
         }
-
-        objectsListPanel.revalidate();
-        objectsListPanel.repaint();
+        else {
+            JLabel emptyLabel = new JLabel("El inventario no tiene objetos");
+            emptyLabel.setForeground(theme.TEXT_MUTED);
+            productsListPanel.add(emptyLabel);
+        }
+        productsListPanel.revalidate();
+        productsListPanel.repaint();
     }
 
     private JPanel createGamesPanel() {
@@ -160,7 +157,7 @@ public class InventoryEditorView extends JDialog {
 
         Map<String, List<Integer>> availableGamesMap = new HashMap<>();
         Collection<tGame> allGames = Controller.getInstance().getAllGames();
-        for (tGame g : allGames) {
+        for(tGame g: allGames) {
             availableGamesMap.putIfAbsent(g.getName(), new ArrayList<>());
             availableGamesMap.get(g.getName()).add(g.getBasePoints());
         }
@@ -175,8 +172,8 @@ public class InventoryEditorView extends JDialog {
         JComboBox<String> gameNameComboBox = new JComboBox<>();
         gameNameComboBox.setBackground(theme.BG_ITEM);
         gameNameComboBox.setForeground(theme.TEXT);
-        for (String gameName : availableGamesMap.keySet()) gameNameComboBox.addItem(gameName);
-        if (gameNameComboBox.getItemCount() > 0) gameNameComboBox.setSelectedIndex(0);
+        for(String gameName: availableGamesMap.keySet()) gameNameComboBox.addItem(gameName);
+        if(gameNameComboBox.getItemCount() > 0) gameNameComboBox.setSelectedIndex(0);
         topPanel.add(gameNameComboBox);
 
         JLabel pointsLabel = new JLabel("Puntos:");
@@ -194,16 +191,17 @@ public class InventoryEditorView extends JDialog {
         topPanel.add(qtySpinner);
 
         topPanel.add(theme.primaryBtn("Añadir", () -> {
-            String selectedName = (String) gameNameComboBox.getSelectedItem();
-            Integer selectedPoints = (Integer) gamePointsSpinner.getValue();
-            int qty = (int) qtySpinner.getValue();
-            if (selectedName != null && selectedPoints != null) {
-                if (!availableGamesMap.get(selectedName).contains(selectedPoints)) {
+            String selectedName = (String)gameNameComboBox.getSelectedItem();
+            Integer selectedPoints = (Integer)gamePointsSpinner.getValue();
+            int qty = (int)qtySpinner.getValue();
+            
+            if(selectedName != null && selectedPoints != null) {
+                if(!availableGamesMap.get(selectedName).contains(selectedPoints)) {
                     Controller.getInstance().action(Event.CREATE_GAME, new tGame(selectedName, selectedPoints));
                     availableGamesMap.get(selectedName).add(selectedPoints);
                 }
                 Map<tGame, Integer> gamesMap = player.getInventory().getGames();
-                if (gamesMap == null) {
+                if(gamesMap == null) {
                     gamesMap = new HashMap<>();
                     player.getInventory().setGames(gamesMap);
                 }
@@ -231,23 +229,19 @@ public class InventoryEditorView extends JDialog {
         gamesListPanel.removeAll();
         Map<tGame, Integer> gamesMap = player.getInventory().getGames();
 
-        if (gamesMap != null && !gamesMap.isEmpty()) {
-            for (tGame game : gamesMap.keySet()) {
-                int cant = gamesMap.get(game);
-                gamesListPanel.add(buildRow(
-                    cant + "x " + game.getName() + " (" + game.getBasePoints() + "p)",
-                    () -> {
-                        gamesMap.remove(game);
-                        updateGamesList();
-                    }
-                ));
+        if(gamesMap != null && !gamesMap.isEmpty()) {
+            for(tGame game: gamesMap.keySet()) {
+            	gamesListPanel.add(buildRow(gamesMap.get(game) + "x " + game.getName() + " (" + game.getBasePoints() + "p)", () -> {
+            		gamesMap.remove(game);
+            		updateGamesList();
+            	}));
             }
-        } else {
-            JLabel emptyLabel = new JLabel("El inventario no tiene juegos.");
+        }
+        else {
+            JLabel emptyLabel = new JLabel("El inventario no tiene juegos");
             emptyLabel.setForeground(theme.TEXT_MUTED);
             gamesListPanel.add(emptyLabel);
         }
-
         gamesListPanel.revalidate();
         gamesListPanel.repaint();
     }
@@ -256,17 +250,13 @@ public class InventoryEditorView extends JDialog {
         JPanel row = new JPanel(new BorderLayout());
         row.setBackground(theme.BG_ITEM);
         row.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
-        row.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createEmptyBorder(2, 0, 2, 0),
-            BorderFactory.createLineBorder(theme.BORDER, 1)
-        ));
+        row.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2, 0, 2, 0), BorderFactory.createLineBorder(theme.BORDER, 1)));
 
         JLabel infoLabel = new JLabel(text);
         infoLabel.setForeground(theme.TEXT);
         infoLabel.setFont(theme.BODY);
         infoLabel.setBorder(BorderFactory.createEmptyBorder(0, 12, 0, 0));
         row.add(infoLabel, BorderLayout.CENTER);
-
         row.add(theme.dangerBtn("Quitar", onRemove), BorderLayout.EAST);
 
         return row;

@@ -23,34 +23,37 @@ public class Event {
 	public static final int RES_LOGIN_FAILURE = 15;
 	
 	// Player navigation
-	public static final int OPEN_GAMES_PANEL = 16;
-	public static final int OPEN_INVENTORY = 17;
-	public static final int OPEN_STORE = 18;
-	public static final int LOGOUT = 19;
+	public static final int OPEN_PLAYER_VIEW = 16;
+	public static final int OPEN_GAMES_PANEL = 17;
+	public static final int OPEN_INVENTORY = 18;
+	public static final int OPEN_STORE = 19;
+	public static final int LOGOUT = 20;
 	// Staff navigation
-	public static final int OPEN_PACKAGE_MANAGER = 20;
-	public static final int CLOSE_PACKAGE_MANAGER = 21;
+	public static final int OPEN_STAFF_VIEW = 21;
+	public static final int OPEN_PACKAGE_MANAGER = 22;
+	public static final int OPEN_PRODUCT_MANAGER = 23;
+	public static final int OPEN_PLAYER_MANAGER = 24;
 
 	// Blackjack
-	public static final int BLACKJACK_PLAY = 22;
-	public static final int BLACKJACK_HIT = 23;
-	public static final int BLACKJACK_STAND = 24;
+	public static final int BLACKJACK_PLAY = 25;
+	public static final int BLACKJACK_HIT = 26;
+	public static final int BLACKJACK_STAND = 27;
 	// Roulette
-	public static final int ROULETTE_PLAY = 25;
-	public static final int ROULETTE_ROLL = 26;	
+	public static final int ROULETTE_PLAY = 28;
+	public static final int ROULETTE_ROLL = 29;	
 	
 	// Store
-	public static final int BUY_PACKAGE = 27;
-	public static final int BUY_PRODUCT = 28;
+	public static final int BUY_PACKAGE = 30;
+	public static final int BUY_PRODUCT = 31;
 
 	// Game
-	public static final int CREATE_GAME = 29;
+	public static final int CREATE_GAME = 32;
 	// Package
-	public static final int CREATE_PACKAGE = 30;
-	public static final int UPDATE_PACKAGE = 31;
-	public static final int DELETE_PACKAGE = 32;
+	public static final int CREATE_PACKAGE = 33;
+	public static final int UPDATE_PACKAGE = 34;
+	public static final int DELETE_PACKAGE = 35;
 	// Product
-	public static final int CREATE_PRODUCT = 33;
-	public static final int UPDATE_PRODUCT = 34;
-	public static final int DELETE_PRODUCT = 35;
+	public static final int CREATE_PRODUCT = 36;
+	public static final int UPDATE_PRODUCT = 37;
+	public static final int DELETE_PRODUCT = 38;
 }

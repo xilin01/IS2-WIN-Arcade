@@ -18,7 +18,6 @@ import business.game.tGame;
 import business.player.tPlayer;
 import presentation.Controller;
 import presentation.Event;
-import presentation.user.PlayerView;
 
 @SuppressWarnings("serial")
 public class GamesPanelView extends JFrame {
@@ -50,7 +49,7 @@ public class GamesPanelView extends JFrame {
             title.setFont(new Font("Arial", Font.BOLD, 28));
             title.setForeground(Color.WHITE);
             headerPanel.add(title, BorderLayout.WEST);
-            JLabel pointsLabel = new JLabel(Controller.getInstance().getUsername() + " (" + Controller.getInstance().getPlayerPoints(Controller.getInstance().getUsername()) + "p)");
+            JLabel pointsLabel = new JLabel(Controller.getInstance().getUsername() + " (" + Controller.getInstance().getPlayerPoints(Controller.getInstance().getUsername()) + "pts)");
             pointsLabel.setFont(new Font("Arial", Font.BOLD, 20));
             pointsLabel.setForeground(Color.YELLOW);
             headerPanel.add(pointsLabel, BorderLayout.EAST);
@@ -68,7 +67,7 @@ public class GamesPanelView extends JFrame {
         bottomPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         JButton backButton = new JButton("Atrás");
         backButton.addActionListener(e -> {
-        	new PlayerView();
+        	Controller.getInstance().action(Event.OPEN_PLAYER_VIEW, null);
         	dispose();
         });
         bottomPanel.add(backButton);
@@ -100,7 +99,7 @@ public class GamesPanelView extends JFrame {
         JPanel infoPanel = new JPanel();
         infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
         infoPanel.setOpaque(false);
-        JLabel nameLabel = new JLabel(game.getName() + " (" + game.getBasePoints() + " p)");
+        JLabel nameLabel = new JLabel(game.getName() + " (" + game.getBasePoints() + " pts)");
         nameLabel.setFont(new Font("Arial", Font.BOLD, 18));
         nameLabel.setForeground(Color.WHITE);
         infoPanel.add(nameLabel);

@@ -15,8 +15,6 @@ import business.auth.tCredentials;
 import presentation.Controller;
 import presentation.Event;
 import presentation.games.BackgroundPanel;
-import presentation.user.PlayerView;
-import presentation.user.StaffView;
 
 @SuppressWarnings("serial")
 public class LoginView extends JFrame {
@@ -79,14 +77,14 @@ public class LoginView extends JFrame {
     public static void update(int event, Object data) {
         switch(event) {
             case Event.RES_LOGIN_STAFF_SUCCESS:
-                new StaffView();
+            	Controller.getInstance().action(Event.OPEN_STAFF_VIEW, null);
                 instance.dispose();
                 break;
             case Event.RES_LOGIN_SUCCESS:
-                new PlayerView();
+            	Controller.getInstance().action(Event.OPEN_PLAYER_VIEW, null);
                 instance.dispose();
                 break;
-            case Event.RES_LOGIN_FAILURE: JOptionPane.showMessageDialog(instance, "Usuario o contraseña incorrectos.", "Error", JOptionPane.ERROR_MESSAGE); break;
+            case Event.RES_LOGIN_FAILURE: JOptionPane.showMessageDialog(instance, "Usuario o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE); break;
         }
     }
 }

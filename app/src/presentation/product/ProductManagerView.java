@@ -14,12 +14,11 @@ import business.product.tProduct;
 import presentation.Controller;
 import presentation.Event;
 import presentation.Theme;
-import presentation.user.StaffView;
 
 @SuppressWarnings("serial")
 public class ProductManagerView extends JFrame {
-
     private static final Theme theme = Theme.getInstance();
+    
     private JPanel productListPanel;
 
     public ProductManagerView() {
@@ -33,16 +32,16 @@ public class ProductManagerView extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getContentPane().setBackground(theme.BG);
 
-        JPanel header = theme.header("Gestion de Productos");
+        JPanel header = theme.header("Gestión de productos");
         JPanel headerRight = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
         headerRight.setBackground(theme.BG_CARD);
-        headerRight.add(theme.primaryBtn("Crear Producto", () -> {
-            ProductEditor.show(this, null);
-            updateList();
+        headerRight.add(theme.primaryBtn("Crear producto", () -> {
+        	ProductEditor.show(this, null);
+        	updateList();
         }));
         headerRight.add(theme.secondaryBtn("Volver", () -> {
-            new StaffView();
-            dispose();
+        	Controller.getInstance().action(Event.OPEN_STAFF_VIEW, null);
+        	dispose();
         }));
         header.add(headerRight, BorderLayout.EAST);
         this.add(header, BorderLayout.NORTH);
@@ -66,13 +65,8 @@ public class ProductManagerView extends JFrame {
         JPanel productPanel = new JPanel(new BorderLayout());
         productPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 62));
         productPanel.setBackground(theme.BG_ITEM);
-        productPanel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createEmptyBorder(4, 0, 4, 0),
-            BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(theme.BORDER, 1),
-                BorderFactory.createEmptyBorder(10, 16, 10, 16)
-            )
-        ));
+        productPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(4, 0, 4, 0),
+            BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(theme.BORDER, 1), BorderFactory.createEmptyBorder(10, 16, 10, 16))));
 
         JPanel prodInfo = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 0));
         prodInfo.setBackground(theme.BG_ITEM);
@@ -81,7 +75,7 @@ public class ProductManagerView extends JFrame {
         nameLabel.setFont(theme.BODY);
         nameLabel.setForeground(theme.TEXT);
 
-        JLabel priceLabel = new JLabel(product.getPrice() + " pts");
+        JLabel priceLabel = new JLabel(product.getPrice() + "pts");
         priceLabel.setFont(theme.BODY);
         priceLabel.setForeground(theme.GOLD);
 
@@ -92,8 +86,8 @@ public class ProductManagerView extends JFrame {
         JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 0));
         buttonsPanel.setBackground(theme.BG_ITEM);
         buttonsPanel.add(theme.secondaryBtn("Editar", () -> {
-            ProductEditor.show(this, product);
-            updateList();
+        	ProductEditor.show(this, product);
+        	updateList();
         }));
         buttonsPanel.add(theme.dangerBtn("Eliminar", () -> {
             if (theme.confirm(this, "Eliminar definitivamente el producto " + product.getName())) {
@@ -109,7 +103,7 @@ public class ProductManagerView extends JFrame {
     private void updateList() {
         productListPanel.removeAll();
         Collection<tProduct> products = Controller.getInstance().getAllProducts();
-        for (tProduct prod : products) productListPanel.add(productElement(prod));
+        for(tProduct prod: products) productListPanel.add(productElement(prod));
         productListPanel.revalidate();
         productListPanel.repaint();
     }

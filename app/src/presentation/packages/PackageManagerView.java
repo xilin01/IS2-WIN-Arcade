@@ -18,8 +18,8 @@ import presentation.Theme;
 
 @SuppressWarnings("serial")
 public class PackageManagerView extends JFrame {
-
     private static final Theme theme = Theme.getInstance();
+    
     private JPanel packListPanel;
 
     public PackageManagerView() {
@@ -33,16 +33,13 @@ public class PackageManagerView extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getContentPane().setBackground(theme.BG);
 
-        JPanel header = theme.header("Gestion de Paquetes");
+        JPanel header = theme.header("Gestión de pquetes");
         JPanel headerRight = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
         headerRight.setBackground(theme.BG_CARD);
-        headerRight.add(theme.primaryBtn("Crear Paquete", () -> {
-            GamesPackageEditor.show(this, null);
-            updateList();
-        }));
+        headerRight.add(theme.primaryBtn("Crear paquete", () -> {GamesPackageEditor.show(this, null); updateList();}));
         headerRight.add(theme.secondaryBtn("Volver", () -> {
-            Controller.getInstance().action(Event.CLOSE_PACKAGE_MANAGER, null);
-            dispose();
+        	Controller.getInstance().action(Event.OPEN_STAFF_VIEW, null);
+        	dispose();
         }));
         header.add(headerRight, BorderLayout.EAST);
         this.add(header, BorderLayout.NORTH);
@@ -66,13 +63,8 @@ public class PackageManagerView extends JFrame {
         JPanel packagePanel = new JPanel(new BorderLayout());
         packagePanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 155));
         packagePanel.setBackground(theme.BG_ITEM);
-        packagePanel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createEmptyBorder(4, 0, 4, 0),
-            BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(theme.BORDER, 1),
-                BorderFactory.createEmptyBorder(12, 16, 12, 16)
-            )
-        ));
+        packagePanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(4, 0, 4, 0), 
+        		BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(theme.BORDER, 1), BorderFactory.createEmptyBorder(12, 16, 12, 16))));
 
         JPanel packInfo = new JPanel();
         packInfo.setLayout(new BoxLayout(packInfo, BoxLayout.Y_AXIS));
@@ -85,23 +77,24 @@ public class PackageManagerView extends JFrame {
 
         int totalGames = 0;
         Map<tGame, Integer> gamesMap = gamePack.getGames();
-        if (gamesMap != null) {
-            for (Integer qty : gamesMap.values()) totalGames += qty;
+        if(gamesMap != null) {
+            for(Integer qty: gamesMap.values()) totalGames += qty;
         }
-        JLabel infoLabel = new JLabel("Total: " + totalGames + " juegos, Precio: " + gamePack.getPrice() + " EUR");
+        JLabel infoLabel = new JLabel("Total: " + totalGames + " juegos, precio: " + gamePack.getPrice() + "€");
         infoLabel.setFont(theme.BODY);
         infoLabel.setForeground(theme.TEXT_MUTED);
         packInfo.add(infoLabel);
 
-        if (gamesMap != null && !gamesMap.isEmpty()) {
+        if(gamesMap != null && !gamesMap.isEmpty()) {
             int count = 0;
-            for (Map.Entry<tGame, Integer> entry : gamesMap.entrySet()) {
+            for(Map.Entry<tGame, Integer> entry: gamesMap.entrySet()) {
                 JLabel gameLabel = new JLabel(entry.getValue() + "x " + entry.getKey().getName());
+                
                 gameLabel.setFont(theme.BODY);
                 gameLabel.setForeground(theme.TEXT_MUTED);
                 gameLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
                 packInfo.add(gameLabel);
-                if (++count >= 3) {
+                if(++count >= 3) {
                     JLabel moreLabel = new JLabel("...");
                     moreLabel.setForeground(theme.TEXT_MUTED);
                     moreLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
@@ -109,8 +102,9 @@ public class PackageManagerView extends JFrame {
                     break;
                 }
             }
-        } else {
-            JLabel emptyLabel = new JLabel("Paquete vacio");
+        }
+        else {
+            JLabel emptyLabel = new JLabel("Paquete vacío");
             emptyLabel.setForeground(theme.TEXT_MUTED);
             emptyLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
             packInfo.add(emptyLabel);
@@ -121,11 +115,11 @@ public class PackageManagerView extends JFrame {
         JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 0));
         buttonsPanel.setBackground(theme.BG_ITEM);
         buttonsPanel.add(theme.secondaryBtn("Editar", () -> {
-            GamesPackageEditor.show(this, gamePack);
-            updateList();
+        	GamesPackageEditor.show(this, gamePack);
+        	updateList();
         }));
         buttonsPanel.add(theme.dangerBtn("Eliminar", () -> {
-            if (theme.confirm(this, "Eliminar definitivamente el paquete " + gamePack.getName())) {
+            if(theme.confirm(this, "Eliminar definitivamente el paquete " + gamePack.getName())) {
                 Controller.getInstance().action(Event.DELETE_PACKAGE, gamePack.getName());
                 updateList();
             }
@@ -137,7 +131,7 @@ public class PackageManagerView extends JFrame {
 
     private void updateList() {
         packListPanel.removeAll();
-        for (tGamesPackage pack : Controller.getInstance().getAllPackages()) packListPanel.add(packageElement(pack));
+        for(tGamesPackage pack: Controller.getInstance().getAllPackages()) packListPanel.add(packageElement(pack));
         packListPanel.revalidate();
         packListPanel.repaint();
     }

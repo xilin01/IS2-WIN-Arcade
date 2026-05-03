@@ -20,6 +20,7 @@ import business.game.tGame;
 import business.player.tPlayer;
 import business.product.tProduct;
 import presentation.Controller;
+import presentation.Event;
 import presentation.games.BackgroundPanel;
 
 @SuppressWarnings("serial")
@@ -52,7 +53,7 @@ public class InventoryView extends JFrame {
 
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         topPanel.setOpaque(false);
-        JLabel pointsLabel = new JLabel(Controller.getInstance().getUsername() + " (" + player.getPoints() + "p)");
+        JLabel pointsLabel = new JLabel(Controller.getInstance().getUsername() + " (" + player.getPoints() + "pts)");
         pointsLabel.setFont(new Font("Arial", Font.BOLD, 18));
         pointsLabel.setForeground(Color.YELLOW);
         pointsLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -69,7 +70,7 @@ public class InventoryView extends JFrame {
         else {
             JPanel emptyPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
             emptyPanel.setOpaque(false);
-            JLabel label = new JLabel("No tienes juegos en tu inventario...");
+            JLabel label = new JLabel("No tienes juegos en tu inventario");
             label.setForeground(Color.WHITE);
             emptyPanel.add(label);
             gamesPanel.add(emptyPanel);
@@ -84,7 +85,7 @@ public class InventoryView extends JFrame {
         else {
             JPanel emptyPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
             emptyPanel.setOpaque(false);
-            JLabel label = new JLabel("No has canjeado productos todavía...");
+            JLabel label = new JLabel("No has canjeado productos todavía");
             label.setForeground(Color.WHITE);
             emptyPanel.add(label);
             productsPanel.add(emptyPanel);
@@ -98,7 +99,7 @@ public class InventoryView extends JFrame {
         backButton.setPreferredSize(new Dimension(150, 40)); 
         backButton.setFont(new Font("Arial", Font.BOLD, 14));
         backButton.addActionListener(e -> {
-            new PlayerView();
+        	Controller.getInstance().action(Event.OPEN_PLAYER_VIEW, null);
             dispose();
         });
         bottomPanel.add(backButton);
@@ -115,7 +116,7 @@ public class InventoryView extends JFrame {
 
         JPanel infoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         infoPanel.setOpaque(false);
-        JLabel titleLabel = new JLabel("   " + amount + "x " + game.getName() + " (" + game.getBasePoints() + "p)");
+        JLabel titleLabel = new JLabel("   " + amount + "x " + game.getName() + " (" + game.getBasePoints() + "pts)");
         titleLabel.setFont(titleLabel.getFont().deriveFont(Font.BOLD, 14f));
         infoPanel.add(titleLabel);
         panel.add(infoPanel, BorderLayout.CENTER);

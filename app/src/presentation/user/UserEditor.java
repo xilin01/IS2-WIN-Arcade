@@ -15,22 +15,22 @@ import presentation.Event;
 import presentation.Theme;
 
 public class UserEditor {
-
     private static final Theme theme = Theme.getInstance();
 
-    private UserEditor() {}
+    private UserEditor() {
+    }
 
     public static void show(JFrame parent, tPlayer player) {
         JPanel formPanel = new JPanel(new GridLayout(4, 2, 10, 12));
         formPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 10, 20));
 
-        JLabel nameLabel = new JLabel("Nombre del Jugador:");
+        JLabel nameLabel = new JLabel("Nombre del jugador:");
         nameLabel.setForeground(theme.TEXT);
         formPanel.add(nameLabel);
 
         JTextField nameField = new JTextField();
         styleField(nameField);
-        if (player != null) {
+        if(player != null) {
             nameField.setText(player.getName());
             nameField.setEditable(false);
             nameField.setBackground(theme.BG_CARD);
@@ -38,13 +38,13 @@ public class UserEditor {
         }
         formPanel.add(nameField);
 
-        JLabel passwordLabel = new JLabel("Contrasena:");
+        JLabel passwordLabel = new JLabel("Contraseña:");
         passwordLabel.setForeground(theme.TEXT);
         formPanel.add(passwordLabel);
 
         JTextField passwordField = new JTextField();
         styleField(passwordField);
-        if (player != null) passwordField.setText(player.getPassword());
+        if(player != null) passwordField.setText(player.getPassword());
         formPanel.add(passwordField);
 
         JLabel activeLabel = new JLabel("Estado de la cuenta:");
@@ -62,17 +62,17 @@ public class UserEditor {
         inventoryLabel.setForeground(theme.TEXT);
         formPanel.add(inventoryLabel);
 
-        JButton editInventoryButton = theme.secondaryBtn("Editar inventario",
-            () -> new InventoryEditorView(parent, player));
+        JButton editInventoryButton = theme.secondaryBtn("Editar inventario", () -> new InventoryEditorView(parent, player));
         editInventoryButton.setEnabled(player != null);
         formPanel.add(editInventoryButton);
 
-        theme.formDialog(parent, player == null ? "Crear Nuevo Jugador" : "Editar Jugador", formPanel, "Guardar", () -> {
+        theme.formDialog(parent, player == null ? "Crear nuevo jugador" : "Editar jugador", formPanel, "Guardar", () -> {
             String name = nameField.getText().trim();
             String password = passwordField.getText().trim();
             boolean isActive = activeCheckBox.isSelected();
-            if (!name.isEmpty() && !password.isEmpty()) {
-                if (player == null) Controller.getInstance().action(Event.CREATE_PLAYER, new tPlayer(name, password, isActive, new tPlayer.tInventory(name), 0));
+            
+            if(!name.isEmpty() && !password.isEmpty()) {
+                if(player == null) Controller.getInstance().action(Event.CREATE_PLAYER, new tPlayer(name, password, isActive, new tPlayer.tInventory(name), 0));
                 else {
                     player.setPassword(password);
                     player.setActive(isActive);
@@ -80,7 +80,7 @@ public class UserEditor {
                 }
                 return true;
             }
-            JOptionPane.showMessageDialog(parent, "El nombre o la contrasena no pueden estar vacios.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(parent, "El nombre o la contraseña no pueden estar vacios", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         });
     }
@@ -89,9 +89,6 @@ public class UserEditor {
         field.setBackground(theme.BG_ITEM);
         field.setForeground(theme.TEXT);
         field.setCaretColor(theme.TEXT);
-        field.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(theme.BORDER, 1),
-            BorderFactory.createEmptyBorder(4, 8, 4, 8)
-        ));
+        field.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(theme.BORDER, 1), BorderFactory.createEmptyBorder(4, 8, 4, 8)));
     }
 }

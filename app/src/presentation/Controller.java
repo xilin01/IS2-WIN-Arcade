@@ -17,8 +17,6 @@ import business.player.tPlayer;
 import business.product.SAProduct;
 import business.product.tProduct;
 import business.ServiceLocator;
-import business.user.SAUser;
-import business.user.tUser;
 import business.auth.tCredentials;
 import business.store.SAStore;
 import presentation.auth.LoginView;
@@ -27,7 +25,10 @@ import presentation.games.BlackjackGUI;
 import presentation.games.GamesPanelView;
 import presentation.games.RouletteGUI;
 import presentation.packages.PackageManagerView;
+import presentation.product.ProductManagerView;
 import presentation.user.InventoryView;
+import presentation.user.PlayerManagerView;
+import presentation.user.PlayerView;
 import presentation.user.StaffView;
 import presentation.user.StoreView;
 import presentation.user.UserView;
@@ -95,6 +96,10 @@ public class Controller {
                 LoginView.update(loginEvent, result.getPayload());
                 break;
             }
+            case Event.OPEN_PLAYER_VIEW: {
+                new PlayerView();
+                break;
+            }
             case Event.OPEN_GAMES_PANEL: {
                 new GamesPanelView();
                 break;
@@ -112,12 +117,20 @@ public class Controller {
                 LoginView.open();
                 break;
             }
+            case Event.OPEN_STAFF_VIEW: {
+                new StaffView();
+                break;
+            }
             case Event.OPEN_PACKAGE_MANAGER: {
                 new PackageManagerView();
                 break;
             }
-            case Event.CLOSE_PACKAGE_MANAGER: {
-                new StaffView();
+            case Event.OPEN_PRODUCT_MANAGER: {
+            	new ProductManagerView();
+                break;
+            }
+            case Event.OPEN_PLAYER_MANAGER: {
+            	new PlayerManagerView();
                 break;
             }
             case Event.BLACKJACK_PLAY: {

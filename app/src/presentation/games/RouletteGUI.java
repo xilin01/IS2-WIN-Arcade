@@ -107,7 +107,7 @@ public class RouletteGUI extends JFrame {
 	    			break;
 	            case Calle:
 	            	for(int i = 1; i <= 34; i+=3) select.addElement(i+","+(i+1)+","+(i+2)); 
-	            	text.setText("Elige calle de entre las opciones");
+	            	text.setText("Elige una calle");
 	            	break;
 	            case Columna:
 	            case Docena: {
@@ -127,7 +127,7 @@ public class RouletteGUI extends JFrame {
             mainPanel.add(new JLabel(scaledIcon));
     		
     		JButton goButton = new JButton("Listo");
-    		goButton.addActionListener(a -> ready());
+    		goButton.addActionListener(e -> ready());
     		mainPanel.add(text);
     		mainPanel.add(goButton);
     		mainPanel.add(new JComboBox<>(select));
@@ -189,7 +189,7 @@ public class RouletteGUI extends JFrame {
         for(Bets b: BETS) {
             JButton betButton = new JButton(""+b);
             
-            betButton.addActionListener(a -> setBet(b));
+            betButton.addActionListener(e -> setBet(b));
             betsPanel.add(betButton);
         }
         
@@ -201,11 +201,11 @@ public class RouletteGUI extends JFrame {
 
         playButton = new JButton("Tirar");
         playButton.setEnabled(false);
-        playButton.addActionListener(a -> playRoulette());
+        playButton.addActionListener(e -> playRoulette());
         optionsPanel.add(playButton);
 
         JButton backButton = new JButton("Atrás");
-        backButton.addActionListener(a -> giveUp());
+        backButton.addActionListener(e -> giveUp());
         optionsPanel.add(backButton);
         
         setVisible(true);
@@ -237,7 +237,7 @@ public class RouletteGUI extends JFrame {
     }
 
     private void giveUp() {
-        int option = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que quieres abandonar?\n La partida se perderá",
+        int option = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que quieres abandonar?\nLa partida se perderá",
                 "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if(option == JOptionPane.OK_OPTION) {
             Controller.getInstance().action(Event.OPEN_GAMES_PANEL, null);
@@ -246,7 +246,7 @@ public class RouletteGUI extends JFrame {
     }
 
     public void showResult(int puntos, int winningNumber) {
-    	String message = puntos == 0 ? "Perdiste. El número fue el " + winningNumber : "Ganaste con el " + winningNumber;
+    	String message = puntos == 0 ? "El número ganador fue el " + winningNumber + ", perdiste... ": "¡Ganaste con el " + winningNumber + "!";
     	showAnimation(winningNumber, () -> end(message));
     }
     
