@@ -7,7 +7,7 @@ public class AuthResult {
     private final Object payload;
 
     private AuthResult(Outcome outcome, Object payload) {
-    	if(outcome == null || payload == null) throw new IllegalArgumentException("Invalid args for Builder in AuthResult");
+    	if(outcome == null || (outcome != Outcome.FAILURE && payload == null)) throw new IllegalArgumentException("Invalid args for Builder in AuthResult");
         this.outcome = outcome;
         this.payload = payload;
     }
