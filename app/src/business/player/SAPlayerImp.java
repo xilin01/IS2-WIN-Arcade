@@ -45,7 +45,9 @@ public class SAPlayerImp implements SAPlayer {
     public void addPoints(String name, int points) {
         tPlayer player = readPlayer(name);
         
-        player.setPoints(player.getPoints() + points);
-        updatePlayer(player);
+        if(player != null) {
+	        player.setPoints(player.getPoints() + points);
+	        updatePlayer(player);
+        }
     }
 }

@@ -16,6 +16,7 @@ public class Blackjack extends CardGame {
         }
 
         private void addCard(Cards card) {
+        	if(card == null) throw new IllegalArgumentException("Invalid arg for addCard in Hand");
             cards.add(card);
             int value = card.getValue();
             if(value == 1) { // As

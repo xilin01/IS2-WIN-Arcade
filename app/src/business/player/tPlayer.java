@@ -14,6 +14,7 @@ public class tPlayer extends tUser {
         private Map<tProduct, Integer> products;
 
         public tInventory(String playerName, Map<tGame, Integer> games, Map<tProduct, Integer> products) {
+        	if(playerName == null || playerName.trim().isEmpty() || games == null || products == null) new IllegalArgumentException("Invalid args for Builder in tInventory");
             this.playerName = playerName;
             this.games = games;
             this.products = products;
@@ -28,6 +29,7 @@ public class tPlayer extends tUser {
         }
 
         public void setPlayerName(String playerName) {
+        	if(playerName == null || playerName.trim().isEmpty()) new IllegalArgumentException("Invalid arg for setPlayerName in tInventory");
             this.playerName = playerName;
         }
 
@@ -36,6 +38,7 @@ public class tPlayer extends tUser {
         }
 
         public void setGames(Map<tGame, Integer> games) {
+        	if(games == null) new IllegalArgumentException("Invalid arg for setGames in tInventory");
             this.games = games;
         }
 
@@ -44,6 +47,7 @@ public class tPlayer extends tUser {
         }
 
         public void setProducts(Map<tProduct, Integer> products) {
+        	if(products == null) new IllegalArgumentException("Invalid arg for setProducts in tInventory");
             this.products = products;
         }
     }
@@ -53,6 +57,7 @@ public class tPlayer extends tUser {
 
     public tPlayer(String name, String password, boolean active, tInventory inventory, int points) {
         super(name, password, active);
+        if(inventory == null || points < 0) new IllegalArgumentException("Invalid args for Builder in tPlayer");
         this.inventory = inventory;
         this.points = points;
     }
@@ -62,6 +67,7 @@ public class tPlayer extends tUser {
     }
 
     public void setInventory(tInventory inventory) {
+    	if(inventory == null) new IllegalArgumentException("Invalid arg for setInventory in tPlayer");
         this.inventory = inventory;
     }
 
@@ -70,6 +76,7 @@ public class tPlayer extends tUser {
     }
 
     public void setPoints(int points) {
+    	if(points < 0) new IllegalArgumentException("Invalid arg for setPoints in tPlayer");
         this.points = points;
     }
 

@@ -7,43 +7,49 @@ import java.util.function.Predicate;
 
 public class Roulette extends ChanceGame {
     public static class Bet {
+    	public static class tBet {
+        	public Bets betName;
+        	public int[] data;
+        	
+        	public tBet(Bets betName, int[] data) {
+            	if(betName == null || data == null) throw new IllegalArgumentException("Invalid args for Builder in tBet");
+        		this.betName = betName;
+        		this.data = data;
+        	}
+        }
+    	
         private static final Set<Integer> RED_NUMBERS = new HashSet<>(Arrays.asList(1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36));
         private static final Set<Integer> BLACK_NUMBERS = new HashSet<>(Arrays.asList(2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35));
 
         private final String description;
         private final int multiplier;
         private final Predicate<Integer> winCondition;
-        public enum Bets {Sencillo, Calle, Columna, Docena, Rojo, Negro, Par, Impar, Low, High};
-        
-        public static class tBet{
-        	public Bets betName;
-        	public int[] data;
-        	
-        	public tBet(Bets betName, int[] data) {
-        		this.betName = betName;
-        		this.data = data;
-        	}
-        }
+        public enum Bets {Sencillo, Calle, Columna, Docena, Rojo, Negro, Par, Impar, Bajo, Alto};
 
         private Bet(String description, int multiplier, Predicate<Integer> winCondition) {
+        	if(description == null || multiplier < 1 || winCondition == null) throw new IllegalArgumentException("Invalid args for Builder in Bet");
             this.description = description;
             this.multiplier = multiplier;
             this.winCondition = winCondition;
         }
 
         public static Bet straight(int n1) {
+        	if(n1 <= -1 || 37 <= n1) throw new IllegalArgumentException("Invalid arg for straight in Bet");
             return new Bet("Sencillo al " + n1, 35, n -> n == n1);
         }
 
         public static Bet street(int n1, int n2, int n3) {
+        	if(n2 != n1 + 1 || n3 != n2 + 1) throw new IllegalArgumentException("Invalid args for street in Bet");
             return new Bet("Calle al " + n1 + ", " + n2 + " y " + n3, 11, n -> n == n1 || n == n2 || n == n3);
         }
 
         public static Bet column(int col) { // col = 1, 2 o 3
+        	if(col != 1 && col != 2 && col != 3) throw new IllegalArgumentException("Invalid arg for column in Bet");
             return new Bet("Columna " + col, 2, n -> n != 0 && (n % 3) == (col % 3));
         }
 
         public static Bet dozen(int dozen) { // dozen = 1, 2 o 3
+        	if(dozen != 1 && dozen != 2 && dozen != 3) throw new IllegalArgumentException("Invalid arg for dozen in Bet");
             int start = (dozen - 1) * 12 + 1, end = start + 11;
             return new Bet("Docena " + dozen, 2, n -> start <= n && n <= end);
         }
@@ -77,6 +83,7 @@ public class Roulette extends ChanceGame {
         }
 
         public boolean isWinner(int number) {
+        	if(number <= -1 || 37 <= number) throw new IllegalArgumentException("Invalid arg for isWinner in Bet");
             return winCondition.test(number);
         }
 
@@ -100,6 +107,7 @@ public class Roulette extends ChanceGame {
     }
     
     public static Bet toBet(Bet.tBet bet) {
+    	if(bet == null) throw new IllegalArgumentException("Invalid arg for toBet in Roulette");
     	switch(bet.betName) {
 	    	case Sencillo: return Bet.straight(bet.data[0]); 
 	    	case Calle: return Bet.street(bet.data[0], bet.data[1], bet.data[2]); 
@@ -109,9 +117,9 @@ public class Roulette extends ChanceGame {
 	    	case Negro: return Bet.black(); 
 	    	case Par: return Bet.even();
 	    	case Impar: return Bet.odd();
-	    	case Low: return Bet.low(); 
-	    	case High: return Bet.high();
-	    	default: return Bet.red();
+	    	case Bajo: return Bet.low(); 
+	    	case Alto: return Bet.high();
+	    	default: throw new IllegalArgumentException("Invalid bet for toBet in Roulette");
     	}
     }
 

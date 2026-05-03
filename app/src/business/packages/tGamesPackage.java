@@ -9,6 +9,7 @@ public class tGamesPackage {
     private Map<tGame, Integer> games;
 
     public tGamesPackage(String name, double price, Map<tGame, Integer> games) {
+    	if(name == null || name.trim().isEmpty() || price < 0 || games == null) new IllegalArgumentException("Invalid args for Builder in tGamesPackage");
         this.name = name;
         this.price = price;
         this.games = games;
@@ -19,6 +20,7 @@ public class tGamesPackage {
     }
 
     public void setName(String name) {
+    	if(name == null || name.trim().isEmpty()) new IllegalArgumentException("Invalid arg for setName in tGamesPackage");
         this.name = name;
     }
 
@@ -27,6 +29,7 @@ public class tGamesPackage {
     }
 
     public void setPrice(double price) {
+    	if(price < 0) new IllegalArgumentException("Invalid arg for setPrice in tGamesPackage");
         this.price = price;
     }
 
@@ -35,6 +38,7 @@ public class tGamesPackage {
     }
 
     public void setGames(Map<tGame, Integer> games) {
+    	if(games == null) new IllegalArgumentException("Invalid arg for setGames in tGamesPackage");
         this.games = games;
     }
 }

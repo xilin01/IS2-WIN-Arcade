@@ -13,8 +13,8 @@ public class SAAuthImp implements SAAuth {
 
     @Override
     public AuthResult authenticate(String name, String password) {
+    	if(name == null || name.trim().isEmpty() || password == null || password.trim().isEmpty()) throw new IllegalArgumentException("Invalid args for authenticate in SAAuthImp");
         tUser user = saUser.readUser(name);
-        
         if(user == null || !user.getActive() || !user.getPassword().equals(password)) return AuthResult.failure();
         return user.toAuthResult();
     }

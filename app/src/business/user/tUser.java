@@ -8,6 +8,7 @@ public abstract class tUser {
     protected boolean active;
 
     public tUser(String name, String password, boolean active) {
+    	if(name == null || name.trim().isEmpty() || password == null || password.trim().isEmpty()) new IllegalArgumentException("Invalid args for Builder in tUser");
         this.name = name;
         this.password = password;
         this.active = active;
@@ -26,10 +27,12 @@ public abstract class tUser {
     }
 
     public void setName(String name) {
+    	if(name == null || name.trim().isEmpty()) new IllegalArgumentException("Invalid arg for setName in tUser");
         this.name = name;
     }
 
     public void setPassword(String password) {
+    	if(password == null || password.trim().isEmpty()) new IllegalArgumentException("Invalid arg for setPassword in tUser");
         this.password = password;
     }
 

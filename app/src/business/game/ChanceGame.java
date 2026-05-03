@@ -5,6 +5,7 @@ public abstract class ChanceGame extends Game {
 
     protected ChanceGame(int basePoints, int multiplier) {
         super(basePoints);
+        if(multiplier < 1) throw new IllegalArgumentException("Invalid args for Builder in ChanceGame");
         this.multiplier = multiplier;
     }
 
