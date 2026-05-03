@@ -40,7 +40,7 @@ public class LoginView extends JFrame {
         setResizable(false);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         
-        BackgroundPanel background = new BackgroundPanel("resources/icons/entrada.png");
+        BackgroundPanel background = new BackgroundPanel("resources/icons/menu_inicio.png");
         background.setLayout(new GridBagLayout());
         setContentPane(background);
         
