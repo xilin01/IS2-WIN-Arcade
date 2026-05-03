@@ -6,6 +6,7 @@ import java.awt.Component;
 import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Window;
 import java.util.function.Supplier;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -126,6 +127,53 @@ public class Theme {
             dialog.setVisible(true);
         }
 
+        void showInfo(Component parent, String message) {
+            Window owner = parent != null ? SwingUtilities.getWindowAncestor(parent) : null;
+            JDialog dialog = new JDialog(owner, "Información", Dialog.ModalityType.APPLICATION_MODAL);
+            dialog.setLayout(new BorderLayout());
+            dialog.getContentPane().setBackground(c.BG);
+            dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+            JLabel msgLabel = new JLabel(message);
+            msgLabel.setForeground(c.TEXT);
+            msgLabel.setFont(t.BODY);
+            msgLabel.setBorder(BorderFactory.createEmptyBorder(20, 24, 12, 24));
+            dialog.add(msgLabel, BorderLayout.CENTER);
+            JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+            btnPanel.setBackground(c.BG_CARD);
+            btnPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, c.BORDER));
+            btnPanel.add(primaryBtn("Aceptar", dialog::dispose));
+            dialog.add(btnPanel, BorderLayout.SOUTH);
+            dialog.setSize(420, 150);
+            dialog.setLocationRelativeTo(parent);
+            dialog.setVisible(true);
+        }
+
+        void showError(Component parent, String message) {
+            Window owner = parent != null ? SwingUtilities.getWindowAncestor(parent) : null;
+            JDialog dialog = new JDialog(owner, "Error", Dialog.ModalityType.APPLICATION_MODAL);
+            dialog.setLayout(new BorderLayout());
+            dialog.getContentPane().setBackground(c.BG);
+            dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+            JLabel titleLabel = new JLabel("Error");
+            titleLabel.setForeground(c.DANGER);
+            titleLabel.setFont(t.HEADING);
+            titleLabel.setBorder(BorderFactory.createEmptyBorder(16, 24, 4, 24));
+            dialog.add(titleLabel, BorderLayout.NORTH);
+            JLabel msgLabel = new JLabel(message);
+            msgLabel.setForeground(c.TEXT);
+            msgLabel.setFont(t.BODY);
+            msgLabel.setBorder(BorderFactory.createEmptyBorder(4, 24, 12, 24));
+            dialog.add(msgLabel, BorderLayout.CENTER);
+            JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+            btnPanel.setBackground(c.BG_CARD);
+            btnPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, c.BORDER));
+            btnPanel.add(dangerBtn("Cerrar", dialog::dispose));
+            dialog.add(btnPanel, BorderLayout.SOUTH);
+            dialog.setSize(420, 170);
+            dialog.setLocationRelativeTo(parent);
+            dialog.setVisible(true);
+        }
+
         boolean confirm(Component parent, String message) {
             boolean[] result = {false};
             JDialog dialog = new JDialog(SwingUtilities.getWindowAncestor(parent), "Confirmar", Dialog.ModalityType.APPLICATION_MODAL);
@@ -220,6 +268,14 @@ public class Theme {
     	return factory.successBtn(text, onClick);
     }
     
+    public void showInfo(Component parent, String message) {
+        factory.showInfo(parent, message);
+    }
+
+    public void showError(Component parent, String message) {
+        factory.showError(parent, message);
+    }
+
     public boolean confirm(Component parent, String message) {
     	return factory.confirm(parent, message);
     }
