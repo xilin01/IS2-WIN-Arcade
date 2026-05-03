@@ -37,7 +37,7 @@ public class StoreView extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        BackgroundPanel background = new BackgroundPanel("resources/icons/zona_tienda.png");
+        BackgroundPanel background = new BackgroundPanel("resources/icons/menu_tienda.png");
         background.setLayout(new GridBagLayout());
         setContentPane(background);
         

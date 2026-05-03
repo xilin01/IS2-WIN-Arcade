@@ -37,7 +37,7 @@ public class InventoryView extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	
-        BackgroundPanel background = new BackgroundPanel("resources/icons/zona_inventario.png");
+        BackgroundPanel background = new BackgroundPanel("resources/icons/menu_inventario.png");
         background.setLayout(new GridBagLayout());
         setContentPane(background);
     	

@@ -30,7 +30,7 @@ public class PlayerView extends JFrame {
         setResizable(false);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
     	
-        BackgroundPanel background = new BackgroundPanel("resources/icons/zona_seleccion.png");
+        BackgroundPanel background = new BackgroundPanel("resources/icons/menu_principal.png");
         background.setLayout(new GridBagLayout());
         setContentPane(background);
         
