@@ -10,7 +10,7 @@ public class tGame {
     private int basePoints;
 
     public tGame(String name, int basePoints) {
-    	if(name == null || name.trim().isEmpty() || basePoints <= 0) new IllegalArgumentException("Invalid args for Builder in tGame");
+    	if(name == null || name.trim().isEmpty() || basePoints < 0) new IllegalArgumentException("Invalid args for Builder in tGame");
         this.name = name;
         this.basePoints = basePoints;
     }

@@ -20,9 +20,9 @@ public class DAOPlayerImp implements DAOPlayer {
 
     @Override
     public int createPlayer(tPlayer player) {
+    	if(player == null) new IllegalArgumentException("Invalid arg for createPlayer in DAOPlayerImp");
         int rowCount = 0;
         Connection connection = DB.getConnection();
-
         if(connection != null) {
             try {
                 connection.setAutoCommit(false);
@@ -61,8 +61,8 @@ public class DAOPlayerImp implements DAOPlayer {
 
     @Override
     public tPlayer readPlayer(String name) {
+    	if(name == null || name.trim().isEmpty()) new IllegalArgumentException("Invalid arg for readPlayer in DAOPlayerImp");
         tUser user = daoUser.readUser(name);
-
         if(user instanceof tPlayer) {
             tPlayer player = (tPlayer)user;
             Connection connection = DB.getConnection();
@@ -93,9 +93,9 @@ public class DAOPlayerImp implements DAOPlayer {
 
     @Override
     public int updatePlayer(tPlayer player) {
+    	if(player == null) new IllegalArgumentException("Invalid arg for updatePlayer in DAOPlayerImp");
         int rowCount = 0;
         Connection connection = DB.getConnection();
-
         if(connection != null) {
             try {
                 connection.setAutoCommit(false);
@@ -136,6 +136,7 @@ public class DAOPlayerImp implements DAOPlayer {
 
     @Override
     public int deletePlayer(String name) {
+    	if(name == null || name.trim().isEmpty()) new IllegalArgumentException("Invalid arg for deletePlayer in DAOPlayerImp");
         return daoUser.deleteUser(name);
     }
 

@@ -13,9 +13,9 @@ public class DAOProductImp implements DAOProduct {
 
     @Override
     public int createProduct(tProduct product) {
+    	if(product == null) new IllegalArgumentException("Invalid arg for createProduct in DAOProductImp");
         int rowCount = 0;
         Connection connection = DB.getConnection();
-
         if(connection != null) {
             try {
                 String query = "INSERT INTO product (name, price) VALUES (?, ?)";
@@ -35,9 +35,9 @@ public class DAOProductImp implements DAOProduct {
 
     @Override
     public tProduct readProduct(String name) {
+    	if(name == null || name.trim().isEmpty()) new IllegalArgumentException("Invalid arg for readProduct in DAOProductImp");
         tProduct product = null;
         Connection connection = DB.getConnection();
-
         if(connection != null) {
             try {
                 String query = "SELECT name, price "
@@ -60,9 +60,9 @@ public class DAOProductImp implements DAOProduct {
 
     @Override
     public int updateProduct(tProduct product) {
+    	if(product == null) new IllegalArgumentException("Invalid arg for updateProduct in DAOProductImp");
         int rowCount = 0;
         Connection connection = DB.getConnection();
-
         if(connection != null) {
             try {
                 String query = "UPDATE product "
@@ -84,9 +84,9 @@ public class DAOProductImp implements DAOProduct {
 
     @Override
     public int deleteProduct(String name) {
+    	if(name == null || name.trim().isEmpty()) new IllegalArgumentException("Invalid arg for deleteProduct in DAOProductImp");
         int rowCount = 0;
         Connection connection = DB.getConnection();
-
         if(connection != null) {
             try {
                 String query = "DELETE FROM product WHERE name = ?";

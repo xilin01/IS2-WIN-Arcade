@@ -8,7 +8,7 @@ public abstract class Game {
     protected int basePoints;
 
     protected Game(int basePoints) {
-    	if(basePoints <= 0) throw new IllegalArgumentException("Invalid arg for Builder in Game");
+    	if(basePoints < 0) throw new IllegalArgumentException("Invalid arg for Builder in Game");
         this.basePoints = basePoints;
     }
 

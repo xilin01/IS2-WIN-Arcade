@@ -17,9 +17,9 @@ public class DAOInventoryImp implements DAOInventory {
 
     @Override
     public int createInventory(tInventory inventory) {
+    	if(inventory == null) new IllegalArgumentException("Invalid arg for createInventory in DAOInventoryImp");
         int rowCount = 0;
         Connection connection = DB.getConnection();
-
         if(connection != null) {
             try {
                 connection.setAutoCommit(false);
@@ -74,9 +74,9 @@ public class DAOInventoryImp implements DAOInventory {
 
     @Override
     public tInventory readInventory(String playerName) {
+    	if(playerName == null || playerName.trim().isEmpty()) new IllegalArgumentException("Invalid arg for readInventory in DAOInventoryImp");
         tInventory inventory = null;
         Connection connection = DB.getConnection();
-
         if(connection != null) {
             try {
                 Map<tGame, Integer> games = new HashMap<>();
@@ -111,9 +111,9 @@ public class DAOInventoryImp implements DAOInventory {
 
     @Override
     public int updateInventory(tInventory inventory) {
+    	if(inventory == null) new IllegalArgumentException("Invalid arg for updateInventory in DAOInventoryImp");
         int rowCount = 0;
         Connection connection = DB.getConnection();
-
         if(connection != null) {
         	boolean originalAutoCommit = true;
         	

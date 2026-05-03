@@ -14,9 +14,9 @@ import integration.DB;
 public class DAOUserImp implements DAOUser {
 
     public int createUser(tUser user) {
+    	if(user == null) new IllegalArgumentException("Invalid arg for createUser in DAOUserImp");	
         int rowCount = 0;
         Connection connection = DB.getConnection();
-
         if(connection != null) {
             try {
                 String query = "INSERT INTO user (name, password, active) VALUES (?, ?, ?)";
@@ -35,10 +35,10 @@ public class DAOUserImp implements DAOUser {
         return rowCount;
     }
 
-    public tUser readUser(String name) { // Leer usuario activo
+    public tUser readUser(String name) {
+    	if(name == null || name.trim().isEmpty()) new IllegalArgumentException("Invalid arg for readUser in DAOUserImp");
         tUser user = null;
         Connection connection = DB.getConnection();
-
         if(connection != null) {
             try {
                 String query = "SELECT u.password, u.active, s.name AS staffName "
@@ -66,9 +66,9 @@ public class DAOUserImp implements DAOUser {
     }
 
     public int updateUser(tUser user) {
+    	if(user == null) new IllegalArgumentException("Invalid arg for updateUser in DAOUserImp");	
         int rowCount = 0;
         Connection connection = DB.getConnection();
-
         if(connection != null) {
             try {
                 String query = "UPDATE user "
@@ -90,9 +90,9 @@ public class DAOUserImp implements DAOUser {
     }
 
     public int deleteUser(String name) { // Borrado lógico
+    	if(name == null || name.trim().isEmpty()) new IllegalArgumentException("Invalid arg for deleteUser in DAOUserImp");
         int rowCount = 0;
         Connection connection = DB.getConnection();
-
         if(connection != null) {
             try {
                 String query = "UPDATE user "

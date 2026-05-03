@@ -16,9 +16,9 @@ public class DAOGamesPackageImp implements DAOGamesPackage {
 
     @Override
     public int createGamesPackage(tGamesPackage gamesPackage) {
+    	if(gamesPackage == null) new IllegalArgumentException("Invalid arg for createGamesPackage in DAOGamesPackageImp");
         int rowCount = 0;
         Connection connection = DB.getConnection();
-
         if(connection != null) {
             try {
                 connection.setAutoCommit(false);
@@ -66,9 +66,9 @@ public class DAOGamesPackageImp implements DAOGamesPackage {
 
     @Override
     public tGamesPackage readGamesPackage(String name) {
+    	if(name == null || name.trim().isEmpty()) new IllegalArgumentException("Invalid arg for readGamesPackage in DAOGamesPackageImp");
         tGamesPackage gamesPackage = null;
         Connection connection = DB.getConnection();
-
         if(connection != null) {
             try {
                 String query = "SELECT price "
@@ -105,9 +105,9 @@ public class DAOGamesPackageImp implements DAOGamesPackage {
 
     @Override
     public int updateGamesPackage(tGamesPackage gamesPackage) {
+    	if(gamesPackage == null) new IllegalArgumentException("Invalid arg for updateGamesPackage in DAOGamesPackageImp");
         int rowCount = 0;
         Connection connection = DB.getConnection();
-
         if(connection != null) {
             try {
                 connection.setAutoCommit(false);
@@ -163,9 +163,9 @@ public class DAOGamesPackageImp implements DAOGamesPackage {
 
     @Override
     public int deleteGamesPackage(String name) {
+    	if(name == null || name.trim().isEmpty()) new IllegalArgumentException("Invalid arg for deleteGamesPackage in DAOGamesPackageImp");
         int rowCount = 0;
         Connection connection = DB.getConnection();
-
         if(connection != null) {
             try {
                 String query = "DELETE FROM gamesPackage WHERE name = ?";

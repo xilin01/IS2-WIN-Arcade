@@ -16,9 +16,9 @@ public class DAOStaffImp implements DAOStaff {
 
     @Override
     public int createStaff(tStaff staff) {
+    	if(staff == null) new IllegalArgumentException("Invalid arg for createStaff in DAOStaffImp");	
         int rowCount = 0;
         Connection connection = DB.getConnection();
-
         if(connection != null) {
             try {
                 connection.setAutoCommit(false);
@@ -57,19 +57,21 @@ public class DAOStaffImp implements DAOStaff {
 
     @Override
     public tStaff readStaff(String name) {
+    	if(name == null || name.trim().isEmpty()) new IllegalArgumentException("Invalid arg for readStaff in DAOStaffImp");
         tUser user = daoUser.readUser(name);
-
         if(user instanceof tStaff) return (tStaff)user;
         return null;
     }
 
     @Override
     public int updateStaff(tStaff staff) {
+    	if(staff == null) new IllegalArgumentException("Invalid arg for updateStaff in DAOStaffImp");	
         return daoUser.updateUser(staff);
     }
 
     @Override
     public int deleteStaff(String name) {
+    	if(name == null || name.trim().isEmpty()) new IllegalArgumentException("Invalid arg for deleteStaff in DAOStaffImp");
         return daoUser.deleteUser(name);
     }
 
