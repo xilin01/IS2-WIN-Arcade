@@ -21,19 +21,21 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import business.game.Roulette.Bet.Bets;
 import business.game.Roulette.Bet.tBet;
 import presentation.Controller;
 import presentation.Event;
+import presentation.Theme;
 
 @SuppressWarnings("serial")
 public class RouletteGUI extends JFrame {
+    private static final Theme theme = Theme.getInstance();
+
     private class RotatedRoulette extends JPanel {
     	private static final int SIZE = 500;
-    	
+
         private Image image;
         private double angle;
 
@@ -42,12 +44,11 @@ public class RouletteGUI extends JFrame {
                 BufferedImage original = ImageIO.read(new File("resources/icons/ruleta.png"));
                 BufferedImage compatible = new BufferedImage(SIZE, SIZE, BufferedImage.TYPE_INT_ARGB);
                 Graphics2D g2d = compatible.createGraphics();
-                
                 g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
                 g2d.drawImage(original, 0, 0, SIZE, SIZE, null);
                 g2d.dispose();
                 image = compatible;
-            } 
+            }
         	catch (Exception e) {
                 e.printStackTrace();
             }
@@ -66,13 +67,12 @@ public class RouletteGUI extends JFrame {
             drawPointer(g);
             g2.dispose();
         }
-        
+
         private void drawPointer(Graphics g) {
         	Graphics2D gPointer = (Graphics2D)g.create();
         	int centerX = SIZE / 2;
             int[] xPoints = {centerX - 15, centerX + 15, centerX};
             int[] yPoints = {10, 10, 50};
-
             gPointer.setColor(Color.RED);
             gPointer.fillPolygon(xPoints, yPoints, 3);
             gPointer.dispose();
@@ -83,62 +83,68 @@ public class RouletteGUI extends JFrame {
             repaint();
         }
     }
+
     private class ImputDialog extends JDialog {
     	private static final int BETS_HEIGHT = 300;
         private static final int BETS_WIDTH = BETS_HEIGHT * 2;
-        
+
     	private Bets betName;
-    	private DefaultComboBoxModel <String> select;
+    	private DefaultComboBoxModel<String> select;
     	private JLabel text;
-    	
+
     	public ImputDialog(Bets betName) {
-    		super(RouletteGUI.this, "Panel de seleccion", true);
+    		super(RouletteGUI.this, "Panel de selección", true);
     		this.betName = betName;
     		select = new DefaultComboBoxModel<>();
     		text = new JLabel();
     		initGUI();
     	}
-    	
+
     	private void initGUI() {
     		switch(betName) {
 	    		case Sencillo:
-	    			for(int i = 0; i < 36; i++) select.addElement(""+i); 
+	    			for(int i = 0; i < 36; i++) select.addElement(""+i);
 	    			text.setText("Elige el número (del 0 al 36)");
 	    			break;
 	            case Calle:
-	            	for(int i = 1; i <= 34; i+=3) select.addElement(i+","+(i+1)+","+(i+2)); 
+	            	for(int i = 1; i <= 34; i+=3) select.addElement(i+","+(i+1)+","+(i+2));
 	            	text.setText("Elige una calle");
 	            	break;
 	            case Columna:
-	            case Docena: {
-	            	for(int i = 1; i <= 3; i++) select.addElement(""+i); 
+	            case Docena:
+	            	for(int i = 1; i <= 3; i++) select.addElement(""+i);
 	            	text.setText("Elige entre una de las tres");
 	            	break;
-	            }
 				default: break;
     		}
-    
+
     		JPanel mainPanel = new JPanel();
+    		mainPanel.setBackground(theme.BG);
+    		getContentPane().setBackground(theme.BG);
     		setContentPane(mainPanel);
-    		
+
     		ImageIcon icon = new ImageIcon("resources/icons/apuestas_ruleta.png");
             Image img = icon.getImage().getScaledInstance(BETS_WIDTH, BETS_HEIGHT, Image.SCALE_SMOOTH);
-            ImageIcon scaledIcon = new ImageIcon(img);
-            mainPanel.add(new JLabel(scaledIcon));
-    		
-    		JButton goButton = new JButton("Listo");
-    		goButton.addActionListener(e -> ready());
+            mainPanel.add(new JLabel(new ImageIcon(img)));
+
+    		text.setForeground(theme.TEXT);
+    		text.setFont(theme.BODY);
     		mainPanel.add(text);
-    		mainPanel.add(goButton);
-    		mainPanel.add(new JComboBox<>(select));
-    	
-    		this.setLocation(RouletteGUI.this.getWidth() / 2 - BETS_WIDTH / 2, RouletteGUI.this.getHeight() / 2 - BETS_HEIGHT / 2);
+
+    		JComboBox<String> combo = new JComboBox<>(select);
+    		combo.setBackground(theme.BG_ITEM);
+    		combo.setForeground(theme.TEXT);
+    		mainPanel.add(combo);
+
+    		mainPanel.add(theme.primaryBtn("Listo", this::ready));
+
+    		setLocation(RouletteGUI.this.getWidth() / 2 - BETS_WIDTH / 2, RouletteGUI.this.getHeight() / 2 - BETS_HEIGHT / 2);
     		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     		setPreferredSize(new Dimension(BETS_WIDTH, BETS_HEIGHT + 80));
     		pack();
     		setVisible(true);
     	}
-    	
+
     	private void ready() {
     		switch(betName) {
 	    		case Columna:
@@ -146,8 +152,7 @@ public class RouletteGUI extends JFrame {
 	            case Sencillo: bet = new tBet(betName, new int[]{Integer.parseInt("" + select.getSelectedItem())}); break;
 	            case Calle: {
 	                String[] parts = ((String)select.getSelectedItem()).split(",");
-	                
-	                bet = new tBet(betName, new int[]{Integer.parseInt(parts[0]), Integer.parseInt(parts[1]),Integer.parseInt(parts[2])});
+	                bet = new tBet(betName, new int[]{Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Integer.parseInt(parts[2])});
 	                break;
 	            }
 				default: break;
@@ -155,9 +160,9 @@ public class RouletteGUI extends JFrame {
     		dispose();
     	}
     }
-    
+
     private static final Bets[] BETS = Bets.values();
-    
+
     private Map<Integer, Integer> numberToSteps;
     private RotatedRoulette roulette;
     private tBet bet;
@@ -182,32 +187,26 @@ public class RouletteGUI extends JFrame {
         panelRuleta.setBorder(BorderFactory.createEmptyBorder(180, 100, 0, 0));
         mainPanel.add(panelRuleta, BorderLayout.CENTER);
 
-        JPanel betsPanel = new JPanel(new GridLayout(5, 2, 1, 1));
+        JPanel betsPanel = new JPanel(new GridLayout(5, 2, 4, 4));
         betsPanel.setOpaque(false);
         betsPanel.setBorder(BorderFactory.createEmptyBorder(80, 0, 80, 80));
         mainPanel.add(betsPanel, BorderLayout.EAST);
         for(Bets b: BETS) {
-            JButton betButton = new JButton(""+b);
-            
-            betButton.addActionListener(e -> setBet(b));
-            betsPanel.add(betButton);
+            betsPanel.add(theme.secondaryBtn(""+b, () -> setBet(b)));
         }
-        
-        JPanel optionsPanel = new JPanel(new GridLayout(2, 1, 20, 20));
+
+        JPanel optionsPanel = new JPanel(new GridLayout(2, 1, 0, 12));
         optionsPanel.setOpaque(false);
         optionsPanel.setBorder(BorderFactory.createEmptyBorder(350, 80, 350, 0));
         optionsPanel.setPreferredSize(new Dimension(150, 0));
         mainPanel.add(optionsPanel, BorderLayout.WEST);
 
-        playButton = new JButton("Tirar");
+        playButton = theme.primaryBtn("Tirar", this::playRoulette);
         playButton.setEnabled(false);
-        playButton.addActionListener(e -> playRoulette());
         optionsPanel.add(playButton);
 
-        JButton backButton = new JButton("Atrás");
-        backButton.addActionListener(e -> giveUp());
-        optionsPanel.add(backButton);
-        
+        optionsPanel.add(theme.secondaryBtn("Atrás", this::giveUp));
+
         setVisible(true);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -217,39 +216,37 @@ public class RouletteGUI extends JFrame {
     private void setBet(Bets betName) {
         switch(betName) {
             case Sencillo:
-            case Calle: 
-            case Columna: 
+            case Calle:
+            case Columna:
             case Docena: new ImputDialog(betName); break;
             default: bet = new tBet(betName, new int[]{}); break;
         }
         playButton.setEnabled(true);
     }
 
-    private void playRoulette() { // En setBet se activa el botón
+    private void playRoulette() {
         Controller.getInstance().action(Event.ROULETTE_ROLL, bet);
         playButton.setEnabled(false);
     }
 
     public void end(String message) {
-        JOptionPane.showMessageDialog(this, message);
+        theme.showInfo(this, message);
         Controller.getInstance().action(Event.OPEN_GAMES_PANEL, null);
         dispose();
     }
 
     private void giveUp() {
-        int option = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que quieres abandonar?\nLa partida se perderá",
-                "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if(option == JOptionPane.OK_OPTION) {
+        if(theme.confirm(this, "¿Estás seguro de que quieres abandonar? La partida se perderá")) {
             Controller.getInstance().action(Event.OPEN_GAMES_PANEL, null);
             dispose();
         }
     }
 
     public void showResult(int puntos, int winningNumber) {
-    	String message = puntos == 0 ? "El número ganador fue el " + winningNumber + ", perdiste... ": "¡Ganaste con el " + winningNumber + "!";
+    	String message = puntos == 0 ? "El número ganador fue el " + winningNumber + ", perdiste..." : "¡Ganaste con el " + winningNumber + "!";
     	showAnimation(winningNumber, () -> end(message));
     }
-    
+
     private void showAnimation(int n, Runnable onFinish) {
     	animationCount = 0;
     	int steps = numberToSteps.get(n) + 37;
@@ -264,7 +261,7 @@ public class RouletteGUI extends JFrame {
 	    });
         timer.start();
     }
-    
+
     private void initNumberToSteps() {
     	numberToSteps = new HashMap<>();
     	numberToSteps.put(0, 0);    numberToSteps.put(1, 23);

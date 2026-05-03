@@ -1,10 +1,8 @@
 package presentation.games;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.Image;
 import java.util.List;
 import javax.swing.BorderFactory;
@@ -13,17 +11,17 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import business.game.CardGame.Cards;
 import presentation.Controller;
 import presentation.Event;
+import presentation.Theme;
 
 @SuppressWarnings("serial")
 public class BlackjackGUI extends JFrame {
+    private static final Theme theme = Theme.getInstance();
     private static final int CARD_HEIGHT = 200;
     private static final int CARD_WIDTH = (int)(CARD_HEIGHT / 1.4);
-    private static final Font FONT = new Font("", Font.PLAIN, 15);
 
     private JPanel croupierDeckPanel;
     private JPanel playerDeckPanel;
@@ -50,50 +48,48 @@ public class BlackjackGUI extends JFrame {
         playerDeckPanel.setOpaque(false);
         mainPanel.add(playerDeckPanel, BorderLayout.SOUTH);
 
-        JPanel choiceButtonsPanel = new JPanel(new FlowLayout());
+        JPanel choiceButtonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 12, 8));
         choiceButtonsPanel.setOpaque(false);
         mainPanel.add(choiceButtonsPanel, BorderLayout.CENTER);
-        JButton hitButton = new JButton("Pedir carta");
-        hitButton.addActionListener(a -> Controller.getInstance().action(Event.BLACKJACK_HIT, null));
+        JButton hitButton = theme.primaryBtn("Pedir carta", () -> Controller.getInstance().action(Event.BLACKJACK_HIT, null));
+        JButton standButton = theme.secondaryBtn("Plantarse", () -> Controller.getInstance().action(Event.BLACKJACK_STAND, null));
         choiceButtonsPanel.add(hitButton);
-        JButton standButton = new JButton("Plantarse");
-        standButton.addActionListener(a -> Controller.getInstance().action(Event.BLACKJACK_STAND, null));
         choiceButtonsPanel.add(standButton);
 
-        JPanel backPanel = new JPanel();
-        backPanel.setPreferredSize(new Dimension(100, 0));
+        JPanel backPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 12));
+        backPanel.setPreferredSize(new Dimension(130, 0));
         backPanel.setOpaque(false);
         mainPanel.add(backPanel, BorderLayout.WEST);
-        JButton backButton = new JButton("Atrás");
-        backButton.addActionListener(a -> giveUp());
-        backPanel.add(backButton);
-  
+        backPanel.add(theme.secondaryBtn("Atrás", this::giveUp));
+
         JPanel scoresAuxiliarPanel = new JPanel();
         scoresAuxiliarPanel.setOpaque(false);
         mainPanel.add(scoresAuxiliarPanel, BorderLayout.EAST);
-        
+
         JPanel scoresPanel = new JPanel();
-        scoresPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 2, true));
-        scoresPanel.setBackground(new Color(0, 0, 0, 180));
+        scoresPanel.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(theme.BORDER, 1),
+            BorderFactory.createEmptyBorder(10, 14, 10, 14)
+        ));
+        scoresPanel.setBackground(theme.BG_CARD);
         scoresPanel.setLayout(new BoxLayout(scoresPanel, BoxLayout.PAGE_AXIS));
-        scoresPanel.setOpaque(true);
         croupierScore = new JLabel();
-        croupierScore.setFont(FONT);
-        croupierScore.setForeground(Color.WHITE);
+        croupierScore.setFont(theme.BODY);
+        croupierScore.setForeground(theme.TEXT);
         scoresPanel.add(croupierScore);
         playerScore = new JLabel();
-        playerScore.setFont(FONT);
-        playerScore.setForeground(Color.WHITE);
+        playerScore.setFont(theme.BODY);
+        playerScore.setForeground(theme.GOLD);
         scoresPanel.add(playerScore);
         scoresAuxiliarPanel.add(scoresPanel);
 
         showInitDecks(croupierCard, playerDeck);
         setScores(croupierPoints, playerPoints, true);
-        
-        this.setVisible(true);
-        this.setResizable(false);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+        setVisible(true);
+        setResizable(false);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     private void showInitDecks(Cards croupierCard, List<Cards> playerDeck) {
@@ -111,7 +107,7 @@ public class BlackjackGUI extends JFrame {
         if(showFullCroupier) {
             croupierDeckPanel.removeAll();
             for(Cards c: croupierDeck) showCard(croupierDeckPanel, c);
-            croupierDeckPanel.revalidate(); 
+            croupierDeckPanel.revalidate();
             croupierDeckPanel.repaint();
         }
         playerDeckPanel.removeAll();
@@ -133,21 +129,17 @@ public class BlackjackGUI extends JFrame {
         String cardName = (card == null ? "J" : ""+card);
         ImageIcon icon = new ImageIcon("resources/cards/"+cardName+".png");
         Image img = icon.getImage().getScaledInstance(CARD_WIDTH, CARD_HEIGHT, Image.SCALE_SMOOTH);
-        ImageIcon scaledIcon = new ImageIcon(img);
-        
-        deckPanel.add(new JLabel(scaledIcon));
+        deckPanel.add(new JLabel(new ImageIcon(img)));
     }
-    
+
     public void end(String message) {
-        JOptionPane.showMessageDialog(this, message);
+        theme.showInfo(this, message);
         Controller.getInstance().action(Event.OPEN_GAMES_PANEL, null);
         dispose();
     }
 
     private void giveUp() {
-        int option = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que quieres abandonar?\nLa partida se perderá",
-                "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if(option == JOptionPane.OK_OPTION) {
+        if(theme.confirm(this, "¿Estás seguro de que quieres abandonar? La partida se perderá")) {
             Controller.getInstance().action(Event.OPEN_GAMES_PANEL, null);
             dispose();
         }
