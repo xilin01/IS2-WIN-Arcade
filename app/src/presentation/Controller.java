@@ -1,6 +1,9 @@
 package presentation;
 
 import java.util.Collection;
+
+import org.json.JSONObject;
+
 import business.auth.AuthResult;
 import business.auth.SAAuth;
 import business.game.Blackjack;
@@ -17,6 +20,7 @@ import business.product.SAProduct;
 import business.product.tProduct;
 import business.ServiceLocator;
 import business.auth.tCredentials;
+import business.builders.GUIFactoryProvider;
 import business.store.SAStore;
 import presentation.auth.LoginView;
 import presentation.auth.SignUpView;
@@ -95,7 +99,8 @@ public class Controller {
                 break;
             }
             case Event.OPEN_PLAYER_VIEW: {
-                new PlayerView();
+                //new PlayerView(); TODO ejemplo de uso del BuilderBasedFactory
+            	GUIFactoryProvider.get().createInstance(new JSONObject().put("name", "PlayerView").put("data", new JSONObject()));
                 break;
             }
             case Event.OPEN_GAMES_PANEL: {
