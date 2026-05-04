@@ -11,6 +11,10 @@ public class SAPlayerImp implements SAPlayer {
         this.daoPlayer = new DAOPlayerImp();
     }
 
+    SAPlayerImp(DAOPlayer daoPlayer) { // Testing
+        this.daoPlayer = daoPlayer;
+    }
+
     @Override
     public int createPlayer(tPlayer player) {
         return daoPlayer.createPlayer(player);

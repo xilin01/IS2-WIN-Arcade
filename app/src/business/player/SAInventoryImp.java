@@ -14,6 +14,10 @@ public class SAInventoryImp implements SAInventory {
         this.daoInventory = new DAOInventoryImp();
     }
 
+    SAInventoryImp(DAOInventory daoInventory) { // Testing
+        this.daoInventory = daoInventory;
+    }
+
     @Override
     public tInventory readInventory(String playerName) {
         return daoInventory.readInventory(playerName);
@@ -37,9 +41,11 @@ public class SAInventoryImp implements SAInventory {
 			Map<tGame, Integer> games = inventory.getGames();
 			Integer amount = games.get(game);
 			
-			if(amount >= 2) games.put(game, amount - 1);
-			else games.remove(game);
-			daoInventory.updateInventory(inventory);
+			if(amount != null) {
+				if(amount >= 2) games.put(game, amount - 1);
+				else games.remove(game);
+				daoInventory.updateInventory(inventory);
+			}
         }
     }
 }
