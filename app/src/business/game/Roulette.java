@@ -24,7 +24,40 @@ public class Roulette extends ChanceGame {
         private final String description;
         private final int multiplier;
         private final Predicate<Integer> winCondition;
-        public enum Bets {Sencillo, Calle, Columna, Docena, Rojo, Negro, Par, Impar, Bajo, Alto};
+        public enum Bets {
+            Sencillo {
+                @Override public Bet create(int[] data) { return Bet.straight(data[0]); }
+            },
+            Calle {
+                @Override public Bet create(int[] data) { return Bet.street(data[0], data[1], data[2]); }
+            },
+            Columna {
+                @Override public Bet create(int[] data) { return Bet.column(data[0]); }
+            },
+            Docena {
+                @Override public Bet create(int[] data) { return Bet.dozen(data[0]); }
+            },
+            Rojo {
+                @Override public Bet create(int[] data) { return Bet.red(); }
+            },
+            Negro {
+                @Override public Bet create(int[] data) { return Bet.black(); }
+            },
+            Par {
+                @Override public Bet create(int[] data) { return Bet.even(); }
+            },
+            Impar {
+                @Override public Bet create(int[] data) { return Bet.odd(); }
+            },
+            Bajo {
+                @Override public Bet create(int[] data) { return Bet.low(); }
+            },
+            Alto {
+                @Override public Bet create(int[] data) { return Bet.high(); }
+            };
+
+            public abstract Bet create(int[] data);
+        }
 
         private Bet(String description, int multiplier, Predicate<Integer> winCondition) {
         	if(description == null || multiplier < 1 || winCondition == null) throw new IllegalArgumentException("Invalid args for Builder in Bet");
@@ -108,19 +141,7 @@ public class Roulette extends ChanceGame {
     
     public static Bet toBet(Bet.tBet bet) {
     	if(bet == null) throw new IllegalArgumentException("Invalid arg for toBet in Roulette");
-    	switch(bet.betName) {
-	    	case Sencillo: return Bet.straight(bet.data[0]); 
-	    	case Calle: return Bet.street(bet.data[0], bet.data[1], bet.data[2]); 
-	    	case Columna: return Bet.column(bet.data[0]); 
-	    	case Docena: return Bet.dozen(bet.data[0]); 
-	    	case Rojo: return Bet.red();
-	    	case Negro: return Bet.black(); 
-	    	case Par: return Bet.even();
-	    	case Impar: return Bet.odd();
-	    	case Bajo: return Bet.low(); 
-	    	case Alto: return Bet.high();
-	    	default: throw new IllegalArgumentException("Invalid bet for toBet in Roulette");
-    	}
+        return bet.betName.create(bet.data);
     }
 
 	@Override
