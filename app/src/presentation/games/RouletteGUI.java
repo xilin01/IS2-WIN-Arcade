@@ -246,7 +246,7 @@ public class RouletteGUI extends JFrame {
 
     private void showAnimation(int n, Runnable onFinish) {
     	animationCount = 0;
-    	int steps = numberToSteps.get(n) + (37*2);
+    	int steps = numberToSteps.get(n) + (37*3);
         Timer timer = new Timer(interruptionTime(steps), null);
         timer.addActionListener(e -> {
         	roulette.advance();
