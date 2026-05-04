@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import business.auth.tCredentials;
+import images.IMAGES;
 import presentation.Controller;
 import presentation.Event;
 import presentation.Theme;
@@ -40,7 +41,7 @@ public class LoginView extends JFrame {
         setResizable(false);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        BackgroundPanel background = new BackgroundPanel("resources/icons/menu_inicio.png");
+        BackgroundPanel background = new BackgroundPanel(IMAGES.class.getResource("menu_inicio.png"));
         background.setLayout(new GridBagLayout());
         setContentPane(background);
 

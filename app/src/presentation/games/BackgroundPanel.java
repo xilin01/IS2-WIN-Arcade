@@ -2,15 +2,17 @@ package presentation.games;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class BackgroundPanel extends JPanel { // Incluir en Theme
+public class BackgroundPanel extends JPanel {
     private Image background;
 
-    public BackgroundPanel(String path) {
-        background = new ImageIcon(path).getImage();
+    public BackgroundPanel(URL url) {
+    	if(url == null) throw new IllegalArgumentException("Invalid arg for Builder in BackgroundPanel");
+    	background = new ImageIcon(url).getImage();
     }
 
     @Override

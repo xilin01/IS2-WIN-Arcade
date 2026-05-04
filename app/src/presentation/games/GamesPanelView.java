@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import business.game.tGame;
 import business.player.tPlayer;
+import images.IMAGES;
 import presentation.Controller;
 import presentation.Event;
 import presentation.Theme;
@@ -34,7 +35,7 @@ public class GamesPanelView extends JFrame {
         setResizable(false);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        BackgroundPanel background = new BackgroundPanel("resources/icons/menu_juegos.png");
+        BackgroundPanel background = new BackgroundPanel(IMAGES.class.getResource("menu_juegos.png"));
         background.setLayout(new BorderLayout());
         setContentPane(background);
 

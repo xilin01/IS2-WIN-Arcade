@@ -16,6 +16,7 @@ import javax.swing.JTabbedPane;
 import business.game.tGame;
 import business.packages.tGamesPackage;
 import business.product.tProduct;
+import images.IMAGES;
 import presentation.Controller;
 import presentation.Event;
 import presentation.Theme;
@@ -38,7 +39,7 @@ public class StoreView extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        BackgroundPanel background = new BackgroundPanel("resources/icons/menu_tienda.png");
+        BackgroundPanel background = new BackgroundPanel(IMAGES.class.getResource("menu_tienda.png"));
         background.setLayout(new GridBagLayout());
         setContentPane(background);
 

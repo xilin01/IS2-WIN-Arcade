@@ -13,6 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import business.game.CardGame.Cards;
+import cards.CARDS;
+import images.IMAGES;
 import presentation.Controller;
 import presentation.Event;
 import presentation.Theme;
@@ -34,7 +36,7 @@ public class BlackjackGUI extends JFrame {
     }
 
     private void initGUI(Cards croupierCard, List<Cards> playerDeck, int croupierPoints, int playerPoints) {
-        BackgroundPanel mainPanel = new BackgroundPanel("resources/icons/fondo_blackjack.png");
+    	BackgroundPanel mainPanel = new BackgroundPanel(IMAGES.class.getResource("fondo_blackjack.png"));
         mainPanel.setLayout(new BorderLayout());
         setContentPane(mainPanel);
 
@@ -124,7 +126,7 @@ public class BlackjackGUI extends JFrame {
 
     private void showCard(JPanel deckPanel, Cards card) {
         String cardName = (card == null ? "J" : ""+card);
-        ImageIcon icon = new ImageIcon("resources/cards/"+cardName+".png");
+        ImageIcon icon = new ImageIcon(CARDS.class.getResource(cardName + ".png"));
         Image img = icon.getImage().getScaledInstance(CARD_WIDTH, CARD_HEIGHT, Image.SCALE_SMOOTH);
         
         deckPanel.add(new JLabel(new ImageIcon(img)));

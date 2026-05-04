@@ -16,6 +16,7 @@ import javax.swing.JTabbedPane;
 import business.game.tGame;
 import business.player.tPlayer;
 import business.product.tProduct;
+import images.IMAGES;
 import presentation.Controller;
 import presentation.Event;
 import presentation.Theme;
@@ -36,7 +37,7 @@ public class InventoryView extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        BackgroundPanel background = new BackgroundPanel("resources/icons/menu_inventario.png");
+        BackgroundPanel background = new BackgroundPanel(IMAGES.class.getResource("menu_inventario.png"));
         background.setLayout(new GridBagLayout());
         setContentPane(background);
 

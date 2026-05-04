@@ -25,6 +25,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import business.game.Roulette.Bet.Bets;
 import business.game.Roulette.Bet.tBet;
+import images.IMAGES;
 import presentation.Controller;
 import presentation.Event;
 import presentation.Theme;
@@ -39,7 +40,7 @@ public class RouletteGUI extends JFrame {
 
         public RotatedRoulette() {
         	try {
-                BufferedImage original = ImageIO.read(new File("resources/icons/ruleta.png"));
+        		BufferedImage original = ImageIO.read(IMAGES.class.getResource("ruleta.png"));
                 BufferedImage compatible = new BufferedImage(SIZE, SIZE, BufferedImage.TYPE_INT_ARGB);
                 Graphics2D g2d = compatible.createGraphics();
                 
@@ -122,7 +123,7 @@ public class RouletteGUI extends JFrame {
     		getContentPane().setBackground(theme.BG);
     		setContentPane(mainPanel);
 
-    		ImageIcon icon = new ImageIcon("resources/icons/apuestas_ruleta.png");
+    		ImageIcon icon = new ImageIcon(IMAGES.class.getResource("apuestas_ruleta.png"));
             Image img = icon.getImage().getScaledInstance(BETS_WIDTH, BETS_HEIGHT, Image.SCALE_SMOOTH);
             mainPanel.add(new JLabel(new ImageIcon(img)));
 
@@ -176,7 +177,7 @@ public class RouletteGUI extends JFrame {
     }
 
     private void initGUI() {
-        BackgroundPanel mainPanel = new BackgroundPanel("resources/icons/fondo_ruleta.png");
+    	BackgroundPanel mainPanel = new BackgroundPanel(IMAGES.class.getResource("fondo_ruleta.png"));
         mainPanel.setLayout(new BorderLayout());
         setContentPane(mainPanel);
 
