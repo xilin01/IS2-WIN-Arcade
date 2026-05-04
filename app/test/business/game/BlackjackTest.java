@@ -54,13 +54,13 @@ class BlackjackTest {
         assertTrue(visible >= 2 && visible <= 11, "Visible points out of expected range: " + visible);
     }
 
-    // --- Status constants ---
+    // --- GameResult enum ---
 
     @Test
-    void statusConstants_haveExpectedValues() {
-        assertEquals(-1, Blackjack.LOST);
-        assertEquals(0, Blackjack.CONTINUE);
-        assertEquals(1, Blackjack.WON);
+    void gameResultEnum_allConstantsAccessible() {
+        assertNotNull(Blackjack.GameResult.LOST);
+        assertNotNull(Blackjack.GameResult.CONTINUE);
+        assertNotNull(Blackjack.GameResult.WON);
     }
 
     // --- playerHit() path coverage ---
@@ -68,9 +68,9 @@ class BlackjackTest {
     @Test
     void playerHit_afterPlay_returnsValidStatus() {
         bj.play();
-        int status = bj.playerHit();
+        Blackjack.GameResult status = bj.playerHit();
         assertTrue(
-            Set.of(Blackjack.LOST, Blackjack.CONTINUE, Blackjack.WON).contains(status),
+            Set.of(Blackjack.GameResult.LOST, Blackjack.GameResult.CONTINUE, Blackjack.GameResult.WON).contains(status),
             "Unexpected status: " + status
         );
     }
@@ -81,9 +81,9 @@ class BlackjackTest {
     void getResult_afterBothPlay_returnsValidStatus() {
         bj.play();
         bj.croupierPlay();
-        int result = bj.getResult();
+        Blackjack.GameResult result = bj.getResult();
         assertTrue(
-            Set.of(Blackjack.LOST, Blackjack.CONTINUE, Blackjack.WON).contains(result),
+            Set.of(Blackjack.GameResult.LOST, Blackjack.GameResult.CONTINUE, Blackjack.GameResult.WON).contains(result),
             "Unexpected result: " + result
         );
     }
