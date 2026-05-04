@@ -60,7 +60,8 @@ public class InventoryView extends JFrame {
         gamesPanel.setBackground(theme.BG);
         gamesPanel.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
         if(!inventory.getGames().isEmpty()) {
-            for(Map.Entry<tGame, Integer> entry: inventory.getGames().entrySet()) gamesPanel.add(createItemPanel(entry.getValue() + "x " + entry.getKey().getName() + " (" + entry.getKey().getBasePoints() + "pts)"));
+            for(Map.Entry<tGame, Integer> entry: inventory.getGames().entrySet()) 
+            	gamesPanel.add(createItemPanel(entry.getValue() + "x " + entry.getKey().getName() + " (" + entry.getKey().getBasePoints() + "pts)"));
         }
         else gamesPanel.add(emptyLabel("No tienes juegos en tu inventario"));
         JScrollPane gamesScroll = new JScrollPane(gamesPanel);

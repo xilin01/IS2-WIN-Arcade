@@ -3,9 +3,7 @@ package presentation.user;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Insets;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -40,14 +38,14 @@ public class PlayerView extends JFrame {
 
         JPanel topBar = new JPanel(new FlowLayout(FlowLayout.RIGHT, 25, 15));
         topBar.setOpaque(false);
-        JLabel userLabel = new JLabel(Controller.getInstance().getUsername());
-        userLabel.setForeground(theme.GOLD);
-        userLabel.setFont(theme.BODY);
-        topBar.add(userLabel);
-        JLabel pointsLabel = new JLabel("| " + Controller.getInstance().getPlayerPoints(Controller.getInstance().getUsername()) + " pts");
-        pointsLabel.setForeground(theme.GOLD);
-        pointsLabel.setFont(theme.BODY);
-        topBar.add(pointsLabel);
+        JLabel userPointsLabel = new JLabel(Controller.getInstance().getUsername() + " | " + Controller.getInstance().getPlayerPoints(Controller.getInstance().getUsername()) + "pts");
+        userPointsLabel.setForeground(theme.GOLD);
+        userPointsLabel.setFont(theme.BODY);
+        JPanel pointsBackground = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0)); 
+        pointsBackground.setBackground(theme.BG_ITEM);
+        pointsBackground.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(theme.BORDER, 1), BorderFactory.createEmptyBorder(6, 14, 6, 14)));
+        pointsBackground.add(userPointsLabel);
+        topBar.add(pointsBackground);
         topBar.add(theme.secondaryBtn("Cerrar sesión", () -> {
             Controller.getInstance().action(Event.LOGOUT, null);
             dispose();

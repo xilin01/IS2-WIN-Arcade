@@ -7,7 +7,6 @@ import java.awt.GridBagLayout;
 import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -39,43 +38,29 @@ public class StoreView extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel background = theme.backgroundPanel(IMAGES.class.getResource("menu_tienda.png"));
-        background.setLayout(new GridBagLayout());
+        background.setLayout(new BorderLayout());
         setContentPane(background);
-
+        
+        JPanel topBar = new JPanel(new FlowLayout(FlowLayout.RIGHT, 25, 15));
+        topBar.setOpaque(false);
+        pointsLabel = new JLabel(Controller.getInstance().getUsername() + " | " + Controller.getInstance().getPlayerPoints(Controller.getInstance().getUsername()) + "pts");
+        pointsLabel.setForeground(theme.GOLD);
+        pointsLabel.setFont(theme.BODY);
+        JPanel pointsBackground = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        pointsBackground.setBackground(theme.BG_ITEM);
+        pointsBackground.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(theme.BORDER, 1), BorderFactory.createEmptyBorder(6, 14, 6, 14)));
+        pointsBackground.add(pointsLabel);
+        topBar.add(pointsBackground);
+        background.add(topBar, BorderLayout.NORTH);
+        
+        JPanel centerWrapper = new JPanel(new GridBagLayout());
+        centerWrapper.setOpaque(false);
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setPreferredSize(new Dimension(640, 780));
         mainPanel.setMinimumSize(new Dimension(500, 600));
-        mainPanel.setBackground(theme.BG_CARD);
-        mainPanel.setBorder(BorderFactory.createLineBorder(theme.BORDER, 1));
-        background.add(mainPanel);
-
-        // Top bar
-        JPanel topBar = new JPanel(new BorderLayout());
-        topBar.setBackground(theme.BG_CARD);
-        topBar.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, theme.GOLD), BorderFactory.createEmptyBorder(14, 18, 14, 14)));
-
-        JPanel userInfo = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 0));
-        userInfo.setOpaque(false);
-        JLabel userLabel = new JLabel(Controller.getInstance().getUsername());
-        userLabel.setFont(theme.HEADING);
-        userLabel.setForeground(theme.TEXT);
-        pointsLabel = new JLabel(Controller.getInstance().getPlayerPoints(Controller.getInstance().getUsername()) + " pts");
-        pointsLabel.setFont(theme.HEADING);
-        pointsLabel.setForeground(theme.GOLD);
-        userInfo.add(userLabel);
-        userInfo.add(pointsLabel);
-        topBar.add(userInfo, BorderLayout.CENTER);
-
-        JButton backBtn = theme.secondaryBtn("Volver", () -> {
-            Controller.getInstance().action(Event.OPEN_PLAYER_VIEW, null);
-            dispose();
-        });
-        backBtn.setPreferredSize(new Dimension(110, 36));
-        JPanel backPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0, 0));
-        backPanel.setOpaque(false);
-        backPanel.add(backBtn);
-        topBar.add(backPanel, BorderLayout.EAST);
-        mainPanel.add(topBar, BorderLayout.NORTH);
+        mainPanel.setOpaque(false);
+        centerWrapper.add(mainPanel); 
+        background.add(centerWrapper, BorderLayout.CENTER);
 
         // Tabs
         JTabbedPane tabbedPane = new JTabbedPane();
@@ -103,12 +88,20 @@ public class StoreView extends JFrame {
         productsScroll.getViewport().setBackground(theme.BG);
         tabbedPane.addTab("Productos", productsScroll);
         mainPanel.add(tabbedPane, BorderLayout.CENTER);
+        
+        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        bottomPanel.setOpaque(false);
+        bottomPanel.add(theme.secondaryBtn("Atrás", () -> {
+            Controller.getInstance().action(Event.OPEN_PLAYER_VIEW, null);
+            dispose();
+        }));
+        mainPanel.add(bottomPanel, BorderLayout.SOUTH);
 
         setVisible(true);
     }
 
     private void refreshPoints() {
-        pointsLabel.setText(Controller.getInstance().getPlayerPoints(Controller.getInstance().getUsername()) + " pts");
+    	pointsLabel.setText(Controller.getInstance().getUsername() + " | " + Controller.getInstance().getPlayerPoints(Controller.getInstance().getUsername()) + "pts");
     }
 
     private JPanel createPackagePanel(tGamesPackage pack) {
@@ -151,17 +144,21 @@ public class StoreView extends JFrame {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBackground(theme.BG_ITEM);
         panel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4), BorderFactory.createLineBorder(theme.BORDER, 1)));
-        panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 52));
-
-        JPanel infoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
+        panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 67));
+        
+        JPanel infoPanel = new JPanel();
         infoPanel.setOpaque(false);
+        infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+        infoPanel.setBorder(BorderFactory.createEmptyBorder(8, 12, 8, 12));
+
         JLabel nameLabel = new JLabel(prod.getName());
-        nameLabel.setFont(theme.BODY);
+        nameLabel.setFont(theme.HEADING);
         nameLabel.setForeground(theme.TEXT);
-        JLabel priceLabel = new JLabel(prod.getPrice() + " pts");
+        infoPanel.add(nameLabel);
+
+        JLabel priceLabel = new JLabel(prod.getPrice() + "pts");
         priceLabel.setFont(theme.BODY);
         priceLabel.setForeground(theme.GOLD);
-        infoPanel.add(nameLabel);
         infoPanel.add(priceLabel);
         panel.add(infoPanel, BorderLayout.CENTER);
 
