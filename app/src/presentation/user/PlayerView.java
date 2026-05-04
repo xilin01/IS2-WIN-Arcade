@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
+
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -39,7 +41,11 @@ public class PlayerView extends JFrame {
         JLabel userPointsLabel = new JLabel(Controller.getInstance().getUsername() + " | " + Controller.getInstance().getPlayerPoints(Controller.getInstance().getUsername()) + " pts");
         userPointsLabel.setForeground(theme.GOLD);
         userPointsLabel.setFont(theme.BODY);
-        topBar.add(userPointsLabel);
+        JPanel pointsBackground = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0)); 
+        pointsBackground.setBackground(theme.BG_ITEM);
+        pointsBackground.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(theme.BORDER, 1), BorderFactory.createEmptyBorder(6, 14, 6, 14)));
+        pointsBackground.add(userPointsLabel);
+        topBar.add(pointsBackground);
         topBar.add(theme.secondaryBtn("Cerrar sesión", () -> {
             Controller.getInstance().action(Event.LOGOUT, null);
             dispose();
