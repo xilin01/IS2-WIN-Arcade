@@ -6,9 +6,13 @@ import java.awt.Component;
 import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Window;
+import java.net.URL;
 import java.util.function.Supplier;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -207,6 +211,20 @@ public class Theme {
 
             return result[0];
         }
+        
+		@SuppressWarnings("serial")
+		JPanel backgroundPanel(URL url) {
+            if(url == null) throw new IllegalArgumentException("Invalid arg for backgroundPanel in ComponentFactory");
+            Image bgImage = new ImageIcon(url).getImage();
+            
+            return new JPanel() {
+                @Override
+                protected void paintComponent(Graphics g) {
+                    super.paintComponent(g);
+                    if(bgImage != null) g.drawImage(bgImage, 0, 0, getWidth(), getHeight(), this);
+                }
+            };
+        }
     }
 	
     private static final Theme INSTANCE = new Theme();
@@ -289,5 +307,9 @@ public class Theme {
     
     public void formDialog(Component parent, String title, JPanel content, String confirmLabel, Supplier<Boolean> onConfirm) {
         factory.formDialog(parent, title, content, confirmLabel, onConfirm);
+    }
+    
+    public JPanel backgroundPanel(URL url) {
+        return factory.backgroundPanel(url);
     }
 }

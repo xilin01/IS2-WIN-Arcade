@@ -9,7 +9,6 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import javax.imageio.ImageIO;
@@ -177,7 +176,7 @@ public class RouletteGUI extends JFrame {
     }
 
     private void initGUI() {
-    	BackgroundPanel mainPanel = new BackgroundPanel(IMAGES.class.getResource("fondo_ruleta.png"));
+    	JPanel mainPanel = theme.backgroundPanel(IMAGES.class.getResource("fondo_ruleta.png"));
         mainPanel.setLayout(new BorderLayout());
         setContentPane(mainPanel);
 
