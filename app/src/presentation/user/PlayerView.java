@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -34,45 +35,33 @@ public class PlayerView extends JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         JPanel background = theme.backgroundPanel(IMAGES.class.getResource("menu_principal.png"));
-        background.setLayout(new GridBagLayout());
+        background.setLayout(new BorderLayout());
         setContentPane(background);
 
+        JPanel topBar = new JPanel(new FlowLayout(FlowLayout.RIGHT, 25, 15));
+        topBar.setOpaque(false);
+        JLabel userLabel = new JLabel(Controller.getInstance().getUsername());
+        userLabel.setForeground(theme.GOLD);
+        userLabel.setFont(theme.BODY);
+        topBar.add(userLabel);
+        JLabel pointsLabel = new JLabel("| " + Controller.getInstance().getPlayerPoints(Controller.getInstance().getUsername()) + " pts");
+        pointsLabel.setForeground(theme.GOLD);
+        pointsLabel.setFont(theme.BODY);
+        topBar.add(pointsLabel);
+        topBar.add(theme.secondaryBtn("Cerrar sesión", () -> {
+            Controller.getInstance().action(Event.LOGOUT, null);
+            dispose();
+        }));
+        background.add(topBar, BorderLayout.NORTH);
+
+        JPanel centerWrapper = new JPanel(new GridBagLayout());
+        centerWrapper.setOpaque(false);
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setPreferredSize(new Dimension(640, 480));
         mainPanel.setOpaque(false);
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(80, 0, 0, 0);
-        background.add(mainPanel, gbc);
+        centerWrapper.add(mainPanel);
+        background.add(centerWrapper, BorderLayout.CENTER);
 
-        // Top bar: user info + logout
-        JPanel topBar = new JPanel(new BorderLayout());
-        topBar.setBackground(theme.BG_CARD);
-        topBar.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(theme.BORDER, 1), BorderFactory.createEmptyBorder(10, 18, 10, 14)));
-
-        JPanel userInfo = new JPanel(new FlowLayout(FlowLayout.LEFT, 6, 0));
-        userInfo.setOpaque(false);
-        JLabel userLabel = new JLabel(Controller.getInstance().getUsername());
-        userLabel.setForeground(theme.TEXT);
-        userLabel.setFont(theme.HEADING);
-        JLabel pointsLabel = new JLabel("  " + Controller.getInstance().getPlayerPoints(Controller.getInstance().getUsername()) + " pts");
-        pointsLabel.setForeground(theme.GOLD);
-        pointsLabel.setFont(theme.HEADING);
-        userInfo.add(userLabel);
-        userInfo.add(pointsLabel);
-        topBar.add(userInfo, BorderLayout.CENTER);
-
-        JButton logoutBtn = theme.dangerBtn("Cerrar sesión", () -> {
-            Controller.getInstance().action(Event.LOGOUT, null);
-            dispose();
-        });
-        logoutBtn.setPreferredSize(new Dimension(140, 36));
-        JPanel logoutPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0, 0));
-        logoutPanel.setOpaque(false);
-        logoutPanel.add(logoutBtn);
-        topBar.add(logoutPanel, BorderLayout.EAST);
-        mainPanel.add(topBar, BorderLayout.NORTH);
-
-        // Center: Jugar + Inventario/ Tienda grouped together
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
         centerPanel.setOpaque(false);

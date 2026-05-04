@@ -116,7 +116,7 @@ public class GamesPanelView extends JFrame {
 
         infoPanel.add(Box.createRigidArea(new Dimension(0, 4)));
 
-        JLabel detailLabel = new JLabel(game.getBasePoints() + " pts base  ·  x" + amount + " disponibles");
+        JLabel detailLabel = new JLabel(game.getBasePoints() + " puntos base  ·  x" + amount + " disponibles");
         detailLabel.setFont(theme.BODY);
         detailLabel.setForeground(theme.TEXT_MUTED);
         infoPanel.add(detailLabel);
