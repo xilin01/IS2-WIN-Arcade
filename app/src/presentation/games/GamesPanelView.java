@@ -51,19 +51,15 @@ public class GamesPanelView extends JFrame {
 
         JPanel rightInfo = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 0));
         rightInfo.setOpaque(false);
-        JLabel userLabel = new JLabel(Controller.getInstance().getUsername());
-        userLabel.setFont(theme.HEADING);
-        userLabel.setForeground(theme.TEXT);
-        JLabel pointsLabel = new JLabel(Controller.getInstance().getPlayerPoints(Controller.getInstance().getUsername()) + " pts");
-        pointsLabel.setFont(theme.HEADING);
-        pointsLabel.setForeground(theme.GOLD);
-        JButton backBtn = theme.secondaryBtn("Volver", () -> {
+        JLabel userPointsLabel = new JLabel(Controller.getInstance().getUsername() + " | " + Controller.getInstance().getPlayerPoints(Controller.getInstance().getUsername()) + "pts   ");
+        userPointsLabel.setFont(theme.BODY);
+        userPointsLabel.setForeground(theme.GOLD);
+        JButton backBtn = theme.secondaryBtn("Atrás", () -> {
             Controller.getInstance().action(Event.OPEN_PLAYER_VIEW, null);
             dispose();
         });
         backBtn.setPreferredSize(new Dimension(110, 36));
-        rightInfo.add(userLabel);
-        rightInfo.add(pointsLabel);
+        rightInfo.add(userPointsLabel);
         rightInfo.add(backBtn);
         topBar.add(rightInfo, BorderLayout.EAST);
         background.add(topBar, BorderLayout.NORTH);

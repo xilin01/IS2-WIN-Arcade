@@ -43,7 +43,7 @@ public class StoreView extends JFrame {
         
         JPanel topBar = new JPanel(new FlowLayout(FlowLayout.RIGHT, 25, 15));
         topBar.setOpaque(false);
-        pointsLabel = new JLabel(Controller.getInstance().getUsername() + " | " + Controller.getInstance().getPlayerPoints(Controller.getInstance().getUsername()) + " pts");
+        pointsLabel = new JLabel(Controller.getInstance().getUsername() + " | " + Controller.getInstance().getPlayerPoints(Controller.getInstance().getUsername()) + "pts");
         pointsLabel.setForeground(theme.GOLD);
         pointsLabel.setFont(theme.BODY);
         JPanel pointsBackground = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));

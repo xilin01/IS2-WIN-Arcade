@@ -38,7 +38,7 @@ public class PlayerView extends JFrame {
 
         JPanel topBar = new JPanel(new FlowLayout(FlowLayout.RIGHT, 25, 15));
         topBar.setOpaque(false);
-        JLabel userPointsLabel = new JLabel(Controller.getInstance().getUsername() + " | " + Controller.getInstance().getPlayerPoints(Controller.getInstance().getUsername()) + " pts");
+        JLabel userPointsLabel = new JLabel(Controller.getInstance().getUsername() + " | " + Controller.getInstance().getPlayerPoints(Controller.getInstance().getUsername()) + "pts");
         userPointsLabel.setForeground(theme.GOLD);
         userPointsLabel.setFont(theme.BODY);
         JPanel pointsBackground = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0)); 
