@@ -20,7 +20,7 @@ public class DAOPlayerImp implements DAOPlayer {
 
     @Override
     public int createPlayer(tPlayer player) {
-    	if(player == null) new IllegalArgumentException("Invalid arg for createPlayer in DAOPlayerImp");
+    	if(player == null) throw new IllegalArgumentException("Invalid arg for createPlayer in DAOPlayerImp");
         int rowCount = 0;
         Connection connection = DB.getConnection();
         if(connection != null) {
@@ -61,7 +61,7 @@ public class DAOPlayerImp implements DAOPlayer {
 
     @Override
     public tPlayer readPlayer(String name) {
-    	if(name == null || name.trim().isEmpty()) new IllegalArgumentException("Invalid arg for readPlayer in DAOPlayerImp");
+    	if(name == null || name.trim().isEmpty()) throw new IllegalArgumentException("Invalid arg for readPlayer in DAOPlayerImp");
         tUser user = daoUser.readUser(name);
         if(user instanceof tPlayer) {
             tPlayer player = (tPlayer)user;
@@ -93,7 +93,7 @@ public class DAOPlayerImp implements DAOPlayer {
 
     @Override
     public int updatePlayer(tPlayer player) {
-    	if(player == null) new IllegalArgumentException("Invalid arg for updatePlayer in DAOPlayerImp");
+    	if(player == null) throw new IllegalArgumentException("Invalid arg for updatePlayer in DAOPlayerImp");
         int rowCount = 0;
         Connection connection = DB.getConnection();
         if(connection != null) {
@@ -136,7 +136,7 @@ public class DAOPlayerImp implements DAOPlayer {
 
     @Override
     public int deletePlayer(String name) {
-    	if(name == null || name.trim().isEmpty()) new IllegalArgumentException("Invalid arg for deletePlayer in DAOPlayerImp");
+    	if(name == null || name.trim().isEmpty()) throw new IllegalArgumentException("Invalid arg for deletePlayer in DAOPlayerImp");
         return daoUser.deleteUser(name);
     }
 

@@ -7,7 +7,7 @@ public class tProduct {
     private int price;
 
     public tProduct(String name, int price) {
-    	if(name == null || name.trim().isEmpty() || price < 0) new IllegalArgumentException("Invalid args for Builder in tProduct");
+    	if(name == null || name.trim().isEmpty() || price < 0) throw new IllegalArgumentException("Invalid args for Builder in tProduct");
         this.name = name;
         this.price = price;
     }
@@ -17,7 +17,7 @@ public class tProduct {
     }
 
     public void setName(String name) {
-    	if(name == null || name.trim().isEmpty()) new IllegalArgumentException("Invalid arg for setName in tProduct");
+    	if(name == null || name.trim().isEmpty()) throw new IllegalArgumentException("Invalid arg for setName in tProduct");
         this.name = name;
     }
 
@@ -26,7 +26,7 @@ public class tProduct {
     }
 
     public void setPrice(int price) {
-    	if(price < 0) new IllegalArgumentException("Invalid arg for setPrice in tProduct");
+    	if(price < 0) throw new IllegalArgumentException("Invalid arg for setPrice in tProduct");
         this.price = price;
     }
 

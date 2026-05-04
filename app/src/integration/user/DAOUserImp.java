@@ -27,7 +27,7 @@ public class DAOUserImp implements DAOUser {
     }
 
     public int createUser(tUser user) {
-    	if(user == null) new IllegalArgumentException("Invalid arg for createUser in DAOUserImp");
+    	if(user == null) throw new IllegalArgumentException("Invalid arg for createUser in DAOUserImp");
         int rowCount = 0;
         Connection connection = getConn();
         if(connection != null) {
@@ -49,7 +49,7 @@ public class DAOUserImp implements DAOUser {
     }
 
     public tUser readUser(String name) {
-    	if(name == null || name.trim().isEmpty()) new IllegalArgumentException("Invalid arg for readUser in DAOUserImp");
+    	if(name == null || name.trim().isEmpty()) throw new IllegalArgumentException("Invalid arg for readUser in DAOUserImp");
         tUser user = null;
         Connection connection = getConn();
         if(connection != null) {
@@ -79,7 +79,7 @@ public class DAOUserImp implements DAOUser {
     }
 
     public int updateUser(tUser user) {
-    	if(user == null) new IllegalArgumentException("Invalid arg for updateUser in DAOUserImp");
+    	if(user == null) throw new IllegalArgumentException("Invalid arg for updateUser in DAOUserImp");
         int rowCount = 0;
         Connection connection = getConn();
         if(connection != null) {
@@ -103,7 +103,7 @@ public class DAOUserImp implements DAOUser {
     }
 
     public int deleteUser(String name) { // Borrado lógico
-    	if(name == null || name.trim().isEmpty()) new IllegalArgumentException("Invalid arg for deleteUser in DAOUserImp");
+    	if(name == null || name.trim().isEmpty()) throw new IllegalArgumentException("Invalid arg for deleteUser in DAOUserImp");
         int rowCount = 0;
         Connection connection = getConn();
         if(connection != null) {
