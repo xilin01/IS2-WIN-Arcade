@@ -35,18 +35,17 @@ public class Blackjack extends CardGame {
             return points;
         }
 
-        private int getStatus() {
-            if(points == BLACKJACK_LIMIT) return WON;
-            else if(points > BLACKJACK_LIMIT) return LOST;
-            else return CONTINUE;
+        private GameResult getStatus() {
+            if(points == BLACKJACK_LIMIT) return GameResult.WON;
+            else if(points > BLACKJACK_LIMIT) return GameResult.LOST;
+            else return GameResult.CONTINUE;
         }
     }
 
+    public enum GameResult { LOST, CONTINUE, WON }
+
     private static final int BLACKJACK_LIMIT = 21;
     private static final int CROUPIER_LIMIT = 17;
-    public static final int LOST = -1;
-    public static final int CONTINUE = 0;
-    public static final int WON = 1;
 
     private Hand croupier;
     private Hand player;
@@ -72,25 +71,25 @@ public class Blackjack extends CardGame {
         return croupier.cards.get(0);
     }
 
-    public int croupierPlay() {
+    public GameResult croupierPlay() {
     	if(getCroupierPoints() < getPlayerPoints()) {
     		while(croupier.getPoints() < CROUPIER_LIMIT) croupier.addCard(getRandomCard());
     	}
         return croupier.getStatus();
     }
 
-    public int playerHit() {
+    public GameResult playerHit() {
         player.addCard(getRandomCard());
         return player.getStatus();
     }
 
-    public int getResult() {
+    public GameResult getResult() {
         int playerPoints = player.getPoints(), croupierPoints = croupier.getPoints();
 
-        if(playerPoints > BLACKJACK_LIMIT) return LOST;
-        if(playerPoints == croupierPoints) return CONTINUE; // Empate
-        if(croupierPoints > BLACKJACK_LIMIT) return WON;
-        return playerPoints > croupierPoints ? WON : LOST;
+        if(playerPoints > BLACKJACK_LIMIT) return GameResult.LOST;
+        if(playerPoints == croupierPoints) return GameResult.CONTINUE; // Empate
+        if(croupierPoints > BLACKJACK_LIMIT) return GameResult.WON;
+        return playerPoints > croupierPoints ? GameResult.WON : GameResult.LOST;
     }
 
     public List<Cards> getPlayerCards() {
