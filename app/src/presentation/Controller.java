@@ -135,7 +135,7 @@ public class Controller {
                 int basePoints = (Integer)data;
                 ServiceLocator.get(SAInventory.class).consumeGame(username, new tGame(tGame.BLACKJACK, basePoints));
                 Blackjack blackjack = new Blackjack(basePoints);
-                int croupierVisiblePoints = blackjack.play();
+                int croupierVisiblePoints = blackjack.play(); 
                 BlackjackGUI gui = new BlackjackGUI(blackjack.getCroupierVisibleCard(), blackjack.getPlayerCards(), croupierVisiblePoints, blackjack.getPlayerPoints());
                 blackjackSession = new BlackjackSession(blackjack, gui);
                 break;
