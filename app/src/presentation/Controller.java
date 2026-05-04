@@ -218,7 +218,9 @@ public class Controller {
     }
 
     public int getPlayerPoints(String name) {
-        return ServiceLocator.get(SAPlayer.class).readPlayer(name).getPoints();
+        if(name == null || name.trim().isEmpty()) return 0;
+        tPlayer player = ServiceLocator.get(SAPlayer.class).readPlayer(name);
+        return player != null ? player.getPoints() : 0;
     }
 
     public tPlayer getPlayer(String name) {
