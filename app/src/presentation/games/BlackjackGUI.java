@@ -54,7 +54,7 @@ public class BlackjackGUI extends JFrame {
         choiceButtonsPanel.setOpaque(false);
         mainPanel.add(choiceButtonsPanel, BorderLayout.CENTER);
         JButton hitButton = theme.primaryBtn("Pedir carta", () -> Controller.getInstance().action(Event.BLACKJACK_HIT, null));
-        JButton standButton = theme.secondaryBtn("Plantarse", () -> Controller.getInstance().action(Event.BLACKJACK_STAND, null));
+        JButton standButton = theme.primaryBtn("Plantarse", () -> Controller.getInstance().action(Event.BLACKJACK_STAND, null));
         choiceButtonsPanel.add(hitButton);
         choiceButtonsPanel.add(standButton);
 
@@ -139,7 +139,7 @@ public class BlackjackGUI extends JFrame {
     }
 
     private void giveUp() {
-        if(theme.confirm(this, "¿Estás seguro de que quieres abandonar?\nLa partida se perderá")) {
+        if(theme.confirm(this, "¿Estás seguro de que quieres abandonar?")) {
             Controller.getInstance().action(Event.OPEN_GAMES_PANEL, null);
             dispose();
         }

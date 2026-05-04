@@ -103,7 +103,7 @@ public class RouletteGUI extends JFrame {
     		switch(betName) {
 	    		case Sencillo:
 	    			for(int i = 0; i < 36; i++) select.addElement(""+i);
-	    			text.setText("Elige el número (del 0 al 36)");
+	    			text.setText("Elige un número");
 	    			break;
 	            case Calle:
 	            	for(int i = 1; i <= 34; i+=3) select.addElement(i+","+(i+1)+","+(i+2));
@@ -191,7 +191,7 @@ public class RouletteGUI extends JFrame {
         betsPanel.setOpaque(false);
         betsPanel.setBorder(BorderFactory.createEmptyBorder(80, 0, 80, 80));
         mainPanel.add(betsPanel, BorderLayout.EAST);
-        for(Bets b: BETS) betsPanel.add(theme.secondaryBtn(""+b, () -> setBet(b)));
+        for(Bets b: BETS) betsPanel.add(theme.primaryBtn(""+b, () -> setBet(b)));
 
         JPanel optionsPanel = new JPanel(new GridLayout(2, 1, 0, 12));
         optionsPanel.setOpaque(false);
@@ -233,7 +233,7 @@ public class RouletteGUI extends JFrame {
     }
 
     private void giveUp() {
-        if(theme.confirm(this, "¿Estás seguro de que quieres abandonar?\nLa partida se perderá")) {
+        if(theme.confirm(this, "¿Estás seguro de que quieres abandonar?")) {
             Controller.getInstance().action(Event.OPEN_GAMES_PANEL, null);
             dispose();
         }

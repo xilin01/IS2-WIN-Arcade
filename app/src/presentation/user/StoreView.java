@@ -101,7 +101,7 @@ public class StoreView extends JFrame {
     }
 
     private void refreshPoints() {
-    	pointsLabel.setText(Controller.getInstance().getUsername() + " | " + Controller.getInstance().getPlayerPoints(Controller.getInstance().getUsername()) + " pts");
+    	pointsLabel.setText(Controller.getInstance().getUsername() + " | " + Controller.getInstance().getPlayerPoints(Controller.getInstance().getUsername()) + "pts");
     }
 
     private JPanel createPackagePanel(tGamesPackage pack) {
@@ -144,17 +144,21 @@ public class StoreView extends JFrame {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBackground(theme.BG_ITEM);
         panel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4), BorderFactory.createLineBorder(theme.BORDER, 1)));
-        panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 52));
-
-        JPanel infoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
+        panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 67));
+        
+        JPanel infoPanel = new JPanel();
         infoPanel.setOpaque(false);
+        infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+        infoPanel.setBorder(BorderFactory.createEmptyBorder(8, 12, 8, 12));
+
         JLabel nameLabel = new JLabel(prod.getName());
-        nameLabel.setFont(theme.BODY);
+        nameLabel.setFont(theme.HEADING);
         nameLabel.setForeground(theme.TEXT);
-        JLabel priceLabel = new JLabel(prod.getPrice() + " pts");
+        infoPanel.add(nameLabel);
+
+        JLabel priceLabel = new JLabel(prod.getPrice() + "pts");
         priceLabel.setFont(theme.BODY);
         priceLabel.setForeground(theme.GOLD);
-        infoPanel.add(nameLabel);
         infoPanel.add(priceLabel);
         panel.add(infoPanel, BorderLayout.CENTER);
 
