@@ -35,7 +35,7 @@ public class GamesPanelView extends JFrame {
         setResizable(false);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        BackgroundPanel background = new BackgroundPanel(IMAGES.class.getResource("menu_juegos.png"));
+        JPanel background = theme.backgroundPanel(IMAGES.class.getResource("menu_juegos.png"));
         background.setLayout(new BorderLayout());
         setContentPane(background);
 

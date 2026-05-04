@@ -36,7 +36,7 @@ public class BlackjackGUI extends JFrame {
     }
 
     private void initGUI(Cards croupierCard, List<Cards> playerDeck, int croupierPoints, int playerPoints) {
-    	BackgroundPanel mainPanel = new BackgroundPanel(IMAGES.class.getResource("fondo_blackjack.png"));
+    	JPanel mainPanel = theme.backgroundPanel(IMAGES.class.getResource("fondo_blackjack.png"));
         mainPanel.setLayout(new BorderLayout());
         setContentPane(mainPanel);
 

@@ -20,7 +20,6 @@ import images.IMAGES;
 import presentation.Controller;
 import presentation.Event;
 import presentation.Theme;
-import presentation.games.BackgroundPanel;
 
 @SuppressWarnings("serial")
 public class StoreView extends JFrame {
@@ -39,7 +38,7 @@ public class StoreView extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        BackgroundPanel background = new BackgroundPanel(IMAGES.class.getResource("menu_tienda.png"));
+        JPanel background = theme.backgroundPanel(IMAGES.class.getResource("menu_tienda.png"));
         background.setLayout(new GridBagLayout());
         setContentPane(background);
 

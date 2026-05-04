@@ -15,7 +15,6 @@ import images.IMAGES;
 import presentation.Controller;
 import presentation.Event;
 import presentation.Theme;
-import presentation.games.BackgroundPanel;
 
 @SuppressWarnings("serial")
 public class SignUpView extends JFrame {
@@ -42,7 +41,7 @@ public class SignUpView extends JFrame {
         setResizable(false);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        BackgroundPanel background = new BackgroundPanel(IMAGES.class.getResource("menu_inicio.png"));
+        JPanel background = theme.backgroundPanel(IMAGES.class.getResource("menu_inicio.png"));
         background.setLayout(new GridBagLayout());
         setContentPane(background);
 

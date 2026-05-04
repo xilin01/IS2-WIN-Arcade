@@ -176,7 +176,7 @@ public class RouletteGUI extends JFrame {
     }
 
     private void initGUI() {
-    	BackgroundPanel mainPanel = new BackgroundPanel(IMAGES.class.getResource("fondo_ruleta.png"));
+    	JPanel mainPanel = theme.backgroundPanel(IMAGES.class.getResource("fondo_ruleta.png"));
         mainPanel.setLayout(new BorderLayout());
         setContentPane(mainPanel);
 
