@@ -37,11 +37,10 @@ public class Controller {
 	private static final Controller INSTANCE = new Controller();
 	 
 	private String username;
-	private RouletteGUI rouletteGUI;
-	private Roulette roulette;
-	private int basePoints;
-	private BlackjackGUI blackJackGUI;
-	private Blackjack blackjack;
+	private record BlackjackSession(Blackjack blackjack, BlackjackGUI gui) {}
+	private record RouletteSession(int basePoints, RouletteGUI gui) {}
+	private BlackjackSession blackjackSession;
+	private RouletteSession rouletteSession;
 	
 	private Controller() {
 	}
@@ -133,57 +132,66 @@ public class Controller {
                 break;
             }
             case Event.BLACKJACK_PLAY: {
-                basePoints = (Integer)data;
+                int basePoints = (Integer)data;
                 ServiceLocator.get(SAInventory.class).consumeGame(username, new tGame(tGame.BLACKJACK, basePoints));
-                blackjack = new Blackjack(basePoints);
+                Blackjack blackjack = new Blackjack(basePoints);
                 int croupierVisiblePoints = blackjack.play();
-                blackJackGUI = new BlackjackGUI(blackjack.getCroupierVisibleCard(), blackjack.getPlayerCards(), croupierVisiblePoints, blackjack.getPlayerPoints());
+                BlackjackGUI gui = new BlackjackGUI(blackjack.getCroupierVisibleCard(), blackjack.getPlayerCards(), croupierVisiblePoints, blackjack.getPlayerPoints());
+                blackjackSession = new BlackjackSession(blackjack, gui);
                 break;
             }
             case Event.BLACKJACK_HIT: {
-                if(blackjack == null || blackJackGUI == null) {
+                if(blackjackSession == null) {
                 	System.err.println("BLACKJACK_HIT sin partida activa");
                 	break;
                 }
-                int res = blackjack.playerHit();
-                blackJackGUI.update(blackjack.getCroupierCards(), blackjack.getPlayerCards(), blackjack.getCroupierPoints(), blackjack.getPlayerPoints(), false);
-                if(res != Blackjack.CONTINUE) {
-                    if(res == Blackjack.WON) {
-                        ServiceLocator.get(SAPlayer.class).addPoints(username, blackjack.getPointsWon());
-                        blackJackGUI.end("¡Victoria, has ganado " + blackjack.getPointsWon() + " puntos!");
-                    } 
-                    else blackJackGUI.end("Te has pasado de 21...");
+                Blackjack bj = blackjackSession.blackjack();
+                BlackjackGUI bjGui = blackjackSession.gui();
+                Blackjack.GameResult res = bj.playerHit();
+                bjGui.update(bj.getCroupierCards(), bj.getPlayerCards(), bj.getCroupierPoints(), bj.getPlayerPoints(), false);
+                if(res != Blackjack.GameResult.CONTINUE) {
+                    if(res == Blackjack.GameResult.WON) {
+                        ServiceLocator.get(SAPlayer.class).addPoints(username, bj.getPointsWon());
+                        bjGui.end("¡Victoria, has ganado " + bj.getPointsWon() + " puntos!");
+                    }
+                    else bjGui.end("Te has pasado de 21...");
                 }
                 break;
             }
             case Event.BLACKJACK_STAND: {
-                if(blackjack == null || blackJackGUI == null) {
+                if(blackjackSession == null) {
                 	System.err.println("BLACKJACK_STAND sin partida activa");
                 	break;
                 }
-                if(blackjack.getCroupierPoints() < blackjack.getPlayerPoints()) blackjack.croupierPlay();
-                blackJackGUI.update(blackjack.getCroupierCards(), blackjack.getPlayerCards(), blackjack.getCroupierPoints(), blackjack.getPlayerPoints(), true);
-                switch(blackjack.getResult()) {
-	                case Blackjack.LOST: blackJackGUI.end("Lo siento, gana el croupier..."); break;
-	                case Blackjack.CONTINUE: blackJackGUI.end("Empate"); break;
-	                case Blackjack.WON: 
-	                	ServiceLocator.get(SAPlayer.class).addPoints(username, blackjack.getPointsWon());
-	                    blackJackGUI.end("¡Felicidades, has ganado " + blackjack.getPointsWon() + " puntos!");
+                Blackjack bj = blackjackSession.blackjack();
+                BlackjackGUI bjGui = blackjackSession.gui();
+                if(bj.getCroupierPoints() < bj.getPlayerPoints()) bj.croupierPlay();
+                bjGui.update(bj.getCroupierCards(), bj.getPlayerCards(), bj.getCroupierPoints(), bj.getPlayerPoints(), true);
+                switch(bj.getResult()) {
+	                case LOST: bjGui.end("Lo siento, gana el croupier..."); break;
+	                case CONTINUE: bjGui.end("Empate"); break;
+	                case WON:
+	                	ServiceLocator.get(SAPlayer.class).addPoints(username, bj.getPointsWon());
+	                    bjGui.end("¡Felicidades, has ganado " + bj.getPointsWon() + " puntos!");
 	                    break;
                 }
                 break;
             }
             case Event.ROULETTE_PLAY: {
-                basePoints = (Integer)data;
+                int basePoints = (Integer)data;
                 ServiceLocator.get(SAInventory.class).consumeGame(username, new tGame(tGame.ROULETTE, basePoints));
-                rouletteGUI = new RouletteGUI();
+                rouletteSession = new RouletteSession(basePoints, new RouletteGUI());
                 break;
             }
             case Event.ROULETTE_ROLL: {
-                roulette = new Roulette(basePoints, (tBet)data);
+                if(rouletteSession == null) {
+                	System.err.println("ROULETTE_ROLL sin partida activa");
+                	break;
+                }
+                Roulette roulette = new Roulette(rouletteSession.basePoints(), (tBet)data);
                 int points = roulette.play();
                 if(points > 0) ServiceLocator.get(SAPlayer.class).addPoints(username, points);
-                rouletteGUI.showResult(points, roulette.getWinningNumber());
+                rouletteSession.gui().showResult(points, roulette.getWinningNumber());
                 break;
             }
             case Event.BUY_PACKAGE: {
@@ -214,6 +222,7 @@ public class Controller {
     }
 
     public tPlayer getPlayer(String name) {
+        if(name == null || name.trim().isEmpty()) return null;
         return ServiceLocator.get(SAPlayer.class).readPlayer(name);
     }
 
