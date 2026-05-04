@@ -246,20 +246,28 @@ public class RouletteGUI extends JFrame {
     	String message = puntos == 0 ? "El número ganador fue el " + winningNumber + ", perdiste..." : "¡Ganaste con el " + winningNumber + "!";
     	showAnimation(winningNumber, () -> end(message));
     }
-
+    
+    //50 es el minimo
     private void showAnimation(int n, Runnable onFinish) {
     	animationCount = 0;
-    	int steps = numberToSteps.get(n) + 37;
-        Timer timer = new Timer(50, null);
+    	int steps = numberToSteps.get(n) + (37*3);
+        Timer timer = new Timer(interruptionTime(steps), null);
         timer.addActionListener(e -> {
         	roulette.advance();
         	animationCount++;
+        	timer.setDelay(interruptionTime(steps));
 	        if(animationCount >= steps) {
 	            timer.stop();
 	            onFinish.run();
 	        }
 	    });
         timer.start();
+    }
+    
+    private int interruptionTime(int steps) {
+    	double t = (double) animationCount / steps; 
+        double ease = (1 - Math.cos(Math.PI * t))/2;
+        return (int) (10 + ease * 190);
     }
 
     private void initNumberToSteps() {
