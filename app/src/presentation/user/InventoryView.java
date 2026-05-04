@@ -50,15 +50,6 @@ public class InventoryView extends JFrame {
         tPlayer player = Controller.getInstance().getPlayer(Controller.getInstance().getUsername());
         tPlayer.tInventory inventory = player.getInventory();
 
-        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 8));
-        topPanel.setOpaque(false);
-        JLabel pointsLabel = new JLabel(Controller.getInstance().getUsername() + " (" + player.getPoints() + "pts)");
-        pointsLabel.setFont(theme.HEADING);
-        pointsLabel.setForeground(theme.GOLD);
-        pointsLabel.setBorder(BorderFactory.createEmptyBorder(6, 10, 6, 10));
-        topPanel.add(pointsLabel);
-        mainPanel.add(topPanel, BorderLayout.NORTH);
-
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.setFont(theme.BODY);
         tabbedPane.setBackground(theme.BG_CARD);
