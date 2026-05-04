@@ -39,7 +39,7 @@ public class ProductManagerView extends JFrame {
         	ProductEditor.show(this, null);
         	updateList();
         }));
-        headerRight.add(theme.secondaryBtn("Volver", () -> {
+        headerRight.add(theme.secondaryBtn("Atrás", () -> {
         	Controller.getInstance().action(Event.OPEN_STAFF_VIEW, null);
         	dispose();
         }));
@@ -63,23 +63,24 @@ public class ProductManagerView extends JFrame {
 
     private JPanel productElement(tProduct product) {
         JPanel productPanel = new JPanel(new BorderLayout());
-        productPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 62));
+        productPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 70));
         productPanel.setBackground(theme.BG_ITEM);
         productPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(4, 0, 4, 0),
             BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(theme.BORDER, 1), BorderFactory.createEmptyBorder(10, 16, 10, 16))));
-
-        JPanel prodInfo = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 0));
+        
+        JPanel prodInfo = new JPanel();
+        prodInfo.setLayout(new BoxLayout(prodInfo, BoxLayout.Y_AXIS));
         prodInfo.setBackground(theme.BG_ITEM);
 
         JLabel nameLabel = new JLabel(product.getName());
-        nameLabel.setFont(theme.BODY);
+        nameLabel.setFont(theme.HEADING);
         nameLabel.setForeground(theme.TEXT);
-
-        JLabel priceLabel = new JLabel(product.getPrice() + "pts");
-        priceLabel.setFont(theme.BODY);
-        priceLabel.setForeground(theme.GOLD);
-
         prodInfo.add(nameLabel);
+        prodInfo.add(nameLabel);
+        
+        JLabel priceLabel = new JLabel("Precio: " + product.getPrice() + "pts");
+        priceLabel.setFont(theme.BODY);
+        priceLabel.setForeground(theme.TEXT_MUTED);
         prodInfo.add(priceLabel);
         productPanel.add(prodInfo, BorderLayout.CENTER);
 

@@ -51,7 +51,7 @@ public class UserEditor {
         activeLabel.setForeground(theme.TEXT);
         formPanel.add(activeLabel);
 
-        JCheckBox activeCheckBox = new JCheckBox("Activa");
+        JCheckBox activeCheckBox = new JCheckBox("Activo");
         activeCheckBox.setBackground(theme.BG);
         activeCheckBox.setForeground(theme.TEXT);
         activeCheckBox.setFocusPainted(false);

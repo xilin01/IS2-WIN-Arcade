@@ -53,14 +53,14 @@ public class InventoryEditorView extends JDialog {
         tabsPanel.setBackground(theme.BG_CARD);
         tabsPanel.setForeground(theme.TEXT);
         tabsPanel.setFont(theme.BODY);
-        tabsPanel.addTab("Productos", createProductsPanel());
         tabsPanel.addTab("Juegos", createGamesPanel());
+        tabsPanel.addTab("Productos", createProductsPanel());
         this.add(tabsPanel, BorderLayout.CENTER);
 
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
         bottomPanel.setBackground(theme.BG_CARD);
         bottomPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, theme.BORDER));
-        bottomPanel.add(theme.secondaryBtn("Volver", this::dispose));
+        bottomPanel.add(theme.secondaryBtn("Atrás", this::dispose));
         this.add(bottomPanel, BorderLayout.SOUTH);
 
         this.setVisible(true);
@@ -87,7 +87,7 @@ public class InventoryEditorView extends JDialog {
             productCombo.setForeground(theme.TEXT);
             formPanel.add(productCombo);
 
-            JLabel qtyLabel = new JLabel("Cant:");
+            JLabel qtyLabel = new JLabel("Cant	:");
             qtyLabel.setForeground(theme.TEXT);
             formPanel.add(qtyLabel);
             JSpinner qtySpinner = new JSpinner(new SpinnerNumberModel(1, 1, 99, 1));
@@ -231,7 +231,7 @@ public class InventoryEditorView extends JDialog {
 
         if(gamesMap != null && !gamesMap.isEmpty()) {
             for(tGame game: gamesMap.keySet()) {
-            	gamesListPanel.add(buildRow(gamesMap.get(game) + "x " + game.getName() + " (" + game.getBasePoints() + "p)", () -> {
+            	gamesListPanel.add(buildRow(gamesMap.get(game) + "x " + game.getName() + " (" + game.getBasePoints() + "pts)", () -> {
             		gamesMap.remove(game);
             		updateGamesList();
             	}));

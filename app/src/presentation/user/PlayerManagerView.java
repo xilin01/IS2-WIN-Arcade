@@ -23,7 +23,7 @@ public class PlayerManagerView extends JFrame {
     private JPanel userListPanel;
 
     public PlayerManagerView() {
-        super("Gestor de usuarios");
+        super("Gestor de jugadores");
         initGUI();
     }
 
@@ -33,14 +33,14 @@ public class PlayerManagerView extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getContentPane().setBackground(theme.BG);
 
-        JPanel header = theme.header("Gestión de usuarios");
+        JPanel header = theme.header("Gestión de jugadores");
         JPanel headerRight = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
         headerRight.setBackground(theme.BG_CARD);
         headerRight.add(theme.primaryBtn("Crear usuario", () -> {
             UserEditor.show(this, null);
             updateList();
         }));
-        headerRight.add(theme.secondaryBtn("Volver", () -> {
+        headerRight.add(theme.secondaryBtn("Atrás", () -> {
         	Controller.getInstance().action(Event.OPEN_STAFF_VIEW, null);
             dispose();
         }));
@@ -76,7 +76,7 @@ public class PlayerManagerView extends JFrame {
         nameLabel.setForeground(user.getActive() ? theme.TEXT : theme.TEXT_MUTED);
         userInfo.add(nameLabel);
 
-        JLabel statusLabel = new JLabel(user.getActive() ? "Activo" : "Inactivo");
+        JLabel statusLabel = new JLabel(user.getActive() ? "(activo)" : "(inactivo)");
         statusLabel.setFont(theme.BODY);
         statusLabel.setForeground(user.getActive() ? theme.SUCCESS : theme.TEXT_MUTED);
         userInfo.add(statusLabel);

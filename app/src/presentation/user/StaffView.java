@@ -30,14 +30,17 @@ public class StaffView extends JFrame {
         this.setSize(650, 400);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getContentPane().setBackground(theme.BG);
-
-        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 12));
-        topPanel.setBackground(theme.BG_CARD);
-        topPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, theme.GOLD));
+        
+        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 25, 15));
+        topPanel.setOpaque(false);
         JLabel userLabel = new JLabel(Controller.getInstance().getUsername());
-        userLabel.setForeground(theme.TEXT_MUTED);
+        userLabel.setForeground(theme.GOLD);
         userLabel.setFont(theme.BODY);
-        topPanel.add(userLabel);
+        JPanel userBackground = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0)); 
+        userBackground.setBackground(theme.BG_ITEM);
+        userBackground.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(theme.BORDER, 1), BorderFactory.createEmptyBorder(6, 14, 6, 14)));
+        userBackground.add(userLabel);
+        topPanel.add(userBackground);
         topPanel.add(theme.secondaryBtn("Cerrar sesión", () -> {
             Controller.getInstance().action(Event.LOGOUT, null);
             dispose();

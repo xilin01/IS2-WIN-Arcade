@@ -152,7 +152,7 @@ public class GamesPackageEditor {
                 row.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
                 row.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2, 0, 2, 0),BorderFactory.createLineBorder(theme.BORDER, 1)));
 
-                JLabel infoLabel = new JLabel(cantidad + "x " + juego.getName() + " (" + juego.getBasePoints() + " pts/u) = " + subtotal + " pts");
+                JLabel infoLabel = new JLabel(cantidad + "x " + juego.getName() + " (" + juego.getBasePoints() + "pts) = " + subtotal + "pts");
                 infoLabel.setForeground(theme.TEXT);
                 infoLabel.setFont(theme.BODY);
                 infoLabel.setBorder(BorderFactory.createEmptyBorder(0, 12, 0, 0));

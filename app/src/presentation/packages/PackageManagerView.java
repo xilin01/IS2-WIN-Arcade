@@ -40,7 +40,7 @@ public class PackageManagerView extends JFrame {
         	GamesPackageEditor.show(this, null);
         	updateList();
         }));
-        headerRight.add(theme.secondaryBtn("Volver", () -> {
+        headerRight.add(theme.secondaryBtn("Atrás", () -> {
         	Controller.getInstance().action(Event.OPEN_STAFF_VIEW, null);
         	dispose();
         }));
@@ -91,7 +91,7 @@ public class PackageManagerView extends JFrame {
         if(gamesMap != null && !gamesMap.isEmpty()) {
             int count = 0;
             for(Map.Entry<tGame, Integer> entry: gamesMap.entrySet()) {
-                JLabel gameLabel = new JLabel(entry.getValue() + "x " + entry.getKey().getName());
+                JLabel gameLabel = new JLabel(entry.getValue() + "x " + entry.getKey().getName() + " (" + entry.getKey().getBasePoints() + "pts)");
                 
                 gameLabel.setFont(theme.BODY);
                 gameLabel.setForeground(theme.TEXT_MUTED);
