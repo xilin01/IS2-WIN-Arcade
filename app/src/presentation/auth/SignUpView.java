@@ -19,6 +19,7 @@ import presentation.games.BackgroundPanel;
 @SuppressWarnings("serial")
 public class SignUpView extends JFrame {
     private static final Theme theme = Theme.getInstance();
+    
     private static SignUpView instance;
     private final JTextField txtName = new JTextField(16);
     private final JPasswordField txtPassword = new JPasswordField(16);
@@ -46,10 +47,7 @@ public class SignUpView extends JFrame {
 
         JPanel mainPanel = new JPanel(new GridBagLayout());
         mainPanel.setBackground(new Color(theme.BG_CARD.getRed(), theme.BG_CARD.getGreen(), theme.BG_CARD.getBlue(), 215));
-        mainPanel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(theme.BORDER, 1),
-            BorderFactory.createEmptyBorder(24, 32, 24, 32)
-        ));
+        mainPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(theme.BORDER, 1), BorderFactory.createEmptyBorder(24, 32, 24, 32)));
         GridBagConstraints outer = new GridBagConstraints();
         outer.insets = new Insets(100, 0, 0, 0);
         background.add(mainPanel, outer);
@@ -82,6 +80,7 @@ public class SignUpView extends JFrame {
             String name = txtName.getText().trim();
             String password = new String(txtPassword.getPassword());
             String confirm = new String(txtConfirm.getPassword());
+            
             if(name.isEmpty() || password.isEmpty()) theme.showError(instance, "El usuario o la contraseña no pueden estar vacíos");
             else if(!password.equals(confirm)) theme.showError(instance, "Las contraseñas no coinciden");
             else Controller.getInstance().action(Event.SIGN_UP, new tCredentials(name, password));
@@ -97,10 +96,7 @@ public class SignUpView extends JFrame {
         field.setBackground(theme.BG_ITEM);
         field.setForeground(theme.TEXT);
         field.setCaretColor(theme.TEXT);
-        field.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(theme.BORDER, 1),
-            BorderFactory.createEmptyBorder(4, 8, 4, 8)
-        ));
+        field.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(theme.BORDER, 1), BorderFactory.createEmptyBorder(4, 8, 4, 8)));
     }
 
     public static void update(int event, Object data) {

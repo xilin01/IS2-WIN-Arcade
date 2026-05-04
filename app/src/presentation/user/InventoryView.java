@@ -71,9 +71,7 @@ public class InventoryView extends JFrame {
         if(!inventory.getGames().isEmpty()) {
             for(Map.Entry<tGame, Integer> entry: inventory.getGames().entrySet()) gamesPanel.add(createItemPanel(entry.getValue() + "x " + entry.getKey().getName() + " (" + entry.getKey().getBasePoints() + "pts)"));
         }
-        else {
-            gamesPanel.add(emptyLabel("No tienes juegos en tu inventario"));
-        }
+        else gamesPanel.add(emptyLabel("No tienes juegos en tu inventario"));
         JScrollPane gamesScroll = new JScrollPane(gamesPanel);
         gamesScroll.setBorder(BorderFactory.createEmptyBorder());
         gamesScroll.getViewport().setBackground(theme.BG);
@@ -86,9 +84,7 @@ public class InventoryView extends JFrame {
         if(!inventory.getProducts().isEmpty()) {
             for(Map.Entry<tProduct, Integer> entry: inventory.getProducts().entrySet()) productsPanel.add(createItemPanel(entry.getValue() + "x " + entry.getKey().getName()));
         }
-        else {
-            productsPanel.add(emptyLabel("No has canjeado productos todavía"));
-        }
+        else productsPanel.add(emptyLabel("No has canjeado productos todavía"));
         JScrollPane productsScroll = new JScrollPane(productsPanel);
         productsScroll.setBorder(BorderFactory.createEmptyBorder());
         productsScroll.getViewport().setBackground(theme.BG);
@@ -110,11 +106,9 @@ public class InventoryView extends JFrame {
     private JPanel createItemPanel(String text) {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBackground(theme.BG_ITEM);
-        panel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createEmptyBorder(4, 4, 4, 4),
-            BorderFactory.createLineBorder(theme.BORDER, 1)
-        ));
+        panel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4), BorderFactory.createLineBorder(theme.BORDER, 1)));
         panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 52));
+        
         JLabel label = new JLabel("  " + text);
         label.setFont(theme.BODY);
         label.setForeground(theme.TEXT);
@@ -125,6 +119,7 @@ public class InventoryView extends JFrame {
     private JPanel emptyLabel(String text) {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         panel.setOpaque(false);
+        
         JLabel label = new JLabel(text);
         label.setForeground(theme.TEXT_MUTED);
         label.setFont(theme.BODY);

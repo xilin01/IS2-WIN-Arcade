@@ -24,6 +24,7 @@ import presentation.games.BackgroundPanel;
 @SuppressWarnings("serial")
 public class StoreView extends JFrame {
     private static final Theme theme = Theme.getInstance();
+    
     private JLabel pointsLabel;
 
     public StoreView() {
@@ -48,13 +49,10 @@ public class StoreView extends JFrame {
         mainPanel.setBorder(BorderFactory.createLineBorder(theme.BORDER, 1));
         background.add(mainPanel);
 
-        // --- Top bar ---
+        // Top bar
         JPanel topBar = new JPanel(new BorderLayout());
         topBar.setBackground(theme.BG_CARD);
-        topBar.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createMatteBorder(0, 0, 1, 0, theme.GOLD),
-            BorderFactory.createEmptyBorder(14, 18, 14, 14)
-        ));
+        topBar.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, theme.GOLD), BorderFactory.createEmptyBorder(14, 18, 14, 14)));
 
         JPanel userInfo = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 0));
         userInfo.setOpaque(false);
@@ -79,7 +77,7 @@ public class StoreView extends JFrame {
         topBar.add(backPanel, BorderLayout.EAST);
         mainPanel.add(topBar, BorderLayout.NORTH);
 
-        // --- Tabs ---
+        // Tabs
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.setFont(theme.BODY);
         tabbedPane.setBackground(theme.BG_CARD);
@@ -104,7 +102,6 @@ public class StoreView extends JFrame {
         productsScroll.setBorder(BorderFactory.createEmptyBorder());
         productsScroll.getViewport().setBackground(theme.BG);
         tabbedPane.addTab("Productos", productsScroll);
-
         mainPanel.add(tabbedPane, BorderLayout.CENTER);
 
         setVisible(true);
@@ -117,10 +114,7 @@ public class StoreView extends JFrame {
     private JPanel createPackagePanel(tGamesPackage pack) {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBackground(theme.BG_ITEM);
-        panel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createEmptyBorder(4, 4, 4, 4),
-            BorderFactory.createLineBorder(theme.BORDER, 1)
-        ));
+        panel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4), BorderFactory.createLineBorder(theme.BORDER, 1)));
         panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 60 + pack.getGames().size() * 20));
 
         JPanel infoPanel = new JPanel();
@@ -156,10 +150,7 @@ public class StoreView extends JFrame {
     private JPanel createProductPanel(tProduct prod) {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBackground(theme.BG_ITEM);
-        panel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createEmptyBorder(4, 4, 4, 4),
-            BorderFactory.createLineBorder(theme.BORDER, 1)
-        ));
+        panel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4), BorderFactory.createLineBorder(theme.BORDER, 1)));
         panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 52));
 
         JPanel infoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));

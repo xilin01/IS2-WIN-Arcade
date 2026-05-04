@@ -19,6 +19,7 @@ import presentation.games.BackgroundPanel;
 @SuppressWarnings("serial")
 public class LoginView extends JFrame {
     private static final Theme theme = Theme.getInstance();
+    
     private static LoginView instance;
     private final JTextField txtName = new JTextField(16);
     private final JPasswordField txtPass = new JPasswordField(16);
@@ -45,10 +46,7 @@ public class LoginView extends JFrame {
 
         JPanel mainPanel = new JPanel(new GridBagLayout());
         mainPanel.setBackground(new Color(theme.BG_CARD.getRed(), theme.BG_CARD.getGreen(), theme.BG_CARD.getBlue(), 215));
-        mainPanel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(theme.BORDER, 1),
-            BorderFactory.createEmptyBorder(24, 32, 24, 32)
-        ));
+        mainPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(theme.BORDER, 1), BorderFactory.createEmptyBorder(24, 32, 24, 32)));
         GridBagConstraints outer = new GridBagConstraints();
         outer.insets = new Insets(100, 0, 0, 0);
         background.add(mainPanel, outer);
@@ -73,9 +71,8 @@ public class LoginView extends JFrame {
         gbc.gridx = 1; mainPanel.add(txtPass, gbc);
 
         gbc.gridx = 0; gbc.gridy = 2; gbc.gridwidth = 2;
-        mainPanel.add(theme.primaryBtn("Iniciar sesión", () ->
-            Controller.getInstance().action(Event.LOGIN, new tCredentials(txtName.getText().trim(), new String(txtPass.getPassword())))
-        ), gbc);
+        mainPanel.add(theme.primaryBtn("Iniciar sesión",
+        		() -> Controller.getInstance().action(Event.LOGIN, new tCredentials(txtName.getText().trim(), new String(txtPass.getPassword())))), gbc);
         gbc.gridy = 3;
         mainPanel.add(theme.secondaryBtn("¿No tienes cuenta? Regístrate", () -> {
             SignUpView.open();
@@ -87,10 +84,7 @@ public class LoginView extends JFrame {
         field.setBackground(theme.BG_ITEM);
         field.setForeground(theme.TEXT);
         field.setCaretColor(theme.TEXT);
-        field.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(theme.BORDER, 1),
-            BorderFactory.createEmptyBorder(4, 8, 4, 8)
-        ));
+        field.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(theme.BORDER, 1), BorderFactory.createEmptyBorder(4, 8, 4, 8)));
     }
 
     public static void update(int event, Object data) {

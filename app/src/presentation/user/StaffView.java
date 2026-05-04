@@ -92,7 +92,6 @@ public class StaffView extends JFrame {
         usersBtn.setMaximumSize(btnSize);
         usersBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         centerPanel.add(usersBtn);
-
         this.add(centerPanel, BorderLayout.CENTER);
 
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);

@@ -12,7 +12,6 @@ import business.user.tUser;
 import integration.DB;
 
 public class DAOUserImp implements DAOUser {
-
     private final Connection testConnection;
 
     public DAOUserImp() {

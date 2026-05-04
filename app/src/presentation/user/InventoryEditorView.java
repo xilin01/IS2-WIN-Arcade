@@ -258,7 +258,6 @@ public class InventoryEditorView extends JDialog {
         infoLabel.setBorder(BorderFactory.createEmptyBorder(0, 12, 0, 0));
         row.add(infoLabel, BorderLayout.CENTER);
         row.add(theme.dangerBtn("Quitar", onRemove), BorderLayout.EAST);
-
         return row;
     }
 }

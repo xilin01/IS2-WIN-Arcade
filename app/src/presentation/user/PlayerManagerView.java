@@ -18,8 +18,8 @@ import presentation.Theme;
 
 @SuppressWarnings("serial")
 public class PlayerManagerView extends JFrame {
-
     private static final Theme theme = Theme.getInstance();
+    
     private JPanel userListPanel;
 
     public PlayerManagerView() {
@@ -103,7 +103,6 @@ public class PlayerManagerView extends JFrame {
               });
         buttonsPanel.add(toggleButton);
         userPanel.add(buttonsPanel, BorderLayout.EAST);
-
         return userPanel;
     }
 

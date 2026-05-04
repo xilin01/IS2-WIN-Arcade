@@ -31,8 +31,6 @@ import presentation.Theme;
 
 @SuppressWarnings("serial")
 public class RouletteGUI extends JFrame {
-    private static final Theme theme = Theme.getInstance();
-
     private class RotatedRoulette extends JPanel {
     	private static final int SIZE = 500;
 
@@ -44,6 +42,7 @@ public class RouletteGUI extends JFrame {
                 BufferedImage original = ImageIO.read(new File("resources/icons/ruleta.png"));
                 BufferedImage compatible = new BufferedImage(SIZE, SIZE, BufferedImage.TYPE_INT_ARGB);
                 Graphics2D g2d = compatible.createGraphics();
+                
                 g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
                 g2d.drawImage(original, 0, 0, SIZE, SIZE, null);
                 g2d.dispose();
@@ -73,6 +72,7 @@ public class RouletteGUI extends JFrame {
         	int centerX = SIZE / 2;
             int[] xPoints = {centerX - 15, centerX + 15, centerX};
             int[] yPoints = {10, 10, 50};
+            
             gPointer.setColor(Color.RED);
             gPointer.fillPolygon(xPoints, yPoints, 3);
             gPointer.dispose();
@@ -83,7 +83,6 @@ public class RouletteGUI extends JFrame {
             repaint();
         }
     }
-
     private class ImputDialog extends JDialog {
     	private static final int BETS_HEIGHT = 300;
         private static final int BETS_WIDTH = BETS_HEIGHT * 2;
@@ -160,7 +159,8 @@ public class RouletteGUI extends JFrame {
     		dispose();
     	}
     }
-
+    
+    private static final Theme theme = Theme.getInstance();
     private static final Bets[] BETS = Bets.values();
 
     private Map<Integer, Integer> numberToSteps;
@@ -191,9 +191,7 @@ public class RouletteGUI extends JFrame {
         betsPanel.setOpaque(false);
         betsPanel.setBorder(BorderFactory.createEmptyBorder(80, 0, 80, 80));
         mainPanel.add(betsPanel, BorderLayout.EAST);
-        for(Bets b: BETS) {
-            betsPanel.add(theme.secondaryBtn(""+b, () -> setBet(b)));
-        }
+        for(Bets b: BETS) betsPanel.add(theme.secondaryBtn(""+b, () -> setBet(b)));
 
         JPanel optionsPanel = new JPanel(new GridLayout(2, 1, 0, 12));
         optionsPanel.setOpaque(false);
@@ -204,7 +202,6 @@ public class RouletteGUI extends JFrame {
         playButton = theme.primaryBtn("Tirar", this::playRoulette);
         playButton.setEnabled(false);
         optionsPanel.add(playButton);
-
         optionsPanel.add(theme.secondaryBtn("Atrás", this::giveUp));
 
         setVisible(true);
@@ -236,7 +233,7 @@ public class RouletteGUI extends JFrame {
     }
 
     private void giveUp() {
-        if(theme.confirm(this, "¿Estás seguro de que quieres abandonar? La partida se perderá")) {
+        if(theme.confirm(this, "¿Estás seguro de que quieres abandonar?\nLa partida se perderá")) {
             Controller.getInstance().action(Event.OPEN_GAMES_PANEL, null);
             dispose();
         }
@@ -247,7 +244,7 @@ public class RouletteGUI extends JFrame {
     	showAnimation(winningNumber, () -> end(message));
     }
     
-    //50 es el minimo
+    // 50 es el mínimo
     private void showAnimation(int n, Runnable onFinish) {
     	animationCount = 0;
     	int steps = numberToSteps.get(n) + (37*3);
@@ -265,9 +262,9 @@ public class RouletteGUI extends JFrame {
     }
     
     private int interruptionTime(int steps) {
-    	double t = (double) animationCount / steps; 
+    	double t = (double)animationCount / steps; 
         double ease = (1 - Math.cos(Math.PI * t))/2;
-        return (int) (10 + ease * 190);
+        return (int)(10 + ease * 190);
     }
 
     private void initNumberToSteps() {

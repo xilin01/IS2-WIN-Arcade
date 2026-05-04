@@ -188,15 +188,13 @@ public class Controller {
             }
             case Event.BUY_PACKAGE: {
                 tGamesPackage pack = (tGamesPackage)data;
-                if(ServiceLocator.get(SAStore.class).buyPackage(username, pack))
-                    Theme.getInstance().showInfo(null, "¡" + pack.getName() + " comprado con éxito!");
+                if(ServiceLocator.get(SAStore.class).buyPackage(username, pack)) Theme.getInstance().showInfo(null, "¡" + pack.getName() + " comprado con éxito!");
                 else Theme.getInstance().showError(null, "No se pudo completar la compra");
                 break;
             }
             case Event.BUY_PRODUCT: {
                 tProduct prod = (tProduct)data;
-                if(ServiceLocator.get(SAStore.class).buyProduct(username, prod))
-                    Theme.getInstance().showInfo(null, "¡" + prod.getName() + " canjeado con éxito!");
+                if(ServiceLocator.get(SAStore.class).buyProduct(username, prod)) Theme.getInstance().showInfo(null, "¡" + prod.getName() + " canjeado con éxito!");
                 else Theme.getInstance().showError(null, "No tienes suficientes puntos para canjear este producto");
                 break;
             }

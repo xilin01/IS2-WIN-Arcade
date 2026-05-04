@@ -11,7 +11,7 @@ public class SAAuthImp implements SAAuth {
         this.saUser = new SAUserImp();
     }
 
-    SAAuthImp(SAUser saUser) {
+    SAAuthImp(SAUser saUser) { // Testing
         this.saUser = saUser;
     }
 

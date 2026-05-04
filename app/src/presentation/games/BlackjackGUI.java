@@ -67,10 +67,7 @@ public class BlackjackGUI extends JFrame {
         mainPanel.add(scoresAuxiliarPanel, BorderLayout.EAST);
 
         JPanel scoresPanel = new JPanel();
-        scoresPanel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(theme.BORDER, 1),
-            BorderFactory.createEmptyBorder(10, 14, 10, 14)
-        ));
+        scoresPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(theme.BORDER, 1), BorderFactory.createEmptyBorder(10, 14, 10, 14)));
         scoresPanel.setBackground(theme.BG_CARD);
         scoresPanel.setLayout(new BoxLayout(scoresPanel, BoxLayout.PAGE_AXIS));
         croupierScore = new JLabel();
@@ -129,6 +126,7 @@ public class BlackjackGUI extends JFrame {
         String cardName = (card == null ? "J" : ""+card);
         ImageIcon icon = new ImageIcon("resources/cards/"+cardName+".png");
         Image img = icon.getImage().getScaledInstance(CARD_WIDTH, CARD_HEIGHT, Image.SCALE_SMOOTH);
+        
         deckPanel.add(new JLabel(new ImageIcon(img)));
     }
 
@@ -139,7 +137,7 @@ public class BlackjackGUI extends JFrame {
     }
 
     private void giveUp() {
-        if(theme.confirm(this, "¿Estás seguro de que quieres abandonar? La partida se perderá")) {
+        if(theme.confirm(this, "¿Estás seguro de que quieres abandonar?\nLa partida se perderá")) {
             Controller.getInstance().action(Event.OPEN_GAMES_PANEL, null);
             dispose();
         }

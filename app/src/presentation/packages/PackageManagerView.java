@@ -33,10 +33,13 @@ public class PackageManagerView extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getContentPane().setBackground(theme.BG);
 
-        JPanel header = theme.header("Gestión de pquetes");
+        JPanel header = theme.header("Gestión de paquetes");
         JPanel headerRight = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
         headerRight.setBackground(theme.BG_CARD);
-        headerRight.add(theme.primaryBtn("Crear paquete", () -> {GamesPackageEditor.show(this, null); updateList();}));
+        headerRight.add(theme.primaryBtn("Crear paquete", () -> {
+        	GamesPackageEditor.show(this, null);
+        	updateList();
+        }));
         headerRight.add(theme.secondaryBtn("Volver", () -> {
         	Controller.getInstance().action(Event.OPEN_STAFF_VIEW, null);
         	dispose();
@@ -109,7 +112,6 @@ public class PackageManagerView extends JFrame {
             emptyLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
             packInfo.add(emptyLabel);
         }
-
         packagePanel.add(packInfo, BorderLayout.CENTER);
 
         JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 0));

@@ -20,7 +20,6 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.TitledBorder;
-
 import business.game.tGame;
 import business.packages.tGamesPackage;
 import presentation.Controller;
@@ -108,7 +107,6 @@ public class GamesPackageEditor {
         topPanel.add(addGamePanel);
         content.add(topPanel, BorderLayout.NORTH);
 
-        // Game list
         JPanel gamesListPanel = new JPanel();
         gamesListPanel.setLayout(new BoxLayout(gamesListPanel, BoxLayout.Y_AXIS));
         gamesListPanel.setBackground(theme.BG);
@@ -160,9 +158,9 @@ public class GamesPackageEditor {
                 infoLabel.setBorder(BorderFactory.createEmptyBorder(0, 12, 0, 0));
                 row.add(infoLabel, BorderLayout.CENTER);
                 row.add(theme.dangerBtn("Quitar", () -> {
-								                	gamesMap.remove(juego); 
-								                	updateRef[0].run();
-								                	}), BorderLayout.EAST);
+	            	gamesMap.remove(juego); 
+	            	updateRef[0].run();
+            	}), BorderLayout.EAST);
                 gamesListPanel.add(row);
             }
             totalPointsLabel.setText("Valor en puntos: " + (int)totalPts[0]);
@@ -189,7 +187,7 @@ public class GamesPackageEditor {
 
         theme.formDialog(parent, pack == null ? "Crear nuevo paquete" : "Editar paquete", content, "Guardar", () -> {
             String name = nameField.getText();
-            double finalPrice = (double) priceSpinner.getValue();
+            double finalPrice = (double)priceSpinner.getValue();
             
             if(!name.isEmpty()) {
                 if(pack == null) Controller.getInstance().action(Event.CREATE_PACKAGE, new tGamesPackage(name, finalPrice, gamesMap));

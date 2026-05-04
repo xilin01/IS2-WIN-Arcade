@@ -41,10 +41,7 @@ public class GamesPanelView extends JFrame {
         // --- Top bar ---
         JPanel topBar = new JPanel(new BorderLayout());
         topBar.setBackground(theme.BG_CARD);
-        topBar.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createMatteBorder(0, 0, 1, 0, theme.GOLD),
-            BorderFactory.createEmptyBorder(14, 20, 14, 16)
-        ));
+        topBar.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, theme.GOLD), BorderFactory.createEmptyBorder(14, 20, 14, 16)));
 
         JLabel title = new JLabel("Selecciona un juego");
         title.setFont(theme.HEADING);
@@ -70,7 +67,6 @@ public class GamesPanelView extends JFrame {
         topBar.add(rightInfo, BorderLayout.EAST);
         background.add(topBar, BorderLayout.NORTH);
 
-        // --- Games list ---
         JPanel gamesListPanel = new JPanel();
         gamesListPanel.setLayout(new BoxLayout(gamesListPanel, BoxLayout.Y_AXIS));
         gamesListPanel.setOpaque(false);
@@ -105,10 +101,7 @@ public class GamesPanelView extends JFrame {
     private JPanel createGameCard(tGame game, int amount) {
         JPanel card = new JPanel(new BorderLayout());
         card.setBackground(theme.BG_CARD);
-        card.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(theme.BORDER, 1),
-            BorderFactory.createEmptyBorder(14, 20, 14, 16)
-        ));
+        card.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(theme.BORDER, 1), BorderFactory.createEmptyBorder(14, 20, 14, 16)));
         card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 80));
 
         JPanel infoPanel = new JPanel();
@@ -138,8 +131,8 @@ public class GamesPanelView extends JFrame {
         JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0, 0));
         btnPanel.setOpaque(false);
         btnPanel.add(playButton);
+        
         card.add(btnPanel, BorderLayout.EAST);
-
         return card;
     }
 }

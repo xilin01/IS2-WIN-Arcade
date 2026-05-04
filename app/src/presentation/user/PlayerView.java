@@ -44,13 +44,10 @@ public class PlayerView extends JFrame {
         gbc.insets = new Insets(80, 0, 0, 0);
         background.add(mainPanel, gbc);
 
-        // --- Top bar: user info + logout ---
+        // Top bar: user info + logout
         JPanel topBar = new JPanel(new BorderLayout());
         topBar.setBackground(theme.BG_CARD);
-        topBar.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(theme.BORDER, 1),
-            BorderFactory.createEmptyBorder(10, 18, 10, 14)
-        ));
+        topBar.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(theme.BORDER, 1), BorderFactory.createEmptyBorder(10, 18, 10, 14)));
 
         JPanel userInfo = new JPanel(new FlowLayout(FlowLayout.LEFT, 6, 0));
         userInfo.setOpaque(false);
@@ -75,11 +72,10 @@ public class PlayerView extends JFrame {
         topBar.add(logoutPanel, BorderLayout.EAST);
         mainPanel.add(topBar, BorderLayout.NORTH);
 
-        // --- Center: Jugar + Inventario/Tienda grouped together ---
+        // Center: Jugar + Inventario/ Tienda grouped together
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
         centerPanel.setOpaque(false);
-
         centerPanel.add(Box.createVerticalGlue());
 
         JButton playButton = theme.primaryBtn("Jugar", () -> {
@@ -91,7 +87,6 @@ public class PlayerView extends JFrame {
         playButton.setAlignmentX(0.5f);
         playButton.setFont(theme.TITLE);
         centerPanel.add(playButton);
-
         centerPanel.add(Box.createRigidArea(new Dimension(0, 18)));
 
         JPanel secondaryRow = new JPanel(new FlowLayout(FlowLayout.CENTER, 16, 0));
@@ -100,7 +95,7 @@ public class PlayerView extends JFrame {
             Controller.getInstance().action(Event.OPEN_INVENTORY, null);
             dispose();
         });
-        JButton storeButton = theme.primaryBtn("Tienda", () -> {
+        JButton storeButton = theme.secondaryBtn("Tienda", () -> {
             Controller.getInstance().action(Event.OPEN_STORE, null);
             dispose();
         });
@@ -110,9 +105,7 @@ public class PlayerView extends JFrame {
         secondaryRow.add(inventoryButton);
         secondaryRow.add(storeButton);
         centerPanel.add(secondaryRow);
-
         centerPanel.add(Box.createVerticalGlue());
-
         mainPanel.add(centerPanel, BorderLayout.CENTER);
 
         setVisible(true);
