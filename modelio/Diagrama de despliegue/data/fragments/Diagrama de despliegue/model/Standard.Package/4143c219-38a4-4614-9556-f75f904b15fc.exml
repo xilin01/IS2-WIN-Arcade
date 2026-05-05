@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="diagrama de despliegue" version="4">
+  <OBJECT>
+    <ID name="diagrama de despliegue" mc="Standard.Package" uid="4143c219-38a4-4614-9556-f75f904b15fc"/>
+    <PID name="Diagrama de despliegue" mc="Standard.Project" uid="5ed2b00b-4efa-40f5-82d2-90b76d245bc5"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[diagrama de despliegue]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="PC_Local" mc="Standard.Node" uid="d26619b5-df99-4b81-8725-a4af15722544"/>
+        <COMPID name="MySQL Server" mc="Standard.Node" uid="c87a6b1e-a187-4beb-9c76-a989e375e8af"/>
+        <COMPID name="create-script.sql" mc="Standard.Artifact" uid="49a3e739-83f2-49f0-a33f-f721f7214498"/>
+        <COMPID name="Presentación" mc="Standard.Artifact" uid="a966b67b-f3d7-48f1-9a8e-24ad37385400"/>
+        <COMPID name="Modelo" mc="Standard.Artifact" uid="5ef824bb-537d-484c-b0aa-2a07d375f6da"/>
+        <COMPID name="Integración" mc="Standard.Artifact" uid="7e973f24-1cdb-4b76-ab55-28c2113729db"/>
+      </COMP>
+      <COMP relation="Product">
+        <COMPID name="diagrama de despliegue Deployment diagram" mc="Standard.DeploymentDiagram" uid="14b99640-7abe-4c2e-916b-360366aedf00"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

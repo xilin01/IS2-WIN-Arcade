@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="create-script.sql" version="4">
+  <OBJECT>
+    <ID name="create-script.sql" mc="Standard.Artifact" uid="49a3e739-83f2-49f0-a33f-f721f7214498"/>
+    <PID name="diagrama de despliegue" mc="Standard.Package" uid="4143c219-38a4-4614-9556-f75f904b15fc"/>
+    <ATTRIBUTES>
+      <ATT name="FileName"></ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[create-script.sql]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="Utilized">
+        <OBJECT>
+          <ID name="Manifestation" mc="Standard.Manifestation" uid="784025ce-c0d1-4458-ac84-7684d4ae4551"/>
+          <ATTRIBUTES>
+            <ATT name="Name"><![CDATA[Manifestation]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="UtilizedElement">
+              <ID name="MySQL Server" mc="Standard.Node" uid="c87a6b1e-a187-4beb-9c76-a989e375e8af"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

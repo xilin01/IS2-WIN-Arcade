@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Diagrama de despliegue" version="4">
+  <OBJECT>
+    <ID name="Diagrama de despliegue" mc="Standard.Project" uid="5ed2b00b-4efa-40f5-82d2-90b76d245bc5"/>
+    <ATTRIBUTES>
+      <ATT name="ProjectContext"></ATT>
+      <ATT name="ProjectDescr"></ATT>
+      <ATT name="Name"><![CDATA[Diagrama de despliegue]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="Model">
+        <COMPID name="diagrama de despliegue" mc="Standard.Package" uid="4143c219-38a4-4614-9556-f75f904b15fc"/>
+      </COMP>
+      <COMP relation="DiagramRoot">
+        <COMPID name="Diagrama de despliegue" mc="Infrastructure.DiagramSet" uid="744a1e1f-30c6-4c7e-9714-04b1b17be349"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

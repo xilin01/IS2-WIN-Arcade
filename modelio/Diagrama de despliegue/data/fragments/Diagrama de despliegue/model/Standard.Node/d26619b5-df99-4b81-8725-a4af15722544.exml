@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="PC_Local" version="4">
+  <OBJECT>
+    <ID name="PC_Local" mc="Standard.Node" uid="d26619b5-df99-4b81-8725-a4af15722544"/>
+    <PID name="diagrama de despliegue" mc="Standard.Package" uid="4143c219-38a4-4614-9556-f75f904b15fc"/>
+    <ATTRIBUTES>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[PC_Local]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedEnd">
+        <REFOBJ>
+          <ID name="" mc="Standard.AssociationEnd" uid="fc06b8f1-4dcc-4265-b321-b43f5861a4a6"/>
+        </REFOBJ>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

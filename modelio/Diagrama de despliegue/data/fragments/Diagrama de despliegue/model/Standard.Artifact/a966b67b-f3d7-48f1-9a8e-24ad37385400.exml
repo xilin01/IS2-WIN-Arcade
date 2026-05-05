@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Presentación" version="4">
+  <OBJECT>
+    <ID name="Presentación" mc="Standard.Artifact" uid="a966b67b-f3d7-48f1-9a8e-24ad37385400"/>
+    <PID name="diagrama de despliegue" mc="Standard.Package" uid="4143c219-38a4-4614-9556-f75f904b15fc"/>
+    <ATTRIBUTES>
+      <ATT name="FileName"></ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Presentación]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="Utilized">
+        <OBJECT>
+          <ID name="Manifestation" mc="Standard.Manifestation" uid="9ee221cb-db8c-4a92-b475-56fd9c3e2ff3"/>
+          <ATTRIBUTES>
+            <ATT name="Name"><![CDATA[Manifestation]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="UtilizedElement">
+              <ID name="PC_Local" mc="Standard.Node" uid="d26619b5-df99-4b81-8725-a4af15722544"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+      <COMP relation="DependsOnDependency">
+        <OBJECT>
+          <ID name="" mc="Standard.Usage" uid="b427d2b1-ec6c-45aa-a1ad-3dc9148d7ad0"/>
+          <ATTRIBUTES>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="DependsOn">
+              <ID name="Modelo" mc="Standard.Artifact" uid="5ef824bb-537d-484c-b0aa-2a07d375f6da"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>
