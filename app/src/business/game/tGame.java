@@ -3,8 +3,8 @@ package business.game;
 import java.util.Objects;
 
 public class tGame {
+	public static final String ROULETTE = "Ruleta";
     public static final String BLACKJACK = "Blackjack";
-    public static final String ROULETTE = "Ruleta";
 
     private String name;
     private int basePoints;

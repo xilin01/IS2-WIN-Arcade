@@ -2,10 +2,11 @@ package business.game;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.json.JSONObject;
 
 public class Blackjack extends CardGame {
+	public enum GameResult {LOST, CONTINUE, WON}
+	
     private class Hand {
         private List<Cards> cards;
         private int points;
@@ -43,21 +44,19 @@ public class Blackjack extends CardGame {
             else return GameResult.CONTINUE;
         }
     }
-
-    public enum GameResult { LOST, CONTINUE, WON }
-
+    
     private static final int BLACKJACK_LIMIT = 21;
     private static final int CROUPIER_LIMIT = 17;
 
     private Hand croupier;
     private Hand player;
-    
-    public JSONObject initialInfo = new JSONObject();
+    private JSONObject initialInfo;
 
     public Blackjack(int basePoints) {
         super(basePoints);
         croupier = new Hand();
         player = new Hand();
+        initialInfo = new JSONObject();
     }
 
     @Override
