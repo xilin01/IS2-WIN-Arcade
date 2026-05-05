@@ -3,7 +3,6 @@ package business.builders;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.json.JSONObject;
 
 public class BuilderBasedFactory <T> implements Factory<T> {  
@@ -15,7 +14,7 @@ public class BuilderBasedFactory <T> implements Factory<T> {
 
 	public BuilderBasedFactory(List<Builder<T>> builders){  
 		this();
-		if(builders == null) throw new IllegalArgumentException("Builder is null in the BuilderBasedFactory");
+		if(builders == null) throw new IllegalArgumentException("Invalid arg for Builder in BuilderBasedFactory");
 		for(Builder<T> b: builders) addBuilder(b);
 	}
 
@@ -25,8 +24,7 @@ public class BuilderBasedFactory <T> implements Factory<T> {
 
 	@Override  
 	public T createInstance(JSONObject info) {  
-		if (info == null || !info.has("name")) throw new IllegalArgumentException("Invalid info cannot be null");
-		
+		if (info == null || !info.has("name")) throw new IllegalArgumentException("Invalid info for createInstance in BuilderBasedFactory");
 		T instance = null;
 		String name = info.getString("name");
 		if(builders.containsKey(name)) instance = builders.get(name).createInstance(info.getJSONObject("data"));
