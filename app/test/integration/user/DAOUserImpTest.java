@@ -10,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.util.Collection;
 import business.auth.AuthResult;
 import business.player.tPlayer;
-import business.staff.tStaff;
 import business.user.tUser;
 
 class DAOUserImpTest {

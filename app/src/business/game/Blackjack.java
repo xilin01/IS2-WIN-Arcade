@@ -3,6 +3,8 @@ package business.game;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
+
 public class Blackjack extends CardGame {
     private class Hand {
         private List<Cards> cards;
@@ -49,6 +51,8 @@ public class Blackjack extends CardGame {
 
     private Hand croupier;
     private Hand player;
+    
+    public JSONObject initialInfo = new JSONObject();
 
     public Blackjack(int basePoints) {
         super(basePoints);
@@ -63,7 +67,13 @@ public class Blackjack extends CardGame {
         croupier.addCard(getRandomCard()); // Carta oculta del croupier
         player.addCard(getRandomCard());
         player.addCard(getRandomCard());
+        initialInfo.put("CroupierDeck", getCroupierVisibleCard()).put("PlayerDeck", getPlayerCards())
+        		.put("CroupierPoints", visiblePoints).put("PlayerPoints", getPlayerPoints());
         return visiblePoints;
+    }
+   
+    public JSONObject getInitialInfo() {
+    	return initialInfo;
     }
 
     public Cards getCroupierVisibleCard() {

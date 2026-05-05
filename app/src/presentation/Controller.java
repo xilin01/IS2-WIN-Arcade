@@ -20,20 +20,13 @@ import business.product.SAProduct;
 import business.product.tProduct;
 import business.ServiceLocator;
 import business.auth.tCredentials;
-import business.builders.GUIFactoryProvider;
+import business.builders.GUIFactory;
 import business.store.SAStore;
 import presentation.auth.LoginView;
 import presentation.auth.SignUpView;
 import presentation.games.BlackjackGUI;
-import presentation.games.GamesPanelView;
 import presentation.games.RouletteGUI;
-import presentation.packages.PackageManagerView;
-import presentation.product.ProductManagerView;
-import presentation.user.InventoryView;
-import presentation.user.PlayerManagerView;
-import presentation.user.PlayerView;
-import presentation.user.StaffView;
-import presentation.user.StoreView;
+import presentation.games.RouletteGUIImp;
 import presentation.user.UserView;
 
 // Patrón Singleton
@@ -98,50 +91,17 @@ public class Controller {
                 LoginView.update(loginEvent, result.getPayload());
                 break;
             }
-            case Event.OPEN_PLAYER_VIEW: {
-                //new PlayerView(); TODO ejemplo de uso del BuilderBasedFactory
-            	GUIFactoryProvider.get().createInstance(new JSONObject().put("name", "PlayerView").put("data", new JSONObject()));
-                break;
-            }
-            case Event.OPEN_GAMES_PANEL: {
-                new GamesPanelView();
-                break;
-            }
-            case Event.OPEN_INVENTORY: {
-                new InventoryView();
-                break;
-            }
-            case Event.OPEN_STORE: {
-                new StoreView();
-                break;
-            }
             case Event.LOGOUT: {
             	username = null;
                 LoginView.open();
-                break;
-            }
-            case Event.OPEN_STAFF_VIEW: {
-                new StaffView();
-                break;
-            }
-            case Event.OPEN_PACKAGE_MANAGER: {
-                new PackageManagerView();
-                break;
-            }
-            case Event.OPEN_PRODUCT_MANAGER: {
-            	new ProductManagerView();
-                break;
-            }
-            case Event.OPEN_PLAYER_MANAGER: {
-            	new PlayerManagerView();
                 break;
             }
             case Event.BLACKJACK_PLAY: {
                 int basePoints = (Integer)data;
                 ServiceLocator.get(SAInventory.class).consumeGame(username, new tGame(tGame.BLACKJACK, basePoints));
                 Blackjack blackjack = new Blackjack(basePoints);
-                int croupierVisiblePoints = blackjack.play(); 
-                BlackjackGUI gui = new BlackjackGUI(blackjack.getCroupierVisibleCard(), blackjack.getPlayerCards(), croupierVisiblePoints, blackjack.getPlayerPoints());
+                blackjack.play(); 
+                BlackjackGUI gui = (BlackjackGUI) GUIFactory.createView(event, blackjack.getInitialInfo());
                 blackjackSession = new BlackjackSession(blackjack, gui);
                 break;
             }
@@ -185,7 +145,7 @@ public class Controller {
             case Event.ROULETTE_PLAY: {
                 int basePoints = (Integer)data;
                 ServiceLocator.get(SAInventory.class).consumeGame(username, new tGame(tGame.ROULETTE, basePoints));
-                rouletteSession = new RouletteSession(basePoints, new RouletteGUI());
+                rouletteSession = new RouletteSession(basePoints, (RouletteGUI) GUIFactory.createView(event, new JSONObject()));
                 break;
             }
             case Event.ROULETTE_ROLL: {
@@ -196,7 +156,7 @@ public class Controller {
                 Roulette roulette = new Roulette(rouletteSession.basePoints(), (tBet)data);
                 int points = roulette.play();
                 if(points > 0) ServiceLocator.get(SAPlayer.class).addPoints(username, points);
-                rouletteSession.gui().showResult(points, roulette.getWinningNumber());
+                ((RouletteGUIImp) rouletteSession.gui()).showResult(points, roulette.getWinningNumber());
                 break;
             }
             case Event.BUY_PACKAGE: {
@@ -218,7 +178,7 @@ public class Controller {
             case Event.CREATE_PRODUCT: ServiceLocator.get(SAProduct.class).createProduct((tProduct)data); break;
             case Event.UPDATE_PRODUCT: ServiceLocator.get(SAProduct.class).updateProduct((tProduct)data); break;
             case Event.DELETE_PRODUCT: ServiceLocator.get(SAProduct.class).deleteProduct((String)data); break;
-            default: System.err.println("No está implementado"); break;
+            default: GUIFactory.createView(event, new JSONObject());
         }
     }
 

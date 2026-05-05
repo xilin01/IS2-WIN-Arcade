@@ -31,6 +31,6 @@ public class BuilderBasedFactory <T> implements Factory<T> {
 		String name = info.getString("name");
 		if(builders.containsKey(name)) instance = builders.get(name).createInstance(info.getJSONObject("data"));
 		if(instance != null) return instance;
-		throw new IllegalArgumentException("Unrecognized " + name + "for the builder");
+		throw new IllegalArgumentException("Unrecognized " + name + " for the builder");
 	}
 }
