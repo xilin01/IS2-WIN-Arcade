@@ -3,7 +3,6 @@ package business;
 import java.util.HashMap;
 import java.util.Map;
 
-// Patrón Service Locator
 public class ServiceLocator {
     private static final Map<Class<?>, Object> services = new HashMap<>();
 

@@ -2,6 +2,7 @@ package business.builders;
 
 import org.json.JSONObject;
 
+// Patrón Factory Method
 public abstract class Builder <T> {
 	private String typeTag;  
 

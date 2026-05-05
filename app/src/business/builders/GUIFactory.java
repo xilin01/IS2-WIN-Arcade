@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import org.json.JSONObject;
 import presentation.Event;
 
+// Patrón Singleton
 public final class GUIFactory {
     private static final Factory<JFrame> INSTANCE = new BuilderBasedFactory<>(List.of(
 	    new BlackjackGUIBuilder(),

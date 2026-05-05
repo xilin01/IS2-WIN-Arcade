@@ -14,7 +14,7 @@ public class Roulette extends ChanceGame {
 
         private final String description;
         private final int multiplier;
-        private final Predicate<Integer> winCondition;
+        private final Predicate<Integer> winCondition; // Patrón Strategy
 
         private Bet(String description, int multiplier, Predicate<Integer> winCondition) {
             if(description == null || multiplier < 1 || winCondition == null) throw new IllegalArgumentException("Invalid args for Builder in Bet");

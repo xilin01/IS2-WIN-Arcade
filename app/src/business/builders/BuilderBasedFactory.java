@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import org.json.JSONObject;
 
+// Patrón Abstract Factory
 public class BuilderBasedFactory <T> implements Factory<T> {  
 	private Map<String, Builder<T>> builders;  
 
