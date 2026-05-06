@@ -1,6 +1,8 @@
 package business.user;
 
 import business.auth.AuthResult;
+import business.player.tPlayer;
+import business.staff.tStaff;
 
 public abstract class tUser {
     protected String name;
@@ -40,9 +42,12 @@ public abstract class tUser {
         this.active = active;
     }
 
-    @Override
-    public String toString() {
-        return "[NAME: " + name + ", ACTIVE: " + active + "]";
+    public tPlayer asPlayer() {
+        return null;
+    }
+
+    public tStaff asStaff() {
+        return null;
     }
     
     abstract public AuthResult toAuthResult();

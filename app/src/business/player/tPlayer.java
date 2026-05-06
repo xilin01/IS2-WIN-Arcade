@@ -79,6 +79,11 @@ public class tPlayer extends tUser {
     	if(points < 0) throw new IllegalArgumentException("Invalid arg for setPoints in tPlayer");
         this.points = points;
     }
+    
+    @Override
+    public tPlayer asPlayer() {
+        return this;
+    }
 
     @Override
     public AuthResult toAuthResult() {

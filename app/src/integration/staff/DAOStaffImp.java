@@ -54,13 +54,12 @@ public class DAOStaffImp implements DAOStaff {
         }
         return rowCount;
     }
-
+    
     @Override
     public tStaff readStaff(String name) {
     	if(name == null || name.trim().isEmpty()) new IllegalArgumentException("Invalid arg for readStaff in DAOStaffImp");
         tUser user = daoUser.readUser(name);
-        if(user instanceof tStaff) return (tStaff)user;
-        return null;
+        return user != null ? user.asStaff() : null;
     }
 
     @Override
@@ -74,13 +73,15 @@ public class DAOStaffImp implements DAOStaff {
     	if(name == null || name.trim().isEmpty()) new IllegalArgumentException("Invalid arg for deleteStaff in DAOStaffImp");
         return daoUser.deleteUser(name);
     }
-
+    
     @Override
     public Collection<tStaff> readAllStaffs() {
         Collection<tStaff> staffs = new ArrayList<>();
 
         for(tUser user: daoUser.readAllUsers()) {
-            if(user instanceof tStaff) staffs.add((tStaff)user);
+            tStaff staff = user.asStaff();
+            
+            if(staff != null) staffs.add(staff);
         }
         return staffs;
     }

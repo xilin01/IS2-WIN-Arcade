@@ -63,30 +63,30 @@ public class DAOPlayerImp implements DAOPlayer {
     public tPlayer readPlayer(String name) {
     	if(name == null || name.trim().isEmpty()) throw new IllegalArgumentException("Invalid arg for readPlayer in DAOPlayerImp");
         tUser user = daoUser.readUser(name);
-        if(user instanceof tPlayer) {
-            tPlayer player = (tPlayer)user;
-            Connection connection = DB.getConnection();
-
-            if(connection != null) {
-                try {
-                    String query = "SELECT points "
-                                    + "FROM player "
-                                    + "WHERE name = ?";
-                    PreparedStatement pst = connection.prepareStatement(query);
-
-                    pst.setString(1, name);
-                    ResultSet rs = pst.executeQuery();
-                    if(rs.next()) player.setPoints(rs.getInt("points"));
-                    rs.close();
-                    pst.close();
-                }
-                catch(SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            tInventory inventory = daoInventory.readInventory(name);
-            player.setInventory(inventory != null ? inventory : new tInventory(name));
-            return player;
+        tPlayer player = user != null ? user.asPlayer() : null;
+        if(player != null) {
+	            Connection connection = DB.getConnection();
+	
+	            if(connection != null) {
+	                try {
+	                    String query = "SELECT points "
+	                                    + "FROM player "
+	                                    + "WHERE name = ?";
+	                    PreparedStatement pst = connection.prepareStatement(query);
+	
+	                    pst.setString(1, name);
+	                    ResultSet rs = pst.executeQuery();
+	                    if(rs.next()) player.setPoints(rs.getInt("points"));
+	                    rs.close();
+	                    pst.close();
+	                }
+	                catch(SQLException e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	            tInventory inventory = daoInventory.readInventory(name);
+	            player.setInventory(inventory != null ? inventory : new tInventory(name));
+	            return player;	
         }
         return null;
     }
@@ -146,25 +146,23 @@ public class DAOPlayerImp implements DAOPlayer {
         Connection connection = DB.getConnection();
 
         for(tUser user: daoUser.readAllUsers()) {
-            if(user instanceof tPlayer) {
-                tPlayer player = (tPlayer)user;
+        	tPlayer player = user.asPlayer();
+        	
+            if(connection != null && player != null) { 
+                try {
+                    String query = "SELECT points "
+                                    + "FROM player "
+                                    + "WHERE name = ?";
+                    PreparedStatement pst = connection.prepareStatement(query);
 
-                if(connection != null) {
-                    try {
-                        String query = "SELECT points "
-                                        + "FROM player "
-                                        + "WHERE name = ?";
-                        PreparedStatement pst = connection.prepareStatement(query);
-
-                        pst.setString(1, player.getName());
-                        ResultSet rs = pst.executeQuery();
-                        if(rs.next()) player.setPoints(rs.getInt("points"));
-                        rs.close();
-                        pst.close();
-                    }
-                    catch(SQLException e) {
-                        e.printStackTrace();
-                    }
+                    pst.setString(1, player.getName());
+                    ResultSet rs = pst.executeQuery();
+                    if(rs.next()) player.setPoints(rs.getInt("points"));
+                    rs.close();
+                    pst.close();
+                }
+                catch(SQLException e) {
+                    e.printStackTrace();
                 }
                 tInventory inventory = daoInventory.readInventory(player.getName());
                 player.setInventory(inventory != null ? inventory : new tInventory(player.getName()));
