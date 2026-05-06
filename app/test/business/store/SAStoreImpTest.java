@@ -31,8 +31,6 @@ class SAStoreImpTest {
         return new tPlayer(name, "password", true, new tPlayer.tInventory(name), points);
     }
 
-    // --- buyProduct ---
-
     @Test
     void buyProduct_sufficientPoints_returnsTrue() {
         when(playerStub.readPlayer("ana")).thenReturn(playerWithPoints("ana", 500));
@@ -66,8 +64,6 @@ class SAStoreImpTest {
         store.buyProduct("ana", new tProduct("item", 100));
         verify(playerStub, never()).updatePlayer(any());
     }
-
-    // --- buyPackage ---
 
     @Test
     void buyPackage_returnsTrue() {

@@ -22,8 +22,6 @@ class SAPlayerImpTest {
         return new tPlayer(name, "pass", true, new tPlayer.tInventory(name), points);
     }
 
-    // --- addPoints ---
-
     @Test
     void addPoints_positiveAmount_updatesPlayer() {
         when(daoStub.readPlayer("ana")).thenReturn(playerWithPoints("ana", 100));
@@ -55,8 +53,6 @@ class SAPlayerImpTest {
         verify(daoStub, never()).updatePlayer(any());
     }
 
-    // --- readPlayer ---
-
     @Test
     void readPlayer_existingPlayer_returnsPlayer() {
         tPlayer expected = playerWithPoints("ana", 200);
@@ -71,8 +67,6 @@ class SAPlayerImpTest {
 
         assertNull(sut.readPlayer("ghost"));
     }
-
-    // --- updatePlayer ---
 
     @Test
     void updatePlayer_delegatesToDAO() {

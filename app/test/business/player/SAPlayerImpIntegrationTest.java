@@ -8,8 +8,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
-// Step 3 — real chain: SAPlayerImp → DAOPlayerImp → MySQL.
-// @BeforeEach inserts player T_player with 200 points; @AfterEach deletes in FK order.
 class SAPlayerImpIntegrationTest {
 
     private static final String URL         = "jdbc:mysql://localhost/e4win";

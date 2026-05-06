@@ -10,9 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import business.game.tGame;
 
-// Step 3 — real chain: SAInventoryImp → DAOInventoryImp → MySQL.
-// @BeforeEach inserts test player; @AfterEach cleans up in FK order.
-// Uses seed-data game Blackjack/10 to satisfy gamesInventory FK constraints.
 class SAInventoryImpIntegrationTest {
 
     private static final String URL         = "jdbc:mysql://localhost/e4win";

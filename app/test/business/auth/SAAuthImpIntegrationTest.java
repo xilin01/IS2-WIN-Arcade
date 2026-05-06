@@ -5,8 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import business.user.SAUserImp;
 
-// Step 2 — real chain: SAAuthImp → SAUserImp → DAOUserImp → MySQL
-// No stubs. Requires the e4win schema seeded from db/create-script.sql.
 class SAAuthImpIntegrationTest {
 
     private SAAuthImp auth;
@@ -16,7 +14,6 @@ class SAAuthImpIntegrationTest {
         auth = new SAAuthImp(new SAUserImp());
     }
 
-    // Seed data: Jug1 / jug1 is a player
     @Test
     void authenticate_seededPlayer_returnsPlayerOk() {
         AuthResult result = auth.authenticate("Jug1", "jug1");
@@ -24,7 +21,6 @@ class SAAuthImpIntegrationTest {
         assertEquals("Jug1", result.getPayload());
     }
 
-    // Seed data: Xiang / xiang is a staff member
     @Test
     void authenticate_seededStaff_returnsStaffOk() {
         AuthResult result = auth.authenticate("Xiang", "xiang");

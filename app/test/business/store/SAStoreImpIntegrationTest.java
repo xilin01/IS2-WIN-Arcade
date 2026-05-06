@@ -15,9 +15,6 @@ import business.player.SAInventoryImp;
 import business.player.SAPlayerImp;
 import business.product.tProduct;
 
-// Step 3 — real chain: SAStoreImp → SAPlayerImp → SAInventoryImp → MySQL
-// @BeforeEach inserts a clean test player; @AfterEach deletes it (FK order).
-// Uses only seed-data products/games to satisfy FK constraints.
 class SAStoreImpIntegrationTest {
 
     private static final String URL         = "jdbc:mysql://localhost/e4win";
@@ -62,8 +59,6 @@ class SAStoreImpIntegrationTest {
         }
     }
 
-    // --- buyProduct ---
-
     @Test
     void buyProduct_sufficientPoints_returnsTrue() {
         assertTrue(store.buyProduct(TEST_PLAYER, new tProduct("Taza", 50)));
@@ -93,7 +88,6 @@ class SAStoreImpIntegrationTest {
         assertEquals(500, saPlayer.readPlayer(TEST_PLAYER).getPoints());
     }
 
-    // --- buyPackage ---
 
     @Test
     void buyPackage_returnsTrue() {

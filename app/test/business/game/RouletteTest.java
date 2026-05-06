@@ -5,15 +5,13 @@ import org.junit.jupiter.api.Test;
 
 class RouletteTest {
 
-    // --- Guard clause ---
-
+    
     @Test
     void getWinningNumber_beforePlay_throwsIllegalState() {
         Roulette r = new Roulette(50, Roulette.Bet.red());
         assertThrows(IllegalStateException.class, r::getWinningNumber);
     }
 
-    // --- State after play() ---
 
     @Test
     void afterPlay_winningNumberInRange() {
@@ -23,7 +21,6 @@ class RouletteTest {
         assertTrue(n >= 0 && n <= 36, "Winning number out of range: " + n);
     }
 
-    // --- Bet.isWinner — all 10 bet types (fully deterministic) ---
 
     @Test
     void redBet_redNumber_wins() {
@@ -95,7 +92,6 @@ class RouletteTest {
 
     @Test
     void columnBet_correctColumn_wins() {
-        // column(1): n % 3 == 1 → 1, 4, 7, 10...
         Roulette.Bet bet = Roulette.Bet.column(1);
         assertTrue(bet.isWinner(1));
         assertTrue(bet.isWinner(4));
@@ -111,8 +107,6 @@ class RouletteTest {
         assertFalse(bet.isWinner(13)); // just above
         assertFalse(bet.isWinner(0));
     }
-
-    // --- Multiplier ---
 
     @Test
     void straightBet_multiplierIs35() {

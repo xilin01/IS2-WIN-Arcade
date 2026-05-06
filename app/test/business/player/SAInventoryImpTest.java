@@ -28,8 +28,6 @@ class SAInventoryImpTest {
         return new tInventory("player1", games, new HashMap<>());
     }
 
-    // --- consumeGame ---
-
     @Test
     void consumeGame_gameWithAmountGreaterThanOne_decrementsAmount() {
         tGame game = new tGame(tGame.BLACKJACK, 10);
@@ -69,8 +67,6 @@ class SAInventoryImpTest {
 
         assertDoesNotThrow(() -> sut.consumeGame("player1", new tGame(tGame.BLACKJACK, 10)));
     }
-
-    // --- updateInventory ---
 
     @Test
     void updateInventory_callsDAO() {
