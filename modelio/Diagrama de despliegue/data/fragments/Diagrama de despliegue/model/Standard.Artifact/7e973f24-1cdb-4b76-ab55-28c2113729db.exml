@@ -29,14 +29,14 @@
       </COMP>
       <COMP relation="DependsOnDependency">
         <OBJECT>
-          <ID name="" mc="Standard.Usage" uid="41df0918-5752-4616-b553-582604021ce4"/>
+          <ID name="" mc="Standard.Usage" uid="c845327e-2b36-437f-b339-738d7938134e"/>
           <ATTRIBUTES>
             <ATT name="Name"></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
             <LINK relation="DependsOn">
-              <ID name="create-script.sql" mc="Standard.Artifact" uid="49a3e739-83f2-49f0-a33f-f721f7214498"/>
+              <ID name="MySQL Server" mc="Standard.Node" uid="c87a6b1e-a187-4beb-9c76-a989e375e8af"/>
             </LINK>
           </DEPENDENCIES>
         </OBJECT>
