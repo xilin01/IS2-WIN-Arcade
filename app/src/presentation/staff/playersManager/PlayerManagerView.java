@@ -1,4 +1,4 @@
-package presentation.staff.usersManager;
+package presentation.staff.playersManager;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

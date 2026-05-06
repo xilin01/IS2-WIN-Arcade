@@ -3,7 +3,7 @@ package presentation.builders;
 import javax.swing.JFrame;
 import org.json.JSONObject;
 
-import presentation.staff.usersManager.PlayerManagerView;
+import presentation.staff.playersManager.PlayerManagerView;
 
 public class PlayerManagerViewBuilder extends Builder<JFrame>{
 
