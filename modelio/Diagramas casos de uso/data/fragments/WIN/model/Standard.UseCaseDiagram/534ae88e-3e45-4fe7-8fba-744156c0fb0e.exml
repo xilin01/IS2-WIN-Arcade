@@ -16,13 +16,8 @@
         <ID name="Usuario" mc="Standard.Actor" uid="0c3cb099-c725-4566-b712-dfdc9684d220"/>
         <ID name="Usuario sin sesión iniciada" mc="Standard.Actor" uid="ebd61c6e-ef0c-40bd-abc5-75933074c1b8"/>
         <ID name="Usuario con sesión iniciada" mc="Standard.Actor" uid="1dc281b5-c016-44f2-97a5-89934655a488"/>
-        <ID name="Jugador estándar" mc="Standard.Actor" uid="178e129b-db6b-46ec-ae1c-0a6494e1f1ae"/>
-        <ID name="Jugaor premium" mc="Standard.Actor" uid="8dc92cc4-6590-431a-b6e5-a297fbb2a150"/>
         <ID name="Personal" mc="Standard.Actor" uid="f7726c25-d9aa-4342-9a91-daf7c8887e6e"/>
         <ID name="Base de datos" mc="Standard.Actor" uid="ec8c55b9-9f8d-4e9f-9950-de207ca4c852"/>
-        <REFOBJ>
-          <ID name="Generalization" mc="Standard.Generalization" uid="f6fbf34e-c361-419b-a497-5d3ffbc8d971"/>
-        </REFOBJ>
         <REFOBJ>
           <ID name="Generalization" mc="Standard.Generalization" uid="70c6c80c-9f26-4033-a033-4cfd78adf166"/>
         </REFOBJ>
@@ -31,9 +26,6 @@
         </REFOBJ>
         <REFOBJ>
           <ID name="Generalization" mc="Standard.Generalization" uid="8e510ece-fd52-494e-8be1-39fb1eefb09f"/>
-        </REFOBJ>
-        <REFOBJ>
-          <ID name="Generalization" mc="Standard.Generalization" uid="7ca3237b-a50c-4f61-8331-5cde5870b425"/>
         </REFOBJ>
         <ID name="Subsistema juego" mc="Standard.Package" uid="bd07d653-f080-4f6e-965f-abe53c17d7b9"/>
         <ID name="Jugar partida de ruleta" mc="Standard.UseCase" uid="97ad9d4f-fd2e-4f44-9e0a-e83de17365d2"/>
