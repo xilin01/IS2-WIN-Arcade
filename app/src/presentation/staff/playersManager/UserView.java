@@ -1,4 +1,4 @@
-package presentation.user;
+package presentation.staff.playersManager;
 
 import presentation.Event;
 import presentation.Theme;

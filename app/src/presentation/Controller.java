@@ -25,7 +25,7 @@ import presentation.builders.GUIFactory;
 import presentation.games.BlackjackGUI;
 import presentation.games.RouletteGUI;
 import presentation.games.RouletteGUIImp;
-import presentation.user.UserView;
+import presentation.staff.playersManager.UserView;
 import presentation.user.auth.LoginView;
 import presentation.user.auth.SignUpView;
 
