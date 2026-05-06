@@ -16,6 +16,9 @@
       <COMP relation="OwnedBehavior">
         <COMPID name="Registrarse" mc="Standard.Activity" uid="9267ca3c-2bcc-47d9-b728-e98116202a8b"/>
         <COMPID name="Iniciar sesión" mc="Standard.Activity" uid="9ef53d6d-831d-469c-aaaa-045591735c10"/>
+        <COMPID name="Editar jugadores" mc="Standard.Activity" uid="d3bba5c7-c980-4897-9893-9794d1b1b790"/>
+        <COMPID name="Crear jugadores" mc="Standard.Activity" uid="c131eebb-2738-4d47-b7fb-71ddf2bb9ee7"/>
+        <COMPID name="Activar/Desactivar jugadores" mc="Standard.Activity" uid="c186f600-d14d-4dd1-9ae8-3c5fe7675633"/>
       </COMP>
       <COMP relation="OwnedElement">
         <COMPID name="Usuario" mc="Standard.Actor" uid="0c3cb099-c725-4566-b712-dfdc9684d220"/>
@@ -27,6 +30,10 @@
         <COMPID name="Cerrar sesión" mc="Standard.UseCase" uid="7929013d-8058-40f8-8ea8-e53a9cc0124a"/>
         <COMPID name="Base de datos" mc="Standard.Actor" uid="ec8c55b9-9f8d-4e9f-9950-de207ca4c852"/>
         <COMPID name="Jugador" mc="Standard.Actor" uid="8a4677d3-f1b2-46d6-bf87-2d2ffa6296ed"/>
+        <COMPID name="Editar jugadores" mc="Standard.UseCase" uid="86906182-8457-4a51-a074-6106c9f6e188"/>
+        <COMPID name="Crear jugadores" mc="Standard.UseCase" uid="9b856ffb-dbb7-4ac2-949c-d3cb8a95fec2"/>
+        <COMPID name="Activar/Desactivar jugadores" mc="Standard.UseCase" uid="f76f2730-b078-4725-a3ef-55dc09421040"/>
+        <COMPID name="Ver jugadores" mc="Standard.UseCase" uid="aaa082f3-f6c4-4442-aa89-e435dbbbb552"/>
       </COMP>
       <COMP relation="Product">
         <COMPID name="Diagrama de casos de uso" mc="Standard.UseCaseDiagram" uid="da0582e4-4d24-4fde-ae32-215216b37602"/>
