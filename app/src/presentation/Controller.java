@@ -21,13 +21,13 @@ import business.product.tProduct;
 import business.ServiceLocator;
 import business.auth.tCredentials;
 import business.store.SAStore;
-import presentation.auth.LoginView;
-import presentation.auth.SignUpView;
 import presentation.builders.GUIFactory;
 import presentation.games.BlackjackGUI;
 import presentation.games.RouletteGUI;
 import presentation.games.RouletteGUIImp;
 import presentation.user.UserView;
+import presentation.user.auth.LoginView;
+import presentation.user.auth.SignUpView;
 
 // Patrón Singleton
 public class Controller {    

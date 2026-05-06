@@ -16,7 +16,7 @@ public class DAOGamesPackageImp implements DAOGamesPackage {
 
     @Override
     public int createGamesPackage(tGamesPackage gamesPackage) {
-    	if(gamesPackage == null) new IllegalArgumentException("Invalid arg for createGamesPackage in DAOGamesPackageImp");
+    	if(gamesPackage == null) throw new IllegalArgumentException("Invalid arg for createGamesPackage in DAOGamesPackageImp");
         int rowCount = 0;
         Connection connection = DB.getConnection();
         if(connection != null) {
@@ -66,16 +66,15 @@ public class DAOGamesPackageImp implements DAOGamesPackage {
 
     @Override
     public tGamesPackage readGamesPackage(String name) {
-    	if(name == null || name.trim().isEmpty()) new IllegalArgumentException("Invalid arg for readGamesPackage in DAOGamesPackageImp");
+    	if(name == null || name.trim().isEmpty()) throw new IllegalArgumentException("Invalid arg for readGamesPackage in DAOGamesPackageImp");
         tGamesPackage gamesPackage = null;
         Connection connection = DB.getConnection();
         if(connection != null) {
-            try {
-                String query = "SELECT price "
-                                + "FROM gamesPackage "
-                                + "WHERE name = ?";
-                PreparedStatement pst = connection.prepareStatement(query);
-
+        	String query = "SELECT price "
+        					+ "FROM gamesPackage "
+        					+ "WHERE name = ?";
+        	
+        	try(PreparedStatement pst = connection.prepareStatement(query)) {
                 pst.setString(1, name);
                 ResultSet rs = pst.executeQuery();
                 if(rs.next()) {
@@ -94,7 +93,6 @@ public class DAOGamesPackageImp implements DAOGamesPackage {
                     gamesPackage = new tGamesPackage(name, price, games);
                 }
                 rs.close();
-                pst.close();
             }
             catch(SQLException e) {
                 e.printStackTrace();
@@ -105,7 +103,7 @@ public class DAOGamesPackageImp implements DAOGamesPackage {
 
     @Override
     public int updateGamesPackage(tGamesPackage gamesPackage) {
-    	if(gamesPackage == null) new IllegalArgumentException("Invalid arg for updateGamesPackage in DAOGamesPackageImp");
+    	if(gamesPackage == null) throw new IllegalArgumentException("Invalid arg for updateGamesPackage in DAOGamesPackageImp");
         int rowCount = 0;
         Connection connection = DB.getConnection();
         if(connection != null) {
@@ -163,17 +161,15 @@ public class DAOGamesPackageImp implements DAOGamesPackage {
 
     @Override
     public int deleteGamesPackage(String name) {
-    	if(name == null || name.trim().isEmpty()) new IllegalArgumentException("Invalid arg for deleteGamesPackage in DAOGamesPackageImp");
+    	if(name == null || name.trim().isEmpty()) throw new IllegalArgumentException("Invalid arg for deleteGamesPackage in DAOGamesPackageImp");
         int rowCount = 0;
         Connection connection = DB.getConnection();
         if(connection != null) {
-            try {
-                String query = "DELETE FROM gamesPackage WHERE name = ?";
-                PreparedStatement pst = connection.prepareStatement(query);
-
+        	String query = "DELETE FROM gamesPackage WHERE name = ?";
+        	
+            try(PreparedStatement pst = connection.prepareStatement(query)) {
                 pst.setString(1, name);
                 rowCount = pst.executeUpdate();
-                pst.close();
             }
             catch(SQLException e) {
                 e.printStackTrace();
@@ -188,25 +184,21 @@ public class DAOGamesPackageImp implements DAOGamesPackage {
         Connection connection = DB.getConnection();
 
         if(connection != null) {
-            try {
-                String query = "SELECT gp.name, gp.price, pd.gameName, pd.gameBasePoints, pd.amount "
-                             + "FROM gamesPackage gp LEFT JOIN packageDetail pd ON gp.name = pd.packageName";
-                PreparedStatement pst = connection.prepareStatement(query);
-                ResultSet rs = pst.executeQuery();
-
-                while(rs.next()) {
-                    String packageName = rs.getString("name"), gameName;
-
-                    packages.putIfAbsent(packageName, new tGamesPackage(packageName, rs.getDouble("price"), new HashMap<>()));
-                    gameName = rs.getString("gameName");
-                    if(gameName != null) packages.get(packageName).getGames().put(new tGame(gameName, rs.getInt("gameBasePoints")), rs.getInt("amount"));
+        	String query = "SELECT gp.name, gp.price, pd.gameName, pd.gameBasePoints, pd.amount "
+        					+ "FROM gamesPackage gp LEFT JOIN packageDetail pd ON gp.name = pd.packageName";
+        	
+        	try(PreparedStatement pst = connection.prepareStatement(query); ResultSet rs = pst.executeQuery()) {
+        		while(rs.next()) {
+		            String packageName = rs.getString("name"), gameName;
+		
+		            packages.putIfAbsent(packageName, new tGamesPackage(packageName, rs.getDouble("price"), new HashMap<>()));
+		            gameName = rs.getString("gameName");
+		            if(gameName != null) packages.get(packageName).getGames().put(new tGame(gameName, rs.getInt("gameBasePoints")), rs.getInt("amount"));
                 }
-                rs.close();
-                pst.close();
-            }
-            catch(SQLException e) {
-                e.printStackTrace();
-            }
+        	}
+        	catch(SQLException e) {
+        		e.printStackTrace();
+        	}
         }
         return packages.values();
     }

@@ -2,7 +2,8 @@ package presentation.builders;
 
 import javax.swing.JFrame;
 import org.json.JSONObject;
-import presentation.user.StoreView;
+
+import presentation.player.StoreView;
 
 public class StoreViewBuilder extends Builder<JFrame>{
 

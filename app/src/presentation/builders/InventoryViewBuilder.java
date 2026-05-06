@@ -2,7 +2,8 @@ package presentation.builders;
 
 import javax.swing.JFrame;
 import org.json.JSONObject;
-import presentation.user.InventoryView;
+
+import presentation.player.InventoryView;
 
 public class InventoryViewBuilder extends Builder<JFrame>{
 

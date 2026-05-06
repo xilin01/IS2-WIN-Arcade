@@ -2,7 +2,8 @@ package presentation.builders;
 
 import javax.swing.JFrame;
 import org.json.JSONObject;
-import presentation.user.PlayerView;
+
+import presentation.player.PlayerView;
 
 public class PlayerViewBuilder extends Builder<JFrame>{
 

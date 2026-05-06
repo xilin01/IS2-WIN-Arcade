@@ -1,4 +1,4 @@
-package presentation.user;
+package presentation.staff.usersManager;
 
 import java.awt.BorderLayout;
 import java.awt.Dialog;

@@ -16,7 +16,7 @@ public class DAOStaffImp implements DAOStaff {
 
     @Override
     public int createStaff(tStaff staff) {
-    	if(staff == null) new IllegalArgumentException("Invalid arg for createStaff in DAOStaffImp");	
+    	if(staff == null) throw new IllegalArgumentException("Invalid arg for createStaff in DAOStaffImp");	
         int rowCount = 0;
         Connection connection = DB.getConnection();
         if(connection != null) {
@@ -54,33 +54,34 @@ public class DAOStaffImp implements DAOStaff {
         }
         return rowCount;
     }
-
+    
     @Override
     public tStaff readStaff(String name) {
-    	if(name == null || name.trim().isEmpty()) new IllegalArgumentException("Invalid arg for readStaff in DAOStaffImp");
+    	if(name == null || name.trim().isEmpty()) throw new IllegalArgumentException("Invalid arg for readStaff in DAOStaffImp");
         tUser user = daoUser.readUser(name);
-        if(user instanceof tStaff) return (tStaff)user;
-        return null;
+        return user != null ? user.asStaff() : null;
     }
 
     @Override
     public int updateStaff(tStaff staff) {
-    	if(staff == null) new IllegalArgumentException("Invalid arg for updateStaff in DAOStaffImp");	
+    	if(staff == null) throw new IllegalArgumentException("Invalid arg for updateStaff in DAOStaffImp");	
         return daoUser.updateUser(staff);
     }
 
     @Override
     public int deleteStaff(String name) {
-    	if(name == null || name.trim().isEmpty()) new IllegalArgumentException("Invalid arg for deleteStaff in DAOStaffImp");
+    	if(name == null || name.trim().isEmpty()) throw new IllegalArgumentException("Invalid arg for deleteStaff in DAOStaffImp");
         return daoUser.deleteUser(name);
     }
-
+    
     @Override
     public Collection<tStaff> readAllStaffs() {
         Collection<tStaff> staffs = new ArrayList<>();
 
         for(tUser user: daoUser.readAllUsers()) {
-            if(user instanceof tStaff) staffs.add((tStaff)user);
+            tStaff staff = user.asStaff();
+            
+            if(staff != null) staffs.add(staff);
         }
         return staffs;
     }

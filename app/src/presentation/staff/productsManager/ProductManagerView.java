@@ -1,4 +1,4 @@
-package presentation.product;
+package presentation.staff.productsManager;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
