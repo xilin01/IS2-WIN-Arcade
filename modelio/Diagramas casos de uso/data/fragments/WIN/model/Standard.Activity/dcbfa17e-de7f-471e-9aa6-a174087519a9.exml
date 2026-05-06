@@ -63,22 +63,6 @@
                 <DEPENDENCIES>
                   <COMP relation="Outgoing">
                     <OBJECT>
-                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="d956273d-0309-4752-b1fe-5df7e3d88e50"/>
-                      <ATTRIBUTES>
-                        <ATT name="Guard"></ATT>
-                        <ATT name="Weight"><![CDATA[1]]></ATT>
-                        <ATT name="Name"><![CDATA[ControlFlow]]></ATT>
-                        <ATT name="status">1970354901745664</ATT>
-                      </ATTRIBUTES>
-                      <DEPENDENCIES>
-                        <LINK relation="Target">
-                          <REFOBJ>
-                            <ID name="Decidir si pedir carta o plantarse" mc="Standard.OpaqueAction" uid="4b866f23-87af-4ced-9f2c-f42a9cc7bb5a"/>
-                          </REFOBJ>
-                        </LINK>
-                      </DEPENDENCIES>
-                    </OBJECT>
-                    <OBJECT>
                       <ID name="ControlFlow" mc="Standard.ControlFlow" uid="cc12d924-b0fa-4cbf-b5db-dc0b8f3d71ce"/>
                       <ATTRIBUTES>
                         <ATT name="Guard"></ATT>
@@ -89,7 +73,23 @@
                       <DEPENDENCIES>
                         <LINK relation="Target">
                           <REFOBJ>
-                            <ID name="Completar jugada de la banca" mc="Standard.OpaqueAction" uid="4b7ecd3b-0157-4c11-b540-812edf9ce032"/>
+                            <ID name="Dar carta al jugador" mc="Standard.OpaqueAction" uid="d17caad8-a49c-4df1-9749-4d8ca81de7cf"/>
+                          </REFOBJ>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                    <OBJECT>
+                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="c2fece06-5023-43aa-9114-611c981df421"/>
+                      <ATTRIBUTES>
+                        <ATT name="Guard"></ATT>
+                        <ATT name="Weight"><![CDATA[1]]></ATT>
+                        <ATT name="Name"><![CDATA[ControlFlow]]></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <LINK relation="Target">
+                          <REFOBJ>
+                            <ID name="Completar jugada del croupier" mc="Standard.OpaqueAction" uid="4b7ecd3b-0157-4c11-b540-812edf9ce032"/>
                           </REFOBJ>
                         </LINK>
                       </DEPENDENCIES>
@@ -168,12 +168,12 @@
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="Completar jugada de la banca" mc="Standard.OpaqueAction" uid="4b7ecd3b-0157-4c11-b540-812edf9ce032"/>
+                <ID name="Completar jugada del croupier" mc="Standard.OpaqueAction" uid="4b7ecd3b-0157-4c11-b540-812edf9ce032"/>
                 <ATTRIBUTES>
                   <ATT name="Body"></ATT>
                   <ATT name="IsMultipleInstance">false</ATT>
                   <ATT name="IsCompensation">false</ATT>
-                  <ATT name="Name"><![CDATA[Completar jugada de la banca]]></ATT>
+                  <ATT name="Name"><![CDATA[Completar jugada del croupier]]></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
                 <DEPENDENCIES>
@@ -318,6 +318,81 @@
                         <LINK relation="Target">
                           <REFOBJ>
                             <ID name="Repartir cartas iniciales" mc="Standard.OpaqueAction" uid="89b36abd-d5bd-45cf-9142-810f87c7e7e3"/>
+                          </REFOBJ>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="Dar carta al jugador" mc="Standard.OpaqueAction" uid="d17caad8-a49c-4df1-9749-4d8ca81de7cf"/>
+                <ATTRIBUTES>
+                  <ATT name="Body"></ATT>
+                  <ATT name="IsMultipleInstance">false</ATT>
+                  <ATT name="IsCompensation">false</ATT>
+                  <ATT name="Name"><![CDATA[Dar carta al jugador]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <COMP relation="Outgoing">
+                    <OBJECT>
+                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="46e2b870-6266-4efc-9e70-c15307c40b09"/>
+                      <ATTRIBUTES>
+                        <ATT name="Guard"></ATT>
+                        <ATT name="Weight"><![CDATA[1]]></ATT>
+                        <ATT name="Name"><![CDATA[ControlFlow]]></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <LINK relation="Target">
+                          <REFOBJ>
+                            <ID name="Pierde" mc="Standard.DecisionMergeNode" uid="3db1cf16-7fa0-43b0-9416-dfaee4babaa9"/>
+                          </REFOBJ>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="Pierde" mc="Standard.DecisionMergeNode" uid="3db1cf16-7fa0-43b0-9416-dfaee4babaa9"/>
+                <ATTRIBUTES>
+                  <ATT name="DecisionKind">ExclusiveDecision</ATT>
+                  <ATT name="DecisionInputBehavior"></ATT>
+                  <ATT name="Name"><![CDATA[Pierde]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <COMP relation="Outgoing">
+                    <OBJECT>
+                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="35f82cab-b265-4751-8ef5-dc7cbf89b663"/>
+                      <ATTRIBUTES>
+                        <ATT name="Guard"></ATT>
+                        <ATT name="Weight"><![CDATA[1]]></ATT>
+                        <ATT name="Name"><![CDATA[ControlFlow]]></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <LINK relation="Target">
+                          <REFOBJ>
+                            <ID name="Decidir si pedir carta o plantarse" mc="Standard.OpaqueAction" uid="4b866f23-87af-4ced-9f2c-f42a9cc7bb5a"/>
+                          </REFOBJ>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                    <OBJECT>
+                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="b7af00cc-c363-4e29-9dd2-bd9d9af89e06"/>
+                      <ATTRIBUTES>
+                        <ATT name="Guard"></ATT>
+                        <ATT name="Weight"><![CDATA[1]]></ATT>
+                        <ATT name="Name"><![CDATA[ControlFlow]]></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <LINK relation="Target">
+                          <REFOBJ>
+                            <ID name="Calcular resultado de la partida" mc="Standard.OpaqueAction" uid="1ac7b9a9-04e5-475c-a58d-32ae22bfacd5"/>
                           </REFOBJ>
                         </LINK>
                       </DEPENDENCIES>
