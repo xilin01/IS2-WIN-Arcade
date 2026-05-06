@@ -16,7 +16,6 @@
       <COMP relation="OwnedElement">
         <COMPID name="PC_Local" mc="Standard.Node" uid="d26619b5-df99-4b81-8725-a4af15722544"/>
         <COMPID name="MySQL Server" mc="Standard.Node" uid="c87a6b1e-a187-4beb-9c76-a989e375e8af"/>
-        <COMPID name="create-script.sql" mc="Standard.Artifact" uid="49a3e739-83f2-49f0-a33f-f721f7214498"/>
         <COMPID name="Presentación" mc="Standard.Artifact" uid="a966b67b-f3d7-48f1-9a8e-24ad37385400"/>
         <COMPID name="Modelo" mc="Standard.Artifact" uid="5ef824bb-537d-484c-b0aa-2a07d375f6da"/>
         <COMPID name="Integración" mc="Standard.Artifact" uid="7e973f24-1cdb-4b76-ab55-28c2113729db"/>
