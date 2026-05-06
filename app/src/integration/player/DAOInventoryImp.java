@@ -122,7 +122,6 @@ public class DAOInventoryImp implements DAOInventory {
             	if(originalAutoCommit) connection.setAutoCommit(false);
                 String query = "DELETE FROM gamesInventory WHERE playerName = ?";
                 PreparedStatement pst = connection.prepareStatement(query);
-
                 pst.setString(1, inventory.getPlayerName());
                 pst.executeUpdate();
                 pst.close();

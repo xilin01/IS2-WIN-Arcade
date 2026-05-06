@@ -13,18 +13,16 @@ public class DAOProductImp implements DAOProduct {
 
     @Override
     public int createProduct(tProduct product) {
-    	if(product == null) new IllegalArgumentException("Invalid arg for createProduct in DAOProductImp");
+    	if(product == null) throw new IllegalArgumentException("Invalid arg for createProduct in DAOProductImp");
         int rowCount = 0;
         Connection connection = DB.getConnection();
         if(connection != null) {
-            try {
-                String query = "INSERT INTO product (name, price) VALUES (?, ?)";
-                PreparedStatement pst = connection.prepareStatement(query);
-
+        	String query = "INSERT INTO product (name, price) VALUES (?, ?)";
+        	
+            try(PreparedStatement pst = connection.prepareStatement(query)) {
                 pst.setString(1, product.getName());
                 pst.setInt(2, product.getPrice());
                 rowCount = pst.executeUpdate();
-                pst.close();
             }
             catch(SQLException e) {
                 e.printStackTrace();
@@ -35,23 +33,21 @@ public class DAOProductImp implements DAOProduct {
 
     @Override
     public tProduct readProduct(String name) {
-    	if(name == null || name.trim().isEmpty()) new IllegalArgumentException("Invalid arg for readProduct in DAOProductImp");
+    	if(name == null || name.trim().isEmpty()) throw new IllegalArgumentException("Invalid arg for readProduct in DAOProductImp");
         tProduct product = null;
         Connection connection = DB.getConnection();
         if(connection != null) {
-            try {
-                String query = "SELECT name, price "
-                                + "FROM product "
-                                + "WHERE name = ?";
-                PreparedStatement pst = connection.prepareStatement(query);
-
+        	String query = "SELECT name, price "
+        					+ "FROM product "
+                    		+ "WHERE name = ?";
+        	
+        	try(PreparedStatement pst = connection.prepareStatement(query)) {
                 pst.setString(1, name);
                 ResultSet rs = pst.executeQuery();
                 if(rs.next()) product = new tProduct(rs.getString("name"), rs.getInt("price"));
                 rs.close();
-                pst.close();
             }
-            catch(SQLException e) {
+        	catch(SQLException e) {
                 e.printStackTrace();
             }
         }
@@ -60,22 +56,20 @@ public class DAOProductImp implements DAOProduct {
 
     @Override
     public int updateProduct(tProduct product) {
-    	if(product == null) new IllegalArgumentException("Invalid arg for updateProduct in DAOProductImp");
+    	if(product == null) throw new IllegalArgumentException("Invalid arg for updateProduct in DAOProductImp");
         int rowCount = 0;
         Connection connection = DB.getConnection();
         if(connection != null) {
-            try {
-                String query = "UPDATE product "
-                                + "SET price = ? "
-                                + "WHERE name = ?";
-                PreparedStatement pst = connection.prepareStatement(query);
-
+        	String query = "UPDATE product "
+        					+ "SET price = ? "
+                    		+ "WHERE name = ?";
+        	
+        	try(PreparedStatement pst = connection.prepareStatement(query)) {
                 pst.setInt(1, product.getPrice());
                 pst.setString(2, product.getName());
                 rowCount = pst.executeUpdate();
-                pst.close();
             }
-            catch(SQLException e) {
+        	catch(SQLException e) {
                 e.printStackTrace();
             }
         }
@@ -84,17 +78,15 @@ public class DAOProductImp implements DAOProduct {
 
     @Override
     public int deleteProduct(String name) {
-    	if(name == null || name.trim().isEmpty()) new IllegalArgumentException("Invalid arg for deleteProduct in DAOProductImp");
+    	if(name == null || name.trim().isEmpty()) throw new IllegalArgumentException("Invalid arg for deleteProduct in DAOProductImp");
         int rowCount = 0;
         Connection connection = DB.getConnection();
         if(connection != null) {
-            try {
-                String query = "DELETE FROM product WHERE name = ?";
-                PreparedStatement pst = connection.prepareStatement(query);
-
+        	String query = "DELETE FROM product WHERE name = ?";
+            
+            try(PreparedStatement pst = connection.prepareStatement(query)) {
                 pst.setString(1, name);
                 rowCount = pst.executeUpdate();
-                pst.close();
             }
             catch(SQLException e) {
                 e.printStackTrace();
@@ -109,18 +101,14 @@ public class DAOProductImp implements DAOProduct {
         Connection connection = DB.getConnection();
 
         if(connection != null) {
-            try {
-                String query = "SELECT name, price "
-                                + "FROM product";
-                PreparedStatement pst = connection.prepareStatement(query);
-                ResultSet rs = pst.executeQuery();
-
-                while(rs.next()) products.add(new tProduct(rs.getString("name"), rs.getInt("price")));
-                rs.close();
-                pst.close();
+        	String query = "SELECT name, price "
+        					+ "FROM product";
+        	
+        	try(PreparedStatement pst = connection.prepareStatement(query); ResultSet rs = pst.executeQuery()) {
+        		while(rs.next()) products.add(new tProduct(rs.getString("name"), rs.getInt("price")));
             }
-            catch(SQLException e) {
-                e.printStackTrace();
+        	catch(SQLException e) {
+        		e.printStackTrace();
             }
         }
         return products;

@@ -65,28 +65,26 @@ public class DAOPlayerImp implements DAOPlayer {
         tUser user = daoUser.readUser(name);
         tPlayer player = user != null ? user.asPlayer() : null;
         if(player != null) {
-	            Connection connection = DB.getConnection();
+	        Connection connection = DB.getConnection();
 	
-	            if(connection != null) {
-	                try {
-	                    String query = "SELECT points "
-	                                    + "FROM player "
-	                                    + "WHERE name = ?";
-	                    PreparedStatement pst = connection.prepareStatement(query);
-	
-	                    pst.setString(1, name);
-	                    ResultSet rs = pst.executeQuery();
-	                    if(rs.next()) player.setPoints(rs.getInt("points"));
-	                    rs.close();
-	                    pst.close();
-	                }
-	                catch(SQLException e) {
-	                    e.printStackTrace();
-	                }
+	        if(connection != null) {
+	        	String query = "SELECT points "
+	        					+ "FROM player "
+	        					+ "WHERE name = ?";
+	        	
+	            try(PreparedStatement pst = connection.prepareStatement(query)) {
+	                pst.setString(1, name);
+	                ResultSet rs = pst.executeQuery();
+	                if(rs.next()) player.setPoints(rs.getInt("points"));
+	                rs.close();
 	            }
-	            tInventory inventory = daoInventory.readInventory(name);
-	            player.setInventory(inventory != null ? inventory : new tInventory(name));
-	            return player;	
+	            catch(SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	        tInventory inventory = daoInventory.readInventory(name);
+	        player.setInventory(inventory != null ? inventory : new tInventory(name));
+	        return player;
         }
         return null;
     }
@@ -149,17 +147,15 @@ public class DAOPlayerImp implements DAOPlayer {
         	tPlayer player = user.asPlayer();
         	
             if(connection != null && player != null) { 
-                try {
-                    String query = "SELECT points "
-                                    + "FROM player "
-                                    + "WHERE name = ?";
-                    PreparedStatement pst = connection.prepareStatement(query);
-
-                    pst.setString(1, player.getName());
+            	String query = "SELECT points "
+            					+ "FROM player "
+            					+ "WHERE name = ?";
+            	
+            	try(PreparedStatement pst = connection.prepareStatement(query)) {
+            		pst.setString(1, player.getName());
                     ResultSet rs = pst.executeQuery();
                     if(rs.next()) player.setPoints(rs.getInt("points"));
                     rs.close();
-                    pst.close();
                 }
                 catch(SQLException e) {
                     e.printStackTrace();
