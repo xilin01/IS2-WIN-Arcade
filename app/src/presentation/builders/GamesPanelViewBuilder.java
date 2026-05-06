@@ -2,6 +2,7 @@ package presentation.builders;
 
 import javax.swing.JFrame;
 import org.json.JSONObject;
+
 import presentation.games.GamesPanelView;
 
 public class GamesPanelViewBuilder extends Builder<JFrame>{

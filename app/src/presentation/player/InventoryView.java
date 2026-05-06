@@ -1,4 +1,4 @@
-package presentation.user;
+package presentation.player;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

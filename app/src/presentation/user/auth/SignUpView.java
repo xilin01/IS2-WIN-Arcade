@@ -1,4 +1,4 @@
-package presentation.auth;
+package presentation.user.auth;
 
 import java.awt.Color;
 import java.awt.GridBagConstraints;

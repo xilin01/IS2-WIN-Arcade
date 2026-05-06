@@ -2,7 +2,8 @@ package presentation.builders;
 
 import javax.swing.JFrame;
 import org.json.JSONObject;
-import presentation.packages.PackageManagerView;
+
+import presentation.staff.packagesManager.PackageManagerView;
 
 public class PackageManagerViewBuilder extends Builder<JFrame>{
 

@@ -1,4 +1,4 @@
-package presentation.user;
+package presentation.staff.usersManager;
 
 import java.awt.GridLayout;
 import javax.swing.BorderFactory;

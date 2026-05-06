@@ -2,7 +2,8 @@ package presentation.builders;
 
 import javax.swing.JFrame;
 import org.json.JSONObject;
-import presentation.product.ProductManagerView;
+
+import presentation.staff.productsManager.ProductManagerView;
 
 public class ProductManagerViewBuilder extends Builder<JFrame>{
 

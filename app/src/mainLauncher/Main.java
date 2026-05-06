@@ -18,7 +18,7 @@ import business.store.SAStore;
 import business.store.SAStoreImp;
 import business.user.SAUser;
 import business.user.SAUserImp;
-import presentation.auth.LoginView;
+import presentation.user.auth.LoginView;
 
 public class Main {
 

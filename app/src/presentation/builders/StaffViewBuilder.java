@@ -2,7 +2,8 @@ package presentation.builders;
 
 import javax.swing.JFrame;
 import org.json.JSONObject;
-import presentation.user.StaffView;
+
+import presentation.staff.StaffView;
 
 public class StaffViewBuilder extends Builder<JFrame>{
 
