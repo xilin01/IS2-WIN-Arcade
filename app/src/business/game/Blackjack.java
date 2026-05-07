@@ -2,7 +2,6 @@ package business.game;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.json.JSONObject;
 
 public class Blackjack extends CardGame {
 	public enum GameResult {LOST, CONTINUE, WON}
@@ -50,13 +49,11 @@ public class Blackjack extends CardGame {
 
     private Hand croupier;
     private Hand player;
-    private JSONObject initialInfo;
 
     public Blackjack(int basePoints) {
         super(basePoints);
         croupier = new Hand();
         player = new Hand();
-        initialInfo = new JSONObject();
     }
 
     @Override
@@ -66,18 +63,19 @@ public class Blackjack extends CardGame {
         croupier.addCard(getRandomCard()); // Carta oculta del croupier
         player.addCard(getRandomCard());
         player.addCard(getRandomCard());
-        initialInfo.put("CroupierDeck", getCroupierVisibleCard()).put("PlayerDeck", getPlayerCards())
-        		.put("CroupierPoints", visiblePoints).put("PlayerPoints", getPlayerPoints());
         return visiblePoints;
     }
    
-    public JSONObject getInitialInfo() {
-    	return initialInfo;
-    }
-
     public Cards getCroupierVisibleCard() {
         if(croupier.cards == null || croupier.cards.isEmpty()) throw new IllegalStateException("The croupier's hand is empty");
         return croupier.cards.get(0);
+    }
+
+    public int getCroupierVisiblePoints() {
+        int v = getCroupierVisibleCard().getValue();
+        if (v == 1) return 11;
+        if (v > 10) return 10;
+        return v;
     }
 
     public GameResult croupierPlay() {

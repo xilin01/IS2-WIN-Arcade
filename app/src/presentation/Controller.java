@@ -2,8 +2,6 @@ package presentation;
 
 import java.util.Collection;
 
-import org.json.JSONObject;
-
 import business.auth.AuthResult;
 import business.auth.SAAuth;
 import business.game.Blackjack;
@@ -21,10 +19,8 @@ import business.product.tProduct;
 import business.ServiceLocator;
 import business.auth.tCredentials;
 import business.store.SAStore;
-import presentation.builders.GUIFactory;
 import presentation.games.BlackjackGUI;
 import presentation.games.RouletteGUI;
-import presentation.games.RouletteGUIImp;
 import presentation.staff.playersManager.UserView;
 import presentation.user.auth.LoginView;
 import presentation.user.auth.SignUpView;
@@ -101,7 +97,7 @@ public class Controller {
                 ServiceLocator.get(SAInventory.class).consumeGame(username, new tGame(tGame.BLACKJACK, basePoints));
                 Blackjack blackjack = new Blackjack(basePoints);
                 blackjack.play(); 
-                BlackjackGUI gui = (BlackjackGUI) GUIFactory.createView(event, blackjack.getInitialInfo());
+                BlackjackGUI gui = GUIFactory.createBlackjackView(blackjack);
                 blackjackSession = new BlackjackSession(blackjack, gui);
                 break;
             }
@@ -145,7 +141,7 @@ public class Controller {
             case Event.ROULETTE_PLAY: {
                 int basePoints = (Integer)data;
                 ServiceLocator.get(SAInventory.class).consumeGame(username, new tGame(tGame.ROULETTE, basePoints));
-                rouletteSession = new RouletteSession(basePoints, (RouletteGUI) GUIFactory.createView(event, new JSONObject()));
+                rouletteSession = new RouletteSession(basePoints, GUIFactory.createRouletteView());
                 break;
             }
             case Event.ROULETTE_ROLL: {
@@ -156,7 +152,7 @@ public class Controller {
                 Roulette roulette = new Roulette(rouletteSession.basePoints(), (tBet)data);
                 int points = roulette.play();
                 if(points > 0) ServiceLocator.get(SAPlayer.class).addPoints(username, points);
-                ((RouletteGUIImp) rouletteSession.gui()).showResult(points, roulette.getWinningNumber());
+                rouletteSession.gui().showResult(points, roulette.getWinningNumber());
                 break;
             }
             case Event.BUY_PACKAGE: {
@@ -178,6 +174,17 @@ public class Controller {
             case Event.CREATE_PRODUCT: ServiceLocator.get(SAProduct.class).createProduct((tProduct)data); break;
             case Event.UPDATE_PRODUCT: ServiceLocator.get(SAProduct.class).updateProduct((tProduct)data); break;
             case Event.DELETE_PRODUCT: ServiceLocator.get(SAProduct.class).deleteProduct((String)data); break;
+            case Event.OPEN_PLAYER_VIEW:
+            case Event.OPEN_GAMES_PANEL:
+            case Event.OPEN_INVENTORY:
+            case Event.OPEN_STORE:
+            case Event.OPEN_STAFF_VIEW:
+            case Event.OPEN_PACKAGE_MANAGER:
+            case Event.OPEN_PRODUCT_MANAGER:
+            case Event.OPEN_PLAYER_MANAGER:
+                try { GUIFactory.createView(event); }
+                catch (IllegalArgumentException e) { System.err.println(e.getMessage()); }
+                break;
             default: System.err.println("Unknown event: " + event);
         }
     }
