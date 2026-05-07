@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="IS2 DIAGRAMA DE GANTT" company="" webLink="http://" view-date="2026-04-10" view-index="0" gantt-divider-location="413" resource-divider-location="300" version="3.3.3316" locale="es_ES">
+    <description/>
+    <view zooming-state="default:2" id="gantt-chart">
+        <field id="tpd3" name="Nombre" width="225" order="0"/>
+        <field id="tpd4" name="Fecha de inicio" width="86" order="1"/>
+        <field id="tpd5" name="Fecha de fin" width="87" order="2"/>
+        <field id="tpd15" name="Notas" width="20" order="3"/>
+        <option id="filter.completedTasks" value="false"/>
+        <option id="filter.dueTodayTasks" value="false"/>
+        <option id="filter.overdueTasks" value="false"/>
+        <option id="filter.inProgressTodayTasks" value="false"/>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Nombre" width="210" order="0"/>
+        <field id="1" name="Función" width="86" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <only-show-weekends value="false"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="20" uid="aebb86f220b74184b4628acd9631bb6d" name="PROYECTO IS2" meeting="false" start="2026-04-13" duration="20" complete="0" thirdDate="2026-04-13" thirdDate-constraint="1" expand="true">
+            <task id="0" uid="52e706cf005440e39132c3d773ae7a09" name="ELABORACION" meeting="false" start="2026-04-13" duration="5" complete="0" expand="true">
+                <depend id="1" type="2" difference="0" hardness="Strong"/>
+                <task id="5" uid="9a6c29167dff4c7dad24d889b04f20b1" name="Requisitos y multicapa" meeting="false" start="2026-04-13" duration="1" complete="0" expand="true">
+                    <depend id="7" type="2" difference="0" hardness="Strong"/>
+                    <depend id="8" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="6" uid="8ffedf2e8b2e4e99be4f9d6da33760ea" name="Modelo de negocio" meeting="false" start="2026-04-13" duration="1" complete="0" expand="true">
+                    <depend id="7" type="2" difference="0" hardness="Strong"/>
+                    <depend id="8" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="7" uid="9726e7a502204040bb2a01a968e21cd9" name="Diagramas UML" meeting="false" start="2026-04-14" duration="4" complete="0" expand="true"/>
+                <task id="8" uid="1f8531f257184270a37496390323cfec" name="Iteraciones y organización." meeting="false" start="2026-04-14" duration="2" complete="0" expand="true"/>
+            </task>
+            <task id="1" uid="2a2942c9188e4d999a2c4b2fd74ae20c" name="CONSTRUCCIÓN 1" meeting="false" start="2026-04-20" duration="5" complete="0" expand="true">
+                <depend id="2" type="2" difference="0" hardness="Strong"/>
+                <task id="9" uid="5fb8fceb02a34bd7a81851a2ac06bdac" name="Clases básicas y relaciones" meeting="false" start="2026-04-20" duration="3" complete="0" expand="true">
+                    <depend id="12" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="11" uid="bebbc994963c45de916c02a9db613350" name="Conexión con BD" meeting="false" start="2026-04-20" duration="1" complete="0" expand="true">
+                    <depend id="10" type="2" difference="0" hardness="Strong"/>
+                    <depend id="12" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="10" uid="9a8d09d56fde431a9c47594e07115f25" name="CRUDs" meeting="false" start="2026-04-21" duration="1" complete="0" expand="true">
+                    <depend id="12" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="12" uid="82158a4421104d1789b472ae7bfb78d7" name="Pruebas y act. UML" meeting="false" start="2026-04-23" duration="2" complete="0" expand="true"/>
+            </task>
+            <task id="2" uid="fbdd5a8625124f39b22bfc7b647f4b9b" name="CONSTRUCCIÓN 2" meeting="false" start="2026-04-27" duration="5" complete="0" expand="true">
+                <depend id="3" type="2" difference="0" hardness="Strong"/>
+                <task id="13" uid="65af6a7e99284488aeb338c731030bd0" name="Inicio de sesión" meeting="false" start="2026-04-27" duration="1" complete="0" expand="true"/>
+                <task id="14" uid="f4d12cd8442743cf85542c5affd201ac" name="Juegos de casino" meeting="false" start="2026-04-27" duration="5" complete="0" expand="true"/>
+                <task id="15" uid="621b96d984b5423d940a0ad7f79ebb94" name="Interfaz gráfica" meeting="false" start="2026-04-27" duration="5" complete="0" expand="true"/>
+            </task>
+            <task id="3" uid="0948dbfae69e4a4f9ee291d2c9530a66" name="CONSTRUCCIÓN 3" meeting="false" start="2026-05-04" duration="5" complete="0" expand="true">
+                <task id="16" uid="f70796a053ad40afad81c5adbef68ddd" name="Fin subsistemas" meeting="false" start="2026-05-04" duration="2" complete="0" expand="true">
+                    <depend id="19" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="18" uid="25c3dfb3c6854bcfa4a95487c084a9c6" name="Pruebas finales" meeting="false" start="2026-05-04" duration="4" complete="0" expand="true">
+                    <depend id="19" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="19" uid="97ad2ecc0b9c4121b026dd46b9b67067" name="Memoria y entrega final" meeting="false" start="2026-05-08" duration="1" complete="0" expand="true"/>
+            </task>
+        </task>
+    </tasks>
+    <resources/>
+    <allocations/>
+    <vacations/>
+    <previous/>
+    <roles roleset-name="Default"/>
+</project>
