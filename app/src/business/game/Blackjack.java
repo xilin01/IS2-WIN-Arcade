@@ -73,8 +73,9 @@ public class Blackjack extends CardGame {
 
     public int getCroupierVisiblePoints() {
         int v = getCroupierVisibleCard().getValue();
-        if (v == 1) return 11;
-        if (v > 10) return 10;
+        
+        if(v == 1) return 11;
+        if(v > 10) return 10;
         return v;
     }
 

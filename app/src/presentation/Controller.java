@@ -1,7 +1,6 @@
 package presentation;
 
 import java.util.Collection;
-
 import business.auth.AuthResult;
 import business.auth.SAAuth;
 import business.game.Blackjack;
@@ -167,14 +166,6 @@ public class Controller {
                 else Theme.getInstance().showError(null, "No tienes suficientes puntos para canjear este producto");
                 break;
             }
-            case Event.CREATE_GAME: ServiceLocator.get(SAGame.class).createGame((tGame)data); break;
-            case Event.CREATE_PACKAGE: ServiceLocator.get(SAGamesPackage.class).createGamesPackage((tGamesPackage)data); break;
-            case Event.UPDATE_PACKAGE: ServiceLocator.get(SAGamesPackage.class).updateGamesPackage((tGamesPackage)data); break;
-            case Event.DELETE_PACKAGE: ServiceLocator.get(SAGamesPackage.class).deleteGamesPackage((String)data); break;
-            case Event.CREATE_PRODUCT: ServiceLocator.get(SAProduct.class).createProduct((tProduct)data); break;
-            case Event.UPDATE_PRODUCT: ServiceLocator.get(SAProduct.class).updateProduct((tProduct)data); break;
-            case Event.DELETE_PRODUCT: ServiceLocator.get(SAProduct.class).deleteProduct((String)data); break;
-<<<<<<< HEAD
             case Event.OPEN_PLAYER_VIEW:
             case Event.OPEN_GAMES_PANEL:
             case Event.OPEN_INVENTORY:
@@ -182,14 +173,16 @@ public class Controller {
             case Event.OPEN_STAFF_VIEW:
             case Event.OPEN_PACKAGE_MANAGER:
             case Event.OPEN_PRODUCT_MANAGER:
-            case Event.OPEN_PLAYER_MANAGER:
-                try { GUIFactory.createView(event); }
-                catch (IllegalArgumentException e) { System.err.println(e.getMessage()); }
+            case Event.OPEN_PLAYER_MANAGER: {
+            	try {
+            		GUIFactory.createView(event);
+            	}
+                catch(IllegalArgumentException e) {
+                	System.err.println(e.getMessage());
+                }
                 break;
-            default: System.err.println("Unknown event: " + event);
-=======
-            default: GUIFactory.createView(event, new JSONObject());
->>>>>>> b1ff8c3040bdbde9e654ed24c0d1caf7ec72dc4c
+        	}
+            default: System.err.println("Unknown event: " + event); break;
         }
     }
 
