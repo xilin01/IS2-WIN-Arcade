@@ -174,6 +174,7 @@ public class Controller {
             case Event.CREATE_PRODUCT: ServiceLocator.get(SAProduct.class).createProduct((tProduct)data); break;
             case Event.UPDATE_PRODUCT: ServiceLocator.get(SAProduct.class).updateProduct((tProduct)data); break;
             case Event.DELETE_PRODUCT: ServiceLocator.get(SAProduct.class).deleteProduct((String)data); break;
+<<<<<<< HEAD
             case Event.OPEN_PLAYER_VIEW:
             case Event.OPEN_GAMES_PANEL:
             case Event.OPEN_INVENTORY:
@@ -186,6 +187,9 @@ public class Controller {
                 catch (IllegalArgumentException e) { System.err.println(e.getMessage()); }
                 break;
             default: System.err.println("Unknown event: " + event);
+=======
+            default: GUIFactory.createView(event, new JSONObject());
+>>>>>>> b1ff8c3040bdbde9e654ed24c0d1caf7ec72dc4c
         }
     }
 
