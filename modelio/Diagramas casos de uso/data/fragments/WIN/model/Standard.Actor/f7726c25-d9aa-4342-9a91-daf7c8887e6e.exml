@@ -521,7 +521,7 @@
           </ATTRIBUTES>
           <DEPENDENCIES>
             <LINK relation="Target">
-              <ID name="Desactivar jugadores" mc="Standard.UseCase" uid="f76f2730-b078-4725-a3ef-55dc09421040"/>
+              <ID name="Activar/Desactivar jugadores" mc="Standard.UseCase" uid="f76f2730-b078-4725-a3ef-55dc09421040"/>
             </LINK>
             <COMP relation="Opposite">
               <OBJECT>

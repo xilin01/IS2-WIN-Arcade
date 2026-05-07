@@ -178,7 +178,7 @@ public class Controller {
             case Event.CREATE_PRODUCT: ServiceLocator.get(SAProduct.class).createProduct((tProduct)data); break;
             case Event.UPDATE_PRODUCT: ServiceLocator.get(SAProduct.class).updateProduct((tProduct)data); break;
             case Event.DELETE_PRODUCT: ServiceLocator.get(SAProduct.class).deleteProduct((String)data); break;
-            default: System.err.println("Unknown event: " + event);
+            default: GUIFactory.createView(event, new JSONObject());
         }
     }
 
