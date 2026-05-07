@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="auth" version="4">
+  <OBJECT>
+    <ID name="auth" mc="Standard.Package" uid="b406cba0-f911-4613-ba38-03439f793ef6"/>
+    <PID name="user" mc="Standard.Package" uid="71031525-4e16-4dbf-88b6-7429b03fbd8d"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[auth]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="LoginView" mc="Standard.Class" uid="e87b3036-abe2-46f7-8f32-02fe7be6e8cf"/>
+        <COMPID name="SignUpView" mc="Standard.Class" uid="7837fca7-7ddc-424a-9f4f-97d77c9d4ad7"/>
+      </COMP>
+      <LINK relation="Extension">
+        <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
+      </LINK>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

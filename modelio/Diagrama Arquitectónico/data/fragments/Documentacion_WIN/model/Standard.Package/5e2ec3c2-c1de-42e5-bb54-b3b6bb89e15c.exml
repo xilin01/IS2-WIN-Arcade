@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="staff" version="4">
+  <OBJECT>
+    <ID name="staff" mc="Standard.Package" uid="5e2ec3c2-c1de-42e5-bb54-b3b6bb89e15c"/>
+    <PID name="presentation" mc="Standard.Package" uid="2dfebf57-1666-409a-9fb6-51bf22c43e87"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[staff]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="packagesManager" mc="Standard.Package" uid="5e151309-6269-4bd0-8a05-b0f7438fefa9"/>
+        <COMPID name="playersManager" mc="Standard.Package" uid="60381d31-780d-4bcd-a663-04d7e40b72e3"/>
+        <COMPID name="productsManager" mc="Standard.Package" uid="51ecfbd7-b633-4fbc-85d2-0210e6fb9d1d"/>
+        <COMPID name="StaffView" mc="Standard.Class" uid="00385e9f-ee05-4765-98e8-de76ef3b0d10"/>
+      </COMP>
+      <LINK relation="Extension">
+        <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
+      </LINK>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

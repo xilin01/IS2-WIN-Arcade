@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="playersManager" version="4">
+  <OBJECT>
+    <ID name="playersManager" mc="Standard.Package" uid="60381d31-780d-4bcd-a663-04d7e40b72e3"/>
+    <PID name="staff" mc="Standard.Package" uid="5e2ec3c2-c1de-42e5-bb54-b3b6bb89e15c"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[playersManager]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="UsersManagerView" mc="Standard.Class" uid="0619a8a4-5aa2-457b-9863-7ec4c10baa72"/>
+        <COMPID name="UserEditor" mc="Standard.Class" uid="4bf1e04e-79c9-478c-ae3f-676cdb43df4a"/>
+        <COMPID name="InventoryEditorView" mc="Standard.Class" uid="0c449cbf-66cb-41da-912c-8df0b090446e"/>
+        <COMPID name="UserView" mc="Standard.Class" uid="6012b101-0f3e-4eb9-8d24-4aec27e4cf91"/>
+      </COMP>
+      <LINK relation="Extension">
+        <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
+      </LINK>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

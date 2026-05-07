@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="business" version="4">
+  <OBJECT>
+    <ID name="business" mc="Standard.Package" uid="69244712-8491-445f-bb71-840aacd0e2e2"/>
+    <PID name="documentacion_win" mc="Standard.Package" uid="77731fdf-c185-4b79-a08e-a90171b5944c"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[business]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="user" mc="Standard.Package" uid="c60b4acf-36ac-44a4-8332-4276c1c0c29d"/>
+        <COMPID name="store" mc="Standard.Package" uid="152473b7-5fb5-4a36-8764-e69ef211b0be"/>
+        <COMPID name="staff" mc="Standard.Package" uid="b372bebf-20d2-49fc-837d-e295a9481e80"/>
+        <COMPID name="product" mc="Standard.Package" uid="c18f7c0a-95ec-4ad5-8879-06c9c60ad9a8"/>
+        <COMPID name="packages" mc="Standard.Package" uid="ee83a832-5d9c-42b1-99a7-67f0eb98a049"/>
+        <COMPID name="game" mc="Standard.Package" uid="c2c58277-dc4b-4d16-b774-c1f8ccc76d69"/>
+        <COMPID name="auth" mc="Standard.Package" uid="46d6e40a-9730-4026-b8b4-540358cf4d6c"/>
+        <COMPID name="player" mc="Standard.Package" uid="a627a2ce-2d9a-41bd-a126-2fa78885379e"/>
+        <COMPID name="ServiceLocator" mc="Standard.Class" uid="0be569c0-949e-4693-88f0-c494bb1e1d30"/>
+      </COMP>
+      <LINK relation="Extension">
+        <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
+      </LINK>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>
