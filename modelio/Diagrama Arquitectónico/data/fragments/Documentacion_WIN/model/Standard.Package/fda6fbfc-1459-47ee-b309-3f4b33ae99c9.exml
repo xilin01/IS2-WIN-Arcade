@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="user" version="4">
+  <OBJECT>
+    <ID name="user" mc="Standard.Package" uid="fda6fbfc-1459-47ee-b309-3f4b33ae99c9"/>
+    <PID name="integration" mc="Standard.Package" uid="37cba3ea-5f27-4553-9afe-0d1cec6a9040"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[user]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="DAOUserImp" mc="Standard.Class" uid="e1573d2e-f668-471f-8102-90b0cbc90e77"/>
+        <COMPID name="DAOUser" mc="Standard.Interface" uid="ddf0c67c-04b4-4179-8def-96e189e2cdb9"/>
+      </COMP>
+      <LINK relation="Extension">
+        <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
+      </LINK>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

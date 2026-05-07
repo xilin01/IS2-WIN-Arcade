@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Graphics" version="4">
+  <OBJECT>
+    <ID name="Graphics" mc="Standard.DataType" uid="3b4650f1-abf5-4be5-9495-b1be62052993"/>
+    <PID name="games" mc="Standard.Package" uid="916a385a-a711-4916-bfb7-dfb00dde48be"/>
+    <ATTRIBUTES>
+      <ATT name="IsElementary">true</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Graphics]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <LINK relation="Extension">
+        <FOREIGNID name="JavaDataType" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-025d-0000-000000000000"/>
+      </LINK>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

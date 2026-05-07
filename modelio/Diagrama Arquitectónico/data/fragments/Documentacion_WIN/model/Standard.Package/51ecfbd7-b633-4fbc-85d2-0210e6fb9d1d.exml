@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="productsManager" version="4">
+  <OBJECT>
+    <ID name="productsManager" mc="Standard.Package" uid="51ecfbd7-b633-4fbc-85d2-0210e6fb9d1d"/>
+    <PID name="staff" mc="Standard.Package" uid="5e2ec3c2-c1de-42e5-bb54-b3b6bb89e15c"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[productsManager]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="ProductManagerVIew" mc="Standard.Class" uid="d4d64313-4c69-4017-b49b-cfea0606d91a"/>
+        <COMPID name="ProductEditor" mc="Standard.Class" uid="8e34e3b0-0df7-4601-b184-d85c57b79c0d"/>
+      </COMP>
+      <LINK relation="Extension">
+        <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
+      </LINK>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

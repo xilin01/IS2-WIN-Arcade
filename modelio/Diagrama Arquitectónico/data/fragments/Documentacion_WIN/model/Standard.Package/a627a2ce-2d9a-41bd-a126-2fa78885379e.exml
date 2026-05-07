@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="player" version="4">
+  <OBJECT>
+    <ID name="player" mc="Standard.Package" uid="a627a2ce-2d9a-41bd-a126-2fa78885379e"/>
+    <PID name="business" mc="Standard.Package" uid="69244712-8491-445f-bb71-840aacd0e2e2"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[player]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="SAInventoryImp" mc="Standard.Class" uid="41869cd1-deb2-4de6-a476-03d050da5f80"/>
+        <COMPID name="SAPlayerImp" mc="Standard.Class" uid="82241f2e-dea5-4f26-a453-80d39b382b77"/>
+        <COMPID name="SAInventory" mc="Standard.Interface" uid="a4607c79-554a-4638-b6e9-ea2d05748c58"/>
+        <COMPID name="SAPlayer" mc="Standard.Interface" uid="87e7b399-459c-4595-a4ea-8ebd3ea5852d"/>
+        <COMPID name="tInventory" mc="Standard.Class" uid="28ce853c-599e-401b-8ec6-3712c7d5ad27"/>
+        <COMPID name="tPlayer" mc="Standard.Class" uid="686d609a-17e7-4c1c-9e1e-3ba47aa99acd"/>
+      </COMP>
+      <LINK relation="Extension">
+        <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
+      </LINK>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

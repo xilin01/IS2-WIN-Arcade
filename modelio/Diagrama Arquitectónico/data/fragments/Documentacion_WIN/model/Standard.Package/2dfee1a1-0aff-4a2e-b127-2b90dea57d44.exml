@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="player" version="4">
+  <OBJECT>
+    <ID name="player" mc="Standard.Package" uid="2dfee1a1-0aff-4a2e-b127-2b90dea57d44"/>
+    <PID name="presentation" mc="Standard.Package" uid="2dfebf57-1666-409a-9fb6-51bf22c43e87"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[player]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="InventoryView" mc="Standard.Class" uid="03a53c81-26aa-468a-9c62-eacf2887b790"/>
+        <COMPID name="PlayerView" mc="Standard.Class" uid="22110627-be51-4361-982c-f8e1dd44d684"/>
+        <COMPID name="StoreView" mc="Standard.Class" uid="952bd3ca-235a-4886-b248-993fe1026f77"/>
+      </COMP>
+      <LINK relation="Extension">
+        <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
+      </LINK>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>
