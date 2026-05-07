@@ -19,7 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-// Patrón Singleton + Facade 
+// Patrón Facade + Singleton
 public class Theme {
 	 private static class ColorPalette {
         final Color BG = new Color(15, 15, 25);
@@ -50,10 +50,7 @@ public class Theme {
         JPanel header(String title) {
             JPanel panel = new JPanel(new BorderLayout());
             panel.setBackground(c.BG_CARD);
-            panel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createMatteBorder(0, 0, 1, 0, c.GOLD),
-                BorderFactory.createEmptyBorder(12, 20, 12, 20)
-            ));
+            panel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, c.GOLD), BorderFactory.createEmptyBorder(12, 20, 12, 20)));
             
             JLabel label = new JLabel(title);
             label.setFont(t.HEADING);
@@ -115,7 +112,7 @@ public class Theme {
             dialog.setLayout(new BorderLayout());
             dialog.getContentPane().setBackground(c.BG);
             dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-
+            
             content.setBackground(c.BG);
             dialog.add(content, BorderLayout.CENTER);
 
@@ -202,13 +199,16 @@ public class Theme {
             btnPanel.setBackground(c.BG_CARD);
             btnPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, c.BORDER));
             btnPanel.add(secondaryBtn("No", dialog::dispose));
-            btnPanel.add(dangerBtn("Confirmar", () -> {result[0] = true; dialog.dispose();}));
-
+            btnPanel.add(dangerBtn("Confirmar", () -> {
+            	result[0] = true;
+            	dialog.dispose();
+            }));
             dialog.add(btnPanel, BorderLayout.SOUTH);
+            
             dialog.setSize(340, 150);
             dialog.setLocationRelativeTo(parent);
             dialog.setVisible(true);
-
+            
             return result[0];
         }
         

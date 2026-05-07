@@ -13,7 +13,6 @@ import business.player.tPlayer;
 import business.user.tUser;
 
 class DAOUserImpTest {
-
     private static final String URL  = "jdbc:mysql://localhost/e4win";
     private static final String USER = "root";
     private static final String PASS = "equipo4";
@@ -35,10 +34,9 @@ class DAOUserImpTest {
         conn.close();
     }
 
-    // Helper: inserts a row into user table only (player type)
     private void insertUser(String name, String password, boolean active) throws Exception {
-        PreparedStatement pst = conn.prepareStatement(
-            "INSERT INTO user (name, password, active) VALUES (?, ?, ?)");
+        PreparedStatement pst = conn.prepareStatement("INSERT INTO user (name, password, active) VALUES (?, ?, ?)");
+        
         pst.setString(1, name);
         pst.setString(2, password);
         pst.setBoolean(3, active);
@@ -46,27 +44,25 @@ class DAOUserImpTest {
         pst.close();
     }
 
-    // Helper: inserts rows into user + staff (staff type)
     private void insertStaff(String name, String password) throws Exception {
         insertUser(name, password, true);
-        PreparedStatement pst = conn.prepareStatement(
-            "INSERT INTO staff (name) VALUES (?)");
+        PreparedStatement pst = conn.prepareStatement("INSERT INTO staff (name) VALUES (?)");
         pst.setString(1, name);
         pst.executeUpdate();
         pst.close();
     }
 
-    // --- createUser ---
-
     @Test
     void createUser_newPlayer_returnsOneRow() throws Exception {
         tPlayer player = new tPlayer("T_player", "pass", true, new tPlayer.tInventory("T_player"), 0);
+        
         assertEquals(1, dao.createUser(player));
     }
 
     @Test
     void createUser_newPlayer_canBeReadBack() throws Exception {
         tPlayer player = new tPlayer("T_player", "pass123", true, new tPlayer.tInventory("T_player"), 0);
+        
         dao.createUser(player);
         tUser read = dao.readUser("T_player");
         assertNotNull(read);
@@ -74,8 +70,6 @@ class DAOUserImpTest {
         assertEquals("pass123", read.getPassword());
         assertTrue(read.getActive());
     }
-
-    // --- readUser ---
 
     @Test
     void readUser_existingPlayer_returnsPlayerOutcome() throws Exception {
@@ -106,8 +100,6 @@ class DAOUserImpTest {
         assertFalse(user.getActive());
     }
 
-    // --- updateUser ---
-
     @Test
     void updateUser_changesPassword_returnsOneRow() throws Exception {
         insertUser("T_player", "oldpass", true);
@@ -126,10 +118,9 @@ class DAOUserImpTest {
     @Test
     void updateUser_unknownUser_returnsZeroRows() throws Exception {
         tPlayer ghost = new tPlayer("T_ghost", "pass", true, new tPlayer.tInventory("T_ghost"), 0);
+        
         assertEquals(0, dao.updateUser(ghost));
     }
-
-    // --- deleteUser (soft delete) ---
 
     @Test
     void deleteUser_existingUser_returnsOneRow() throws Exception {
@@ -156,11 +147,10 @@ class DAOUserImpTest {
         assertEquals(0, dao.deleteUser("T_ghost"));
     }
 
-    // --- readAllUsers ---
-
     @Test
     void readAllUsers_includesInsertedUsers() throws Exception {
         int before = dao.readAllUsers().size();
+        
         insertUser("T_p1", "pass1", true);
         insertUser("T_p2", "pass2", true);
         Collection<tUser> all = dao.readAllUsers();
@@ -170,6 +160,7 @@ class DAOUserImpTest {
     @Test
     void readAllUsers_includesInactiveUsers() throws Exception {
         int before = dao.readAllUsers().size();
+        
         insertUser("T_inactive", "pass", false);
         assertEquals(before + 1, dao.readAllUsers().size());
     }

@@ -37,7 +37,6 @@ public class GamesPackageEditor {
 
         JPanel content = new JPanel(new BorderLayout());
 
-        // Top: name/price + add-game row
         JPanel topPanel = new JPanel(new GridLayout(2, 1, 5, 5));
         topPanel.setBackground(theme.BG_CARD);
         topPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, theme.GOLD), BorderFactory.createEmptyBorder(10, 14, 10, 14)));
@@ -72,9 +71,9 @@ public class GamesPackageEditor {
 
         Map<String, List<Integer>> availableGamesMap = new HashMap<>();
         Collection<tGame> allGames = Controller.getInstance().getAllGames();
-        for(tGame g: allGames) {
-            availableGamesMap.putIfAbsent(g.getName(), new ArrayList<>());
-            availableGamesMap.get(g.getName()).add(g.getBasePoints());
+        for(tGame game: allGames) {
+            availableGamesMap.putIfAbsent(game.getName(), new ArrayList<>());
+            availableGamesMap.get(game.getName()).add(game.getBasePoints());
         }
 
         JLabel gameNameLabel = new JLabel("Juego:");
@@ -84,7 +83,7 @@ public class GamesPackageEditor {
         JComboBox<String> gameNameComboBox = new JComboBox<>();
         gameNameComboBox.setBackground(theme.BG_ITEM);
         gameNameComboBox.setForeground(theme.TEXT);
-        for(String gameName : availableGamesMap.keySet()) gameNameComboBox.addItem(gameName);
+        for(String gameName: availableGamesMap.keySet()) gameNameComboBox.addItem(gameName);
         if(gameNameComboBox.getItemCount() > 0) gameNameComboBox.setSelectedIndex(0);
         addGamePanel.add(gameNameComboBox);
 
@@ -103,7 +102,6 @@ public class GamesPackageEditor {
         JSpinner qtySpinner = new JSpinner(new SpinnerNumberModel(1, 1, 99, 1));
         styleSpinner(qtySpinner);
         addGamePanel.add(qtySpinner);
-
         topPanel.add(addGamePanel);
         content.add(topPanel, BorderLayout.NORTH);
 
@@ -125,7 +123,6 @@ public class GamesPackageEditor {
         centerWrapper.add(scrollPane, BorderLayout.CENTER);
         content.add(centerWrapper, BorderLayout.CENTER);
 
-        // Total points label sits just above the formDialog button bar
         JLabel totalPointsLabel = new JLabel("Valor en puntos: 0");
         totalPointsLabel.setFont(theme.HEADING);
         totalPointsLabel.setForeground(theme.GOLD);
@@ -135,7 +132,6 @@ public class GamesPackageEditor {
         totalPanel.add(totalPointsLabel);
         content.add(totalPanel, BorderLayout.SOUTH);
 
-        // updateList — Runnable array so it can reference itself from "Quitar" handlers
         double[] totalPts = {0.0};
         Runnable[] updateRef = {null};
         updateRef[0] = () -> {

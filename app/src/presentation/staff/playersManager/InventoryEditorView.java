@@ -82,6 +82,7 @@ public class InventoryEditorView extends JDialog {
             JLabel productLabel = new JLabel("Producto:");
             productLabel.setForeground(theme.TEXT);
             formPanel.add(productLabel);
+            
             JComboBox<tProduct> productCombo = new JComboBox<>(allProducts.toArray(new tProduct[0]));
             productCombo.setBackground(theme.BG_ITEM);
             productCombo.setForeground(theme.TEXT);
@@ -90,6 +91,7 @@ public class InventoryEditorView extends JDialog {
             JLabel qtyLabel = new JLabel("Cant	:");
             qtyLabel.setForeground(theme.TEXT);
             formPanel.add(qtyLabel);
+            
             JSpinner qtySpinner = new JSpinner(new SpinnerNumberModel(1, 1, 99, 1));
             ((JSpinner.DefaultEditor)qtySpinner.getEditor()).getTextField().setBackground(theme.BG_ITEM);
             ((JSpinner.DefaultEditor)qtySpinner.getEditor()).getTextField().setForeground(theme.TEXT);
@@ -102,6 +104,7 @@ public class InventoryEditorView extends JDialog {
                 
                 if(selectedProduct != null) {
                     Map<tProduct, Integer> productsMap = player.getInventory().getProducts();
+                    
                     if(productsMap == null) {
                         productsMap = new HashMap<>();
                         player.getInventory().setProducts(productsMap);
@@ -123,7 +126,7 @@ public class InventoryEditorView extends JDialog {
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         scrollPane.getViewport().setBackground(theme.BG);
         panel.add(scrollPane, BorderLayout.CENTER);
-
+        
         updateProductsList();
         return panel;
     }
@@ -131,7 +134,6 @@ public class InventoryEditorView extends JDialog {
     private void updateProductsList() {
         productsListPanel.removeAll();
         Map<tProduct, Integer> productsMap = player.getInventory().getProducts();
-
         if(productsMap != null && !productsMap.isEmpty()) {
             for(tProduct product: productsMap.keySet()) {
             	productsListPanel.add(buildRow(productsMap.get(product) + "x " + product.getName(), () -> {
@@ -157,9 +159,9 @@ public class InventoryEditorView extends JDialog {
 
         Map<String, List<Integer>> availableGamesMap = new HashMap<>();
         Collection<tGame> allGames = Controller.getInstance().getAllGames();
-        for(tGame g: allGames) {
-            availableGamesMap.putIfAbsent(g.getName(), new ArrayList<>());
-            availableGamesMap.get(g.getName()).add(g.getBasePoints());
+        for(tGame game: allGames) {
+            availableGamesMap.putIfAbsent(game.getName(), new ArrayList<>());
+            availableGamesMap.get(game.getName()).add(game.getBasePoints());
         }
 
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 0));
@@ -228,7 +230,6 @@ public class InventoryEditorView extends JDialog {
     private void updateGamesList() {
         gamesListPanel.removeAll();
         Map<tGame, Integer> gamesMap = player.getInventory().getGames();
-
         if(gamesMap != null && !gamesMap.isEmpty()) {
             for(tGame game: gamesMap.keySet()) {
             	gamesListPanel.add(buildRow(gamesMap.get(game) + "x " + game.getName() + " (" + game.getBasePoints() + "pts)", () -> {

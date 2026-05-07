@@ -90,9 +90,9 @@ public class PackageManagerView extends JFrame {
 
         if(gamesMap != null && !gamesMap.isEmpty()) {
             int count = 0;
+            
             for(Map.Entry<tGame, Integer> entry: gamesMap.entrySet()) {
                 JLabel gameLabel = new JLabel(entry.getValue() + "x " + entry.getKey().getName() + " (" + entry.getKey().getBasePoints() + "pts)");
-                
                 gameLabel.setFont(theme.BODY);
                 gameLabel.setForeground(theme.TEXT_MUTED);
                 gameLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
@@ -127,7 +127,6 @@ public class PackageManagerView extends JFrame {
             }
         }));
         packagePanel.add(buttonsPanel, BorderLayout.EAST);
-
         return packagePanel;
     }
 

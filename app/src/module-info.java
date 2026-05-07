@@ -4,6 +4,7 @@ module app {
 	requires org.junit.platform.console.standalone;
 	requires org.mockito;
 	requires org.json;
+	
 	opens business.auth;
 	opens business.player;
 	opens business.user;

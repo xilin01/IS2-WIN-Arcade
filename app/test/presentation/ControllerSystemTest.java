@@ -25,11 +25,7 @@ import business.store.SAStoreImp;
 import business.user.SAUser;
 import business.user.SAUserImp;
 
-// Step 4 — full stack through Controller → ServiceLocator → MySQL.
-// Only actions with no Swing callbacks are tested here (direct service calls).
-// Swing-dependent actions (LOGIN, BUY_*, BLACKJACK_*, ROULETTE_*) are manual-only.
 class ControllerSystemTest {
-
     private static Controller ctrl;
 
     @BeforeAll
@@ -47,8 +43,6 @@ class ControllerSystemTest {
         ctrl = Controller.getInstance();
     }
 
-    // --- ServiceLocator wiring ---
-
     @Test
     void serviceLocator_allServicesResolvable() {
         assertDoesNotThrow(() -> ServiceLocator.get(SAAuth.class));
@@ -60,8 +54,6 @@ class ControllerSystemTest {
         assertDoesNotThrow(() -> ServiceLocator.get(SAProduct.class));
         assertDoesNotThrow(() -> ServiceLocator.get(SAStore.class));
     }
-
-    // --- Query methods (seed data: Jug1=player/1000pts, Jug2=player/0pts) ---
 
     @Test
     void getPlayer_seededPlayer_returnsNotNull() {
@@ -81,6 +73,7 @@ class ControllerSystemTest {
     @Test
     void getAllPlayers_containsSeededPlayers() {
         boolean hasJug1 = ctrl.getAllPlayers().stream().anyMatch(p -> "Jug1".equals(p.getName()));
+        
         assertTrue(hasJug1);
     }
 
@@ -99,15 +92,15 @@ class ControllerSystemTest {
         assertFalse(ctrl.getAllGames().isEmpty());
     }
 
-    // --- Product CRUD (Event.CREATE_PRODUCT / UPDATE_PRODUCT / DELETE_PRODUCT — no Swing) ---
-
     @Test
     void action_createProduct_appearsInList() {
         int before = ctrl.getAllProducts().size();
+        
         ctrl.action(Event.CREATE_PRODUCT, new tProduct("T_sysprod", 10));
         try {
             assertEquals(before + 1, ctrl.getAllProducts().size());
-        } finally {
+        }
+        finally {
             ctrl.action(Event.DELETE_PRODUCT, "T_sysprod");
         }
     }
@@ -128,20 +121,21 @@ class ControllerSystemTest {
             boolean updated = ctrl.getAllProducts().stream()
                 .anyMatch(p -> "T_sysprod".equals(p.getName()) && p.getPrice() == 99);
             assertTrue(updated);
-        } finally {
+        }
+        finally {
             ctrl.action(Event.DELETE_PRODUCT, "T_sysprod");
         }
     }
 
-    // --- Package CRUD (Event.CREATE_PACKAGE / DELETE_PACKAGE — no Swing) ---
-
     @Test
     void action_createPackage_appearsInList() {
         int before = ctrl.getAllPackages().size();
+        
         ctrl.action(Event.CREATE_PACKAGE, new tGamesPackage("T_syspkg", 5.00, new HashMap<>()));
         try {
             assertEquals(before + 1, ctrl.getAllPackages().size());
-        } finally {
+        }
+        finally {
             ctrl.action(Event.DELETE_PACKAGE, "T_syspkg");
         }
     }
@@ -154,16 +148,15 @@ class ControllerSystemTest {
         assertEquals(before - 1, ctrl.getAllPackages().size());
     }
 
-    // --- Game CRUD (Event.CREATE_GAME — no Swing) ---
-
     @Test
     void action_createGame_appearsInList() {
         int before = ctrl.getAllGames().size();
+        
         ctrl.action(Event.CREATE_GAME, new tGame("T_sysgame", 99));
         try {
             assertEquals(before + 1, ctrl.getAllGames().size());
-        } finally {
-            // SAGame.deleteGame is not exposed via Controller events; clean up directly
+        }
+        finally {
             ServiceLocator.get(SAGame.class).deleteGame("T_sysgame", 99);
         }
     }

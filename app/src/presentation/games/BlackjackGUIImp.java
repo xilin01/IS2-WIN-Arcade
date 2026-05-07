@@ -20,7 +20,7 @@ import presentation.Event;
 import presentation.Theme;
 
 @SuppressWarnings("serial")
-public class BlackjackGUIImp extends JFrame implements BlackjackGUI{
+public class BlackjackGUIImp extends JFrame implements BlackjackGUI {
     private static final Theme theme = Theme.getInstance();
     private static final int CARD_HEIGHT = 200;
     private static final int CARD_WIDTH = (int)(CARD_HEIGHT / 1.4);
@@ -94,7 +94,7 @@ public class BlackjackGUIImp extends JFrame implements BlackjackGUI{
     private void showInitDecks(Cards croupierCard, List<Cards> playerDeck) {
         showCard(croupierDeckPanel, croupierCard);
         showCard(croupierDeckPanel, null);
-        for(Cards c: playerDeck) showCard(playerDeckPanel, c);
+        for(Cards card: playerDeck) showCard(playerDeckPanel, card);
     }
 
     public void update(List<Cards> croupierDeck, List<Cards> playerDeck, int croupierPoints, int playerPoints, boolean showFullCroupier) {
@@ -105,12 +105,12 @@ public class BlackjackGUIImp extends JFrame implements BlackjackGUI{
     private void showDecks(List<Cards> croupierDeck, List<Cards> playerDeck, boolean showFullCroupier) {
         if(showFullCroupier) {
             croupierDeckPanel.removeAll();
-            for(Cards c: croupierDeck) showCard(croupierDeckPanel, c);
+            for(Cards card: croupierDeck) showCard(croupierDeckPanel, card);
             croupierDeckPanel.revalidate();
             croupierDeckPanel.repaint();
         }
         playerDeckPanel.removeAll();
-        for(Cards c: playerDeck) showCard(playerDeckPanel, c);
+        for(Cards card: playerDeck) showCard(playerDeckPanel, card);
         playerDeckPanel.revalidate();
         playerDeckPanel.repaint();
     }

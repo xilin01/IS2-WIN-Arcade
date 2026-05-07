@@ -9,7 +9,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
 class SAPlayerImpIntegrationTest {
-
     private static final String URL         = "jdbc:mysql://localhost/e4win";
     private static final String DB_USER     = "root";
     private static final String DB_PASS     = "equipo4";
@@ -19,11 +18,9 @@ class SAPlayerImpIntegrationTest {
 
     @BeforeEach
     void setUp() throws Exception {
-        try (Connection conn = DriverManager.getConnection(URL, DB_USER, DB_PASS)) {
-            try (PreparedStatement u = conn.prepareStatement(
-                     "INSERT INTO user (name, password, active) VALUES (?, 'pass', TRUE)");
-                 PreparedStatement p = conn.prepareStatement(
-                     "INSERT INTO player (name, points) VALUES (?, 200)")) {
+        try(Connection conn = DriverManager.getConnection(URL, DB_USER, DB_PASS)) {
+            try(PreparedStatement u = conn.prepareStatement("INSERT INTO user (name, password, active) VALUES (?, 'pass', TRUE)");
+                 PreparedStatement p = conn.prepareStatement("INSERT INTO player (name, points) VALUES (?, 200)")) {
                 u.setString(1, TEST_PLAYER);
                 u.executeUpdate();
                 p.setString(1, TEST_PLAYER);
@@ -35,17 +32,16 @@ class SAPlayerImpIntegrationTest {
 
     @AfterEach
     void tearDown() throws Exception {
-        try (Connection conn = DriverManager.getConnection(URL, DB_USER, DB_PASS)) {
-            for (String sql : new String[]{
-                "DELETE FROM productsInventory WHERE playerName = ?",
+        try(Connection conn = DriverManager.getConnection(URL, DB_USER, DB_PASS)) {
+            for(String sql : new String[]{
+                "DELETE FROM productsInventory  WHERE playerName = ?",
                 "DELETE FROM gamesInventory     WHERE playerName = ?",
                 "DELETE FROM player             WHERE name       = ?",
-                "DELETE FROM user               WHERE name       = ?"
-            }) {
-                try (PreparedStatement pst = conn.prepareStatement(sql)) {
-                    pst.setString(1, TEST_PLAYER);
-                    pst.executeUpdate();
-                }
+                "DELETE FROM user               WHERE name       = ?"}) {
+	                try(PreparedStatement pst = conn.prepareStatement(sql)) {
+	                    pst.setString(1, TEST_PLAYER);
+	                    pst.executeUpdate();
+	                }
             }
         }
     }
@@ -71,6 +67,7 @@ class SAPlayerImpIntegrationTest {
     @Test
     void readPlayer_existingPlayer_allFieldsCorrect() {
         tPlayer player = sut.readPlayer(TEST_PLAYER);
+        
         assertNotNull(player);
         assertEquals(TEST_PLAYER, player.getName());
         assertEquals(200, player.getPoints());

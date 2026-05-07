@@ -51,6 +51,7 @@ public class PlayerManagerView extends JFrame {
         userListPanel.setLayout(new BoxLayout(userListPanel, BoxLayout.Y_AXIS));
         userListPanel.setBackground(theme.BG);
         userListPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        
         JScrollPane scrollPane = new JScrollPane(userListPanel);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         scrollPane.getViewport().setBackground(theme.BG);
@@ -88,7 +89,6 @@ public class PlayerManagerView extends JFrame {
             UserEditor.show(this, user);
             updateList();
         }));
-
         JButton toggleButton = user.getActive() ? theme.dangerBtn("Desactivar", () -> {
                 if(theme.confirm(this, "Desactivar al usuario " + user.getName())) {
                     Controller.getInstance().action(Event.DELETE_PLAYER, user.getName());
@@ -109,7 +109,7 @@ public class PlayerManagerView extends JFrame {
     private void updateList() {
         userListPanel.removeAll();
         Collection<tPlayer> players = Controller.getInstance().getAllPlayers();
-        for(tPlayer p: players) userListPanel.add(userElement(p));
+        for(tPlayer player: players) userListPanel.add(userElement(player));
         userListPanel.revalidate();
         userListPanel.repaint();
     }

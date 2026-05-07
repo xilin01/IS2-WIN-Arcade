@@ -151,6 +151,7 @@ public class RouletteGUIImp extends JFrame implements RouletteGUI {
 	            case Sencillo: bet = new tBet(betName, new int[]{Integer.parseInt("" + select.getSelectedItem())}); break;
 	            case Calle: {
 	                String[] parts = ((String)select.getSelectedItem()).split(",");
+	                
 	                bet = new tBet(betName, new int[]{Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Integer.parseInt(parts[2])});
 	                break;
 	            }
@@ -190,8 +191,8 @@ public class RouletteGUIImp extends JFrame implements RouletteGUI {
         JPanel betsPanel = new JPanel(new GridLayout(5, 2, 4, 4));
         betsPanel.setOpaque(false);
         betsPanel.setBorder(BorderFactory.createEmptyBorder(80, 0, 80, 80));
+        for(Bets bet: BETS) betsPanel.add(theme.primaryBtn(""+bet, () -> setBet(bet)));
         mainPanel.add(betsPanel, BorderLayout.EAST);
-        for(Bets b: BETS) betsPanel.add(theme.primaryBtn(""+b, () -> setBet(b)));
 
         JPanel optionsPanel = new JPanel(new GridLayout(2, 1, 0, 12));
         optionsPanel.setOpaque(false);
@@ -261,11 +262,11 @@ public class RouletteGUIImp extends JFrame implements RouletteGUI {
     }
     
     private int interruptionTime(int steps) {
-    	double t = (double) animationCount / steps; 
-    	if (t < 0.65) return 15;
+    	double t = (double)animationCount / steps; 
     	
+    	if(t < 0.65) return 15;
         double exp = Math.pow(1.35, (t - 0.65) / 0.35) - 1; 
-        return (int) (15 + exp * 175);
+        return (int)(15 + exp * 175);
     }
 
     private void initNumberToSteps() {

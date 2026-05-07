@@ -9,7 +9,6 @@ import business.staff.tStaff;
 import business.user.SAUser;
 
 class SAAuthImpTest {
-
     private SAUser saUserStub;
     private SAAuthImp auth;
 
@@ -61,6 +60,7 @@ class SAAuthImpTest {
     @Test
     void authenticate_inactiveUser_returnsFailure() {
         tPlayer inactive = new tPlayer("ana", "pass123", false, new tPlayer.tInventory("ana"), 0);
+        
         when(saUserStub.readUser("ana")).thenReturn(inactive);
         AuthResult result = auth.authenticate("ana", "pass123");
         assertEquals(AuthResult.Outcome.FAILURE, result.getOutcome());

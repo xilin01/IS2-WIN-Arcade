@@ -23,10 +23,7 @@ import business.store.SAStoreImp;
 import business.user.SAUser;
 import business.user.SAUserImp;
 
-// Step 4 (negative) — Controller defensive behavior without Swing side effects.
-// Actions that trigger Swing (LOGIN, OPEN_*, BUY_*, BLACKJACK_PLAY, ROULETTE_PLAY) are manual-only.
 class ControllerNegativeTest {
-
     private static Controller ctrl;
 
     @BeforeAll
@@ -53,16 +50,17 @@ class ControllerNegativeTest {
     void action_unknownEvent_printsToStderr() {
         ByteArrayOutputStream errContent = new ByteArrayOutputStream();
         PrintStream original = System.err;
+        
         System.setErr(new PrintStream(errContent));
         try {
             ctrl.action(Integer.MAX_VALUE, null);
-        } finally {
+        }
+        finally {
             System.setErr(original);
         }
         assertTrue(errContent.toString().length() > 0);
     }
 
-    // BLACKJACK_HIT and BLACKJACK_STAND have null guards in Controller; no active game → early exit.
     @Test
     void action_blackjackHit_beforePlay_doesNotThrow() {
         assertDoesNotThrow(() -> ctrl.action(Event.BLACKJACK_HIT, null));
@@ -73,14 +71,11 @@ class ControllerNegativeTest {
         assertDoesNotThrow(() -> ctrl.action(Event.BLACKJACK_STAND, null));
     }
 
-    // Documents known design weakness: event handler casts data without type check.
     @Test
     void action_wrongDataType_throwsClassCast() {
-        assertThrows(ClassCastException.class,
-            () -> ctrl.action(Event.CREATE_GAME, "notAGame"));
+        assertThrows(ClassCastException.class, () -> ctrl.action(Event.CREATE_GAME, "notAGame"));
     }
 
-    // DAOPlayerImp silently skips when name resolves to no row; no NPE bubbles up.
     @Test
     void getPlayer_nullUsername_doesNotThrow() {
         assertDoesNotThrow(() -> ctrl.getPlayer(null));

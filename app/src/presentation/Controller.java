@@ -24,13 +24,14 @@ import presentation.staff.playersManager.UserView;
 import presentation.user.auth.LoginView;
 import presentation.user.auth.SignUpView;
 
-// Patrón Singleton
-public class Controller {    
+// Patrón Mediator + Singleton
+public class Controller {
+	private record RouletteSession(int basePoints, RouletteGUI gui) {}
+	private record BlackjackSession(Blackjack blackjack, BlackjackGUI gui) {}
+	
 	private static final Controller INSTANCE = new Controller();
 	 
 	private String username;
-	private record BlackjackSession(Blackjack blackjack, BlackjackGUI gui) {}
-	private record RouletteSession(int basePoints, RouletteGUI gui) {}
 	private BlackjackSession blackjackSession;
 	private RouletteSession rouletteSession;
 	
@@ -93,6 +94,7 @@ public class Controller {
             }
             case Event.BLACKJACK_PLAY: {
                 int basePoints = (Integer)data;
+                
                 ServiceLocator.get(SAInventory.class).consumeGame(username, new tGame(tGame.BLACKJACK, basePoints));
                 Blackjack blackjack = new Blackjack(basePoints);
                 blackjack.play(); 
@@ -101,71 +103,81 @@ public class Controller {
                 break;
             }
             case Event.BLACKJACK_HIT: {
-                if(blackjackSession == null) {
-                	System.err.println("BLACKJACK_HIT sin partida activa");
-                	break;
-                }
-                Blackjack bj = blackjackSession.blackjack();
-                BlackjackGUI bjGui = blackjackSession.gui();
-                Blackjack.GameResult res = bj.playerHit();
-                bjGui.update(bj.getCroupierCards(), bj.getPlayerCards(), bj.getCroupierPoints(), bj.getPlayerPoints(), false);
-                if(res != Blackjack.GameResult.CONTINUE) {
-                    if(res == Blackjack.GameResult.WON) {
-                        ServiceLocator.get(SAPlayer.class).addPoints(username, bj.getPointsWon());
-                        bjGui.end("¡Victoria, has ganado " + bj.getPointsWon() + " puntos!");
-                    }
-                    else bjGui.end("Te has pasado de 21...");
+                if(blackjackSession == null) System.err.println("BLACKJACK_HIT sin partida activa");
+                else {
+		            Blackjack bj = blackjackSession.blackjack();
+		            BlackjackGUI bjGui = blackjackSession.gui();
+		            Blackjack.GameResult res = bj.playerHit();
+		            
+		            bjGui.update(bj.getCroupierCards(), bj.getPlayerCards(), bj.getCroupierPoints(), bj.getPlayerPoints(), false);
+		            if(res != Blackjack.GameResult.CONTINUE) {
+		                if(res == Blackjack.GameResult.WON) {
+		                    ServiceLocator.get(SAPlayer.class).addPoints(username, bj.getPointsWon());
+		                    bjGui.end("¡Victoria, has ganado " + bj.getPointsWon() + " puntos!");
+		                }
+		                else bjGui.end("Te has pasado de 21...");
+		            }
                 }
                 break;
             }
             case Event.BLACKJACK_STAND: {
-                if(blackjackSession == null) {
-                	System.err.println("BLACKJACK_STAND sin partida activa");
-                	break;
-                }
-                Blackjack bj = blackjackSession.blackjack();
-                BlackjackGUI bjGui = blackjackSession.gui();
-                if(bj.getCroupierPoints() < bj.getPlayerPoints()) bj.croupierPlay();
-                bjGui.update(bj.getCroupierCards(), bj.getPlayerCards(), bj.getCroupierPoints(), bj.getPlayerPoints(), true);
-                switch(bj.getResult()) {
-	                case LOST: bjGui.end("Lo siento, gana el croupier..."); break;
-	                case CONTINUE: bjGui.end("Empate"); break;
-	                case WON:
-	                	ServiceLocator.get(SAPlayer.class).addPoints(username, bj.getPointsWon());
-	                    bjGui.end("¡Felicidades, has ganado " + bj.getPointsWon() + " puntos!");
-	                    break;
+                if(blackjackSession == null) System.err.println("BLACKJACK_STAND sin partida activa");
+                else {
+		            Blackjack bj = blackjackSession.blackjack();
+		            BlackjackGUI bjGui = blackjackSession.gui();
+		            
+		            if(bj.getCroupierPoints() < bj.getPlayerPoints()) bj.croupierPlay();
+		            bjGui.update(bj.getCroupierCards(), bj.getPlayerCards(), bj.getCroupierPoints(), bj.getPlayerPoints(), true);
+		            switch(bj.getResult()) {
+		                case LOST: bjGui.end("Lo siento, gana el croupier..."); break;
+		                case CONTINUE: bjGui.end("Empate"); break;
+		                case WON:
+		                	ServiceLocator.get(SAPlayer.class).addPoints(username, bj.getPointsWon());
+		                    bjGui.end("¡Felicidades, has ganado " + bj.getPointsWon() + " puntos!");
+		                    break;
+		            }
                 }
                 break;
             }
             case Event.ROULETTE_PLAY: {
                 int basePoints = (Integer)data;
+                
                 ServiceLocator.get(SAInventory.class).consumeGame(username, new tGame(tGame.ROULETTE, basePoints));
                 rouletteSession = new RouletteSession(basePoints, GUIFactory.createRouletteView());
                 break;
             }
             case Event.ROULETTE_ROLL: {
-                if(rouletteSession == null) {
-                	System.err.println("ROULETTE_ROLL sin partida activa");
-                	break;
+                if(rouletteSession == null) System.err.println("ROULETTE_ROLL sin partida activa");
+                else {
+	                Roulette roulette = new Roulette(rouletteSession.basePoints(), (tBet)data);
+	                int points = roulette.play();
+	                
+	                if(points > 0) ServiceLocator.get(SAPlayer.class).addPoints(username, points);
+	                rouletteSession.gui().showResult(points, roulette.getWinningNumber());
                 }
-                Roulette roulette = new Roulette(rouletteSession.basePoints(), (tBet)data);
-                int points = roulette.play();
-                if(points > 0) ServiceLocator.get(SAPlayer.class).addPoints(username, points);
-                rouletteSession.gui().showResult(points, roulette.getWinningNumber());
                 break;
             }
             case Event.BUY_PACKAGE: {
                 tGamesPackage pack = (tGamesPackage)data;
+                
                 if(ServiceLocator.get(SAStore.class).buyPackage(username, pack)) Theme.getInstance().showInfo(null, "¡" + pack.getName() + " comprado con éxito!");
                 else Theme.getInstance().showError(null, "No se pudo completar la compra");
                 break;
             }
             case Event.BUY_PRODUCT: {
                 tProduct prod = (tProduct)data;
+                
                 if(ServiceLocator.get(SAStore.class).buyProduct(username, prod)) Theme.getInstance().showInfo(null, "¡" + prod.getName() + " canjeado con éxito!");
                 else Theme.getInstance().showError(null, "No tienes suficientes puntos para canjear este producto");
                 break;
             }
+            case Event.CREATE_GAME: ServiceLocator.get(SAGame.class).createGame((tGame)data); break;
+            case Event.CREATE_PACKAGE: ServiceLocator.get(SAGamesPackage.class).createGamesPackage((tGamesPackage)data); break;
+            case Event.UPDATE_PACKAGE: ServiceLocator.get(SAGamesPackage.class).updateGamesPackage((tGamesPackage)data); break;
+            case Event.DELETE_PACKAGE: ServiceLocator.get(SAGamesPackage.class).deleteGamesPackage((String)data); break;
+            case Event.CREATE_PRODUCT: ServiceLocator.get(SAProduct.class).createProduct((tProduct)data); break;
+            case Event.UPDATE_PRODUCT: ServiceLocator.get(SAProduct.class).updateProduct((tProduct)data); break;
+            case Event.DELETE_PRODUCT: ServiceLocator.get(SAProduct.class).deleteProduct((String)data); break;
             case Event.OPEN_PLAYER_VIEW:
             case Event.OPEN_GAMES_PANEL:
             case Event.OPEN_INVENTORY:

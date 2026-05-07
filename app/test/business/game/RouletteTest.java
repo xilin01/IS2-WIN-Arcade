@@ -5,34 +5,35 @@ import org.junit.jupiter.api.Test;
 
 class RouletteTest {
 
-    
     @Test
     void getWinningNumber_beforePlay_throwsIllegalState() {
         Roulette r = new Roulette(50, Roulette.Bet.red());
+        
         assertThrows(IllegalStateException.class, r::getWinningNumber);
     }
-
 
     @Test
     void afterPlay_winningNumberInRange() {
         Roulette r = new Roulette(50, Roulette.Bet.red());
+        
         r.play();
         int n = r.getWinningNumber();
         assertTrue(n >= 0 && n <= 36, "Winning number out of range: " + n);
     }
 
-
     @Test
     void redBet_redNumber_wins() {
         Roulette.Bet bet = Roulette.Bet.red();
-        assertTrue(bet.isWinner(1));   // 1 is red
-        assertFalse(bet.isWinner(2));  // 2 is black
-        assertFalse(bet.isWinner(0));  // 0 is neither
+        
+        assertTrue(bet.isWinner(1));   // 1 es rojo
+        assertFalse(bet.isWinner(2));  // 2 es negro
+        assertFalse(bet.isWinner(0));  // 0 no es ni rojo ni negro
     }
 
     @Test
     void blackBet_blackNumber_wins() {
         Roulette.Bet bet = Roulette.Bet.black();
+        
         assertTrue(bet.isWinner(2));
         assertFalse(bet.isWinner(1));
         assertFalse(bet.isWinner(0));
@@ -41,14 +42,16 @@ class RouletteTest {
     @Test
     void evenBet_evenNumber_wins() {
         Roulette.Bet bet = Roulette.Bet.even();
+        
         assertTrue(bet.isWinner(4));
         assertFalse(bet.isWinner(3));
-        assertFalse(bet.isWinner(0));  // 0 is excluded by n != 0 condition
+        assertFalse(bet.isWinner(0));  // 0 está excluido por la condición n != 0
     }
 
     @Test
     void oddBet_oddNumber_wins() {
         Roulette.Bet bet = Roulette.Bet.odd();
+        
         assertTrue(bet.isWinner(3));
         assertFalse(bet.isWinner(4));
         assertFalse(bet.isWinner(0));
@@ -57,24 +60,27 @@ class RouletteTest {
     @Test
     void lowBet_boundaries() {
         Roulette.Bet bet = Roulette.Bet.low();
-        assertTrue(bet.isWinner(1));   // lower bound
-        assertTrue(bet.isWinner(18));  // upper bound
-        assertFalse(bet.isWinner(19)); // just above
+        
+        assertTrue(bet.isWinner(1));   // Límite inferior
+        assertTrue(bet.isWinner(18));  // Límite superior
+        assertFalse(bet.isWinner(19)); // Justo arriba
         assertFalse(bet.isWinner(0));
     }
 
     @Test
     void highBet_boundaries() {
         Roulette.Bet bet = Roulette.Bet.high();
-        assertTrue(bet.isWinner(19));  // lower bound
-        assertTrue(bet.isWinner(36));  // upper bound
-        assertFalse(bet.isWinner(18)); // just below
+        
+        assertTrue(bet.isWinner(19));  // Límite inferior
+        assertTrue(bet.isWinner(36));  // Límite superior
+        assertFalse(bet.isWinner(18)); // Justo arriba
         assertFalse(bet.isWinner(0));
     }
 
     @Test
     void straightBet_exactNumber_wins() {
         Roulette.Bet bet = Roulette.Bet.straight(7);
+        
         assertTrue(bet.isWinner(7));
         assertFalse(bet.isWinner(6));
         assertFalse(bet.isWinner(8));
@@ -84,6 +90,7 @@ class RouletteTest {
     @Test
     void streetBet_anyOfThreeNumbers_wins() {
         Roulette.Bet bet = Roulette.Bet.street(1, 2, 3);
+        
         assertTrue(bet.isWinner(1));
         assertTrue(bet.isWinner(2));
         assertTrue(bet.isWinner(3));
@@ -93,6 +100,7 @@ class RouletteTest {
     @Test
     void columnBet_correctColumn_wins() {
         Roulette.Bet bet = Roulette.Bet.column(1);
+        
         assertTrue(bet.isWinner(1));
         assertTrue(bet.isWinner(4));
         assertFalse(bet.isWinner(2));
@@ -102,9 +110,10 @@ class RouletteTest {
     @Test
     void dozenBet_firstDozen_boundaries() {
         Roulette.Bet bet = Roulette.Bet.dozen(1);
-        assertTrue(bet.isWinner(1));   // lower bound
-        assertTrue(bet.isWinner(12));  // upper bound
-        assertFalse(bet.isWinner(13)); // just above
+        
+        assertTrue(bet.isWinner(1));   // Límite inferior
+        assertTrue(bet.isWinner(12));  // Límite superior
+        assertFalse(bet.isWinner(13)); // Justo arriba
         assertFalse(bet.isWinner(0));
     }
 

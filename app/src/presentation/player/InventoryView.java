@@ -74,14 +74,14 @@ public class InventoryView extends JFrame {
         productsPanel.setBackground(theme.BG);
         productsPanel.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
         if(!inventory.getProducts().isEmpty()) {
-            for(Map.Entry<tProduct, Integer> entry: inventory.getProducts().entrySet()) productsPanel.add(createItemPanel(entry.getValue() + "x " + entry.getKey().getName()));
+            for(Map.Entry<tProduct, Integer> entry: inventory.getProducts().entrySet()) 
+            	productsPanel.add(createItemPanel(entry.getValue() + "x " + entry.getKey().getName()));
         }
         else productsPanel.add(emptyLabel("No has canjeado productos todavía"));
         JScrollPane productsScroll = new JScrollPane(productsPanel);
         productsScroll.setBorder(BorderFactory.createEmptyBorder());
         productsScroll.getViewport().setBackground(theme.BG);
         tabbedPane.addTab("Productos", productsScroll);
-
         mainPanel.add(tabbedPane, BorderLayout.CENTER);
 
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));

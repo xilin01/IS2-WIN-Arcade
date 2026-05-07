@@ -15,7 +15,6 @@ import business.player.tPlayer;
 import business.product.tProduct;
 
 class SAStoreImpTest {
-
     private SAPlayer playerStub;
     private SAInventory inventoryStub;
     private SAStoreImp store;
@@ -74,6 +73,7 @@ class SAStoreImpTest {
     @Test
     void buyPackage_callsUpdateInventory() {
         tPlayer player = playerWithPoints("ana", 0);
+        
         when(playerStub.readPlayer("ana")).thenReturn(player);
         Map<tGame, Integer> games = new HashMap<>();
         games.put(new tGame(tGame.BLACKJACK, 50), 2);
@@ -84,6 +84,7 @@ class SAStoreImpTest {
     @Test
     void buyPackage_addsGamesToPlayerInventory() {
         tPlayer player = playerWithPoints("ana", 0);
+        
         when(playerStub.readPlayer("ana")).thenReturn(player);
         tGame game = new tGame(tGame.BLACKJACK, 50);
         Map<tGame, Integer> games = new HashMap<>();

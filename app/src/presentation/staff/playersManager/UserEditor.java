@@ -73,9 +73,7 @@ public class UserEditor {
             
             if(!name.isEmpty() && !password.isEmpty()) {
                 if(player == null) Controller.getInstance().action(Event.CREATE_PLAYER, new tPlayer(name, password, isActive, new tPlayer.tInventory(name), 0));
-                else {
-                    Controller.getInstance().action(Event.UPDATE_PLAYER, new tPlayer(player.getName(), password, isActive, player.getInventory(), player.getPoints()));
-                }
+                else Controller.getInstance().action(Event.UPDATE_PLAYER, new tPlayer(player.getName(), password, isActive, player.getInventory(), player.getPoints()));
                 return true;
             }
             JOptionPane.showMessageDialog(parent, "El nombre o la contraseña no pueden estar vacios", "Error", JOptionPane.ERROR_MESSAGE);

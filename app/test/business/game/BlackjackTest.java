@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import java.util.Set;
 
 class BlackjackTest {
-
     private Blackjack bj;
 
     @BeforeEach
@@ -46,9 +45,9 @@ class BlackjackTest {
     @Test
     void afterPlay_returnsVisibleCroupierPoints() {
         int visible = bj.play();
+        
         assertTrue(visible >= 2 && visible <= 11, "Visible points out of expected range: " + visible);
     }
-
 
     @Test
     void gameResultEnum_allConstantsAccessible() {
@@ -56,7 +55,6 @@ class BlackjackTest {
         assertNotNull(Blackjack.GameResult.CONTINUE);
         assertNotNull(Blackjack.GameResult.WON);
     }
-
 
     @Test
     void playerHit_afterPlay_returnsValidStatus() {
@@ -67,7 +65,6 @@ class BlackjackTest {
             "Unexpected status: " + status
         );
     }
-
 
     @Test
     void getResult_afterBothPlay_returnsValidStatus() {

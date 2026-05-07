@@ -62,7 +62,6 @@ public class StoreView extends JFrame {
         centerWrapper.add(mainPanel); 
         background.add(centerWrapper, BorderLayout.CENTER);
 
-        // Tabs
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.setFont(theme.BODY);
         tabbedPane.setBackground(theme.BG_CARD);

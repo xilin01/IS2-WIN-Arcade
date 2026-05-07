@@ -39,7 +39,6 @@ public class GamesPanelView extends JFrame {
         background.setLayout(new BorderLayout());
         setContentPane(background);
 
-        // --- Top bar ---
         JPanel topBar = new JPanel(new BorderLayout());
         topBar.setBackground(theme.BG_CARD);
         topBar.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, theme.GOLD), BorderFactory.createEmptyBorder(14, 20, 14, 16)));
@@ -54,12 +53,12 @@ public class GamesPanelView extends JFrame {
         JLabel userPointsLabel = new JLabel(Controller.getInstance().getUsername() + " | " + Controller.getInstance().getPlayerPoints(Controller.getInstance().getUsername()) + "pts   ");
         userPointsLabel.setFont(theme.BODY);
         userPointsLabel.setForeground(theme.GOLD);
+        rightInfo.add(userPointsLabel);
         JButton backBtn = theme.secondaryBtn("Atrás", () -> {
             Controller.getInstance().action(Event.OPEN_PLAYER_VIEW, null);
             dispose();
         });
         backBtn.setPreferredSize(new Dimension(110, 36));
-        rightInfo.add(userPointsLabel);
         rightInfo.add(backBtn);
         topBar.add(rightInfo, BorderLayout.EAST);
         background.add(topBar, BorderLayout.NORTH);
@@ -109,14 +108,12 @@ public class GamesPanelView extends JFrame {
         nameLabel.setFont(theme.HEADING);
         nameLabel.setForeground(theme.TEXT);
         infoPanel.add(nameLabel);
-
         infoPanel.add(Box.createRigidArea(new Dimension(0, 4)));
 
         JLabel detailLabel = new JLabel(game.getBasePoints() + " puntos base  ·  x" + amount + " disponibles");
         detailLabel.setFont(theme.BODY);
         detailLabel.setForeground(theme.TEXT_MUTED);
         infoPanel.add(detailLabel);
-
         card.add(infoPanel, BorderLayout.CENTER);
 
         JButton playButton = theme.primaryBtn("Jugar", () -> {
@@ -128,7 +125,6 @@ public class GamesPanelView extends JFrame {
         JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0, 0));
         btnPanel.setOpaque(false);
         btnPanel.add(playButton);
-        
         card.add(btnPanel, BorderLayout.EAST);
         return card;
     }

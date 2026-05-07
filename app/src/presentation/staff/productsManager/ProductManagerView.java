@@ -76,7 +76,6 @@ public class ProductManagerView extends JFrame {
         nameLabel.setFont(theme.HEADING);
         nameLabel.setForeground(theme.TEXT);
         prodInfo.add(nameLabel);
-        prodInfo.add(nameLabel);
         
         JLabel priceLabel = new JLabel("Precio: " + product.getPrice() + "pts");
         priceLabel.setFont(theme.BODY);
@@ -91,13 +90,12 @@ public class ProductManagerView extends JFrame {
         	updateList();
         }));
         buttonsPanel.add(theme.dangerBtn("Eliminar", () -> {
-            if (theme.confirm(this, "Eliminar definitivamente el producto " + product.getName())) {
+            if(theme.confirm(this, "Eliminar definitivamente el producto " + product.getName())) {
                 Controller.getInstance().action(Event.DELETE_PRODUCT, product.getName());
                 updateList();
             }
         }));
         productPanel.add(buttonsPanel, BorderLayout.EAST);
-
         return productPanel;
     }
 

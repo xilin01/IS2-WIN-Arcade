@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import business.user.SAUserImp;
 
 class SAAuthImpIntegrationTest {
-
     private SAAuthImp auth;
 
     @BeforeEach
@@ -17,6 +16,7 @@ class SAAuthImpIntegrationTest {
     @Test
     void authenticate_seededPlayer_returnsPlayerOk() {
         AuthResult result = auth.authenticate("Jug1", "jug1");
+        
         assertEquals(AuthResult.Outcome.PLAYER_OK, result.getOutcome());
         assertEquals("Jug1", result.getPayload());
     }
@@ -24,6 +24,7 @@ class SAAuthImpIntegrationTest {
     @Test
     void authenticate_seededStaff_returnsStaffOk() {
         AuthResult result = auth.authenticate("Xiang", "xiang");
+        
         assertEquals(AuthResult.Outcome.STAFF_OK, result.getOutcome());
         assertEquals("Xiang", result.getPayload());
     }
@@ -31,12 +32,14 @@ class SAAuthImpIntegrationTest {
     @Test
     void authenticate_wrongPassword_returnsFailure() {
         AuthResult result = auth.authenticate("Jug1", "wrongpass");
+        
         assertEquals(AuthResult.Outcome.FAILURE, result.getOutcome());
     }
 
     @Test
     void authenticate_unknownUser_returnsFailure() {
         AuthResult result = auth.authenticate("T_nobody", "anypass");
+        
         assertEquals(AuthResult.Outcome.FAILURE, result.getOutcome());
     }
 

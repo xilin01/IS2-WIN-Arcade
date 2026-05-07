@@ -16,7 +16,6 @@ import business.player.SAPlayerImp;
 import business.product.tProduct;
 
 class SAStoreImpIntegrationTest {
-
     private static final String URL         = "jdbc:mysql://localhost/e4win";
     private static final String DB_USER     = "root";
     private static final String DB_PASS     = "equipo4";
@@ -27,11 +26,9 @@ class SAStoreImpIntegrationTest {
 
     @BeforeEach
     void setUp() throws Exception {
-        try (Connection conn = DriverManager.getConnection(URL, DB_USER, DB_PASS)) {
-            try (PreparedStatement u = conn.prepareStatement(
-                     "INSERT INTO user (name, password, active) VALUES (?, 'pass', TRUE)");
-                 PreparedStatement p = conn.prepareStatement(
-                     "INSERT INTO player (name, points) VALUES (?, 500)")) {
+        try(Connection conn = DriverManager.getConnection(URL, DB_USER, DB_PASS)) {
+            try(PreparedStatement u = conn.prepareStatement("INSERT INTO user (name, password, active) VALUES (?, 'pass', TRUE)");
+                 PreparedStatement p = conn.prepareStatement("INSERT INTO player (name, points) VALUES (?, 500)")) {
                 u.setString(1, TEST_PLAYER);
                 u.executeUpdate();
                 p.setString(1, TEST_PLAYER);
@@ -44,17 +41,16 @@ class SAStoreImpIntegrationTest {
 
     @AfterEach
     void tearDown() throws Exception {
-        try (Connection conn = DriverManager.getConnection(URL, DB_USER, DB_PASS)) {
-            for (String sql : new String[]{
-                "DELETE FROM productsInventory WHERE playerName = ?",
+        try(Connection conn = DriverManager.getConnection(URL, DB_USER, DB_PASS)) {
+            for(String sql : new String[]{
+                "DELETE FROM productsInventory  WHERE playerName = ?",
                 "DELETE FROM gamesInventory     WHERE playerName = ?",
                 "DELETE FROM player             WHERE name       = ?",
-                "DELETE FROM user               WHERE name       = ?"
-            }) {
-                try (PreparedStatement pst = conn.prepareStatement(sql)) {
-                    pst.setString(1, TEST_PLAYER);
-                    pst.executeUpdate();
-                }
+                "DELETE FROM user               WHERE name       = ?"}) {
+	                try (PreparedStatement pst = conn.prepareStatement(sql)) {
+	                    pst.setString(1, TEST_PLAYER);
+	                    pst.executeUpdate();
+	                }
             }
         }
     }
@@ -73,6 +69,7 @@ class SAStoreImpIntegrationTest {
     @Test
     void buyProduct_sufficientPoints_addsProductToInventoryInDB() {
         tProduct taza = new tProduct("Taza", 50);
+        
         store.buyProduct(TEST_PLAYER, taza);
         assertEquals(1, saPlayer.readPlayer(TEST_PLAYER).getInventory().getProducts().get(taza));
     }
@@ -92,6 +89,7 @@ class SAStoreImpIntegrationTest {
     @Test
     void buyPackage_returnsTrue() {
         tGamesPackage pack = new tGamesPackage("Pack test", 0.0, new HashMap<>());
+        
         assertTrue(store.buyPackage(TEST_PLAYER, pack));
     }
 
@@ -99,6 +97,7 @@ class SAStoreImpIntegrationTest {
     void buyPackage_addsGamesToInventoryInDB() {
         tGame bj = new tGame(tGame.BLACKJACK, 10);
         Map<tGame, Integer> games = new HashMap<>();
+        
         games.put(bj, 3);
         store.buyPackage(TEST_PLAYER, new tGamesPackage("Pack test", 0.0, games));
         assertEquals(3, saPlayer.readPlayer(TEST_PLAYER).getInventory().getGames().get(bj));
@@ -108,6 +107,7 @@ class SAStoreImpIntegrationTest {
     void buyPackage_doesNotDeductPoints() {
         tGame bj = new tGame(tGame.BLACKJACK, 10);
         Map<tGame, Integer> games = new HashMap<>();
+        
         games.put(bj, 2);
         store.buyPackage(TEST_PLAYER, new tGamesPackage("Pack test", 0.0, games));
         assertEquals(500, saPlayer.readPlayer(TEST_PLAYER).getPoints());

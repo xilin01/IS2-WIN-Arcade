@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 import business.game.tGame;
 
 class SAInventoryImpIntegrationTest {
-
     private static final String URL         = "jdbc:mysql://localhost/e4win";
     private static final String DB_USER     = "root";
     private static final String DB_PASS     = "equipo4";
@@ -22,11 +21,9 @@ class SAInventoryImpIntegrationTest {
 
     @BeforeEach
     void setUp() throws Exception {
-        try (Connection conn = DriverManager.getConnection(URL, DB_USER, DB_PASS)) {
-            try (PreparedStatement u = conn.prepareStatement(
-                     "INSERT INTO user (name, password, active) VALUES (?, 'pass', TRUE)");
-                 PreparedStatement p = conn.prepareStatement(
-                     "INSERT INTO player (name, points) VALUES (?, 0)")) {
+        try(Connection conn = DriverManager.getConnection(URL, DB_USER, DB_PASS)) {
+            try(PreparedStatement u = conn.prepareStatement("INSERT INTO user (name, password, active) VALUES (?, 'pass', TRUE)");
+                 PreparedStatement p = conn.prepareStatement("INSERT INTO player (name, points) VALUES (?, 0)")) {
                 u.setString(1, TEST_PLAYER);
                 u.executeUpdate();
                 p.setString(1, TEST_PLAYER);
@@ -38,25 +35,23 @@ class SAInventoryImpIntegrationTest {
 
     @AfterEach
     void tearDown() throws Exception {
-        try (Connection conn = DriverManager.getConnection(URL, DB_USER, DB_PASS)) {
-            for (String sql : new String[]{
-                "DELETE FROM productsInventory WHERE playerName = ?",
+        try(Connection conn = DriverManager.getConnection(URL, DB_USER, DB_PASS)) {
+            for(String sql: new String[]{
+                "DELETE FROM productsInventory  WHERE playerName = ?",
                 "DELETE FROM gamesInventory     WHERE playerName = ?",
                 "DELETE FROM player             WHERE name       = ?",
-                "DELETE FROM user               WHERE name       = ?"
-            }) {
-                try (PreparedStatement pst = conn.prepareStatement(sql)) {
-                    pst.setString(1, TEST_PLAYER);
-                    pst.executeUpdate();
-                }
+                "DELETE FROM user               WHERE name       = ?"}) {
+	                try(PreparedStatement pst = conn.prepareStatement(sql)) {
+	                    pst.setString(1, TEST_PLAYER);
+	                    pst.executeUpdate();
+	                }
             }
         }
     }
 
     private void insertGameRow(int amount) throws Exception {
-        try (Connection conn = DriverManager.getConnection(URL, DB_USER, DB_PASS);
-             PreparedStatement pst = conn.prepareStatement(
-                 "INSERT INTO gamesInventory (playerName, gameName, gameBasePoints, amount) VALUES (?, ?, ?, ?)")) {
+        try(Connection conn = DriverManager.getConnection(URL, DB_USER, DB_PASS);
+        		PreparedStatement pst = conn.prepareStatement("INSERT INTO gamesInventory (playerName, gameName, gameBasePoints, amount) VALUES (?, ?, ?, ?)")) {
             pst.setString(1, TEST_PLAYER);
             pst.setString(2, BJ.getName());
             pst.setInt(3, BJ.getBasePoints());
@@ -66,9 +61,8 @@ class SAInventoryImpIntegrationTest {
     }
 
     private int readAmount() throws Exception {
-        try (Connection conn = DriverManager.getConnection(URL, DB_USER, DB_PASS);
-             PreparedStatement pst = conn.prepareStatement(
-                 "SELECT amount FROM gamesInventory WHERE playerName = ? AND gameName = ? AND gameBasePoints = ?")) {
+        try(Connection conn = DriverManager.getConnection(URL, DB_USER, DB_PASS);
+             PreparedStatement pst = conn.prepareStatement("SELECT amount FROM gamesInventory WHERE playerName = ? AND gameName = ? AND gameBasePoints = ?")) {
             pst.setString(1, TEST_PLAYER);
             pst.setString(2, BJ.getName());
             pst.setInt(3, BJ.getBasePoints());
@@ -101,9 +95,8 @@ class SAInventoryImpIntegrationTest {
     void consumeGame_amountOne_playerStillExists() throws Exception {
         insertGameRow(1);
         sut.consumeGame(TEST_PLAYER, BJ);
-        try (Connection conn = DriverManager.getConnection(URL, DB_USER, DB_PASS);
-             PreparedStatement pst = conn.prepareStatement(
-                 "SELECT name FROM player WHERE name = ?")) {
+        try(Connection conn = DriverManager.getConnection(URL, DB_USER, DB_PASS);
+             PreparedStatement pst = conn.prepareStatement("SELECT name FROM player WHERE name = ?")) {
             pst.setString(1, TEST_PLAYER);
             ResultSet rs = pst.executeQuery();
             assertTrue(rs.next());
