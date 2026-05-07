@@ -15,9 +15,8 @@
     <DEPENDENCIES>
       <COMP relation="OwnedBehavior">
         <COMPID name="Añadir nuevo producto" mc="Standard.Activity" uid="f89b8511-b45f-44ef-b4ef-b26ef95cf7c0"/>
-        <COMPID name="Modificar producto existente" mc="Standard.Activity" uid="dba289a9-1a83-42e3-9f89-edd62fb9d5b2"/>
+        <COMPID name="Modificar producto" mc="Standard.Activity" uid="dba289a9-1a83-42e3-9f89-edd62fb9d5b2"/>
         <COMPID name="Eliminar producto existente" mc="Standard.Activity" uid="c023475c-09a8-48e7-9e40-c28ebdac2df3"/>
-        <COMPID name="Comprar producto" mc="Standard.Activity" uid="bd964194-ab47-4625-b215-81c4dedb8a19"/>
       </COMP>
       <COMP relation="OwnedElement">
         <COMPID name="Añadir nuevo producto" mc="Standard.UseCase" uid="91659ca5-5a41-46fe-a3eb-210e0c7b892a"/>

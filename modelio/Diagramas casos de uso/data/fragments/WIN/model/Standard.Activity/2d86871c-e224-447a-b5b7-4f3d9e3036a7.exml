@@ -13,11 +13,11 @@
     <DEPENDENCIES>
       <COMP relation="OwnedGroup">
         <OBJECT>
-          <ID name="Usuario" mc="Standard.ActivityPartition" uid="f4162f04-2628-4a40-91ec-76afb2f71186"/>
+          <ID name="Jugador" mc="Standard.ActivityPartition" uid="f4162f04-2628-4a40-91ec-76afb2f71186"/>
           <ATTRIBUTES>
             <ATT name="IsDimension">false</ATT>
             <ATT name="IsExternal">false</ATT>
-            <ATT name="Name"><![CDATA[Usuario]]></ATT>
+            <ATT name="Name"><![CDATA[Jugador]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
@@ -74,7 +74,7 @@
                       <DEPENDENCIES>
                         <LINK relation="Target">
                           <REFOBJ>
-                            <ID name="Animacion tirada y mostrar resultado" mc="Standard.OpaqueAction" uid="82e50dd6-59ad-4d93-b390-943b12903a50"/>
+                            <ID name="Generar resultado" mc="Standard.OpaqueAction" uid="82e50dd6-59ad-4d93-b390-943b12903a50"/>
                           </REFOBJ>
                         </LINK>
                       </DEPENDENCIES>
@@ -93,23 +93,7 @@
                 <DEPENDENCIES>
                   <COMP relation="Outgoing">
                     <OBJECT>
-                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="c90a75d0-f60b-408b-9589-22ce88f36e37"/>
-                      <ATTRIBUTES>
-                        <ATT name="Guard"></ATT>
-                        <ATT name="Weight"><![CDATA[1]]></ATT>
-                        <ATT name="Name"><![CDATA[ControlFlow]]></ATT>
-                        <ATT name="status">1970354901745664</ATT>
-                      </ATTRIBUTES>
-                      <DEPENDENCIES>
-                        <LINK relation="Target">
-                          <REFOBJ>
-                            <ID name="Mostrar dialogo de apuesta compleja" mc="Standard.OpaqueAction" uid="b9500a48-87b9-4e9c-b901-4879183193c9"/>
-                          </REFOBJ>
-                        </LINK>
-                      </DEPENDENCIES>
-                    </OBJECT>
-                    <OBJECT>
-                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="a438b03a-7000-473c-8e50-83efa4c1a4b8"/>
+                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="c83d6d2d-b7fd-4318-8fcc-2d8d85804ecd"/>
                       <ATTRIBUTES>
                         <ATT name="Guard"></ATT>
                         <ATT name="Weight"><![CDATA[1]]></ATT>
@@ -124,22 +108,8 @@
                         </LINK>
                       </DEPENDENCIES>
                     </OBJECT>
-                  </COMP>
-                </DEPENDENCIES>
-              </OBJECT>
-              <OBJECT>
-                <ID name="Elegir apuesta compleja" mc="Standard.OpaqueAction" uid="fa83ea1b-dbab-473a-9cda-eaf29baa9347"/>
-                <ATTRIBUTES>
-                  <ATT name="Body"></ATT>
-                  <ATT name="IsMultipleInstance">false</ATT>
-                  <ATT name="IsCompensation">false</ATT>
-                  <ATT name="Name"><![CDATA[Elegir apuesta compleja]]></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <COMP relation="Outgoing">
                     <OBJECT>
-                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="0317386d-dd9a-476e-b35b-454d0db9b222"/>
+                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="665e9080-3f92-45f9-a23e-929f801fad55"/>
                       <ATTRIBUTES>
                         <ATT name="Guard"></ATT>
                         <ATT name="Weight"><![CDATA[1]]></ATT>
@@ -149,7 +119,7 @@
                       <DEPENDENCIES>
                         <LINK relation="Target">
                           <REFOBJ>
-                            <ID name="Accionar tirada" mc="Standard.OpaqueAction" uid="fa45aecc-6132-4e90-a175-37e05ca9157a"/>
+                            <ID name="Actualizar juegos del jugador" mc="Standard.OpaqueAction" uid="47ffc1bd-2f16-4cff-bd83-884cefe99efa"/>
                           </REFOBJ>
                         </LINK>
                       </DEPENDENCIES>
@@ -198,18 +168,18 @@
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="Mostrar opciones de apuesta" mc="Standard.OpaqueAction" uid="73e42f2e-5e98-409b-9e6c-0208a04725a0"/>
+                <ID name="Generar resultado" mc="Standard.OpaqueAction" uid="82e50dd6-59ad-4d93-b390-943b12903a50"/>
                 <ATTRIBUTES>
                   <ATT name="Body"></ATT>
                   <ATT name="IsMultipleInstance">false</ATT>
                   <ATT name="IsCompensation">false</ATT>
-                  <ATT name="Name"><![CDATA[Mostrar opciones de apuesta]]></ATT>
+                  <ATT name="Name"><![CDATA[Generar resultado]]></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <COMP relation="Outgoing">
                     <OBJECT>
-                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="fac20a4a-b22b-47f1-841d-c5296a22c366"/>
+                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="ed733ccd-7fe6-47fb-a013-41da5b5c65c8"/>
                       <ATTRIBUTES>
                         <ATT name="Guard"></ATT>
                         <ATT name="Weight"><![CDATA[1]]></ATT>
@@ -219,7 +189,7 @@
                       <DEPENDENCIES>
                         <LINK relation="Target">
                           <REFOBJ>
-                            <ID name="Elegir apuesta" mc="Standard.OpaqueAction" uid="188fe4f1-4d62-4c9b-9f31-cf9b5fb1d861"/>
+                            <ID name="Actualizar datos del jugador" mc="Standard.OpaqueAction" uid="7d3b885b-0dbb-4f22-911b-b30527b98968"/>
                           </REFOBJ>
                         </LINK>
                       </DEPENDENCIES>
@@ -228,18 +198,18 @@
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="Animacion tirada y mostrar resultado" mc="Standard.OpaqueAction" uid="82e50dd6-59ad-4d93-b390-943b12903a50"/>
+                <ID name="Mostrar resultado de la tirada" mc="Standard.OpaqueAction" uid="d08f42a2-0bb6-4b7f-9787-eb288075e12b"/>
                 <ATTRIBUTES>
                   <ATT name="Body"></ATT>
                   <ATT name="IsMultipleInstance">false</ATT>
                   <ATT name="IsCompensation">false</ATT>
-                  <ATT name="Name"><![CDATA[Animacion tirada y mostrar resultado]]></ATT>
+                  <ATT name="Name"><![CDATA[Mostrar resultado de la tirada]]></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <COMP relation="Outgoing">
                     <OBJECT>
-                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="3f2e1391-9ce9-476f-b01d-854f6a22d522"/>
+                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="dde3ce90-c805-4eb1-a284-3535df04033b"/>
                       <ATTRIBUTES>
                         <ATT name="Guard"></ATT>
                         <ATT name="Weight"><![CDATA[1]]></ATT>
@@ -249,37 +219,7 @@
                       <DEPENDENCIES>
                         <LINK relation="Target">
                           <REFOBJ>
-                            <ID name="Mostrar resultado de la jugada por pantalla" mc="Standard.OpaqueAction" uid="d08f42a2-0bb6-4b7f-9787-eb288075e12b"/>
-                          </REFOBJ>
-                        </LINK>
-                      </DEPENDENCIES>
-                    </OBJECT>
-                  </COMP>
-                </DEPENDENCIES>
-              </OBJECT>
-              <OBJECT>
-                <ID name="Mostrar resultado de la jugada por pantalla" mc="Standard.OpaqueAction" uid="d08f42a2-0bb6-4b7f-9787-eb288075e12b"/>
-                <ATTRIBUTES>
-                  <ATT name="Body"></ATT>
-                  <ATT name="IsMultipleInstance">false</ATT>
-                  <ATT name="IsCompensation">false</ATT>
-                  <ATT name="Name"><![CDATA[Mostrar resultado de la jugada por pantalla]]></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <COMP relation="Outgoing">
-                    <OBJECT>
-                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="a82e8f08-cbdd-4e83-bb7e-aae3967b379b"/>
-                      <ATTRIBUTES>
-                        <ATT name="Guard"></ATT>
-                        <ATT name="Weight"><![CDATA[1]]></ATT>
-                        <ATT name="Name"><![CDATA[ControlFlow]]></ATT>
-                        <ATT name="status">1970354901745664</ATT>
-                      </ATTRIBUTES>
-                      <DEPENDENCIES>
-                        <LINK relation="Target">
-                          <REFOBJ>
-                            <ID name="Actualizar datos del usuario" mc="Standard.OpaqueAction" uid="7d3b885b-0dbb-4f22-911b-b30527b98968"/>
+                            <ID name="Activity Final Node" mc="Standard.ActivityFinalNode" uid="dac91f0e-6696-4c88-a9ea-2cb4d1b37933"/>
                           </REFOBJ>
                         </LINK>
                       </DEPENDENCIES>
@@ -307,7 +247,7 @@
                 <DEPENDENCIES>
                   <COMP relation="Outgoing">
                     <OBJECT>
-                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="a7f1d5e1-55b1-4921-86ca-1651eaa9c7db"/>
+                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="2b255f10-a510-4d92-b9fb-cd8dbcf9299e"/>
                       <ATTRIBUTES>
                         <ATT name="Guard"></ATT>
                         <ATT name="Weight"><![CDATA[1]]></ATT>
@@ -317,7 +257,7 @@
                       <DEPENDENCIES>
                         <LINK relation="Target">
                           <REFOBJ>
-                            <ID name="Mostrar opciones de apuesta" mc="Standard.OpaqueAction" uid="73e42f2e-5e98-409b-9e6c-0208a04725a0"/>
+                            <ID name="Elegir apuesta" mc="Standard.OpaqueAction" uid="188fe4f1-4d62-4c9b-9f31-cf9b5fb1d861"/>
                           </REFOBJ>
                         </LINK>
                       </DEPENDENCIES>
@@ -326,18 +266,18 @@
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="Mostrar dialogo de apuesta compleja" mc="Standard.OpaqueAction" uid="b9500a48-87b9-4e9c-b901-4879183193c9"/>
+                <ID name="Actualizar datos del jugador" mc="Standard.OpaqueAction" uid="7d3b885b-0dbb-4f22-911b-b30527b98968"/>
                 <ATTRIBUTES>
                   <ATT name="Body"></ATT>
                   <ATT name="IsMultipleInstance">false</ATT>
                   <ATT name="IsCompensation">false</ATT>
-                  <ATT name="Name"><![CDATA[Mostrar dialogo de apuesta compleja]]></ATT>
+                  <ATT name="Name"><![CDATA[Actualizar datos del jugador]]></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <COMP relation="Outgoing">
                     <OBJECT>
-                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="ec47c42e-4001-4465-a7cb-cb5583c600cd"/>
+                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="136b842e-69a1-406c-a403-4bb131448993"/>
                       <ATTRIBUTES>
                         <ATT name="Guard"></ATT>
                         <ATT name="Weight"><![CDATA[1]]></ATT>
@@ -347,7 +287,7 @@
                       <DEPENDENCIES>
                         <LINK relation="Target">
                           <REFOBJ>
-                            <ID name="Elegir apuesta compleja" mc="Standard.OpaqueAction" uid="fa83ea1b-dbab-473a-9cda-eaf29baa9347"/>
+                            <ID name="Mostrar resultado de la tirada" mc="Standard.OpaqueAction" uid="d08f42a2-0bb6-4b7f-9787-eb288075e12b"/>
                           </REFOBJ>
                         </LINK>
                       </DEPENDENCIES>
@@ -356,18 +296,48 @@
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="Actualizar datos del usuario" mc="Standard.OpaqueAction" uid="7d3b885b-0dbb-4f22-911b-b30527b98968"/>
+                <ID name="Actualizar juegos del jugador" mc="Standard.OpaqueAction" uid="47ffc1bd-2f16-4cff-bd83-884cefe99efa"/>
                 <ATTRIBUTES>
                   <ATT name="Body"></ATT>
                   <ATT name="IsMultipleInstance">false</ATT>
                   <ATT name="IsCompensation">false</ATT>
-                  <ATT name="Name"><![CDATA[Actualizar datos del usuario]]></ATT>
+                  <ATT name="Name"><![CDATA[Actualizar juegos del jugador]]></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <COMP relation="Outgoing">
                     <OBJECT>
-                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="21a988e9-541e-46eb-95d9-a4376846d441"/>
+                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="f11841fa-210b-4a01-98b8-d52360f1a86b"/>
+                      <ATTRIBUTES>
+                        <ATT name="Guard"></ATT>
+                        <ATT name="Weight"><![CDATA[1]]></ATT>
+                        <ATT name="Name"><![CDATA[ControlFlow]]></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <LINK relation="Target">
+                          <REFOBJ>
+                            <ID name="Volver al menú de juegos" mc="Standard.OpaqueAction" uid="62a6dc90-dd33-44fe-adc7-fec2e3fa0391"/>
+                          </REFOBJ>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="Volver al menú de juegos" mc="Standard.OpaqueAction" uid="62a6dc90-dd33-44fe-adc7-fec2e3fa0391"/>
+                <ATTRIBUTES>
+                  <ATT name="Body"></ATT>
+                  <ATT name="IsMultipleInstance">false</ATT>
+                  <ATT name="IsCompensation">false</ATT>
+                  <ATT name="Name"><![CDATA[Volver al menú de juegos]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <COMP relation="Outgoing">
+                    <OBJECT>
+                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="7bb22ba6-c67a-4465-bae3-9a9884481d78"/>
                       <ATTRIBUTES>
                         <ATT name="Guard"></ATT>
                         <ATT name="Weight"><![CDATA[1]]></ATT>

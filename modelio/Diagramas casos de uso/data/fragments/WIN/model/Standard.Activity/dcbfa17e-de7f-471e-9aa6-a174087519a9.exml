@@ -13,11 +13,11 @@
     <DEPENDENCIES>
       <COMP relation="OwnedGroup">
         <OBJECT>
-          <ID name="Usuario" mc="Standard.ActivityPartition" uid="6451d10b-2186-42a9-9bfb-64586e4d6a5d"/>
+          <ID name="Jugador" mc="Standard.ActivityPartition" uid="6451d10b-2186-42a9-9bfb-64586e4d6a5d"/>
           <ATTRIBUTES>
             <ATT name="IsDimension">false</ATT>
             <ATT name="IsExternal">false</ATT>
-            <ATT name="Name"><![CDATA[Usuario]]></ATT>
+            <ATT name="Name"><![CDATA[Jugador]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
@@ -63,22 +63,6 @@
                 <DEPENDENCIES>
                   <COMP relation="Outgoing">
                     <OBJECT>
-                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="cc12d924-b0fa-4cbf-b5db-dc0b8f3d71ce"/>
-                      <ATTRIBUTES>
-                        <ATT name="Guard"></ATT>
-                        <ATT name="Weight"><![CDATA[1]]></ATT>
-                        <ATT name="Name"><![CDATA[ControlFlow]]></ATT>
-                        <ATT name="status">1970354901745664</ATT>
-                      </ATTRIBUTES>
-                      <DEPENDENCIES>
-                        <LINK relation="Target">
-                          <REFOBJ>
-                            <ID name="Dar carta al jugador" mc="Standard.OpaqueAction" uid="d17caad8-a49c-4df1-9749-4d8ca81de7cf"/>
-                          </REFOBJ>
-                        </LINK>
-                      </DEPENDENCIES>
-                    </OBJECT>
-                    <OBJECT>
                       <ID name="ControlFlow" mc="Standard.ControlFlow" uid="c2fece06-5023-43aa-9114-611c981df421"/>
                       <ATTRIBUTES>
                         <ATT name="Guard"></ATT>
@@ -89,7 +73,39 @@
                       <DEPENDENCIES>
                         <LINK relation="Target">
                           <REFOBJ>
-                            <ID name="Completar jugada del croupier" mc="Standard.OpaqueAction" uid="4b7ecd3b-0157-4c11-b540-812edf9ce032"/>
+                            <ID name="Completar jugada de la banca" mc="Standard.OpaqueAction" uid="4b7ecd3b-0157-4c11-b540-812edf9ce032"/>
+                          </REFOBJ>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                    <OBJECT>
+                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="ed7bfba7-63fe-4657-bae8-24b1d4ed15bd"/>
+                      <ATTRIBUTES>
+                        <ATT name="Guard"></ATT>
+                        <ATT name="Weight"><![CDATA[1]]></ATT>
+                        <ATT name="Name"><![CDATA[ControlFlow]]></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <LINK relation="Target">
+                          <REFOBJ>
+                            <ID name="Decidir si pedir carta o plantarse" mc="Standard.OpaqueAction" uid="4b866f23-87af-4ced-9f2c-f42a9cc7bb5a"/>
+                          </REFOBJ>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                    <OBJECT>
+                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="6e7d64b4-9145-426c-a77e-37fb5dc597c3"/>
+                      <ATTRIBUTES>
+                        <ATT name="Guard"></ATT>
+                        <ATT name="Weight"><![CDATA[1]]></ATT>
+                        <ATT name="Name"><![CDATA[ControlFlow]]></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <LINK relation="Target">
+                          <REFOBJ>
+                            <ID name="Actualizar juegos del jugador" mc="Standard.OpaqueAction" uid="3e8964b7-bcb4-417c-a370-318559a98bf8"/>
                           </REFOBJ>
                         </LINK>
                       </DEPENDENCIES>
@@ -168,12 +184,12 @@
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="Completar jugada del croupier" mc="Standard.OpaqueAction" uid="4b7ecd3b-0157-4c11-b540-812edf9ce032"/>
+                <ID name="Completar jugada de la banca" mc="Standard.OpaqueAction" uid="4b7ecd3b-0157-4c11-b540-812edf9ce032"/>
                 <ATTRIBUTES>
                   <ATT name="Body"></ATT>
                   <ATT name="IsMultipleInstance">false</ATT>
                   <ATT name="IsCompensation">false</ATT>
-                  <ATT name="Name"><![CDATA[Completar jugada del croupier]]></ATT>
+                  <ATT name="Name"><![CDATA[Completar jugada de la banca]]></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
                 <DEPENDENCIES>
@@ -198,12 +214,12 @@
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="Actualizar datos del usuario" mc="Standard.OpaqueAction" uid="4de3ff00-ad7f-4758-b9d8-b52b381207e7"/>
+                <ID name="Actualizar datos del jugador" mc="Standard.OpaqueAction" uid="4de3ff00-ad7f-4758-b9d8-b52b381207e7"/>
                 <ATTRIBUTES>
                   <ATT name="Body"></ATT>
                   <ATT name="IsMultipleInstance">false</ATT>
                   <ATT name="IsCompensation">false</ATT>
-                  <ATT name="Name"><![CDATA[Actualizar datos del usuario]]></ATT>
+                  <ATT name="Name"><![CDATA[Actualizar datos del jugador]]></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
                 <DEPENDENCIES>
@@ -219,7 +235,7 @@
                       <DEPENDENCIES>
                         <LINK relation="Target">
                           <REFOBJ>
-                            <ID name="Mostrar resultado de la partida por pantalla" mc="Standard.OpaqueAction" uid="7972d49e-cdc6-4cf0-bea6-4e7f836ed246"/>
+                            <ID name="Mostrar resultado de la partida" mc="Standard.OpaqueAction" uid="7972d49e-cdc6-4cf0-bea6-4e7f836ed246"/>
                           </REFOBJ>
                         </LINK>
                       </DEPENDENCIES>
@@ -249,7 +265,7 @@
                       <DEPENDENCIES>
                         <LINK relation="Target">
                           <REFOBJ>
-                            <ID name="Actualizar datos del usuario" mc="Standard.OpaqueAction" uid="4de3ff00-ad7f-4758-b9d8-b52b381207e7"/>
+                            <ID name="Actualizar datos del jugador" mc="Standard.OpaqueAction" uid="4de3ff00-ad7f-4758-b9d8-b52b381207e7"/>
                           </REFOBJ>
                         </LINK>
                       </DEPENDENCIES>
@@ -258,12 +274,12 @@
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="Mostrar resultado de la partida por pantalla" mc="Standard.OpaqueAction" uid="7972d49e-cdc6-4cf0-bea6-4e7f836ed246"/>
+                <ID name="Mostrar resultado de la partida" mc="Standard.OpaqueAction" uid="7972d49e-cdc6-4cf0-bea6-4e7f836ed246"/>
                 <ATTRIBUTES>
                   <ATT name="Body"></ATT>
                   <ATT name="IsMultipleInstance">false</ATT>
                   <ATT name="IsCompensation">false</ATT>
-                  <ATT name="Name"><![CDATA[Mostrar resultado de la partida por pantalla]]></ATT>
+                  <ATT name="Name"><![CDATA[Mostrar resultado de la partida]]></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
                 <DEPENDENCIES>
@@ -326,18 +342,18 @@
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="Dar carta al jugador" mc="Standard.OpaqueAction" uid="d17caad8-a49c-4df1-9749-4d8ca81de7cf"/>
+                <ID name="Actualizar juegos del jugador" mc="Standard.OpaqueAction" uid="3e8964b7-bcb4-417c-a370-318559a98bf8"/>
                 <ATTRIBUTES>
                   <ATT name="Body"></ATT>
                   <ATT name="IsMultipleInstance">false</ATT>
                   <ATT name="IsCompensation">false</ATT>
-                  <ATT name="Name"><![CDATA[Dar carta al jugador]]></ATT>
+                  <ATT name="Name"><![CDATA[Actualizar juegos del jugador]]></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <COMP relation="Outgoing">
                     <OBJECT>
-                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="46e2b870-6266-4efc-9e70-c15307c40b09"/>
+                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="9ee31ae1-e456-4e5c-b0c2-22d68de4eacd"/>
                       <ATTRIBUTES>
                         <ATT name="Guard"></ATT>
                         <ATT name="Weight"><![CDATA[1]]></ATT>
@@ -347,7 +363,7 @@
                       <DEPENDENCIES>
                         <LINK relation="Target">
                           <REFOBJ>
-                            <ID name="Pierde" mc="Standard.DecisionMergeNode" uid="3db1cf16-7fa0-43b0-9416-dfaee4babaa9"/>
+                            <ID name="Volver al menú de juegos" mc="Standard.OpaqueAction" uid="fde35d7a-1e6a-40d7-b893-5eb0d451215b"/>
                           </REFOBJ>
                         </LINK>
                       </DEPENDENCIES>
@@ -356,17 +372,18 @@
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="Pierde" mc="Standard.DecisionMergeNode" uid="3db1cf16-7fa0-43b0-9416-dfaee4babaa9"/>
+                <ID name="Volver al menú de juegos" mc="Standard.OpaqueAction" uid="fde35d7a-1e6a-40d7-b893-5eb0d451215b"/>
                 <ATTRIBUTES>
-                  <ATT name="DecisionKind">ExclusiveDecision</ATT>
-                  <ATT name="DecisionInputBehavior"></ATT>
-                  <ATT name="Name"><![CDATA[Pierde]]></ATT>
+                  <ATT name="Body"></ATT>
+                  <ATT name="IsMultipleInstance">false</ATT>
+                  <ATT name="IsCompensation">false</ATT>
+                  <ATT name="Name"><![CDATA[Volver al menú de juegos]]></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <COMP relation="Outgoing">
                     <OBJECT>
-                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="35f82cab-b265-4751-8ef5-dc7cbf89b663"/>
+                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="7cf3ffbd-c52e-4b22-b8c4-6cc192175c77"/>
                       <ATTRIBUTES>
                         <ATT name="Guard"></ATT>
                         <ATT name="Weight"><![CDATA[1]]></ATT>
@@ -376,23 +393,7 @@
                       <DEPENDENCIES>
                         <LINK relation="Target">
                           <REFOBJ>
-                            <ID name="Decidir si pedir carta o plantarse" mc="Standard.OpaqueAction" uid="4b866f23-87af-4ced-9f2c-f42a9cc7bb5a"/>
-                          </REFOBJ>
-                        </LINK>
-                      </DEPENDENCIES>
-                    </OBJECT>
-                    <OBJECT>
-                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="b7af00cc-c363-4e29-9dd2-bd9d9af89e06"/>
-                      <ATTRIBUTES>
-                        <ATT name="Guard"></ATT>
-                        <ATT name="Weight"><![CDATA[1]]></ATT>
-                        <ATT name="Name"><![CDATA[ControlFlow]]></ATT>
-                        <ATT name="status">1970354901745664</ATT>
-                      </ATTRIBUTES>
-                      <DEPENDENCIES>
-                        <LINK relation="Target">
-                          <REFOBJ>
-                            <ID name="Calcular resultado de la partida" mc="Standard.OpaqueAction" uid="1ac7b9a9-04e5-475c-a58d-32ae22bfacd5"/>
+                            <ID name="Activity Final Node" mc="Standard.ActivityFinalNode" uid="f0e09584-b435-4a2f-94ea-e993636d750a"/>
                           </REFOBJ>
                         </LINK>
                       </DEPENDENCIES>
