@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="packagesManager" version="4">
+  <OBJECT>
+    <ID name="packagesManager" mc="Standard.Package" uid="5e151309-6269-4bd0-8a05-b0f7438fefa9"/>
+    <PID name="staff" mc="Standard.Package" uid="5e2ec3c2-c1de-42e5-bb54-b3b6bb89e15c"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[packagesManager]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="PackageManagerView" mc="Standard.Class" uid="ed0ec7a0-3bac-42f8-b562-6dd30396172b"/>
+        <COMPID name="GamePackageEditor" mc="Standard.Class" uid="e2fc08a2-e035-436f-a49f-b5277044e013"/>
+      </COMP>
+      <LINK relation="Extension">
+        <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
+      </LINK>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

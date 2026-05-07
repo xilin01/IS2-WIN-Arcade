@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Connection" version="4">
+  <OBJECT>
+    <ID name="Connection" mc="Standard.DataType" uid="82173f77-dc0d-4b81-9cd2-139ac43f94a7"/>
+    <PID name="integration" mc="Standard.Package" uid="37cba3ea-5f27-4553-9afe-0d1cec6a9040"/>
+    <ATTRIBUTES>
+      <ATT name="IsElementary">true</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Connection]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <LINK relation="Extension">
+        <FOREIGNID name="JavaDataType" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-025d-0000-000000000000"/>
+      </LINK>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

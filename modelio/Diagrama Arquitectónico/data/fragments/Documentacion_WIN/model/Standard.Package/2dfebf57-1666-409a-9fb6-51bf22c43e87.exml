@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="presentation" version="4">
+  <OBJECT>
+    <ID name="presentation" mc="Standard.Package" uid="2dfebf57-1666-409a-9fb6-51bf22c43e87"/>
+    <PID name="documentacion_win" mc="Standard.Package" uid="77731fdf-c185-4b79-a08e-a90171b5944c"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[presentation]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="user" mc="Standard.Package" uid="71031525-4e16-4dbf-88b6-7429b03fbd8d"/>
+        <COMPID name="games" mc="Standard.Package" uid="916a385a-a711-4916-bfb7-dfb00dde48be"/>
+        <COMPID name="Controller" mc="Standard.Class" uid="01eeae7e-14cd-44d3-b447-c086b9ad7c03"/>
+        <COMPID name="Event" mc="Standard.Class" uid="d1a35de6-8e9b-4dfe-bfaa-102cafe7179b"/>
+        <COMPID name="ViewUpdater" mc="Standard.Interface" uid="485d79d0-241e-4a93-bf76-57e50e0d5904"/>
+        <COMPID name="staff" mc="Standard.Package" uid="5e2ec3c2-c1de-42e5-bb54-b3b6bb89e15c"/>
+        <COMPID name="player" mc="Standard.Package" uid="2dfee1a1-0aff-4a2e-b127-2b90dea57d44"/>
+        <COMPID name="GUIFactory" mc="Standard.Class" uid="33903f89-01d2-46ae-9058-f05b33ce80b6"/>
+      </COMP>
+      <LINK relation="Extension">
+        <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
+      </LINK>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>
