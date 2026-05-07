@@ -74,9 +74,7 @@ public class UserEditor {
             if(!name.isEmpty() && !password.isEmpty()) {
                 if(player == null) Controller.getInstance().action(Event.CREATE_PLAYER, new tPlayer(name, password, isActive, new tPlayer.tInventory(name), 0));
                 else {
-                    player.setPassword(password);
-                    player.setActive(isActive);
-                    Controller.getInstance().action(Event.UPDATE_PLAYER, player);
+                    Controller.getInstance().action(Event.UPDATE_PLAYER, new tPlayer(player.getName(), password, isActive, player.getInventory(), player.getPoints()));
                 }
                 return true;
             }
