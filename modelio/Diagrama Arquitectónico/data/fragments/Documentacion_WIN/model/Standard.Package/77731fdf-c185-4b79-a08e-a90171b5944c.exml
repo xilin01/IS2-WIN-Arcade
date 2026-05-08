@@ -17,7 +17,6 @@
         <COMPID name="presentation" mc="Standard.Package" uid="2dfebf57-1666-409a-9fb6-51bf22c43e87"/>
         <COMPID name="integration" mc="Standard.Package" uid="37cba3ea-5f27-4553-9afe-0d1cec6a9040"/>
         <COMPID name="business" mc="Standard.Package" uid="69244712-8491-445f-bb71-840aacd0e2e2"/>
-        <COMPID name="mainLauncher" mc="Standard.Package" uid="10099169-f6d6-4480-8deb-03906eaee9ae"/>
       </COMP>
       <LINK relation="Extension">
         <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
