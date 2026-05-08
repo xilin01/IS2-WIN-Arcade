@@ -36,7 +36,7 @@ public class PlayerManagerView extends JFrame {
         JPanel header = theme.header("Gestión de jugadores");
         JPanel headerRight = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
         headerRight.setBackground(theme.BG_CARD);
-        headerRight.add(theme.primaryBtn("Crear usuario", () -> {
+        headerRight.add(theme.primaryBtn("Crear jugador", () -> {
             UserEditor.show(this, null);
             updateList();
         }));
@@ -90,12 +90,12 @@ public class PlayerManagerView extends JFrame {
             updateList();
         }));
         JButton toggleButton = user.getActive() ? theme.dangerBtn("Desactivar", () -> {
-                if(theme.confirm(this, "Desactivar al usuario " + user.getName())) {
+                if(theme.confirm(this, "Desactivar al jugador " + user.getName())) {
                     Controller.getInstance().action(Event.DELETE_PLAYER, user.getName());
                     updateList();
                 }
               }) : theme.successBtn("Activar", () -> {
-                if(theme.confirm(this, "Activar al usuario " + user.getName())) {
+                if(theme.confirm(this, "Activar al jugador " + user.getName())) {
                     user.setActive(true);
                     Controller.getInstance().action(Event.UPDATE_PLAYER, user);
                     updateList();

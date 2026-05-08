@@ -30,10 +30,12 @@
         <COMPID name="Cerrar sesión" mc="Standard.UseCase" uid="7929013d-8058-40f8-8ea8-e53a9cc0124a"/>
         <COMPID name="Base de datos" mc="Standard.Actor" uid="ec8c55b9-9f8d-4e9f-9950-de207ca4c852"/>
         <COMPID name="Jugador" mc="Standard.Actor" uid="8a4677d3-f1b2-46d6-bf87-2d2ffa6296ed"/>
-        <COMPID name="Editar jugadores" mc="Standard.UseCase" uid="86906182-8457-4a51-a074-6106c9f6e188"/>
-        <COMPID name="Crear jugadores" mc="Standard.UseCase" uid="9b856ffb-dbb7-4ac2-949c-d3cb8a95fec2"/>
-        <COMPID name="Activar/Desactivar jugadores" mc="Standard.UseCase" uid="f76f2730-b078-4725-a3ef-55dc09421040"/>
-        <COMPID name="Ver jugadores" mc="Standard.UseCase" uid="aaa082f3-f6c4-4442-aa89-e435dbbbb552"/>
+        <COMPID name="Modificar jugador" mc="Standard.UseCase" uid="86906182-8457-4a51-a074-6106c9f6e188"/>
+        <COMPID name="Crear nuevo jugador" mc="Standard.UseCase" uid="9b856ffb-dbb7-4ac2-949c-d3cb8a95fec2"/>
+        <COMPID name="Activar/ desactivar jugador" mc="Standard.UseCase" uid="f76f2730-b078-4725-a3ef-55dc09421040"/>
+        <COMPID name="Consultar jugadores existentes" mc="Standard.UseCase" uid="aaa082f3-f6c4-4442-aa89-e435dbbbb552"/>
+        <COMPID name="Consultar inventario" mc="Standard.UseCase" uid="cf3c4805-f0de-4117-9deb-66cb4dba6c40"/>
+        <COMPID name="Consultar tienda" mc="Standard.UseCase" uid="859da621-7c67-4ade-b935-c0d5b6e9175c"/>
       </COMP>
       <COMP relation="Product">
         <COMPID name="Diagrama de casos de uso" mc="Standard.UseCaseDiagram" uid="da0582e4-4d24-4fde-ae32-215216b37602"/>
