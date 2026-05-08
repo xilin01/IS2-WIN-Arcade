@@ -34,7 +34,36 @@
                 <DEPENDENCIES>
                   <COMP relation="Outgoing">
                     <OBJECT>
-                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="70447822-024c-4596-afcf-57e15a0e2e7a"/>
+                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="eb106b75-017e-465e-91b2-dd01ee08d86d"/>
+                      <ATTRIBUTES>
+                        <ATT name="Guard"></ATT>
+                        <ATT name="Weight"><![CDATA[1]]></ATT>
+                        <ATT name="Name"><![CDATA[ControlFlow]]></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <LINK relation="Target">
+                          <REFOBJ>
+                            <ID name="Decision-Merge" mc="Standard.DecisionMergeNode" uid="e844a087-f95e-44f7-acdf-6dd2a24715b8"/>
+                          </REFOBJ>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="Decision-Merge" mc="Standard.DecisionMergeNode" uid="e844a087-f95e-44f7-acdf-6dd2a24715b8"/>
+                <ATTRIBUTES>
+                  <ATT name="DecisionKind">ExclusiveDecision</ATT>
+                  <ATT name="DecisionInputBehavior"></ATT>
+                  <ATT name="Name"><![CDATA[Decision-Merge]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <COMP relation="Outgoing">
+                    <OBJECT>
+                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="333aae3b-aa02-430a-9c58-540255533bc1"/>
                       <ATTRIBUTES>
                         <ATT name="Guard"></ATT>
                         <ATT name="Weight"><![CDATA[1]]></ATT>
@@ -45,6 +74,22 @@
                         <LINK relation="Target">
                           <REFOBJ>
                             <ID name="Verificar las credenciales" mc="Standard.OpaqueAction" uid="2675b410-3821-4b80-89ce-acdac519c9e2"/>
+                          </REFOBJ>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                    <OBJECT>
+                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="246647ce-fe1e-4cfd-83d3-ad412f6dbc9a"/>
+                      <ATTRIBUTES>
+                        <ATT name="Guard"></ATT>
+                        <ATT name="Weight"><![CDATA[1]]></ATT>
+                        <ATT name="Name"><![CDATA[ControlFlow]]></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <LINK relation="Target">
+                          <REFOBJ>
+                            <ID name="Mostrar mensaje de error" mc="Standard.OpaqueAction" uid="54755f39-4109-471c-bcb5-1e912b718af9"/>
                           </REFOBJ>
                         </LINK>
                       </DEPENDENCIES>
@@ -134,7 +179,7 @@
                 <DEPENDENCIES>
                   <COMP relation="Outgoing">
                     <OBJECT>
-                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="acf096bd-b5cc-4408-bc53-cf48e2b2616d"/>
+                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="7808204e-a1c7-46c7-8d7b-1b648e5ae1b3"/>
                       <ATTRIBUTES>
                         <ATT name="Guard"></ATT>
                         <ATT name="Weight"><![CDATA[1]]></ATT>
@@ -144,7 +189,7 @@
                       <DEPENDENCIES>
                         <LINK relation="Target">
                           <REFOBJ>
-                            <ID name="Decision-Merge" mc="Standard.DecisionMergeNode" uid="e844a087-f95e-44f7-acdf-6dd2a24715b8"/>
+                            <ID name="Iniciar sesión del usuario" mc="Standard.OpaqueAction" uid="37f6b533-c4b5-4af4-8cc5-4ce2cbb9b014"/>
                           </REFOBJ>
                         </LINK>
                       </DEPENDENCIES>
@@ -174,7 +219,7 @@
                       <DEPENDENCIES>
                         <LINK relation="Target">
                           <REFOBJ>
-                            <ID name="Mostrar menú principal con la vista de sesión iniciada" mc="Standard.OpaqueAction" uid="317d7d73-ed99-4d4d-8398-00b6e5bab008"/>
+                            <ID name="Mostrar menú principal con sesión iniciada" mc="Standard.OpaqueAction" uid="317d7d73-ed99-4d4d-8398-00b6e5bab008"/>
                           </REFOBJ>
                         </LINK>
                       </DEPENDENCIES>
@@ -183,12 +228,12 @@
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="Mostrar menú principal con la vista de sesión iniciada" mc="Standard.OpaqueAction" uid="317d7d73-ed99-4d4d-8398-00b6e5bab008"/>
+                <ID name="Mostrar menú principal con sesión iniciada" mc="Standard.OpaqueAction" uid="317d7d73-ed99-4d4d-8398-00b6e5bab008"/>
                 <ATTRIBUTES>
                   <ATT name="Body"></ATT>
                   <ATT name="IsMultipleInstance">false</ATT>
                   <ATT name="IsCompensation">false</ATT>
-                  <ATT name="Name"><![CDATA[Mostrar menú principal con la vista de sesión iniciada]]></ATT>
+                  <ATT name="Name"><![CDATA[Mostrar menú principal con sesión iniciada]]></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
                 <DEPENDENCIES>
@@ -221,51 +266,6 @@
                 <DEPENDENCIES></DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="Decision-Merge" mc="Standard.DecisionMergeNode" uid="e844a087-f95e-44f7-acdf-6dd2a24715b8"/>
-                <ATTRIBUTES>
-                  <ATT name="DecisionKind">ExclusiveDecision</ATT>
-                  <ATT name="DecisionInputBehavior"></ATT>
-                  <ATT name="Name"><![CDATA[Decision-Merge]]></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <COMP relation="Outgoing">
-                    <OBJECT>
-                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="41892980-2e31-45f0-b498-81a31afe366d"/>
-                      <ATTRIBUTES>
-                        <ATT name="Guard"></ATT>
-                        <ATT name="Weight"><![CDATA[1]]></ATT>
-                        <ATT name="Name"><![CDATA[ControlFlow]]></ATT>
-                        <ATT name="status">1970354901745664</ATT>
-                      </ATTRIBUTES>
-                      <DEPENDENCIES>
-                        <LINK relation="Target">
-                          <REFOBJ>
-                            <ID name="Mostrar mensaje de error" mc="Standard.OpaqueAction" uid="54755f39-4109-471c-bcb5-1e912b718af9"/>
-                          </REFOBJ>
-                        </LINK>
-                      </DEPENDENCIES>
-                    </OBJECT>
-                    <OBJECT>
-                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="942c5dc1-2adb-4675-8d7f-0f06524ccb3d"/>
-                      <ATTRIBUTES>
-                        <ATT name="Guard"></ATT>
-                        <ATT name="Weight"><![CDATA[1]]></ATT>
-                        <ATT name="Name"><![CDATA[ControlFlow]]></ATT>
-                        <ATT name="status">1970354901745664</ATT>
-                      </ATTRIBUTES>
-                      <DEPENDENCIES>
-                        <LINK relation="Target">
-                          <REFOBJ>
-                            <ID name="Iniciar sesión del usuario" mc="Standard.OpaqueAction" uid="37f6b533-c4b5-4af4-8cc5-4ce2cbb9b014"/>
-                          </REFOBJ>
-                        </LINK>
-                      </DEPENDENCIES>
-                    </OBJECT>
-                  </COMP>
-                </DEPENDENCIES>
-              </OBJECT>
-              <OBJECT>
                 <ID name="Mostrar mensaje de error" mc="Standard.OpaqueAction" uid="54755f39-4109-471c-bcb5-1e912b718af9"/>
                 <ATTRIBUTES>
                   <ATT name="Body"></ATT>
@@ -277,7 +277,7 @@
                 <DEPENDENCIES>
                   <COMP relation="Outgoing">
                     <OBJECT>
-                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="2730b86b-ed93-4ae7-8bac-e4218b2e4df3"/>
+                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="45ec7855-62a4-46ef-a09f-22a7754659e3"/>
                       <ATTRIBUTES>
                         <ATT name="Guard"></ATT>
                         <ATT name="Weight"><![CDATA[1]]></ATT>
@@ -287,7 +287,7 @@
                       <DEPENDENCIES>
                         <LINK relation="Target">
                           <REFOBJ>
-                            <ID name="Mostrar formulario de inicio de sesión" mc="Standard.OpaqueAction" uid="11c3a9d7-4556-46ef-88a3-8fffe378bb95"/>
+                            <ID name="Introducir credenciales" mc="Standard.OpaqueAction" uid="60618421-4a08-4db5-89f2-3f0605fcdde8"/>
                           </REFOBJ>
                         </LINK>
                       </DEPENDENCIES>
