@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="game" version="4">
+  <OBJECT>
+    <ID name="game" mc="Standard.Package" uid="596a0927-1e34-43a9-aa6a-f1df01acce53"/>
+    <PID name="integration" mc="Standard.Package" uid="37cba3ea-5f27-4553-9afe-0d1cec6a9040"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[game]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="DAOGameImp" mc="Standard.Class" uid="e8963b50-1bfd-4ed8-888b-7f17f5b7382a"/>
+        <COMPID name="DAOGame" mc="Standard.Interface" uid="6ffadf2a-5aed-4722-bd51-c9c57eacb49b"/>
+      </COMP>
+      <LINK relation="Extension">
+        <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
+      </LINK>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

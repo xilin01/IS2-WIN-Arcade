@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="games" version="4">
+  <OBJECT>
+    <ID name="games" mc="Standard.Package" uid="916a385a-a711-4916-bfb7-dfb00dde48be"/>
+    <PID name="presentation" mc="Standard.Package" uid="2dfebf57-1666-409a-9fb6-51bf22c43e87"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[games]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="GamesPanelVIew" mc="Standard.Class" uid="186fdb93-1825-4edd-bb34-485321ac2d29"/>
+        <COMPID name="BlackjackGUIImp" mc="Standard.Class" uid="5882ca15-f5bc-4fb7-a9f3-3be3a9196699"/>
+        <COMPID name="RouletteGUIImp" mc="Standard.Class" uid="ab64d9b9-9d42-42a8-b500-5edd37941cd0"/>
+        <COMPID name="Graphics" mc="Standard.DataType" uid="3b4650f1-abf5-4be5-9495-b1be62052993"/>
+        <COMPID name="RouletteGUI" mc="Standard.Interface" uid="b53062f3-e50f-452c-bb30-540996437bd7"/>
+        <COMPID name="BlackjackGUI" mc="Standard.Interface" uid="efe745dc-593c-4f67-baee-933488b54915"/>
+      </COMP>
+      <LINK relation="Extension">
+        <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
+      </LINK>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

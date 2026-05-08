@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="documentacion_win" version="4">
+  <OBJECT>
+    <ID name="documentacion_win" mc="Standard.Package" uid="77731fdf-c185-4b79-a08e-a90171b5944c"/>
+    <PID name="Documentacion_WIN" mc="Standard.Project" uid="f63fd997-23fe-4545-8487-92e3245ce62a"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[documentacion_win]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="presentation" mc="Standard.Package" uid="2dfebf57-1666-409a-9fb6-51bf22c43e87"/>
+        <COMPID name="integration" mc="Standard.Package" uid="37cba3ea-5f27-4553-9afe-0d1cec6a9040"/>
+        <COMPID name="business" mc="Standard.Package" uid="69244712-8491-445f-bb71-840aacd0e2e2"/>
+      </COMP>
+      <LINK relation="Extension">
+        <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
+      </LINK>
+      <COMP relation="Product">
+        <COMPID name="class_diagram_MVC" mc="Standard.ClassDiagram" uid="1c9635a9-d6d6-4caf-a8a7-c435a9903a58"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>
