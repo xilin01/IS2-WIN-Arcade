@@ -15,9 +15,8 @@
     <DEPENDENCIES>
       <COMP relation="OwnedBehavior">
         <COMPID name="Añadir nuevo paquete de juegos" mc="Standard.Activity" uid="b361bf84-e82f-4266-a59a-829c1f1a93be"/>
-        <COMPID name="Modificar paquete de juegos existente" mc="Standard.Activity" uid="89b9472b-22d4-42b6-a507-2db4fe35d180"/>
+        <COMPID name="Modificar paquete de juegos" mc="Standard.Activity" uid="89b9472b-22d4-42b6-a507-2db4fe35d180"/>
         <COMPID name="Eliminar paquete de juegos existente" mc="Standard.Activity" uid="620fc512-3cb8-4fba-8bff-dc4d1f9bf7c8"/>
-        <COMPID name="Comprar paquete de juegos" mc="Standard.Activity" uid="e04ddbc6-5ed8-4619-b500-37eeff553e6e"/>
       </COMP>
       <COMP relation="OwnedElement">
         <COMPID name="Comprar paquete de juegos" mc="Standard.UseCase" uid="31824e09-049d-4d62-8cfb-0bfaf567470f"/>

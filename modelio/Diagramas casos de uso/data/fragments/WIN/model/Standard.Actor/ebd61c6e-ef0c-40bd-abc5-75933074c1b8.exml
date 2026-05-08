@@ -152,7 +152,7 @@
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="Generalization" mc="Standard.Generalization" uid="a89e37b8-d8bf-49f3-9b83-d7b6e1e9f1bb"/>
+          <ID name="Generalization" mc="Standard.Generalization" uid="bc219554-f5e0-4c2b-ae62-4953e033a010"/>
           <ATTRIBUTES>
             <ATT name="Discriminator"></ATT>
             <ATT name="Name"><![CDATA[Generalization]]></ATT>

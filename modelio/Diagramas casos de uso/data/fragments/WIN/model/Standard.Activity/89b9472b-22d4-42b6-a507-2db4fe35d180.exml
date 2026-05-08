@@ -1,13 +1,13 @@
 <?xml version="1.0" ?>
-<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Modificar paquete de juegos existente" version="4">
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Modificar paquete de juegos" version="4">
   <OBJECT>
-    <ID name="Modificar paquete de juegos existente" mc="Standard.Activity" uid="89b9472b-22d4-42b6-a507-2db4fe35d180"/>
+    <ID name="Modificar paquete de juegos" mc="Standard.Activity" uid="89b9472b-22d4-42b6-a507-2db4fe35d180"/>
     <PID name="Subsistema paquete de juegos" mc="Standard.Package" uid="fcb7b229-f616-4af1-8ad1-1840611827f5"/>
     <ATTRIBUTES>
       <ATT name="IsSingleExecution">false</ATT>
       <ATT name="IsReadOnly">false</ATT>
       <ATT name="IsReentrant">false</ATT>
-      <ATT name="Name"><![CDATA[Modificar paquete de juegos existente]]></ATT>
+      <ATT name="Name"><![CDATA[Modificar paquete de juegos]]></ATT>
       <ATT name="status">1970354901745664</ATT>
     </ATTRIBUTES>
     <DEPENDENCIES>
@@ -23,18 +23,18 @@
           <DEPENDENCIES>
             <COMP relation="ContainedNode">
               <OBJECT>
-                <ID name="Cambiar nombre, datos o juegos contenidos" mc="Standard.OpaqueAction" uid="22df9137-b7fb-4d96-8c32-5d1b52574705"/>
+                <ID name="Modificar datos" mc="Standard.OpaqueAction" uid="3773cf6d-4406-4fbe-bb31-bf4071f3e641"/>
                 <ATTRIBUTES>
                   <ATT name="Body"></ATT>
                   <ATT name="IsMultipleInstance">false</ATT>
                   <ATT name="IsCompensation">false</ATT>
-                  <ATT name="Name"><![CDATA[Cambiar nombre, datos o juegos contenidos]]></ATT>
+                  <ATT name="Name"><![CDATA[Modificar datos]]></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <COMP relation="Outgoing">
                     <OBJECT>
-                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="e86cd5b4-d40d-431f-9d21-e61b434386db"/>
+                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="3a6a11e2-7d91-46ba-b4d0-5da3070d3295"/>
                       <ATTRIBUTES>
                         <ATT name="Guard"></ATT>
                         <ATT name="Weight"><![CDATA[1]]></ATT>
@@ -44,37 +44,7 @@
                       <DEPENDENCIES>
                         <LINK relation="Target">
                           <REFOBJ>
-                            <ID name="Guardar cambios del paquete" mc="Standard.OpaqueAction" uid="104c8f5d-adaf-4b52-a05b-92cae46c6340"/>
-                          </REFOBJ>
-                        </LINK>
-                      </DEPENDENCIES>
-                    </OBJECT>
-                  </COMP>
-                </DEPENDENCIES>
-              </OBJECT>
-              <OBJECT>
-                <ID name="Solicitar modificar un paquete" mc="Standard.OpaqueAction" uid="3773cf6d-4406-4fbe-bb31-bf4071f3e641"/>
-                <ATTRIBUTES>
-                  <ATT name="Body"></ATT>
-                  <ATT name="IsMultipleInstance">false</ATT>
-                  <ATT name="IsCompensation">false</ATT>
-                  <ATT name="Name"><![CDATA[Solicitar modificar un paquete]]></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <COMP relation="Outgoing">
-                    <OBJECT>
-                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="6ab94f9a-d99f-4a64-ad78-50e42d300741"/>
-                      <ATTRIBUTES>
-                        <ATT name="Guard"></ATT>
-                        <ATT name="Weight"><![CDATA[1]]></ATT>
-                        <ATT name="Name"><![CDATA[ControlFlow]]></ATT>
-                        <ATT name="status">1970354901745664</ATT>
-                      </ATTRIBUTES>
-                      <DEPENDENCIES>
-                        <LINK relation="Target">
-                          <REFOBJ>
-                            <ID name="Desplegable de datos" mc="Standard.OpaqueAction" uid="1ddf2334-6eba-42cf-a929-203d98a81857"/>
+                            <ID name="Decision-Merge" mc="Standard.DecisionMergeNode" uid="242e1e21-af78-478e-9d04-3f98d69d8b16"/>
                           </REFOBJ>
                         </LINK>
                       </DEPENDENCIES>
@@ -93,7 +63,7 @@
                 <DEPENDENCIES>
                   <COMP relation="Outgoing">
                     <OBJECT>
-                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="15fcaa0f-bd10-473f-9bdb-518dfccf5e30"/>
+                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="016d60de-01d9-4322-870e-1f7aba061568"/>
                       <ATTRIBUTES>
                         <ATT name="Guard"></ATT>
                         <ATT name="Weight"><![CDATA[1]]></ATT>
@@ -109,7 +79,7 @@
                       </DEPENDENCIES>
                     </OBJECT>
                     <OBJECT>
-                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="b86aa803-ae1c-40ef-b2e6-477a806bdf7d"/>
+                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="358bdc79-c850-41f3-b9ca-01fbe8d7f38d"/>
                       <ATTRIBUTES>
                         <ATT name="Guard"></ATT>
                         <ATT name="Weight"><![CDATA[1]]></ATT>
@@ -119,7 +89,23 @@
                       <DEPENDENCIES>
                         <LINK relation="Target">
                           <REFOBJ>
-                            <ID name="Cambiar nombre, datos o juegos contenidos" mc="Standard.OpaqueAction" uid="22df9137-b7fb-4d96-8c32-5d1b52574705"/>
+                            <ID name="Validar datos introducidos" mc="Standard.OpaqueAction" uid="1ddf2334-6eba-42cf-a929-203d98a81857"/>
+                          </REFOBJ>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                    <OBJECT>
+                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="68c385d8-ad91-483c-9892-2f38e603542d"/>
+                      <ATTRIBUTES>
+                        <ATT name="Guard"></ATT>
+                        <ATT name="Weight"><![CDATA[1]]></ATT>
+                        <ATT name="Name"><![CDATA[ControlFlow]]></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <LINK relation="Target">
+                          <REFOBJ>
+                            <ID name="Modificar datos" mc="Standard.OpaqueAction" uid="3773cf6d-4406-4fbe-bb31-bf4071f3e641"/>
                           </REFOBJ>
                         </LINK>
                       </DEPENDENCIES>
@@ -189,7 +175,7 @@
                       <DEPENDENCIES>
                         <LINK relation="Target">
                           <REFOBJ>
-                            <ID name="Mostrar todos los paquetes" mc="Standard.OpaqueAction" uid="1e84af2a-3aae-449a-b2fd-ccf9e849fb80"/>
+                            <ID name="Mostrar datos del paquete" mc="Standard.OpaqueAction" uid="1e84af2a-3aae-449a-b2fd-ccf9e849fb80"/>
                           </REFOBJ>
                         </LINK>
                       </DEPENDENCIES>
@@ -198,12 +184,12 @@
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="Guardar cambios del paquete" mc="Standard.OpaqueAction" uid="104c8f5d-adaf-4b52-a05b-92cae46c6340"/>
+                <ID name="Mostrar todos los paquetes" mc="Standard.OpaqueAction" uid="104c8f5d-adaf-4b52-a05b-92cae46c6340"/>
                 <ATTRIBUTES>
                   <ATT name="Body"></ATT>
                   <ATT name="IsMultipleInstance">false</ATT>
                   <ATT name="IsCompensation">false</ATT>
-                  <ATT name="Name"><![CDATA[Guardar cambios del paquete]]></ATT>
+                  <ATT name="Name"><![CDATA[Mostrar todos los paquetes]]></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
                 <DEPENDENCIES>
@@ -236,12 +222,12 @@
                 <DEPENDENCIES></DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="Mostrar todos los paquetes" mc="Standard.OpaqueAction" uid="1e84af2a-3aae-449a-b2fd-ccf9e849fb80"/>
+                <ID name="Mostrar datos del paquete" mc="Standard.OpaqueAction" uid="1e84af2a-3aae-449a-b2fd-ccf9e849fb80"/>
                 <ATTRIBUTES>
                   <ATT name="Body"></ATT>
                   <ATT name="IsMultipleInstance">false</ATT>
                   <ATT name="IsCompensation">false</ATT>
-                  <ATT name="Name"><![CDATA[Mostrar todos los paquetes]]></ATT>
+                  <ATT name="Name"><![CDATA[Mostrar datos del paquete]]></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
                 <DEPENDENCIES>
@@ -257,7 +243,7 @@
                       <DEPENDENCIES>
                         <LINK relation="Target">
                           <REFOBJ>
-                            <ID name="Solicitar modificar un paquete" mc="Standard.OpaqueAction" uid="3773cf6d-4406-4fbe-bb31-bf4071f3e641"/>
+                            <ID name="Modificar datos" mc="Standard.OpaqueAction" uid="3773cf6d-4406-4fbe-bb31-bf4071f3e641"/>
                           </REFOBJ>
                         </LINK>
                       </DEPENDENCIES>
@@ -266,18 +252,18 @@
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="Desplegable de datos" mc="Standard.OpaqueAction" uid="1ddf2334-6eba-42cf-a929-203d98a81857"/>
+                <ID name="Validar datos introducidos" mc="Standard.OpaqueAction" uid="1ddf2334-6eba-42cf-a929-203d98a81857"/>
                 <ATTRIBUTES>
                   <ATT name="Body"></ATT>
                   <ATT name="IsMultipleInstance">false</ATT>
                   <ATT name="IsCompensation">false</ATT>
-                  <ATT name="Name"><![CDATA[Desplegable de datos]]></ATT>
+                  <ATT name="Name"><![CDATA[Validar datos introducidos]]></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <COMP relation="Outgoing">
                     <OBJECT>
-                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="a1aa66ae-946c-47fb-a3e7-09cf1e486850"/>
+                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="433ef5ec-d130-469d-a0a2-f0452513f3f4"/>
                       <ATTRIBUTES>
                         <ATT name="Guard"></ATT>
                         <ATT name="Weight"><![CDATA[1]]></ATT>
@@ -287,7 +273,37 @@
                       <DEPENDENCIES>
                         <LINK relation="Target">
                           <REFOBJ>
-                            <ID name="Decision-Merge" mc="Standard.DecisionMergeNode" uid="242e1e21-af78-478e-9d04-3f98d69d8b16"/>
+                            <ID name="Actualizar datos del paquete de juegos" mc="Standard.OpaqueAction" uid="22df9137-b7fb-4d96-8c32-5d1b52574705"/>
+                          </REFOBJ>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="Actualizar datos del paquete de juegos" mc="Standard.OpaqueAction" uid="22df9137-b7fb-4d96-8c32-5d1b52574705"/>
+                <ATTRIBUTES>
+                  <ATT name="Body"></ATT>
+                  <ATT name="IsMultipleInstance">false</ATT>
+                  <ATT name="IsCompensation">false</ATT>
+                  <ATT name="Name"><![CDATA[Actualizar datos del paquete de juegos]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <COMP relation="Outgoing">
+                    <OBJECT>
+                      <ID name="ControlFlow" mc="Standard.ControlFlow" uid="7527343a-0668-4da1-81b8-fac105c13462"/>
+                      <ATTRIBUTES>
+                        <ATT name="Guard"></ATT>
+                        <ATT name="Weight"><![CDATA[1]]></ATT>
+                        <ATT name="Name"><![CDATA[ControlFlow]]></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <LINK relation="Target">
+                          <REFOBJ>
+                            <ID name="Mostrar todos los paquetes" mc="Standard.OpaqueAction" uid="104c8f5d-adaf-4b52-a05b-92cae46c6340"/>
                           </REFOBJ>
                         </LINK>
                       </DEPENDENCIES>
@@ -315,7 +331,7 @@
         </OBJECT>
       </COMP>
       <COMP relation="Product">
-        <COMPID name="Diagrama de actividad: Modificar paquete de juegos existente" mc="Standard.ActivityDiagram" uid="b8176aaa-1634-4f81-b9a2-50830289b96c"/>
+        <COMPID name="Diagrama de actividad: Modificar paquete de juegos" mc="Standard.ActivityDiagram" uid="b8176aaa-1634-4f81-b9a2-50830289b96c"/>
       </COMP>
     </DEPENDENCIES>
   </OBJECT>
