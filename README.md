@@ -1,5 +1,3 @@
-<div align="center">
-
 # WIN Arcade
 
 **Recreativa de escritorio con juegos de casino en la que se juega por puntos, no por dinero, y los puntos se canjean por premios.**
@@ -12,7 +10,9 @@
 ![JUnit](<https://img.shields.io/badge/tests-107%20JUnit%20%2B%20Mockito-25A162?logo=junit5&logoColor=white>)
 ![Arquitectura](<https://img.shields.io/badge/arquitectura-multicapa%20%2B%20MVC-8A2BE2>)
 
-<img src="docs/img/ruleta.gif" alt="Ruleta animada" width="640">
+<p align="center">
+  <img src="docs/img/ruleta.gif" alt="Ruleta animada" width="640">
+</p>
 
 ---
 
@@ -29,7 +29,7 @@ Proyecto final de **Ingeniería del Software II**, desarrollado por un equipo de
 ## Capturas
 
 |            Inicio de sesión            |                  Menú del jugador                  |
-| :--------------------------------------: | :-------------------------------------------------: |
+| :--------------------------------------- | :-------------------------------------------------- |
 | ![Inicio de sesión](docs/img/login.jpg) |   ![Menú del jugador](docs/img/menu-jugador.jpg)   |
 |             **Ruleta**             |                 **Blackjack**                 |
 |      ![Ruleta](docs/img/ruleta.jpg)      |        ![Blackjack](docs/img/blackjack.jpg)        |
