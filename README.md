@@ -1,5 +1,19 @@
 <div align="center">
 
+# WIN Arcade
+
+**Recreativa de escritorio con juegos de casino en la que se juega por puntos, no por dinero, y los puntos se canjean por premios.**
+
+[![Tests](https://github.com/xilin01/IS2-WIN-Arcade/actions/workflows/tests.yml/badge.svg)](https://github.com/xilin01/IS2-WIN-Arcade/actions/workflows/tests.yml)
+[![Licencia: MIT](https://img.shields.io/badge/licencia-MIT-yellow.svg)](LICENSE)
+![Java](https://img.shields.io/badge/Java-21-ED8B00?logo=openjdk&logoColor=white)
+![Swing](https://img.shields.io/badge/GUI-Swing-5382A1)
+![MySQL](https://img.shields.io/badge/MySQL-JDBC-4479A1?logo=mysql&logoColor=white)
+![JUnit](<https://img.shields.io/badge/tests-107%20JUnit%20%2B%20Mockito-25A162?logo=junit5&logoColor=white>)
+![Arquitectura](<https://img.shields.io/badge/arquitectura-multicapa%20%2B%20MVC-8A2BE2>)
+
+<img src="docs/img/ruleta.gif" alt="Ruleta animada" width="640">
+
 ---
 
 ## Sobre el proyecto
@@ -14,13 +28,13 @@ Proyecto final de **Ingeniería del Software II**, desarrollado por un equipo de
 
 ## Capturas
 
-| Inicio de sesión |      Menú del jugador      |
-| :---------------: | :--------------------------: |
-|                  |                              |
-| **Ruleta** |     **Blackjack**     |
-|                  |                              |
-| **Tienda** | **Panel del personal** |
-|                  |                              |
+|            Inicio de sesión            |                  Menú del jugador                  |
+| :--------------------------------------: | :-------------------------------------------------: |
+| ![Inicio de sesión](docs/img/login.jpg) |   ![Menú del jugador](docs/img/menu-jugador.jpg)   |
+|             **Ruleta**             |                 **Blackjack**                 |
+|      ![Ruleta](docs/img/ruleta.jpg)      |        ![Blackjack](docs/img/blackjack.jpg)        |
+|             **Tienda**             |            **Panel del personal**            |
+|      ![Tienda](docs/img/tienda.jpg)      | ![Panel del personal](docs/img/staff-jugadores.jpg) |
 
 ---
 
@@ -156,7 +170,7 @@ cp -r resources/cards resources/images out/
 java -cp "out:lib/*" mainLauncher.Main
 ```
 
-En Windows usa `;` en lugar de `:` en el classpath (`"out;lib/*"`). 
+En Windows usa `;` en lugar de `:` en el classpath (`"out;lib/*"`).
 
 También puedes importar `app/` como proyecto existente en **Eclipse** y ejecutar `mainLauncher.Main`.
 
@@ -193,3 +207,11 @@ Proyecto en equipo, mi contribución:
 Diego González del Castillo Ramírez de Arellano · Mario González García · **Xiang Lin** · Luis Yael Masongsong Peña · Adrián Prieto Fernández · Mario Rosell García
 
 La documentación completa (requisitos, casos de uso, diagramas de secuencia, pruebas y conclusiones) está en [`documentation/MEMORIA.docx`](documentation/MEMORIA.docx).
+
+---
+
+## Licencia
+
+Distribuido bajo la licencia **MIT**. 
+
+Consulta el archivo [`LICENSE`](LICENSE) para más detalles.
