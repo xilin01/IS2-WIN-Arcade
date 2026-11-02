@@ -8,3 +8,6 @@ app/out/
 Thumbs.db
 desktop.ini
 .DS_Store
+
+# Binarios de release (se suben como asset, no al repo)
+release/
