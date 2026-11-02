@@ -1,4 +1,10 @@
 .metadata/
 app/bin/
+app/out/
 *.class
 *.log
+
+# Sistema operativo
+Thumbs.db
+desktop.ini
+.DS_Store
